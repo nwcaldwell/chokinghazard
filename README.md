@@ -17,11 +17,11 @@ This game was created for Dave Small's Object Oriented Programming class at the 
 
 - [@balindenberg](https://github.com/balindenberg)
 - [@clm805](https://github.com/clm805)
+- [@jgpradoa](https://github.com/jgpradoa)
 - [@mauriciofmar3](https://github.com/mauriciofmar3)
 - [@meghanking](https://github.com/meghanking)
 - [@mtbrock1](https://github.com/mtbrock1)
 - [@nwcaldwell](https://github.com/nwcaldwell)
-- [@jgpradoa](https://github.com/jgpradoa)
 - [@ssyyddnneeyy](https://github.com/ssyyddnneeyy)
 - [@valleg619](https://github.com/valleg619)
 - [@vicentem](https://github.com/vicentem)
