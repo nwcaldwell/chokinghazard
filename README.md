@@ -16,12 +16,14 @@ Software Implementation of the Board Game Java
 This game was created for Dave Small's Object Oriented Programming class at the University of Florida in Spring 2014 by Team Choking Hazard:
 
 - [@balindenberg](https://github.com/balindenberg)
+- [@clm805](https://github.com/clm805)
 - [@mauriciofmar3](https://github.com/mauriciofmar3)
 - [@meghanking](https://github.com/meghanking)
 - [@mtbrock1](https://github.com/mtbrock1)
 - [@nwcaldwell](https://github.com/nwcaldwell)
 - [@jgpradoa](https://github.com/jgpradoa)
 - [@ssyyddnneeyy](https://github.com/ssyyddnneeyy)
+- [@valleg619](https://github.com/valleg619)
 - [@vicentem](https://github.com/vicentem)
 
 ## MIT License<a name="MIT"/>
