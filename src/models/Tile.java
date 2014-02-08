@@ -1,36 +1,48 @@
 package models;
 
+import helpers.Json;
+
 import java.util.LinkedList;
 
-abstract class Tile implements Serializable<Tile> {
-  private String imageSource;
-  private LinkedList<Space> spaces;
+public abstract class Tile implements Serializable<Tile> {
+    private String imageSource;
+    private LinkedList<Space> spaces;
 
-  public abstract void rotate();
+    public abstract void rotate();
 
-  public String getImageSource() {
-    return imageSource;
-  }
+    public String getImageSource() {
+        return imageSource;
+    }
 
-  public void setImageSource(String imageSource) {
-    this.imageSource = imageSource;
-  }
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
+    }
 
-  public LinkedList<Space> getSpaces() {
-    return spaces;
-  }
+    public LinkedList<Space> getSpaces() {
+        return spaces;
+    }
 
-  public void setSpaces(LinkedList<Space> spaces) {
-    this.spaces = spaces;
-  }
+    public void setSpaces(LinkedList<Space> spaces) {
+        this.spaces = spaces;
+    }
+    
+ /**
+ * serialize the Tile and return it as a String
+ */
+    public String serialize() {
+        String[] jsonSpaces = new String[spaces.size()];
+        int index = 0;
+        for(Space space : spaces) {
+            jsonSpaces[index++] = space.serialize();
+        }
+        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+            Json.jsonPair("string", Json.jsonValue(imageSource)),
+            Json.jsonArray(Json.jsonElements(jsonSpaces))
+        )));
+    }
 
-  public String serialize() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public Tile loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    public Tile loadObject(String serial) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

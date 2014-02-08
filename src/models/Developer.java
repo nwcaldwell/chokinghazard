@@ -1,7 +1,5 @@
 package models;
 
-
-
 class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
@@ -41,3 +39,4 @@ class Developer implements Serializable<Developer>{
     return null;
   }
 }
+
