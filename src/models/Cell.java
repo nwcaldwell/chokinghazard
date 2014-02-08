@@ -64,17 +64,12 @@ public class Cell implements Serializable<Cell> {
     }
 
     public String serialize() {
-    	String[] jsonCells = new String[connectedCells.size()];
-    	int index = 0;
-    	for(Cell cell : connectedCells) {
-    		jsonCells[index++] = cell.serialize();
-    	}
 		return Json.jsonPair("Cell", Json.jsonObject(Json.jsonMembers(
 				space.serialize(),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonArray(Json.jsonElements(jsonCells))
+    			Json.serializeArray(connectedCells.toArray())
 		)));
     }
     
