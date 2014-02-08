@@ -17,7 +17,7 @@ public class Player implements Serializable<Player> {
     private Stack<TwoSpaceTile> twoSpaceTiles;
 
     public Player(Color color) {
-	this.playerColor = color;
+    	this.playerColor = color;
     }
 
     public void startTurn() {

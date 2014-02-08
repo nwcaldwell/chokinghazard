@@ -1,7 +1,6 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -13,7 +12,7 @@ import javax.swing.JPanel;
 
 import controllers.GameManager;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel{
 	private final static int WIDTH = 1100;
 	private final static int HEIGHT = 840;
 	private JLabel threePieceTiles, irrigationTiles; 
@@ -75,19 +74,15 @@ public class GamePanel extends JPanel {
 			players[i] = new PlayerPanel(gm, i);
 			switch(i){
 				case 0:
-					System.out.println("adding top left");
 					leftColumn.add(players[i], BorderLayout.NORTH);
 					break;
 				case 1:
-					System.out.println("adding top right");
 					rightColumn.add(players[i], BorderLayout.NORTH);
 					break;
 				case 2:
-					System.out.println("adding bottom left");
 					leftColumn.add(players[i], BorderLayout.SOUTH);
 					break;
 				case 3:
-					System.out.println("adding bottom right");
 					rightColumn.add(players[i], BorderLayout.SOUTH);
 					break;
 			}
