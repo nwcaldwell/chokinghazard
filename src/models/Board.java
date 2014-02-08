@@ -2,55 +2,55 @@ package models;
 
 import java.util.Stack;
 
-class Board implements Serializable<Board> {
-  private Cell[][] map; 
-  private Stack<OneSpaceTile> irrigationTiles; 
-  private Stack<ThreeSpaceTile> threeSpaceTiles;
-  private Stack<OneSpaceTile>[] palaceTiles;
-  
-  public Board() {
+public class Board implements Serializable<Board> {
+    private Cell[][] map; 
+    private Stack<OneSpaceTile> irrigationTiles; 
+    private Stack<ThreeSpaceTile> threeSpaceTiles;
+    private Stack<OneSpaceTile>[] palaceTiles;
 
-  }
+    public String serialize() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    public Board() {
 
-  public Cell[][] getMap() {
-    return map;
-  }
+    }
 
-  public void setMap(Cell[][] map) {
-    this.map = map;
-  }
+    public Cell[][] getMap() {
+        return map;
+    }
 
-  public Stack<OneSpaceTile> getIrrigationTiles() {
-    return irrigationTiles;
-  }
+    public void setMap(Cell[][] map) {
+        this.map = map;
+    }
 
-  public void setIrrigationTiles(Stack<OneSpaceTile> irrigationTiles) {
-    this.irrigationTiles = irrigationTiles;
-  }
+    public Stack<OneSpaceTile> getIrrigationTiles() {
+        return irrigationTiles;
+    }
 
-  public Stack<ThreeSpaceTile> getThreeSpaceTiles() {
-    return threeSpaceTiles;
-  }
+    public void setIrrigationTiles(Stack<OneSpaceTile> irrigationTiles) {
+        this.irrigationTiles = irrigationTiles;
+    }
 
-  public void setThreeSpaceTiles(Stack<ThreeSpaceTile> threeSpaceTiles) {
-    this.threeSpaceTiles = threeSpaceTiles;
-  }
+    public Stack<ThreeSpaceTile> getThreeSpaceTiles() {
+        return threeSpaceTiles;
+    }
 
-  public Stack<OneSpaceTile>[] getPalaceTiles() {
-    return palaceTiles;
-  }
+    public void setThreeSpaceTiles(Stack<ThreeSpaceTile> threeSpaceTiles) {
+        this.threeSpaceTiles = threeSpaceTiles;
+    }
 
-  public void setPalaceTiles(Stack<OneSpaceTile>[] palaceTiles) {
-    this.palaceTiles = palaceTiles;
-  }
+    public Stack<OneSpaceTile>[] getPalaceTiles() {
+        return palaceTiles;
+    }
 
-  public String serialize() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    public void setPalaceTiles(Stack<OneSpaceTile>[] palaceTiles) {
+        this.palaceTiles = palaceTiles;
+    }
 
-  public Board loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    public Board loadObject(String serial) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
