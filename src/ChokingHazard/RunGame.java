@@ -7,7 +7,7 @@ import views.GameFrame;
 
 public class RunGame {
 	private final static int WIDTH = 1100;
-	private final static int HEIGHT = 880;
+	private final static int HEIGHT = 850;
 
 	/**
 	 * @param args

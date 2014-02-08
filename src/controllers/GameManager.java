@@ -1,5 +1,7 @@
 package controllers;
 
+import java.awt.Color;
+
 import views.GamePanel;
 import models.Game;
 
@@ -21,7 +23,8 @@ public class GameManager {
 
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
-	public void createNewGame(int numPlayers) {
+	public void createNewGame(int players) {
+		numPlayers = players;
 		currentGame = new Game();
 		gamePanel = new GamePanel(numPlayers, this);
 	}

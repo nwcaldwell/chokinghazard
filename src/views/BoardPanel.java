@@ -15,7 +15,6 @@ public class BoardPanel extends JPanel {
 	BufferedImage board;
 
 	public BoardPanel(){
-		setBackground(Color.black);
 		getBackgroundImage();
 		Dimension size = new Dimension(board.getWidth(), board.getHeight());
 		setMinimumSize(size);
@@ -25,7 +24,6 @@ public class BoardPanel extends JPanel {
 	
 	private void getBackgroundImage(){
 		try{
-			System.out.println(System.getProperty("user.dir"));
 			board = ImageIO.read(new File("src/resources/board.jpg"));
 			repaint();
 		}catch(IOException e){

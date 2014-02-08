@@ -19,33 +19,31 @@ import controllers.GameManager;
 public class PlayerPanel extends JPanel {
 	private int playerIndex;
 	private JLabel playerName, famePoints, actionPointsLeft, numDevelopers, numOneTileRice, numOneTileVillage, numTwoTile, numActionTokens;
-	//private Image developerImage, oneTileRice, oneTileVillage, twoTile, actionToken;
 	private GameManager gm;
 	
 	public PlayerPanel(GameManager gm, int playerIndex){
 		setLayout(new FlowLayout());
 		this.gm = gm;
 		this.playerIndex = playerIndex;
-		setBackground(randomColor());
-        setPreferredSize(new Dimension(170, 350));
-        setMinimumSize(new Dimension(170, 350));
-        setMaximumSize(new Dimension(170, 350));
-        setSize(170, 350);
-        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        
-        System.out.println("in player panel");
-		initLayout();
+		setBackground(Color.white);
+        setPreferredSize(new Dimension(170, 335));
+        setMinimumSize(new Dimension(170, 335));
+        setMaximumSize(new Dimension(170, 335));
+        setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+  
+        initLayout();
 	}
 
 	private void initLayout() {
 		JPanel leftPlayerInfo = new JPanel();
-		leftPlayerInfo.setPreferredSize(new Dimension(100, 60));
+		leftPlayerInfo.setPreferredSize(new Dimension(86, 60));
+		leftPlayerInfo.setBackground(Color.WHITE);
 		this.add(leftPlayerInfo);
 		
 		playerName = new JLabel("Player "+(playerIndex+1));
         playerName.setFont(new Font("Lucida Grande", 0, 18)); 
-        playerName.setPreferredSize(new Dimension(90, 22));
-        playerName.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 0));
+        playerName.setPreferredSize(new Dimension(80, 22));
+        playerName.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 5));
         leftPlayerInfo.add(playerName);
         
         actionPointsLeft = new JLabel("6");
@@ -59,13 +57,13 @@ public class PlayerPanel extends JPanel {
         famePoints.setFont(new Font("Lucida Grande", 1, 36));
         famePoints.setBackground(Color.RED);
         famePoints.setHorizontalAlignment(SwingConstants.LEFT);
-        famePoints.setPreferredSize(new Dimension(90, 32));
-        famePoints.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 0));
+        famePoints.setPreferredSize(new Dimension(80, 32));
+        famePoints.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 5));
         leftPlayerInfo.add(famePoints);
 
         JSeparator jSeparator1 = new JSeparator();
         jSeparator1.setForeground(new Color(102, 102, 102));
-        jSeparator1.setPreferredSize(new Dimension(158, 7));
+        jSeparator1.setPreferredSize(new Dimension(158, 15));
         this.add(jSeparator1);
         
         numDevelopers = new JLabel("12");
@@ -84,7 +82,7 @@ public class PlayerPanel extends JPanel {
         
         numOneTileVillage = new JLabel("2");
         numOneTileVillage.setFont(new Font("Lucida Grande", 0, 14)); 
-        numOneTileVillage.setIcon(new ImageIcon("src/resources/layout_oneTile_village.png")); 
+        numOneTileVillage.setIcon(new ImageIcon("src/resources/layout/layout_oneTile_village.png")); 
         numOneTileVillage.setPreferredSize(new Dimension(150, 41));
         numOneTileVillage.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
         this.add(numOneTileVillage);
