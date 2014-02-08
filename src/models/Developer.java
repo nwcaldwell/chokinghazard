@@ -5,9 +5,14 @@ package models;
 class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
+  private Player owner;
   
-  public Developer() {
-
+  public Developer(Player owner) {
+	  this.owner = owner;
+  }
+  
+  public Player getOwner() {
+	  return owner;
   }
 
   public boolean isPlacedOnBoard() {
