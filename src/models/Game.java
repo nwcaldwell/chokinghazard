@@ -302,14 +302,44 @@ public class Game implements Serializable {
 	// SERIALIZABLE
 	// Inherited from the serializable interface. This method turns 
 	// the game object into a string so it can be saved to a file.
+	/*
+	 * 	private GamePanel gamePanel;
+	private Board board;
+	private int numPlayers;
+	private Player[] players;
+	private int indexOfCurrentPlayer;
+	private boolean isFinalTurn;
+	private Stack<Cell> stack;
+	 * 
+	 * 
+	 * 
+	 */
+	
+	//Mauricio, (if you could) please look at the board and players arrays 
+	//and see if these are implemented correctly.
+	//Also, the last paragraph in my comment
 	public String serialize() {
+		 /*This creates a string that represents a Game object for saving and loading
+		   *board will be turned into a jsonPair using board.serialize()
+		   * 
+		   * numPlayers is stored
+		   * Player[] players is stored
+		   * indexOfCurrentPlayed is stored
+		   * 
+		   * isFinalTurn is stored. toString() for a boolean either returns "True" or "False"
+		   * so it needs to be convered to "true" and "false" so that loading is easier.
+		   * 
+		   * stack, even though it is an attribute of Game, would not be serialized
+		   * This stack is used to help the Game method make a path for a developer
+		   * When a game is reloaded, a player shoud be forced to create the path over again
+		   * This does not truly change the game or how it works!
+		   */
 		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
-				board.serialize(),
+				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
-				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower())),
-				Json.jsonPair("stack", Json.serializeArray(stack)),
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower()))
 				)));
 		}
 	
