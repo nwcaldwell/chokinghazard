@@ -30,6 +30,8 @@ public class Developer implements Serializable<Developer>{
     this.currentCell = currentCell;
   }
 
+  //Questioning if we should save ownerColor or not. When creating the Developer
+  //objects, we would already be in the Player that owns the Developer...
   public String serialize() {
 	  /*This creates a string that represents a Developer object for saving and loading
 	   *
