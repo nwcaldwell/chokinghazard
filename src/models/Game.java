@@ -85,8 +85,9 @@ public class Game implements Serializable {
 	// turn by one. Changes the ifActionTokenUsed boolean to true
 	public boolean useActionToken() {
 		boolean alreadyUsed = players[indexOfCurrentPlayer].isIfActionTokenUsed();
-		int numActionTokensAvailable = players[indexOfCurrentPlayer].getActionTokens();
 		if (!alreadyUsed) {
+			// moving this inside the conditional for efficiency's sake...might not need everytime -brett
+			int numActionTokensAvailable = players[indexOfCurrentPlayer].getActionTokens();
 			if (numActionTokensAvailable > 0) {
 				players[indexOfCurrentPlayer].useActionToken();
 				gamePanel.useActionToken(getCurrentPlayer().getActionTokens());
@@ -116,7 +117,7 @@ public class Game implements Serializable {
 		else {
 			//get the current fame points to add and update the view
 			int famePointsToAdd = getFamePointCountFromUser();
-			if(famePointsToAdd <= 0){
+			if(famePointsToAdd >= 0){  		//should be >=0 to detect positive values, yell at me if I'm wrong for fixing this -brett
 				players[indexOfCurrentPlayer].addFamePoints(famePointsToAdd);
 				famePointsToAdd = players[indexOfCurrentPlayer].getFamePoints();
 				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setFamePoints(famePointsToAdd);
@@ -302,7 +303,20 @@ public class Game implements Serializable {
 		//ask the players for their name's and color preferences
 		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
 		for(int i = 0; i < numPlayers; ++i){
-			String name = JOptionPane.showInputDialog("What is Player "+(i+1)+"'s name?");
+			String name = "";
+			boolean okName = false; //to check if valid name was input
+			while (!okName)
+			{
+				name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
+				if (name.equals(""))	//Not valid!
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid name");
+				}
+				else //valid name
+				{
+					okName = true; //Acceptable input, proceed to next step
+				}
+			}
 			players[i] = new Player(colors[i]);
 			gamePanel.getPlayerPanels()[i].setPlayerName(name);
 			gamePanel.getPlayerPanels()[i].setPlayerColor(colors[i]);
