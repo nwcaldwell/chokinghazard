@@ -6,10 +6,11 @@ public class PalaceSpace extends Space{
     // {2, 4, 6, 8, 10}
     public PalaceSpace(int value) {
         this.value = value;
+        this.type = Space.SpaceType.PALACE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.PALACE;
+        return type;
     }    
 
     public int getValue() {

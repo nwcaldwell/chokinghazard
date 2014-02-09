@@ -1,6 +1,7 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 import java.util.Stack;
 import java.util.*;
@@ -232,7 +233,7 @@ public class Board implements Serializable<Board> {
 		)));
     }
 
-    public Board loadObject(String serial) {
+    public Board loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

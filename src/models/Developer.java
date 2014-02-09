@@ -1,6 +1,7 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
@@ -53,7 +54,7 @@ public class Developer implements Serializable<Developer>{
 	    		)));
   }
 
-  public Developer loadObject(String serial) {
+  public Developer loadObject(JsonObject json) {
     // TODO Auto-generated method stub
     return null;
   }
