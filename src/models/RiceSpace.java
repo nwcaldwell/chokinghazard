@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 public class RiceSpace extends Space {
 
     public RiceSpace() {
@@ -15,7 +17,7 @@ public class RiceSpace extends Space {
         return null;
     }
 
-    public RiceSpace loadObject(String serial) {
+    public RiceSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }
