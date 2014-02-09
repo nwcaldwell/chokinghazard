@@ -64,7 +64,7 @@ public class Player implements Serializable<Player> {
 	 *            The value to update fame points to.
 	 * @return Whether or not the update succeeded.
 	 */
-//	public Boolean setFamePoints(int famePoints) {
+//	public boolean setFamePoints(int famePoints) {
 //		//
 //		if (famePoints < 0)
 //			return false;

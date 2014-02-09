@@ -12,14 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import controllers.GameManager;
+import models.Game;
 
 public class PlayerPanel extends JPanel {
 	private Color playerColor;
 	private JLabel playerName, famePoints, actionPointsLeft, numDevelopers, numOneTileRice, numOneTileVillage, numTwoTile, numActionTokens;
-	private GameManager gm;
+	private Game gm;
 	
-	public PlayerPanel(GameManager gm){
+	public PlayerPanel(Game gm){
 		setLayout(new FlowLayout());
 		this.gm = gm;
 		setBackground(Color.white);

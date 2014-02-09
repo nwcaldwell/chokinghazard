@@ -4,6 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.Stack;
+import java.util.*;
 
 public class Board implements Serializable<Board> {
     private Cell[][] map; 
@@ -12,7 +13,28 @@ public class Board implements Serializable<Board> {
     private Stack<OneSpaceTile>[] palaceTiles;
     
     public Board() {
-
+    	// Written by Nathan since I needed to integrate some functionality into Game.
+    	// Let me know if you make any changes or have any questions.
+    	map = new Cell[14][14];
+    	for (int x = 0; x < map.length; x++) {
+    		for (int y = 0; y < map[0].length; y++) {
+    			if (x == 0 || x == 1) {
+    				map[x][y] = new Cell(x, y, false, true);
+    			}
+    			
+    			if (x <= 6 && (y <= 1 || y >= 12)) {
+    				map[x][y] = new Cell(x, y, false, true);
+    			}
+    			
+    			if (x >= 7 && (y <= 1 || y >= 12)) {
+    				map[x][y] = new Cell(x, y, true, false);
+    			}
+    			
+    			if (x == 12 || x == 13) {
+    				map[x][y] = new Cell(x, y, true, false);
+    			}
+    		}
+    	}
     }
 
     public Cell[][] getMap() {
@@ -45,6 +67,45 @@ public class Board implements Serializable<Board> {
 
     public void setPalaceTiles(Stack<OneSpaceTile>[] palaceTiles) {
         this.palaceTiles = palaceTiles;
+    }
+    
+    //Given an X and Y, this method sets the connectedCells set of the
+    //cell at the given coordinates
+    public void SetConnectedCells(int x, int y)
+    {
+         Cell root = map[x][y];
+         ArrayList<Cell> connected = new ArrayList<Cell>();
+         connected.add(root);
+         
+         int i = 0;
+         while(i < connected.size())
+         {
+            Cell temp = connected.get(i);
+            HashSet<Cell> adjacent = new HashSet<Cell>();
+            if(y < 14 && map[y+1][x].getSpace().getClass() == root.getSpace().getClass())
+               adjacent.add(map[y+1][x]);
+            if(y > 0 && map[y-1][x].getSpace().getClass() == root.getSpace().getClass())
+               adjacent.add(map[y-1][x]);
+            if(x < 14 && map[y][x+1].getSpace().getClass() == root.getSpace().getClass())
+               adjacent.add(map[y][x+1]);
+            if(x > 0 && map[y][x-1].getSpace().getClass() == root.getSpace().getClass())
+               adjacent.add(map[y][x-1]);
+            
+            Iterator it = adjacent.iterator();
+            while(it.hasNext())
+            {
+               Cell next = (Cell)it.next();
+               if(!connected.contains(next))
+                  connected.add(next);
+            }
+            i++;
+         }
+         
+         HashSet<Cell> connectedSet = new HashSet<Cell>();
+         for(Cell c : connected)
+            connectedSet.add(c);
+         
+         root.setConnectedCells(connectedSet);
     }
 
     public String serialize() {

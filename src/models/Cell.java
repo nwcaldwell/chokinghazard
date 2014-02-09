@@ -12,9 +12,14 @@ public class Cell implements Serializable<Cell> {
     private int x; 
     private int y; 
     private HashSet<Cell> connectedCells;
+    private boolean fromLowlands;
+    private boolean fromMountains;
 
-    public Cell() {
-
+    public Cell(int x, int y, boolean fromLowlands, boolean fromMountains) {
+    	this.x = x;
+    	this.y = y;
+    	this.fromLowlands = fromLowlands;
+    	this.fromMountains = fromMountains;
     }
     
     public Cell(Space space) {
@@ -62,6 +67,14 @@ public class Cell implements Serializable<Cell> {
 
     public void setConnectedCells(HashSet<Cell> connectedCells) {
         this.connectedCells = connectedCells;
+    }
+    
+    public boolean getFromMountains() {
+    	return fromMountains;
+    }
+     
+    public boolean getFromLowlands() {
+    	return fromLowlands;
     }
 
     public String serialize() {

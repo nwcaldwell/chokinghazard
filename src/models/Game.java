@@ -6,8 +6,11 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
+import views.GamePanel;
+
 public class Game implements Serializable {
 	// VARIABLES
+	private GamePanel gamePanel;
 	private Board board;
 	private Player[] players;
 	private boolean isFinalTurn;
@@ -29,19 +32,18 @@ public class Game implements Serializable {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
+		this.gamePanel = new GamePanel(numPlayers, this);
 		
-		//TODO implement a way to keep track of player colors from views to player models - sydney
-		for(int i = 0; i < numPlayers; ++i){
-			players[i] = new Player(Color.BLUE);
-		}
+		//initialize the players and their views
+		initPlayers();
 	}
 	
 	// GET/SET METHODS
 	public Player getCurrentPlayer() {
 		return players[indexOfCurrentPlayer];
 	}
-	public int getNumberOfPlayers(){
-		return players.length;
+	public GamePanel getGamePanel(){
+		return this.gamePanel;
 	}
 	
 	// DEVELOPER MOVEMENT
@@ -56,18 +58,21 @@ public class Game implements Serializable {
 	// user highlights the desired cells. If the user decides to undo the 
 	// last highlighted Cell, the top Cell is popped off of the Stack.
 	public boolean createDeveloperPath(Developer developer) {
+		//TODO this goes in the Board
 		return true;
 	}
 	
 	// Using the stack in the createDeveloperPath method, 
 	// we use this method to move the developer to its new location.
 	public boolean moveDeveloperAroundBoard(Developer developer) {
+		//TODO this goes in the Board
 		return true;
 	}
 	
 	// Move a player that's already on the board off of the board.
 	// Add developer back into array of available developers.
 	public boolean moveDeveloperOffBoard(Developer developer) {
+		//TODO this goes in the Board
 		return true;
 	}
 	
@@ -79,14 +84,16 @@ public class Game implements Serializable {
 			cell.setSpace(palaceSpace);
 		}
 		
-		
-		// TODO else can't upgrade palace, show dialog box
+		// TODO do we need a postcondition other than simply telling the user that they can't upgrade? -brett
+		else 
+			JOptionPane.showMessageDialog(null, "Cannot upgrade palace!");
 		 
 	}
 	
 	// Checks all of the logic needed to make sure the user can legally 
 	// upgrade the palace. Calls checkForNumberOfVillages method.
 	private boolean checkIfICanUpgradePalace(Space palaceSpace, Cell cell) {
+		//TODO this goes in the Board
 		return true;
 	}
 	
@@ -94,12 +101,14 @@ public class Game implements Serializable {
 	// by checkIfICanUpgradePalace to make sure number of surrounding villages 
 	// is greater than or equal to the palace number.
 	private int checkForNumberOfVillages(Cell cell) {
+		//TODO this goes in the Board
 		return 0;
 	}
 	
 	// Returns an integer array with the city ranks for each player. The indices in
 	// the array correspond to the indices for the players in the main player array. 
 	private int[] findCityRanks(Cell cell) {
+		//TODO this goes in the Board
 		return new int[0];
 	}
 	
@@ -107,6 +116,7 @@ public class Game implements Serializable {
 	// Similarly to the method above, returns an integer array 
 	// for the players surrounding an irrigation tile.
 	private int[] findIrrigationRanks(Cell cell) {
+		//TODO this goes in the Board
 		return new int[0];
 	}
 	
@@ -114,12 +124,13 @@ public class Game implements Serializable {
 	// Main method for placing a tile on the board, 
 	// uses several helper methods below.
 	public void placeTile(Cell cell, Tile tile) {
-		
+		//TODO this goes in the Board
 	}
 	
 	// Helper method for placeTile. Checks whether Tile can be placed
 	// in the Cell selected. This method also calls several helper methods.
 	private boolean checkValidTilePlacement(Cell cell, Tile tile) {
+		//TODO this goes in the Board
 		return true;
 	}
 	
@@ -127,6 +138,7 @@ public class Game implements Serializable {
 	// not placing a three tile on a three tile, two tile on a two tile, a 
 	// smaller tile on a larger tile, etc.
 	private boolean checkTilesBelow(Tile tile, Cell cell) {
+		//TODO this goes in the Board
 		return true;
 	}
 
@@ -139,6 +151,7 @@ public class Game implements Serializable {
 		if (!alreadyUsed) {
 			if (numActionTokensAvailable > 0) {
 				players[indexOfCurrentPlayer].useActionToken();
+				gamePanel.useActionToken(getCurrentPlayer().getActionTokens());
 				return true;
 			}
 			
@@ -163,14 +176,22 @@ public class Game implements Serializable {
 		}
 		
 		else {
+			//get the current fame points to add and update the view
+			int famePointsToAdd = getFamePointCountFromUser();
+			players[indexOfCurrentPlayer].addFamePoints(famePointsToAdd);
+			famePointsToAdd = players[indexOfCurrentPlayer].getFamePoints();
+			gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setFamePoints(famePointsToAdd);
+			
+			//advance to the next player
 			indexOfCurrentPlayer++;
 			indexOfCurrentPlayer %= numPlayers;
+			gamePanel.nextTurn();
 			players[indexOfCurrentPlayer].startTurn();
 		}	
 	}
 	
 	// Ask user how many fame points he earned and return the integer provided.
-	public int getFamePointCountFromUser() {
+	private int getFamePointCountFromUser() {
 		boolean valid = false;
 		int famePoints = -1;
 		while (!valid) {
@@ -190,6 +211,91 @@ public class Game implements Serializable {
 	// Checks to see whether current player placed the last three piece tile. 
 	public boolean ifIPlacedLastThreePieceTile() {
 		return board.getThreeSpaceTiles().size() == 0;
+	}
+	
+	public void tabThroughDevelopers(){
+		System.out.println("tabbing");
+		//TODO
+		//get the current player's set of developers on the board
+		//and traverse through them. 
+		//need a variable for current developer. 
+		//Because if a developer is selected, then need a way to select that developer
+	}
+	
+	public void rotateCurrentComponent(){
+		//check if currentComponent is a tile
+		//if so, call the rotate method
+		//else do nothing
+	}
+	
+	public void addDeveloperToBoard(){
+		//TODO need to check the board if there's any tiles on the outermost-inner java layer
+		gamePanel.moveDeveloperOntoBoard(50, 50);
+		//TODO change this to a real developer
+		//currentComponent = new Developer(currentGame.getCurrentPlayer());
+		//get the index of the first developer not on the board in the players.developer[]
+		//get that developer's cell position, and set to isOnBoard or whatever the boolean is
+		//currentGame.moveDeveloperOntoBoard();
+	}
+	
+	public void moveDeveloperAroundBoard(int xChange, int yChange){
+		//TODO get that current developer and push the location to the stack
+		int x = 0;
+		x += xChange;
+		
+		int y = 0;
+		y += yChange;
+		if(x < 0)
+			x += 700;
+		else if(x > 700)
+			x = 0;
+		
+		if(y < 0)
+			y += 700;
+		else if(y > 700)
+			y = 0;
+		
+		//check if the new location is valid and that there are no developers or irrigation tiles on it
+		//board.f
+		//if ok, push the location to the developer path
+		//and reflect the change in the gui
+		gamePanel.moveDeveloperOntoBoard(x, y);
+		//if it's not ok, dont let the user go there and dont push the location
+	}
+	
+	public void placeComponent(){
+		//if currentComponent is developer, place it
+		//gamePanel.placeDeveloper((Developer)currentComponent, x, y);
+		//TODO figure out something for this: reset the x&y's back
+		//x = 0; y = 0;
+	}
+	
+	public void selectIrrigationTile(){
+		
+	}
+	
+	public void selectPalaceTile(){
+		
+	}
+	
+	public void selectRiceTile(){
+		
+	}
+	
+	public void selectVillageTile(){
+		
+	}
+	
+	private void initPlayers(){
+		//ask the players for their name's and color preferences
+		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
+		for(int i = 0; i < numPlayers; ++i){
+			String name = JOptionPane.showInputDialog("What is Player "+(i+1)+"'s name?");
+			players[i] = new Player(colors[i]);
+			gamePanel.getPlayerPanels()[i].setPlayerName(name);
+			gamePanel.getPlayerPanels()[i].setPlayerColor(colors[i]);
+		}
+		gamePanel.updateCurrentPlayerView();
 	}
 	
 	// SERIALIZABLE
