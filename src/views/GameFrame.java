@@ -2,7 +2,11 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -25,6 +29,23 @@ public class GameFrame extends JFrame {
 		setResizable(false);
 		gm = new GameManager();
 		addMenu();
+		addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				gm.keyTyped(e);
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				gm.keyPressed(e);
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				gm.keyReleased(e);
+			}
+		});
 	}
 	
 	private void addMenu(){
@@ -56,9 +77,9 @@ public class GameFrame extends JFrame {
 				//starts a new thread
 				new Thread(new Runnable(){
 					public void run(){
-						//TODO: this will actually be different, there's such thing called JOptionChooser or something
 						String nameOfGame = JOptionPane.showInputDialog("What's the name of the Game");
-						gm.loadGame(nameOfGame);
+						File file = getFile();
+						gm.loadGame(file);
 						setContentPane(gm.getGamePanel());
 						pack();
 						validate();
@@ -71,9 +92,6 @@ public class GameFrame extends JFrame {
 		JMenuItem saveGame = new JMenuItem("Save Game");
         saveGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
-            	//check if there's a saved game already to overwrite, 
-            	//if not, save game as
-            	//TODO
             	gm.saveGame();
             }
         }); 
@@ -93,8 +111,9 @@ public class GameFrame extends JFrame {
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
-            	gm.quitGame();
-                System.exit(0);
+            	boolean quit = gm.quitGame();
+            	if(quit)
+            		System.exit(0);
             }
         });
         file.add(exit);
@@ -107,6 +126,18 @@ public class GameFrame extends JFrame {
         menuBar.add(file);
         menuBar.add(help);
         this.setJMenuBar(menuBar);
+	}
+	
+	private File getFile(){
+		//this method opens a JFileChooser Dialog so the user
+		//may select which file they would like to load
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new File("."));
+		File file = null;
+		if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+			file = chooser.getSelectedFile();
+		}
+		return file;
 	}
 
 }

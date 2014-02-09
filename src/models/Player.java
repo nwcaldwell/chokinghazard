@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Stack;
 
 public class Player implements Serializable<Player> {
+
 	private int famePoints;
 	private final Color playerColor;
 	private int actionPoints;
@@ -160,5 +161,6 @@ public class Player implements Serializable<Player> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
 
