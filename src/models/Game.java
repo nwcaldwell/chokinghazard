@@ -1,11 +1,13 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -20,9 +22,9 @@ public class Game implements Serializable {
 	private int indexOfCurrentPlayer;
 	private boolean isFinalTurn;
 	private Stack<Cell> stack;
-	private Stack<OneSpaceTile> irrigationTiles;
-	private Stack<ThreeSpaceTile> threeSpaceTiles;
-	private ArrayList<Stack<OneSpaceTile>> palaceTiles;
+	private Stack<OneSpaceTile> irrigationTiles; 
+    private Stack<ThreeSpaceTile> threeSpaceTiles;
+    private ArrayList<Stack<OneSpaceTile>> palaceTiles;
 	
 	// CONSTRUCTORS
 	//default constructor
@@ -38,6 +40,9 @@ public class Game implements Serializable {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
+		this.irrigationTiles = new Stack<OneSpaceTile>();
+		this.threeSpaceTiles = new Stack<ThreeSpaceTile>();
+		this.palaceTiles = new ArrayList<Stack<OneSpaceTile>>();
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
 		//initialize the players and their views
@@ -48,6 +53,25 @@ public class Game implements Serializable {
 	public Player getCurrentPlayer() {
 		return players[indexOfCurrentPlayer];
 	}
+
+	public int getNumberOfPlayers(){
+		return players.length;
+	}
+	
+	public Stack<OneSpaceTile> getIrrigationTiles() {
+        return irrigationTiles;
+    }
+
+    public Stack<ThreeSpaceTile> getThreeSpaceTiles() {
+        return threeSpaceTiles;
+    }
+    
+    public ArrayList<Stack<OneSpaceTile>> getPalaceTiles() {
+        return palaceTiles;
+    }
+
+ 
+	
 	public GamePanel getGamePanel(){
 		return this.gamePanel;
 	}
@@ -219,24 +243,42 @@ public class Game implements Serializable {
 		}
 		gamePanel.updateCurrentPlayerView();
 	}
-	
-	// SERIALIZABLE
-	// Inherited from the serializable interface. This method turns 
-	// the game object into a string so it can be saved to a file.
+		
 	public String serialize() {
+		 /*This creates a string that represents a Game object for saving and loading
+		  *
+		  * Did not save the GamePanel, but I will change this if I should
+		  *
+		  * board will be turned into a jsonPair using board.serialize()
+		  * 
+		  * numPlayers is stored
+		  * Player[] players is stored
+		  * indexOfCurrentPlayed is stored
+		  * 
+		  * isFinalTurn is stored. toString() for a boolean either returns "True" or "False"
+		  * so it needs to be convered to "true" and "false" so that loading is easier.
+		  * 
+		  * stack, even though it is an attribute of Game, (I dont think) would not be serialized
+		  * This stack is used to help the Game method make a path for a developer
+		  * When a game is reloaded, a player shoud be forced to create the path over again
+		  * This does not truly change the game or how it works!
+		  */
 		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
-				board.serialize(),
+				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
-				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower())),
-				Json.jsonPair("stack", Json.serializeArray(stack))
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
+				Json.jsonPair("stack", Json.serializeArray(stack)),
+				Json.jsonPair("irrigationTiles", Json.serializeArray(irrigationTiles)),
+				Json.jsonPair("threeSpaceTiles", Json.serializeArray(threeSpaceTiles)),
+				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
 				)));
 		}
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
-	public Game loadObject(String serial) {
+	public Game loadObject(JsonObject json) {
 		return new Game();
 	}
 }

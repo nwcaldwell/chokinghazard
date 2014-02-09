@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 public class PalaceSpace extends Space{
     private final int value; 
     private String imageSource;
@@ -48,7 +50,7 @@ public class PalaceSpace extends Space{
         return null;
     }
 
-    public PalaceSpace loadObject(String serial) {
+    public PalaceSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

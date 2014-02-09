@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 public class IrrigationSpace extends Space {
 	private String imageSource = "src/resources/oneTile_irrigation.png";
     
@@ -20,7 +22,7 @@ public class IrrigationSpace extends Space {
         return null;
     }
 
-    public IrrigationSpace loadObject(String serial) {
+    public IrrigationSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }
