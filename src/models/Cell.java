@@ -69,7 +69,7 @@ public class Cell implements Serializable<Cell> {
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.serializeArray(connectedCells.toArray())
+    			Json.jsonPair("connectedCells", Json.serializeArray(connectedCells.toArray()))
 		)));
     }
     

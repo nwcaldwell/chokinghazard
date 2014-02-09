@@ -20,11 +20,8 @@ public class Json {
 	
 	public static String jsonMembers(String... members) {
 		StringBuilder ret = new StringBuilder();
-		for(String pair : members) {
-			ret.append(pair + ",\n");
-		}
-		if(ret.charAt(ret.length()-2) == ',') {
-			return ret.substring(0, ret.length()-2) + "\n";
+		for(int x = 0; x < members.length; ++x) {
+			ret.append(members[x] + (x == members.length - 1 ? "" : ",\n"));
 		}
 		return ret.toString();
 	}
@@ -34,16 +31,13 @@ public class Json {
 	}
 
 	public static String jsonArray(String elements) {
-		return "{\n" + addTab(elements) + "\n}";
+		return "[\n" + addTab(elements) + "\n]";
 	}
 	
 	public static String jsonElements(String... elements) {
 		StringBuilder ret = new StringBuilder();
-		for(String value : elements) {
-			ret.append(value + ",\n");
-		}
-		if(ret.charAt(ret.length()-2) == ',') {
-			return ret.substring(0, ret.length()-2) + "\n";
+		for(int x = 0; x < elements.length; ++x) {
+			ret.append(elements[x] + (x == elements.length - 1 ? "" : ",\n"));
 		}
 		return ret.toString();
 	}
@@ -93,5 +87,10 @@ public class Json {
 		}
 		in.close();
 		return ret.toString();
+	}
+	
+	public static String[] split(String serial) {
+		
+		return null;
 	}
 }

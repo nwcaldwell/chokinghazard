@@ -30,14 +30,9 @@ public abstract class Tile implements Serializable<Tile> {
  * serialize the Tile and return it as a String
  */
     public String serialize() {
-        String[] jsonSpaces = new String[spaces.size()];
-        int index = 0;
-        for(Space space : spaces) {
-            jsonSpaces[index++] = space.serialize();
-        }
         return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("string", Json.jsonValue(imageSource)),
-            Json.jsonArray(Json.jsonElements(jsonSpaces))
+            Json.jsonPair("spaces", Json.serializeArray(spaces))
         )));
     }
 
