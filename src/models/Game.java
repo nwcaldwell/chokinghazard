@@ -6,6 +6,7 @@ import helpers.JsonObject;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Stack;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,9 @@ public class Game implements Serializable {
 	private int indexOfCurrentPlayer;
 	private boolean isFinalTurn;
 	private Stack<Cell> stack;
-
+	private Stack<OneSpaceTile> irrigationTiles; 
+    private Stack<ThreeSpaceTile> threeSpaceTiles;
+    private ArrayList<Stack<OneSpaceTile>> palaceTiles;
 	
 	// CONSTRUCTORS
 	//default constructor
@@ -36,6 +39,9 @@ public class Game implements Serializable {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
+		this.irrigationTiles = new Stack<OneSpaceTile>();
+		this.threeSpaceTiles = new Stack<ThreeSpaceTile>();
+		this.palaceTiles = new ArrayList<Stack<OneSpaceTile>>();
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
 		//initialize the players and their views
@@ -46,6 +52,25 @@ public class Game implements Serializable {
 	public Player getCurrentPlayer() {
 		return players[indexOfCurrentPlayer];
 	}
+
+	public int getNumberOfPlayers(){
+		return players.length;
+	}
+	
+	public Stack<OneSpaceTile> getIrrigationTiles() {
+        return irrigationTiles;
+    }
+
+    public Stack<ThreeSpaceTile> getThreeSpaceTiles() {
+        return threeSpaceTiles;
+    }
+    
+    public ArrayList<Stack<OneSpaceTile>> getPalaceTiles() {
+        return palaceTiles;
+    }
+
+ 
+	
 	public GamePanel getGamePanel(){
 		return this.gamePanel;
 	}
@@ -120,7 +145,7 @@ public class Game implements Serializable {
 	
 	// Checks to see whether current player placed the last three piece tile. 
 	public boolean ifIPlacedLastThreePieceTile() {
-		return board.getThreeSpaceTiles().size() == 0;
+		return threeSpaceTiles.size() == 0;
 	}
 	
 	public void tabThroughDevelopers(){
@@ -240,7 +265,11 @@ public class Game implements Serializable {
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
-				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + ""))
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
+				Json.jsonPair("stack", Json.serializeArray(stack)),
+				Json.jsonPair("irrigationTiles", Json.serializeArray(irrigationTiles)),
+				Json.jsonPair("threeSpaceTiles", Json.serializeArray(threeSpaceTiles)),
+				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
 				)));
 		}
 	
