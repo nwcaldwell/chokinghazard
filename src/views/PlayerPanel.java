@@ -1,12 +1,10 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,14 +15,13 @@ import javax.swing.SwingConstants;
 import controllers.GameManager;
 
 public class PlayerPanel extends JPanel {
-	private int playerIndex;
+	private Color playerColor;
 	private JLabel playerName, famePoints, actionPointsLeft, numDevelopers, numOneTileRice, numOneTileVillage, numTwoTile, numActionTokens;
 	private GameManager gm;
 	
-	public PlayerPanel(GameManager gm, int playerIndex){
+	public PlayerPanel(GameManager gm){
 		setLayout(new FlowLayout());
 		this.gm = gm;
-		this.playerIndex = playerIndex;
 		setBackground(Color.white);
         setPreferredSize(new Dimension(170, 335));
         setMinimumSize(new Dimension(170, 335));
@@ -40,7 +37,7 @@ public class PlayerPanel extends JPanel {
 		leftPlayerInfo.setBackground(Color.WHITE);
 		this.add(leftPlayerInfo);
 		
-		playerName = new JLabel("Player "+(playerIndex+1));
+		playerName = new JLabel("Player");
         playerName.setFont(new Font("Lucida Grande", 0, 18)); 
         playerName.setPreferredSize(new Dimension(80, 22));
         playerName.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 5));
@@ -53,7 +50,7 @@ public class PlayerPanel extends JPanel {
         actionPointsLeft.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         this.add(actionPointsLeft);
         
-        famePoints = new JLabel("40");
+        famePoints = new JLabel("0");
         famePoints.setFont(new Font("Lucida Grande", 1, 36));
         famePoints.setBackground(Color.RED);
         famePoints.setHorizontalAlignment(SwingConstants.LEFT);
@@ -103,8 +100,48 @@ public class PlayerPanel extends JPanel {
 		
 	}
 	
-	private Color randomColor(){
-		return new Color((int)Math.floor(Math.random()*256), (int)Math.floor(Math.random()*256), (int)Math.floor(Math.random()*256));
+	public void setPlayerName(String playersName){
+		this.playerName.setText(playersName);
+	}
+	
+	public void setPlayerColor(Color newColor){
+		this.playerColor = newColor;
+	}
+
+	public void setFamePoints(int famePoints) {
+		this.famePoints.setText(""+famePoints);
+	}
+
+	public void setActionPointsLeft(int actionPointsLeft) {
+		this.actionPointsLeft.setText(""+actionPointsLeft);
+	}
+
+	public void setNumDevelopers(int numDevelopers) {
+		this.numDevelopers.setText(""+numDevelopers);
+	}
+
+	public void setNumOneTileRice(int numOneTileRice) {
+		this.numOneTileRice.setText(""+numOneTileRice);
+	}
+
+	public void setNumOneTileVillage(int numOneTileVillage) {
+		this.numOneTileVillage.setText(""+numOneTileVillage);
+	}
+
+	public void setNumTwoTile(int numTwoTile) {
+		this.numTwoTile.setText(""+numTwoTile);
+	}
+
+	public void setNumActionTokens(int numActionTokens) {
+		this.numActionTokens.setText(""+numActionTokens);
+	}
+	
+	public void setBackgroundCurrentPlayer(){
+		this.setBackground(playerColor);
+	}
+	
+	public void setBackgroundNotCurrentPlayer(){
+		this.setBackground(Color.WHITE);
 	}
 
 }
