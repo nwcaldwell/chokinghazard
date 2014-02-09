@@ -81,8 +81,9 @@ public class Game implements Serializable {
 	// turn by one. Changes the ifActionTokenUsed boolean to true
 	public boolean useActionToken() {
 		boolean alreadyUsed = players[indexOfCurrentPlayer].isIfActionTokenUsed();
-		int numActionTokensAvailable = players[indexOfCurrentPlayer].getActionTokens();
 		if (!alreadyUsed) {
+			// moving this inside the conditional for efficiency's sake...might not need everytime -brett
+			int numActionTokensAvailable = players[indexOfCurrentPlayer].getActionTokens();
 			if (numActionTokensAvailable > 0) {
 				players[indexOfCurrentPlayer].useActionToken();
 				gamePanel.useActionToken(getCurrentPlayer().getActionTokens());
@@ -112,7 +113,7 @@ public class Game implements Serializable {
 		else {
 			//get the current fame points to add and update the view
 			int famePointsToAdd = getFamePointCountFromUser();
-			if(famePointsToAdd <= 0){
+			if(famePointsToAdd >= 0){  		//should be >=0 to detect positive values, yell at me if I'm wrong for fixing this -brett
 				players[indexOfCurrentPlayer].addFamePoints(famePointsToAdd);
 				famePointsToAdd = players[indexOfCurrentPlayer].getFamePoints();
 				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setFamePoints(famePointsToAdd);
