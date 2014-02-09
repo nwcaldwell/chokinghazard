@@ -1,15 +1,18 @@
 package models;
 
+import helpers.JsonObject;
+
 public class PalaceSpace extends Space{
     private final int value; 
 
     // {2, 4, 6, 8, 10}
     public PalaceSpace(int value) {
         this.value = value;
+        this.type = Space.SpaceType.PALACE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.PALACE;
+        return type;
     }    
 
     public int getValue() {
@@ -21,7 +24,7 @@ public class PalaceSpace extends Space{
         return null;
     }
 
-    public PalaceSpace loadObject(String serial) {
+    public PalaceSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

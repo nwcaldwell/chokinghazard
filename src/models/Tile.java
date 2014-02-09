@@ -1,15 +1,16 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 import java.util.LinkedList;
 
 public abstract class Tile implements Serializable<Tile> {
 
     private String imageSource;
-    protected LinkedList<Space> spaces;
+    protected Space[][] spaces;
     
-    public Tile(LinkedList<Space> spaces)
+    public Tile(Space[][] spaces)
     {
     	this.spaces = spaces;
     }
@@ -24,11 +25,11 @@ public abstract class Tile implements Serializable<Tile> {
         this.imageSource = imageSource;
     }
 
-    public LinkedList<Space> getSpaces() {
+    public Space[][] getSpaces() {
         return spaces;
     }
 
-    public void setSpaces(LinkedList<Space> spaces) {
+    public void setSpaces(Space[][] spaces) {
         this.spaces = spaces;
     }
     
@@ -42,7 +43,7 @@ public abstract class Tile implements Serializable<Tile> {
         )));
     }
 
-    public Tile loadObject(String serial) {
+    public Tile loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

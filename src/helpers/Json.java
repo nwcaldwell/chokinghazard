@@ -73,10 +73,7 @@ public class Json {
     			}
     		}
     	}
-    	String[] ret = new String[list.size()];
-    	for(int x = 0; x < list.size(); ++x)
-    		ret[x] = (String) list.get(x);
-    	return Json.jsonArray(Json.jsonElements(ret));
+    	return Json.jsonArray(Json.jsonElements(list.toArray((new String[list.size()]))));
     }
 	
 	private static String addTab(String str) {
@@ -87,10 +84,5 @@ public class Json {
 		}
 		in.close();
 		return ret.toString();
-	}
-	
-	public static String[] split(String serial) {
-		
-		return null;
 	}
 }

@@ -1,15 +1,17 @@
 package models;
 
+import helpers.JsonObject;
+
 public class VillageSpace extends Space {
     private int palacex; 
     private int palacey; 
 
     public VillageSpace() {
-
+        this.type = Space.SpaceType.VILLAGE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.VILLAGE;
+        return type;
     }
 
     public int getPalacey() {
@@ -33,7 +35,7 @@ public class VillageSpace extends Space {
         return null;
     }
 
-    public VillageSpace loadObject(String serial) {
+    public VillageSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

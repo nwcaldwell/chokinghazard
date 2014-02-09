@@ -1,13 +1,15 @@
 package models;
 
+import helpers.JsonObject;
+
 public class IrrigationSpace extends Space {
     
     public IrrigationSpace() {
-
+        this.type = Space.SpaceType.IRRIGATION;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.IRRIGATION;
+        return type;
     }
 
     public String serialize() {
@@ -15,7 +17,7 @@ public class IrrigationSpace extends Space {
         return null;
     }
 
-    public IrrigationSpace loadObject(String serial) {
+    public IrrigationSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }
