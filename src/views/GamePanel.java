@@ -10,32 +10,31 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controllers.GameManager;
+import models.Developer;
+import models.Game;
 
 public class GamePanel extends JPanel{
 	private final static int WIDTH = 1100;
 	private final static int HEIGHT = 840;
 	private JLabel threePieceTiles, irrigationTiles; 
-	GameManager gm;
+	Game gm;
 	BoardPanel board;
 	PlayerPanel[] players;
-	int numPlayers;
+	int currentPlayer = 0;
 	
-	public GamePanel(int numberOfPlayers, GameManager gameManager){
+	public GamePanel(int numberOfPlayers, Game gameController){
 		super(new BorderLayout());
 		
-		numPlayers = numberOfPlayers;
-		gm = gameManager;
-		players = new PlayerPanel[numPlayers];
+		gm = gameController;
+		players = new PlayerPanel[numberOfPlayers];
 		
 		setMaximumSize(new Dimension(WIDTH, HEIGHT));
 		setBorder(BorderFactory.createEmptyBorder(0, 25, 30, 25));
 		
-		initPanels();
-		
+		initPanels(numberOfPlayers);
 	}
 	
-	private void initPanels(){
+	private void initPanels(int numberOfPlayers){
 		JPanel topContent = new JPanel();
 		topContent.setLayout(new FlowLayout());
 		topContent.setPreferredSize(new Dimension(900, 90));
@@ -70,8 +69,8 @@ public class GamePanel extends JPanel{
 		rightColumn.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		add(rightColumn, BorderLayout.EAST);
 		
-		for(int i = 0; i < numPlayers; i++){
-			players[i] = new PlayerPanel(gm, i);
+		for(int i = 0; i < numberOfPlayers; i++){
+			players[i] = new PlayerPanel(gm);
 			switch(i){
 				case 0:
 					leftColumn.add(players[i], BorderLayout.NORTH);
@@ -87,6 +86,44 @@ public class GamePanel extends JPanel{
 					break;
 			}
 		}
+	}
+	
+	public void updateCurrentPlayerView(){
+		players[currentPlayer].setBackgroundCurrentPlayer();
+	}
+	
+	public void nextTurn(){
+		//set currentPlayer's background color back to default
+		players[currentPlayer].setBackgroundNotCurrentPlayer();
+		
+		//increment current player to advance to next player
+		currentPlayer = (currentPlayer + 1) % players.length;
+		//update the new current player
+		updateCurrentPlayerView();
+	}
+	
+	public void highlightDeveloper(Developer dev){
+		this.board.highlightDeveloper(dev.getCurrentCell().getX(), dev.getCurrentCell().getY());
+	}
+	
+	public PlayerPanel[] getPlayerPanels(){
+		return this.players;
+	}
+	
+	public PlayerPanel getCurrentPlayer(){
+		return this.players[currentPlayer];
+	}
+	
+	public void moveDeveloperOntoBoard(int x, int y){
+		this.board.trackDeveloperPath(x, y);
+	}
+	
+	public void placeDeveloper(Developer dev, int x, int y){
+		this.board.placeDeveloper(dev, x, y);
+	}
+	
+	public void useActionToken(int tokens){
+		this.players[currentPlayer].setNumActionTokens(tokens);
 	}
 
 }

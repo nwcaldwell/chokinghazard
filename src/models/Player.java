@@ -19,6 +19,14 @@ public class Player implements Serializable<Player> {
 
 	public Player(Color color) {
 		this.playerColor = color;
+		this.famePoints = 0;
+		this.actionTokens = 3;
+		this.developers = new Developer[12];
+		for(int i = 0; i < developers.length; ++i){
+			developers[i] = new Developer(this);
+		}
+		
+		startTurn();
 	}
 
 	public void startTurn() {
@@ -30,6 +38,7 @@ public class Player implements Serializable<Player> {
 	public void useActionToken() {
 	  actionPoints++;
 	  actionTokens--;
+	  ifActionTokenUsed = true;
   }
 
 	public void addFamePoints(int fame) {
@@ -53,7 +62,7 @@ public class Player implements Serializable<Player> {
 	 *            The value to update fame points to.
 	 * @return Whether or not the update succeeded.
 	 */
-//	public Boolean setFamePoints(int famePoints) {
+//	public boolean setFamePoints(int famePoints) {
 //		//
 //		if (famePoints < 0)
 //			return false;

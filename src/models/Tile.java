@@ -5,6 +5,7 @@ import helpers.Json;
 import java.util.LinkedList;
 
 public abstract class Tile implements Serializable<Tile> {
+
     private String imageSource;
     protected LinkedList<Space> spaces;
     

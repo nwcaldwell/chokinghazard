@@ -56,15 +56,20 @@ public class GameFrame extends JFrame {
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Thread(new Runnable(){
-					public void run(){
-						int numPlayers = Integer.parseInt(JOptionPane.showInputDialog("How many players?"));
-						gm.createNewGame(numPlayers);
-						setContentPane(gm.getGamePanel());
-						pack();
-						validate();
-					}
-				}).start();
+				final int numPlayers = Integer.parseInt(JOptionPane.showInputDialog("How many players? 2-4"));
+				if(numPlayers >= 2 && numPlayers <= 4){
+					new Thread(new Runnable(){
+						public void run(){
+							gm.createNewGame(numPlayers);
+							setContentPane(gm.getGamePanel());
+							pack();
+							validate();
+						}
+					}).start();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again");
+				}
 			}
 		});
 		file.add(newGame);
@@ -74,17 +79,18 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//loads a game
-				//starts a new thread
-				new Thread(new Runnable(){
-					public void run(){
-						String nameOfGame = JOptionPane.showInputDialog("What's the name of the Game");
-						File file = getFile();
-						gm.loadGame(file);
-						setContentPane(gm.getGamePanel());
-						pack();
-						validate();
-					}
-				}).start();
+				final File file = getFile();
+				if(file != null){
+					//starts a new thread
+					new Thread(new Runnable(){
+						public void run(){
+							gm.loadGame(file);
+							setContentPane(gm.getGamePanel());
+							pack();
+							validate();
+						}
+					}).start();
+				}
 			}
 		});
 		file.add(loadGame);
@@ -100,9 +106,6 @@ public class GameFrame extends JFrame {
         JMenuItem deleteGame = new JMenuItem("Delete Game");
         saveGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
-            	//check if there's a saved game already to overwrite, 
-            	//if not, save game as
-            	//TODO
             	gm.deleteGame();
             }
         }); 
@@ -119,6 +122,15 @@ public class GameFrame extends JFrame {
         file.add(exit);
         
         JMenu help = new JMenu("Help");
+        
+        JMenuItem controls = new JMenuItem("Game Controls");
+        controls.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+            	//display a frame that shows a keyboard mapping of the game controls
+            	
+            }
+        });
+        help.add(controls);
         
         
         //add the menu bar to the JFrame

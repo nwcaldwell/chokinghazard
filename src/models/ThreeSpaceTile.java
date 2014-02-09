@@ -1,8 +1,11 @@
+
+
 package models;
 
 import java.util.LinkedList;
 
 class ThreeSpaceTile extends Tile {
+	String imageSource = "src/resources/threeTile.png";
 	
 	public ThreeSpaceTile(Space space1,Space space2,Space space3, LinkedList<Space> spaces) {
 	    super(spaces);
