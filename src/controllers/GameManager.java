@@ -50,9 +50,11 @@ public class GameManager{
 	
 	// Quits the current game. Asks the user if they want to save first.
 	public boolean quitGame() {
-		int selectedSaveGame = JOptionPane.CANCEL_OPTION;
-		if(currentGame != null)
-			selectedSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save this game before quitting?", "Quit Game", JOptionPane.YES_NO_CANCEL_OPTION, selectedSaveGame);
+		if(currentGame == null){
+			return false;
+		}
+		
+		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save this game before quitting?", "Quit Game", JOptionPane.YES_NO_CANCEL_OPTION);
 		
 		if(selectedSaveGame == JOptionPane.YES_OPTION){
 			saveGame();
@@ -66,8 +68,20 @@ public class GameManager{
 	
 	// Deletes the current game. Asks the user if they are sure before proceeding.
 	public boolean deleteGame() {
+		if(currentGame == null)
+			return false;
 		
-		return true;
+		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this game?", "Delete Game", JOptionPane.YES_NO_CANCEL_OPTION);
+		if(selectedSaveGame == JOptionPane.YES_OPTION){
+			currentGame = null;
+			//delete the file
+			//how do you even do that?
+			return true;
+		}
+		else if(selectedSaveGame == JOptionPane.NO_OPTION){
+			return true;
+		}
+		return false;
 	}
 
 	public int getNumberOfPlayers() {
@@ -94,6 +108,7 @@ public class GameManager{
 			case 27:
 				//complete turn
 				System.out.println("end turn");
+				currentGame.getCurrentPlayer.endTurn();
 				break;
 			case 9:
 				//tab through developers
@@ -109,6 +124,7 @@ public class GameManager{
 				break;
 			case (98):
 				//2 button numerical key - move developer down
+				//currentGame
 				break;
 			case 100:
 				//4 button numerical key - move developer left
@@ -140,12 +156,14 @@ public class GameManager{
 			//---------------------------------
 				
 			case 68:
-				//pressed D, add new developer
+				//pressed D, add new developer onto board
 				System.out.println("add new developer");
+				currentGame.getCurrentPlayer().moveDeveloperOntoBoard();
 				break;
 			case 73:
 				//pressed I, add new Irrigation tile
 				System.out.println("place Irrigation Tile");
+				currentGame.getCurrentPlayer().placeIrrigationTile();
 				break;
 			case 80:
 				//pressed P, new palace tile, need to ask for value of Tile
