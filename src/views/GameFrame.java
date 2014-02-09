@@ -17,7 +17,7 @@ import controllers.GameManager;
 
 
 public class GameFrame extends JFrame {
-	//this class is the frame for the game
+	//this class implements frame for the game
 	private final int WIDTH, HEIGHT;
 	GameManager gm;
 	
