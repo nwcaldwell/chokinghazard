@@ -151,10 +151,44 @@ public class Player implements Serializable<Player> {
 	public void setTwoSpaceTiles(Stack<TwoSpaceTile> twoSpaceTiles) {
 		this.twoSpaceTiles = twoSpaceTiles;
 	}
-
+/*
+ * 	private int famePoints;
+	private final Color playerColor;
+	private int actionPoints;
+	private int actionTokens;
+	private boolean ifActionTokenUsed;
+	private boolean ifPlacedLandTile;
+	private Developer[] developers;
+	private Cell[] palacesUsedInTurn;
+	private Stack<OneSpaceTile> riceTiles;
+	private Stack<OneSpaceTile> villageTiles;
+	private Stack<TwoSpaceTile> twoSpaceTiles;
+ */
 	public String serialize() {
-		// TODO Auto-generated method stub
-		return null;
+		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
+				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
+				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
+				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
+				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
+				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed.toString().toLower())),
+				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile.toString().toLower())),
+				Json.jsonPair("developers", Json.serializeArray(developers)),	//this line I am not 100% sure about... See after the return statement
+				Json.jsonPair ("palacesUsedInTurn", Json.serializeArray(palacesUsedInTurn)),
+				Json.jsonPair("riceTiles", Json.serializeArray(riceTiles)),
+				Json.jsonPair("villageTiles", Json.serializeArray(villageTiles)),
+				Json.jsonPair("twoSpaceTiles", Json.serializeArray(twoSpaceTiles))
+		)));
+		/*So I was looking at Cell.java serialize. When implementing serialize Cells[] connectedCells, 
+		 * connectedCells is not put into a Json.jsonPair
+		 * but in Tile.java, LinkedList<Space> spaces
+		 * it is put into it's own pair.
+		 * 
+		 * Seeing as I am not as familiar in json formatting, I am not sure which
+		 * if what I did here is correct.
+		 * This may also affect my code for both my other serialize implementations
+		 * (in Developer.java and Game.java)
+		 * but both are easy fixes once this is understood!
+		 */
 	}
 
 	public Player loadObject(String serial) {
