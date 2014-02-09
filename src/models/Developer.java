@@ -1,5 +1,7 @@
 package models;
 
+import helpers.Json;
+
 public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
