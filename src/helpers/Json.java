@@ -85,28 +85,4 @@ public class Json {
 		in.close();
 		return ret.toString();
 	}
-	
-	public static String[] splitPair(String serial) {
-		return new String[] {serial.substring(0,serial.indexOf(":")), serial.substring(serial.indexOf(":") + 1)};
-	}
-	
-	public static String[] split(String serial) {
-		ArrayList<String> list = new ArrayList<String>();
-		int lastIndex = 0; 
-		int count = 0; 
-		for(int x = 0; x < serial.length(); ++x) {
-			char ch = serial.charAt(x);
-			if(ch == '{' || ch == '[')
-				count++;
-			else if(ch == '}' || ch == ']')
-				count--;
-			else if(count == 0 && ch == ',') {
-				list.add(serial.substring(lastIndex, x).trim());
-				lastIndex = x + 1;
-			}
-		}
-		if(lastIndex != serial.length() -1)
-			list.add(serial.substring(lastIndex).trim());
-		return list.toArray((new String[list.size()]));
-	}
 }
