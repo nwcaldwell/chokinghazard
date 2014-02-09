@@ -180,14 +180,15 @@ public class Game implements Serializable {
 	// Inherited from the serializable interface. This method turns 
 	// the game object into a string so it can be saved to a file.
 	public String serialize() {
-		String serial = "";
-		serial += board.serialize();
-		for (int i = 0; i < numPlayers; i++) {
-			serial += players[i].serialize();
+		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
+				board.serialize(),
+				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
+				Json.jsonPair("Players", Json.serializeArray(players)),
+				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower())),
+				Json.jsonPair("stack", Json.serializeArray(stack)),
+				)));
 		}
-		
-		return serial;
-	}
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
