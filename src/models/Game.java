@@ -236,7 +236,20 @@ public class Game implements Serializable {
 		//ask the players for their name's and color preferences
 		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
 		for(int i = 0; i < numPlayers; ++i){
-			String name = JOptionPane.showInputDialog("What is Player "+(i+1)+"'s name?");
+			String name = "";
+			boolean okName = false; //to check if valid name was input
+			while (!okName)
+			{
+				name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
+				if (name.equals(""))	//Not valid!
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid name");
+				}
+				else //valid name
+				{
+					okName = true; //Acceptable input, proceed to next step
+				}
+			}
 			players[i] = new Player(colors[i]);
 			gamePanel.getPlayerPanels()[i].setPlayerName(name);
 			gamePanel.getPlayerPanels()[i].setPlayerColor(colors[i]);
