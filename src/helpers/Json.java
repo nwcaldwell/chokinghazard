@@ -2,17 +2,15 @@
 
 package helpers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-import models.Space;
+import java.util.Stack;
+
+import models.Serializable;
 
 public class Json {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//System.out.println(jsonObject("Tile",jsonObject));
-		//String[] arr = {"FDJSK" , "FJKDSLJF", "FJDKLFJSD"};
-		System.out.println((new Space()).getClass().getSimpleName());
-		System.out.println(Space.SpaceType.IRRIGATION);
 		
 	}
 
@@ -53,6 +51,39 @@ public class Json {
 	public static String jsonValue(String value) {
 		return "\"" + value + "\"";
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static String serializeArray(Object obj) {
+    	ArrayList<String> list = new ArrayList<String>();
+    	if(obj instanceof Object[]) {
+    		Object[] arr =  (Object[]) obj;
+    		for(int x = 0; x < arr.length; ++x) {
+    			if(arr[x] instanceof Stack || arr[x] instanceof Object[]) {
+    				list.add(serializeArray(arr[x]));
+    			}
+    			else {
+    				list.add(((Serializable<Object>) arr[x]).serialize());
+    			}
+    		}
+    	}
+    	if(obj instanceof Stack) {
+    		Stack<Object> stack = (Stack<Object>) obj;
+    		stack = (Stack<Object>) stack.clone();
+    		while(!stack.isEmpty()) {
+    			Object element = stack.pop();
+    			if(element instanceof Stack || element instanceof Object[]) {
+    				list.add(serializeArray(element));
+    			}
+    			else {
+    				list.add(((Serializable<Object>) element).serialize());
+    			}
+    		}
+    	}
+    	String[] ret = new String[list.size()];
+    	for(int x = 0; x < list.size(); ++x)
+    		ret[x] = (String) list.get(x);
+    	return Json.jsonArray(Json.jsonElements(ret));
+    }
 	
 	private static String addTab(String str) {
 		Scanner in = new Scanner(str); 

@@ -1,5 +1,7 @@
 package models;
 
+import helpers.Json;
+
 import java.util.Stack;
 
 public class Board implements Serializable<Board> {
@@ -7,11 +9,6 @@ public class Board implements Serializable<Board> {
     private Stack<OneSpaceTile> irrigationTiles; 
     private Stack<ThreeSpaceTile> threeSpaceTiles;
     private Stack<OneSpaceTile>[] palaceTiles;
-
-    public String serialize() {
-        // TODO Auto-generated method stub
-        return null;
-    }
     
     public Board() {
 
@@ -47,6 +44,15 @@ public class Board implements Serializable<Board> {
 
     public void setPalaceTiles(Stack<OneSpaceTile>[] palaceTiles) {
         this.palaceTiles = palaceTiles;
+    }
+
+    public String serialize() {
+		return Json.jsonPair("Board", Json.jsonObject(Json.jsonMembers(
+				Json.serializeArray(map),
+				Json.serializeArray(irrigationTiles),
+				Json.serializeArray(threeSpaceTiles),
+				Json.serializeArray(palaceTiles)
+		)));
     }
 
     public Board loadObject(String serial) {
