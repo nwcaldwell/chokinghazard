@@ -1,13 +1,15 @@
 package models;
 
+import helpers.JsonObject;
+
 public class RiceSpace extends Space {
 
     public RiceSpace() {
-
+        this.type = Space.SpaceType.PALACE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.RICE;
+        return type;
     }    
 
     public String serialize() {
@@ -15,7 +17,7 @@ public class RiceSpace extends Space {
         return null;
     }
 
-    public RiceSpace loadObject(String serial) {
+    public RiceSpace loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

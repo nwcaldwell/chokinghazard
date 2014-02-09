@@ -1,5 +1,8 @@
 package models;
 
+import helpers.Json;
+import helpers.JsonObject;
+
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Stack;
@@ -46,102 +49,6 @@ public class Game implements Serializable {
 	public GamePanel getGamePanel(){
 		return this.gamePanel;
 	}
-	
-	// DEVELOPER MOVEMENT
-	// Move player from off the board to on the board. Returns true if
-	// successful and false otherwise. Deducts the appropriate number of action
-	// points depending on whether the player came from the mountains or the lowlands.
-	public boolean moveDeveloperOntoBoard(Developer developer, Cell cell) {
-		return true;
-	}
-	
-	// Uses the stack variable to create the developer path as the
-	// user highlights the desired cells. If the user decides to undo the 
-	// last highlighted Cell, the top Cell is popped off of the Stack.
-	public boolean createDeveloperPath(Developer developer) {
-		//TODO this goes in the Board
-		return true;
-	}
-	
-	// Using the stack in the createDeveloperPath method, 
-	// we use this method to move the developer to its new location.
-	public boolean moveDeveloperAroundBoard(Developer developer) {
-		//TODO this goes in the Board
-		return true;
-	}
-	
-	// Move a player that's already on the board off of the board.
-	// Add developer back into array of available developers.
-	public boolean moveDeveloperOffBoard(Developer developer) {
-		//TODO this goes in the Board
-		return true;
-	}
-	
-	// PALACES
-	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
-	public void upgradePalace(Space palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(palaceSpace, cell);
-		if (canUpgrade) {
-			cell.setSpace(palaceSpace);
-		}
-		
-		// TODO do we need a postcondition other than simply telling the user that they can't upgrade? -brett
-		else 
-			JOptionPane.showMessageDialog(null, "Cannot upgrade palace!");
-		 
-	}
-	
-	// Checks all of the logic needed to make sure the user can legally 
-	// upgrade the palace. Calls checkForNumberOfVillages method.
-	private boolean checkIfICanUpgradePalace(Space palaceSpace, Cell cell) {
-		//TODO this goes in the Board
-		return true;
-	}
-	
-	// Returns the number of village Spaces surrounding the given Cell. Called
-	// by checkIfICanUpgradePalace to make sure number of surrounding villages 
-	// is greater than or equal to the palace number.
-	private int checkForNumberOfVillages(Cell cell) {
-		//TODO this goes in the Board
-		return 0;
-	}
-	
-	// Returns an integer array with the city ranks for each player. The indices in
-	// the array correspond to the indices for the players in the main player array. 
-	private int[] findCityRanks(Cell cell) {
-		//TODO this goes in the Board
-		return new int[0];
-	}
-	
-	// IRRIGATION TILES
-	// Similarly to the method above, returns an integer array 
-	// for the players surrounding an irrigation tile.
-	private int[] findIrrigationRanks(Cell cell) {
-		//TODO this goes in the Board
-		return new int[0];
-	}
-	
-	// TILE PLACEMENT AND HELPER METHODS
-	// Main method for placing a tile on the board, 
-	// uses several helper methods below.
-	public void placeTile(Cell cell, Tile tile) {
-		//TODO this goes in the Board
-	}
-	
-	// Helper method for placeTile. Checks whether Tile can be placed
-	// in the Cell selected. This method also calls several helper methods.
-	private boolean checkValidTilePlacement(Cell cell, Tile tile) {
-		//TODO this goes in the Board
-		return true;
-	}
-	
-	// Helper method for checkValidTilePlacement. Checks to make sure you're
-	// not placing a three tile on a three tile, two tile on a two tile, a 
-	// smaller tile on a larger tile, etc.
-	private boolean checkTilesBelow(Tile tile, Cell cell) {
-		//TODO this goes in the Board
-		return true;
-	}
 
 	// ACTION TOKEN
 	// Increases number of action points available for that players 
@@ -179,9 +86,11 @@ public class Game implements Serializable {
 		else {
 			//get the current fame points to add and update the view
 			int famePointsToAdd = getFamePointCountFromUser();
-			players[indexOfCurrentPlayer].addFamePoints(famePointsToAdd);
-			famePointsToAdd = players[indexOfCurrentPlayer].getFamePoints();
-			gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setFamePoints(famePointsToAdd);
+			if(famePointsToAdd <= 0){
+				players[indexOfCurrentPlayer].addFamePoints(famePointsToAdd);
+				famePointsToAdd = players[indexOfCurrentPlayer].getFamePoints();
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setFamePoints(famePointsToAdd);
+			}
 			
 			//advance to the next player
 			indexOfCurrentPlayer++;
@@ -271,6 +180,14 @@ public class Game implements Serializable {
 		//x = 0; y = 0;
 	}
 	
+	public void placeTwoSpaceTile(){
+		
+	}
+	
+	public void placeThreeSpaceTile(){
+		
+	}
+	
 	public void selectIrrigationTile(){
 		
 	}
@@ -298,54 +215,38 @@ public class Game implements Serializable {
 		}
 		gamePanel.updateCurrentPlayerView();
 	}
-	
-	// SERIALIZABLE
-	// Inherited from the serializable interface. This method turns 
-	// the game object into a string so it can be saved to a file.
-	/*
-	 * 	private GamePanel gamePanel;
-	private Board board;
-	private int numPlayers;
-	private Player[] players;
-	private int indexOfCurrentPlayer;
-	private boolean isFinalTurn;
-	private Stack<Cell> stack;
-	 * 
-	 * 
-	 * 
-	 */
-	
-	//Mauricio, (if you could) please look at the board and players arrays 
-	//and see if these are implemented correctly.
-	//Also, the last paragraph in my comment
+		
 	public String serialize() {
 		 /*This creates a string that represents a Game object for saving and loading
-		   *board will be turned into a jsonPair using board.serialize()
-		   * 
-		   * numPlayers is stored
-		   * Player[] players is stored
-		   * indexOfCurrentPlayed is stored
-		   * 
-		   * isFinalTurn is stored. toString() for a boolean either returns "True" or "False"
-		   * so it needs to be convered to "true" and "false" so that loading is easier.
-		   * 
-		   * stack, even though it is an attribute of Game, would not be serialized
-		   * This stack is used to help the Game method make a path for a developer
-		   * When a game is reloaded, a player shoud be forced to create the path over again
-		   * This does not truly change the game or how it works!
-		   */
+		  *
+		  * Did not save the GamePanel, but I will change this if I should
+		  *
+		  * board will be turned into a jsonPair using board.serialize()
+		  * 
+		  * numPlayers is stored
+		  * Player[] players is stored
+		  * indexOfCurrentPlayed is stored
+		  * 
+		  * isFinalTurn is stored. toString() for a boolean either returns "True" or "False"
+		  * so it needs to be convered to "true" and "false" so that loading is easier.
+		  * 
+		  * stack, even though it is an attribute of Game, (I dont think) would not be serialized
+		  * This stack is used to help the Game method make a path for a developer
+		  * When a game is reloaded, a player shoud be forced to create the path over again
+		  * This does not truly change the game or how it works!
+		  */
 		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
-				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower()))
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + ""))
 				)));
 		}
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
-	public Game loadObject(String serial) {
+	public Game loadObject(JsonObject json) {
 		return new Game();
 	}
 }

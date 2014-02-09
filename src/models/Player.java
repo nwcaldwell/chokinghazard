@@ -1,5 +1,8 @@
 package models;
 
+import helpers.Json;
+import helpers.JsonObject;
+
 import java.awt.Color;
 import java.util.Stack;
 
@@ -174,25 +177,16 @@ public class Player implements Serializable<Player> {
 	private Stack<TwoSpaceTile> twoSpaceTiles;
  */
 	public String serialize() {
-		/*/*This creates a string that represents a Player object for saving and loading
-	   *
-	   * boolean attributes, such as ifActionTokenUsed isPlacedOnBoard is stored. toString() for a boolean either returns "True" or "False"
-	   * so it needs to be convered to "true" and "false" so that loading is easier.
+	  /* This creates a string that represents a Player object for saving and loading
 	   * 
-	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
-	   *  This will make the Cell unique
-	   * 
-	   * The owner should (I hope) be unique by the player's color, so that will be saved this way..
-	   * We may not even need to save this, since the Developer should be made with the corresponding
-	   * Player who owns it... anyways :P
 	   */
 		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
-				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed.toString().toLower())),
-				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile.toString().toLower())),
+				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + "")),
+				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile + "")),
 				Json.jsonPair("developers", Json.serializeArray(developers)),
 				Json.jsonPair ("palacesUsedInTurn", Json.serializeArray(palacesUsedInTurn)),
 				Json.jsonPair("riceTiles", Json.serializeArray(riceTiles)),
@@ -201,7 +195,7 @@ public class Player implements Serializable<Player> {
 		)));
 	}
 
-	public Player loadObject(String serial) {
+	public Player loadObject(JsonObject json) {
 		// TODO Auto-generated method stub
 		return null;
 	}
