@@ -1,7 +1,6 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -12,22 +11,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import models.Developer;
-
-import controllers.GameManager;
+import models.Game;
 
 public class GamePanel extends JPanel{
 	private final static int WIDTH = 1100;
 	private final static int HEIGHT = 840;
 	private JLabel threePieceTiles, irrigationTiles; 
-	GameManager gm;
+	Game gm;
 	BoardPanel board;
 	PlayerPanel[] players;
 	int currentPlayer = 0;
 	
-	public GamePanel(int numberOfPlayers, GameManager gameManager){
+	public GamePanel(int numberOfPlayers, Game gameController){
 		super(new BorderLayout());
 		
-		gm = gameManager;
+		gm = gameController;
 		players = new PlayerPanel[numberOfPlayers];
 		
 		setMaximumSize(new Dimension(WIDTH, HEIGHT));
