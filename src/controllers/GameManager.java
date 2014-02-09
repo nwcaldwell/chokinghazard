@@ -96,15 +96,6 @@ public class GameManager{
 		//set up the key input events
 		//1 selects one piece tile
 		switch(e.getKeyCode()){
-			case 27:
-				//cancel action
-				System.out.println("cancel action");
-				break;
-			case 88:
-				//end turn
-				System.out.println("end turn");
-				currentGame.nextTurn();
-				break;
 			case 9:
 				//tab through developers
 				System.out.println("next developer");
@@ -114,6 +105,15 @@ public class GameManager{
 				//pressed enter
 				System.out.println("pressed enter");
 				currentGame.placeComponent();
+				break;	
+			case 27:
+				//cancel action
+				System.out.println("cancel action");
+				break;
+			case 88:
+				//end turn
+				System.out.println("end turn");
+				currentGame.nextTurn();
 				break;
 			case 32:
 				//pressed the space bar
@@ -136,10 +136,10 @@ public class GameManager{
 				break;
 				
 			case 50:
-				currentGame.placeTwoSpaceTile();
+				currentGame.selectTwoSpaceTile();
 				break;
 			case 51:
-				currentGame.placeThreeSpaceTile();
+				currentGame.selectThreeSpaceTile();
 				break;
 			case 68:
 				//pressed D, add new developer onto board
@@ -175,19 +175,19 @@ public class GameManager{
 		 * using these arrow keys for movement of a developer for testing purposes*/
 			case 37:
 				//pressed left arrow, move the viewport left
-				currentGame.moveDeveloperAroundBoard(-50, 0);
+				currentGame.moveComponentAroundBoard(-50, 0);
 				break;
 			case 38:
 				//pressed up arrow, move the viewport up
-				currentGame.moveDeveloperAroundBoard(0, -50);
+				currentGame.moveComponentAroundBoard(0, -50);
 				break;
 			case 39:
 				//pressed the right arrow, move the viewport right
-				currentGame.moveDeveloperAroundBoard(50, 0);
+				currentGame.moveComponentAroundBoard(50, 0);
 				break;
 			case 40:
 				//pressed the down arrow, move the viewport down
-				currentGame.moveDeveloperAroundBoard(0, 50);
+				currentGame.moveComponentAroundBoard(0, 50);
 				break;
 		}
 	}

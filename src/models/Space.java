@@ -22,6 +22,10 @@ public class Space implements Serializable<Space> {
     public void setType(SpaceType type) {
         this.type = type;
     }
+    
+    public String getImageSource(){
+    	return imageSource;
+    }
 
     public String serialize() {
 		return Json.jsonPair("Space", Json.jsonObject(Json.jsonMembers(

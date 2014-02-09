@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import models.Developer;
 import models.Game;
+import models.Tile;
 
 public class GamePanel extends JPanel{
 	private final static int WIDTH = 1100;
@@ -124,6 +125,14 @@ public class GamePanel extends JPanel{
 	
 	public void useActionToken(int tokens){
 		this.players[currentPlayer].setNumActionTokens(tokens);
+	}
+	
+	public void moveTile(Tile tile, int xLoc, int yLoc){
+		this.board.moveTile(tile, xLoc, yLoc);
+	}
+	
+	public void placeTile(Tile tile, int xLoc, int yLoc){
+		this.board.placeTile(tile, xLoc, yLoc);
 	}
 
 }

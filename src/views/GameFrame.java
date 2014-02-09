@@ -46,6 +46,7 @@ public class GameFrame extends JFrame {
 				gm.keyReleased(e);
 			}
 		});
+		setFocusTraversalKeysEnabled(false);
 	}
 	
 	private void addMenu(){
