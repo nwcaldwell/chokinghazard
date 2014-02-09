@@ -5,24 +5,24 @@ import java.util.LinkedList;
 class ThreeSpaceTile extends Tile {
 	
 	public ThreeSpaceTile(Space space1,Space space2,Space space3, LinkedList<Space> spaces) {
-		  super(spaces);
-		  spaces.add(space1);
-		  spaces.add(space2);
-		  spaces.add(space3);
-	  }
-  
-  public void rotate() {
-	  spaces.addLast(spaces.removeFirst());
-  }
+	    super(spaces);
+	    spaces.add(space1);
+	    spaces.add(space2);
+	    spaces.add(space3);
+	}
+    
+    public void rotate() {
+	    spaces.addLast(spaces.removeFirst());
+    }
 
-  public String serialize() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    public String serialize() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  public ThreeSpaceTile loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    public ThreeSpaceTile loadObject(String serial) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
 
