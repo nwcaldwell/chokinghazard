@@ -25,6 +25,10 @@ public class Game implements Serializable {
 	private Stack<OneSpaceTile> irrigationTiles; 
     private Stack<ThreeSpaceTile> threeSpaceTiles;
     private ArrayList<Stack<OneSpaceTile>> palaceTiles;
+    int x = 50;
+	int y = 50;
+	private Object currentComponent;
+	private int tabCount = -1;
 	
 	// CONSTRUCTORS
 	//default constructor
@@ -151,11 +155,32 @@ public class Game implements Serializable {
 	
 	public void tabThroughDevelopers(){
 		System.out.println("tabbing");
-		//TODO
-		//get the current player's set of developers on the board
-		//and traverse through them. 
-		//need a variable for current developer. 
-		//Because if a developer is selected, then need a way to select that developer
+		if(tabCount < 0)
+			tabCount = 0;
+		else{
+			//we only want to increment the tabCount 
+			tabCount = (tabCount + 1) % players[indexOfCurrentPlayer].getDevelopers().length;
+		}
+		//get the current player's set of developers
+		Developer[] currentPlayerDeveloper = players[indexOfCurrentPlayer].getDevelopers();
+		System.out.println(tabCount);
+		
+		boolean hasDevelopersOnBoard = false;
+		for(int i = tabCount; i < players[indexOfCurrentPlayer].getDevelopers().length; ++i){
+			
+			//find the first developer on the board
+			if(currentPlayerDeveloper[tabCount].isPlacedOnBoard()){
+				gamePanel.highlightDeveloper(currentPlayerDeveloper[tabCount]);
+				hasDevelopersOnBoard = true;
+				break;
+			}
+			else//else that current developer is not on the board, look at the next one
+				continue;
+		}
+		if(!hasDevelopersOnBoard){
+			tabCount = -1;
+			System.out.println("no developers on board");
+		}
 	}
 	
 	public void rotateCurrentComponent(){
@@ -176,12 +201,10 @@ public class Game implements Serializable {
 		//currentGame.moveDeveloperOntoBoard();
 	}
 	
-	public void moveDeveloperAroundBoard(int xChange, int yChange){
+	public void moveComponentAroundBoard(int xChange, int yChange){
 		//TODO get that current developer and push the location to the stack
-		int x = 0;
-		x += xChange;
 		
-		int y = 0;
+		x += xChange;
 		y += yChange;
 		if(x < 0)
 			x += 700;
@@ -193,43 +216,86 @@ public class Game implements Serializable {
 		else if(y > 700)
 			y = 0;
 		
+		String type = currentComponent.getClass().toString();
+		if(type.equals("class models.TwoSpaceTile")){
+			System.out.println("this is a two space tile\n");
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else if(type.equals("class models.ThreeSpaceTile")){
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else if(type.equals("class models.OneSpaceTile")){
+			System.out.println("this is a three space tile\n");
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else if(type.equals("class models.Developer")){
+			System.out.println("this is a developer");
+			gamePanel.moveDeveloperOntoBoard(x, y);
+		}
 		//check if the new location is valid and that there are no developers or irrigation tiles on it
 		//board.f
 		//if ok, push the location to the developer path
 		//and reflect the change in the gui
-		gamePanel.moveDeveloperOntoBoard(x, y);
+		
 		//if it's not ok, dont let the user go there and dont push the location
 	}
 	
 	public void placeComponent(){
-		//if currentComponent is developer, place it
-		//gamePanel.placeDeveloper((Developer)currentComponent, x, y);
+		String type = currentComponent.getClass().toString();
+		System.out.println(type);
+		//figure out which type to place the component properly
+		if(type.equals("class models.TwoSpaceTile")){
+			gamePanel.placeTile((Tile)currentComponent, x, y);
+		}
+		else if(type.equals("class models.ThreeSpaceTile")){
+			gamePanel.placeTile((Tile)currentComponent, x, y);
+		}
+		else if(type.equals("class models.OneSpaceTile")){
+			System.out.println("this is a three space tile\n");
+			gamePanel.placeTile((Tile)currentComponent, x, y);
+		}
+		else if(type.equals("class models.Developer")){
+			gamePanel.placeDeveloper((Developer)currentComponent, x, y);
+		}
 		//TODO figure out something for this: reset the x&y's back
-		//x = 0; y = 0;
+		x = 50; y = 50;
 	}
 	
-	public void placeTwoSpaceTile(){
+	public void selectTwoSpaceTile(){
+		//TODO check if the current player can actually place a two space tile
+		currentComponent = new TwoSpaceTile(new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, 50, 50);
 		
+		//TODo write stuff to check that the user has placed a land tile
 	}
 	
-	public void placeThreeSpaceTile(){
+	public void selectThreeSpaceTile(){
+		//TODO check if the current player can actually place a three space tile
+		currentComponent = new ThreeSpaceTile(new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, 50, 50);
 		
+		//TODO write stuff to check that the user has placed a land tile
 	}
 	
+	//TODO checks and stuff for this stuff:
 	public void selectIrrigationTile(){
-		
+		currentComponent = new OneSpaceTile(new IrrigationSpace(), new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, 50, 50);
 	}
 	
 	public void selectPalaceTile(){
-		
+		currentComponent = new OneSpaceTile(new PalaceSpace(2), new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, 50, 50);
 	}
 	
 	public void selectRiceTile(){
-		
+		currentComponent = new OneSpaceTile(new RiceSpace(), new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, 50, 50);
 	}
 	
 	public void selectVillageTile(){
-		
+		currentComponent = new OneSpaceTile(new VillageSpace(), new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, 50, 50);
 	}
 	
 	private void initPlayers(){

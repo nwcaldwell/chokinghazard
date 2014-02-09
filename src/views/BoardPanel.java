@@ -112,9 +112,9 @@ public class BoardPanel extends JPanel {
 	
 	private void clearImage(BufferedImage image){
 		g2d = image.createGraphics();
-		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER)); 
-		//g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); 
-		//g2d.setComposite(AlphaComposite.SRC_OVER);
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR)); 
+		g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); 
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 		g2d.dispose();
 	}
 }
