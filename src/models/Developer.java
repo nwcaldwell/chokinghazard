@@ -1,5 +1,6 @@
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
 
 public class Developer implements Serializable<Developer>{
@@ -46,10 +47,10 @@ public class Developer implements Serializable<Developer>{
 	   * Player who owns it... anyways :P
 	   */
 	    return Json.jsonPair("Developer", Json.jsonObject(Json.jsonMembers(
-	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard.toString().toLower())),
+	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard + "")),
 	    		Json.jsonPair("currentCellX", Json.jsonValue(currentCell.getX() + "")), 
 	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + "")),
-	    		Json.jsonPair("ownerColor", Json.jsonValue(owner.getColor().toString()))
+	    		Json.jsonPair("ownerColor", Json.jsonValue(owner + ""))
 	    		)));
   }
 

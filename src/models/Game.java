@@ -1,5 +1,7 @@
 package models;
 
+import helpers.Json;
+
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Stack;
@@ -308,8 +310,8 @@ public class Game implements Serializable {
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
-				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower())),
-				Json.jsonPair("stack", Json.serializeArray(stack)),
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
+				Json.jsonPair("stack", Json.serializeArray(stack))
 				)));
 		}
 	
