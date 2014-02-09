@@ -6,14 +6,40 @@ import java.util.LinkedList;
 
 class TwoSpaceTile extends Tile {
   
-	public TwoSpaceTile(Space space1,Space space2, LinkedList<Space> spaces) {
+	public TwoSpaceTile(Space[][] spaces) {
 		super(spaces);
-		spaces.add(space1);
-		spaces.add(space2);
+		spaces[0][0] = new RiceSpace();
+      spaces[0][1] = new VillageSpace();
 	}
 	 
-	public void rotate() {
-		spaces.addLast(spaces.removeFirst());
+   //rotates the piece.
+	public void rotate() 
+   {
+		if(spaces[0][0] != null && spaces[0][1]!= null)
+      {
+         spaces[1][1] = spaces[0][1];
+         spaces[0][1] = spaces[0][0];
+         spaces[0][0] = null;
+      }
+      if(spaces[0][1] != null && spaces[1][1] != null)
+      {
+         spaces[1][1] = spaces[0][1];
+         spaces[1][0] = spaces[1][1];
+         spaces[0][1] = null;
+      }
+      if(spaces[1][1] != null && spaces[1][0] != null)
+      {
+         spaces[1][0] = spaces[1][1];
+         spaces[0][0] = spaces[1][0];
+         spaces[1][1] = null;
+      }
+      if(spaces[0][0] != null && spaces[1][0] != null)
+      {
+         spaces[0][1] = spaces[0][0];
+         spaces[0][0] = spaces[1][0];
+         spaces[1][0] = null;
+      }
+         
 	}
 
 	public String serialize() {

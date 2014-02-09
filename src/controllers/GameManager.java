@@ -135,6 +135,12 @@ public class GameManager{
 				//8 button numerical key - move developer up
 				break;
 				
+			case 50:
+				currentGame.placeTwoSpaceTile();
+				break;
+			case 51:
+				currentGame.placeThreeSpaceTile();
+				break;
 			case 68:
 				//pressed D, add new developer onto board
 				System.out.println("add new developer");
