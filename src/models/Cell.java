@@ -1,6 +1,7 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 import java.util.HashSet;
 
@@ -74,7 +75,7 @@ public class Cell implements Serializable<Cell> {
 		)));
     }
     
-    public Cell loadObject(String serial) {
+    public Cell loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

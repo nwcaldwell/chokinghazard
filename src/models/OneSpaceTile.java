@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 import java.util.LinkedList;
 
 class OneSpaceTile extends Tile {
@@ -18,7 +20,7 @@ class OneSpaceTile extends Tile {
         return null;
     }
 
-    public OneSpaceTile loadObject(String serial) {
+    public OneSpaceTile loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

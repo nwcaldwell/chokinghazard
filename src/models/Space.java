@@ -1,6 +1,7 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 public class Space implements Serializable<Space> {
     public enum SpaceType {
@@ -37,7 +38,7 @@ public class Space implements Serializable<Space> {
 		)));
     }
 
-    public Space loadObject(String serial) {
+    public Space loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

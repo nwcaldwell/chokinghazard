@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
@@ -35,7 +37,7 @@ public class Developer implements Serializable<Developer>{
     return null;
   }
 
-  public Developer loadObject(String serial) {
+  public Developer loadObject(JsonObject json) {
     // TODO Auto-generated method stub
     return null;
   }
