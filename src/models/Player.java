@@ -174,6 +174,18 @@ public class Player implements Serializable<Player> {
 	private Stack<TwoSpaceTile> twoSpaceTiles;
  */
 	public String serialize() {
+		/*/*This creates a string that represents a Player object for saving and loading
+	   *
+	   * boolean attributes, such as ifActionTokenUsed isPlacedOnBoard is stored. toString() for a boolean either returns "True" or "False"
+	   * so it needs to be convered to "true" and "false" so that loading is easier.
+	   * 
+	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
+	   *  This will make the Cell unique
+	   * 
+	   * The owner should (I hope) be unique by the player's color, so that will be saved this way..
+	   * We may not even need to save this, since the Developer should be made with the corresponding
+	   * Player who owns it... anyways :P
+	   */
 		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
@@ -181,23 +193,12 @@ public class Player implements Serializable<Player> {
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
 				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed.toString().toLower())),
 				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile.toString().toLower())),
-				Json.jsonPair("developers", Json.serializeArray(developers)),	//this line I am not 100% sure about... See after the return statement
+				Json.jsonPair("developers", Json.serializeArray(developers)),
 				Json.jsonPair ("palacesUsedInTurn", Json.serializeArray(palacesUsedInTurn)),
 				Json.jsonPair("riceTiles", Json.serializeArray(riceTiles)),
 				Json.jsonPair("villageTiles", Json.serializeArray(villageTiles)),
 				Json.jsonPair("twoSpaceTiles", Json.serializeArray(twoSpaceTiles))
 		)));
-		/*So I was looking at Cell.java serialize. When implementing serialize Cells[] connectedCells, 
-		 * connectedCells is not put into a Json.jsonPair
-		 * but in Tile.java, LinkedList<Space> spaces
-		 * it is put into it's own pair.
-		 * 
-		 * Seeing as I am not as familiar in json formatting, I am not sure which
-		 * if what I did here is correct.
-		 * This may also affect my code for both my other serialize implementations
-		 * (in Developer.java and Game.java)
-		 * but both are easy fixes once this is understood!
-		 */
 	}
 
 	public Player loadObject(String serial) {
