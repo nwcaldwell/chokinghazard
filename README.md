@@ -9,7 +9,7 @@ Software Implementation of the Board Game Java
 
 ## Installation Instructions<a name = "Instructions"/>
 
-## Running the game<a name="Running"/>
+## Running the Game<a name="Running"/>
 
 ## *Team Choking Hazard*<a name="Choking Hazard"/>
 
