@@ -3,23 +3,26 @@ package models;
 import java.io.Serializable;
 import java.util.Stack;
 
+import javax.swing.JOptionPane;
+
 public class Game implements Serializable {
 	// VARIABLES
-	//private Board board;
-	//private Player[] players;
+	private Board board;
+	private Player[] players;
 	private boolean isFinalTurn;
 	private int indexOfCurrentPlayer;
-	//private Stack<Cell> stack;
+	private Stack<Cell> stack;
+	private int numPlayers;
 	
 	// CONSTRUCTORS
-	// Default Constructor
-	public Game() {
-		
-	}
-	
 	// Main Constructor
-	public Game(Board board, Player[] players, boolean isFinalTurn, int indexOfCurrentPlayer, Stack<Cell> stack) {
-		
+	public Game(int numPlayers) {
+		this.board = new Board();
+		this.players = new Player[numPlayers];
+		this.numPlayers = numPlayers;
+		this.isFinalTurn = false;
+		this.indexOfCurrentPlayer = 0;
+		this.stack = new Stack<Cell>();
 	}
 	
 	// DEVELOPER MOVEMENT
@@ -52,7 +55,14 @@ public class Game implements Serializable {
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
 	public void upgradePalace(Space palaceSpace, Cell cell) {
+		boolean canUpgrade = checkIfICanUpgradePalace(palaceSpace, cell);
+		if (canUpgrade) {
+			cell.setSpace(palaceSpace);
+		}
 		
+		
+		// TODO else can't upgrade palace, show dialog box
+		 
 	}
 	
 	// Checks all of the logic needed to make sure the user can legally 
@@ -105,35 +115,73 @@ public class Game implements Serializable {
 	// Increases number of action points available for that players 
 	// turn by one. Changes the ifActionTokenUsed boolean to true
 	public void useActionToken() {
+		boolean alreadyUsed = players[indexOfCurrentPlayer].isIfActionTokenUsed();
+		int numActionTokensAvailable = players[indexOfCurrentPlayer].getActionTokens();
+		if (!alreadyUsed) {
+			if (numActionTokensAvailable > 0) {
+				players[indexOfCurrentPlayer].setActionTokens(numActionTokensAvailable - 1);
+				players[indexOfCurrentPlayer].setActionPoints(players[indexOfCurrentPlayer].getActionPoints() + 1);
+			}
+			
+			else {
+				JOptionPane.showMessageDialog(null, "You're out of Action Tokens!");
+			}
+		}
 		
+		else {
+			JOptionPane.showMessageDialog(null, "You've already used an Action Token this turn!");
+		}; 
 	}
 	
 	// END OF TURN ACTIONS
 	// Ends the current players turn and executes all necessary actions.
-	public void endTurn() {
+	public void nextTurn() {
+		if (!players[indexOfCurrentPlayer].isIfPlacedLandTile()) {
+			JOptionPane.showMessageDialog(null, "You haven't placed a land tile yet! :(");
+			return;
+		}
 		
-	}
-	
-	// Initializes next players turn.
-	public void nextPlayerTurn() {
-		
+		else {
+			indexOfCurrentPlayer++;
+			indexOfCurrentPlayer %= numPlayers;
+			players[indexOfCurrentPlayer].startTurn();
+		}	
 	}
 	
 	// Ask user how many fame points he earned and return the integer provided.
 	public int getFamePointCountFromUser() {
-		return 0;
+		boolean valid = false;
+		int famePoints = -1;
+		while (!valid) {
+		    try {
+		        famePoints = Integer.parseInt(JOptionPane.showInputDialog("How many fame points did you earn on this turn?"));
+		        if (famePoints >= 0) {
+		        	valid = true;
+		        }
+		    } catch (NumberFormatException e) {
+		        JOptionPane.showMessageDialog(null, "Not a valid number, please try again.");
+		    }
+		}
+		
+		return famePoints;
 	}
 	
 	// Checks to see whether current player placed the last three piece tile. 
 	public boolean ifIPlacedLastThreePieceTile() {
-		return true;
+		return board.getThreeSpaceTiles().size() == 0;
 	}
 	
 	// SERIALIZABLE
 	// Inherited from the serializable interface. This method turns 
 	// the game object into a string so it can be saved to a file.
 	public String serialize() {
-		return "";
+		String serial = "";
+		serial += board.serialize();
+		for (int i = 0; i < numPlayers; i++) {
+			serial += players[i].serialize();
+		}
+		
+		return serial;
 	}
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
