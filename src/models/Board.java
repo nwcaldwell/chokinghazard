@@ -48,10 +48,10 @@ public class Board implements Serializable<Board> {
 
     public String serialize() {
 		return Json.jsonPair("Board", Json.jsonObject(Json.jsonMembers(
-				Json.serializeArray(map),
-				Json.serializeArray(irrigationTiles),
-				Json.serializeArray(threeSpaceTiles),
-				Json.serializeArray(palaceTiles)
+				Json.jsonPair("map", Json.serializeArray(map)),
+				Json.jsonPair("irrigationTiles", Json.serializeArray(irrigationTiles)),
+				Json.jsonPair("threeSpaceTiles", Json.serializeArray(threeSpaceTiles)),
+				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
 		)));
     }
 
