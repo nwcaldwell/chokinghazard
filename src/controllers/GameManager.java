@@ -104,7 +104,19 @@ public class GameManager{
 		//ask the players for their name's and color preferences
 		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
 		for(int i = 0; i < getNumberOfPlayers(); ++i){
-			String name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
+			String name = "";
+			boolean okName = false; //to check if valid name was input
+			while (!okName)
+			{
+				name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
+				if (name.equals(""))	//Not valid!
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid name");
+				}
+				else
+					okName = true; //Acceptable input, proceed to next step
+			}
+				
 			gamePanel.getPlayerPanels()[i].setPlayerName(name);
 			gamePanel.getPlayerPanels()[i].setPlayerColor(colors[i]);
 		}
