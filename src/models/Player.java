@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 import java.awt.Color;
 import java.util.Stack;
 
@@ -200,7 +202,7 @@ public class Player implements Serializable<Player> {
 		 */
 	}
 
-	public Player loadObject(String serial) {
+	public Player loadObject(JsonObject json) {
 		// TODO Auto-generated method stub
 		return null;
 	}
