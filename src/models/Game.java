@@ -8,11 +8,12 @@ import javax.swing.JOptionPane;
 public class Game implements Serializable {
 	// VARIABLES
 	private Board board;
-	private Player[] players;
-	private boolean isFinalTurn;
-	private int indexOfCurrentPlayer;
-	private Stack<Cell> stack;
 	private int numPlayers;
+	private Player[] players;
+	private int indexOfCurrentPlayer;
+	private boolean isFinalTurn;
+	private Stack<Cell> stack;
+
 	
 	// CONSTRUCTORS
 	// Main Constructor
