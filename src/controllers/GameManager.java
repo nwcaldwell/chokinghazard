@@ -109,7 +109,7 @@ public class GameManager{
 			while (!okName)
 			{
 				name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
-				if (name.equals(""))	//Not valid!
+				if (name.equals(""))	//Not valid! This is an added comment for testing
 				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid name");
 				}
