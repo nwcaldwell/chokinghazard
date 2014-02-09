@@ -5,11 +5,11 @@ public class VillageSpace extends Space {
     private int palacey; 
 
     public VillageSpace() {
-
+        this.type = Space.SpaceType.VILLAGE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.VILLAGE;
+        return type;
     }
 
     public int getPalacey() {

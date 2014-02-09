@@ -7,7 +7,7 @@ public class Space implements Serializable<Space> {
         RICE, VILLAGE, IRRIGATION, PALACE
     }
 
-    private SpaceType type;
+    protected SpaceType type;
     private String imageSource;
 
     public Space() {

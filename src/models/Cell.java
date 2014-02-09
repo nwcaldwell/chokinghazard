@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class Cell implements Serializable<Cell> {
     private Space space; 
     private int elevation; 
-    //private Player developerPlayer;
+    private Player developerPlayer;
     private int x; 
     private int y; 
     private HashSet<Cell> connectedCells;
@@ -65,7 +65,8 @@ public class Cell implements Serializable<Cell> {
 
     public String serialize() {
 		return Json.jsonPair("Cell", Json.jsonObject(Json.jsonMembers(
-				space.serialize(),
+				Json.jsonPair("space", space.serialize()),
+				Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),

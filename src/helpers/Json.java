@@ -73,10 +73,7 @@ public class Json {
     			}
     		}
     	}
-    	String[] ret = new String[list.size()];
-    	for(int x = 0; x < list.size(); ++x)
-    		ret[x] = (String) list.get(x);
-    	return Json.jsonArray(Json.jsonElements(ret));
+    	return Json.jsonArray(Json.jsonElements(list.toArray((new String[list.size()]))));
     }
 	
 	private static String addTab(String str) {
@@ -89,8 +86,27 @@ public class Json {
 		return ret.toString();
 	}
 	
+	public static String[] splitPair(String serial) {
+		return new String[] {serial.substring(0,serial.indexOf(":")), serial.substring(serial.indexOf(":") + 1)};
+	}
+	
 	public static String[] split(String serial) {
-		
-		return null;
+		ArrayList<String> list = new ArrayList<String>();
+		int lastIndex = 0; 
+		int count = 0; 
+		for(int x = 0; x < serial.length(); ++x) {
+			char ch = serial.charAt(x);
+			if(ch == '{' || ch == '[')
+				count++;
+			else if(ch == '}' || ch == ']')
+				count--;
+			else if(count == 0 && ch == ',') {
+				list.add(serial.substring(lastIndex, x).trim());
+				lastIndex = x + 1;
+			}
+		}
+		if(lastIndex != serial.length() -1)
+			list.add(serial.substring(lastIndex).trim());
+		return list.toArray((new String[list.size()]));
 	}
 }
