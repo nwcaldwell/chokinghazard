@@ -4,7 +4,12 @@ import java.util.LinkedList;
 
 abstract class Tile implements Serializable<Tile> {
   private String imageSource;
-  private LinkedList<Space> spaces;
+  protected LinkedList<Space> spaces;
+  
+  public Tile(LinkedList<Space> spaces)
+  {
+	  this.spaces = spaces;
+  }
 
   public abstract void rotate();
 
@@ -28,9 +33,3 @@ abstract class Tile implements Serializable<Tile> {
     // TODO Auto-generated method stub
     return null;
   }
-
-  public Tile loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-}

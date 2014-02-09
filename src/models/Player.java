@@ -3,128 +3,164 @@ package models;
 import java.awt.Color;
 import java.util.Stack;
 
-class Player implements Serializable<Player> {
-  private int famePoints;
-  private final Color playerColor;
-  private int actionPoints; 
-  private int actionTokens; 
-  private boolean ifActionTokenUsed; 
-  private boolean ifPlacedLandTile; 
-  private Developer[] developers; 
-  private Cell[] palacesUsedInTurn; 
-  private Stack<OneSpaceTile> riceTiles;
-  private Stack<OneSpaceTile> villageTiles; 
-  private Stack<TwoSpaceTile> twoSpaceTiles;
+public class Player implements Serializable<Player> {
 
-  public Player(Color color) {
-	  this.playerColor = color;
+	private int famePoints;
+	private final Color playerColor;
+	private int actionPoints;
+	private int actionTokens;
+	private boolean ifActionTokenUsed;
+	private boolean ifPlacedLandTile;
+	private Developer[] developers;
+	private Cell[] palacesUsedInTurn;
+	private Stack<OneSpaceTile> riceTiles;
+	private Stack<OneSpaceTile> villageTiles;
+	private Stack<TwoSpaceTile> twoSpaceTiles;
+
+	public Player(Color color) {
+		this.playerColor = color;
+	}
+
+	public void startTurn() {
+		ifActionTokenUsed = false;
+		ifPlacedLandTile = false;
+		actionPoints = 6;
+	}
+
+	public void useActionToken() {
+	  actionPoints++;
+	  actionTokens--;
   }
 
-  public void startTurn() {
+	public void addFamePoints(int fame) {
+		this.famePoints += fame;
+	}
 
-  }
+	// --------Getters and Setters--------//
 
-  public void useActionTokens() {
+	public int getFamePoints() {
+		return famePoints;
+	}
 
-  }
-  
-  public void addFamePoints(int fame) {
+	/**
+	 * Updates instance fame points to {@link famePoints}.
+	 * <p>
+	 * Succeeds and returns true if {@link famePoints} is >= 0.
+	 * <p>
+	 * Fails and returns false if {@link famePoints} is < 0.
+	 * 
+	 * @param famePoints
+	 *            The value to update fame points to.
+	 * @return Whether or not the update succeeded.
+	 */
+//	public Boolean setFamePoints(int famePoints) {
+//		//
+//		if (famePoints < 0)
+//			return false;
+//		else {
+//			this.famePoints = famePoints;
+//			return true;
+//		}
+//
+//	}
 
-  }
+	/**
+	 * Returns the Final color object of the player.
+	 * 
+	 * @return The color of the player.
+	 * @see Color
+	 */
+	public Color getPlayerColor() {
+		return playerColor;
+	}
 
-  public int getFamePoints() {
-    return famePoints;
-  }
+	/**
+	 * Returns the number of action points the player has.
+	 * 
+	 * @return The number of action points the player has.
+	 */
+	public int getActionPoints() {
+		return actionPoints;
+	}
 
-  public void setFamePoints(int famePoints) {
-	// TODO implement { >= 0 } constraint
-    this.famePoints = famePoints;
-  }
+//	public void setActionPoints(int actionPoints) {
+//		this.actionPoints = actionPoints;
+//	}
 
-  public Color getPlayerColor() {
-    return playerColor;
-  }
+	public int getActionTokens() {
+		// TODO implement { 0..3 } constraint
+		return actionTokens;
+	}
 
-  public int getActionPoints() {
-    return actionPoints;
-  }
+//	public void setActionTokens(int actionTokens) {
+//		this.actionTokens = actionTokens;
+//	}
 
-  public void setActionPoints(int actionPoints) {
-    this.actionPoints = actionPoints;
-  }
+	public boolean isIfActionTokenUsed() {
+		return ifActionTokenUsed;
+	}
 
-  public int getActionTokens() {
-	// TODO implement { 0..3 } constraint
-    return actionTokens;
-  }
+//	public void setIfActionTokenUsed(boolean ifActionTokenUsed) {
+//		this.ifActionTokenUsed = ifActionTokenUsed;
+//	}
 
-  public void setActionTokens(int actionTokens) {
-    this.actionTokens = actionTokens;
-  }
+	public boolean isIfPlacedLandTile() {
+		return ifPlacedLandTile;
+	}
 
-  public boolean isIfActionTokenUsed() {
-    return ifActionTokenUsed;
-  }
+	public void setIfPlacedLandTile(boolean ifPlacedLandTile) {
+		this.ifPlacedLandTile = ifPlacedLandTile;
+	}
 
-  public void setIfActionTokenUsed(boolean ifActionTokenUsed) {
-    this.ifActionTokenUsed = ifActionTokenUsed;
-  }
+	public Developer[] getDevelopers() {
+		return developers;
+	}
 
-  public boolean isIfPlacedLandTile() {
-    return ifPlacedLandTile;
-  }
+	public void setDevelopers(Developer[] developers) {
+		this.developers = developers;
+	}
 
-  public void setIfPlacedLandTile(boolean ifPlacedLandTile) {
-    this.ifPlacedLandTile = ifPlacedLandTile;
-  }
+	public Cell[] getPalacesUsedInTurn() {
+		return palacesUsedInTurn;
+	}
 
-  public Developer[] getDevelopers() {
-    return developers;
-  }
+	public void setPalacesUsedInTurn(Cell[] palacesUsedInTurn) {
+		this.palacesUsedInTurn = palacesUsedInTurn;
+	}
 
-  public void setDevelopers(Developer[] developers) {
-    this.developers = developers;
-  }
+	public Stack<OneSpaceTile> getRiceTiles() {
+		return riceTiles;
+	}
 
-  public Cell[] getPalacesUsedInTurn() {
-    return palacesUsedInTurn;
-  }
+	public void setRiceTiles(Stack<OneSpaceTile> riceTiles) {
+		this.riceTiles = riceTiles;
+	}
 
-  public void setPalacesUsedInTurn(Cell[] palacesUsedInTurn) {
-    this.palacesUsedInTurn = palacesUsedInTurn;
-  }
+	public Stack<OneSpaceTile> getVillageTiles() {
+		return villageTiles;
+	}
 
-  public Stack<OneSpaceTile> getRiceTiles() {
-    return riceTiles;
-  }
+	public void setVillageTiles(Stack<OneSpaceTile> villageTiles) {
+		this.villageTiles = villageTiles;
+	}
 
-  public void setRiceTiles(Stack<OneSpaceTile> riceTiles) {
-    this.riceTiles = riceTiles;
-  }
+	public Stack<TwoSpaceTile> getTwoSpaceTiles() {
+		return twoSpaceTiles;
+	}
 
-  public Stack<OneSpaceTile> getVillageTiles() {
-    return villageTiles;
-  }
+	public void setTwoSpaceTiles(Stack<TwoSpaceTile> twoSpaceTiles) {
+		this.twoSpaceTiles = twoSpaceTiles;
+	}
 
-  public void setVillageTiles(Stack<OneSpaceTile> villageTiles) {
-    this.villageTiles = villageTiles;
-  }
+	public String serialize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-  public Stack<TwoSpaceTile> getTwoSpaceTiles() {
-    return twoSpaceTiles;
-  }
+	public Player loadObject(String serial) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-  public void setTwoSpaceTiles(Stack<TwoSpaceTile> twoSpaceTiles) {
-    this.twoSpaceTiles = twoSpaceTiles;
-  }
-
-  public String serialize() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public Player loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 }
+
