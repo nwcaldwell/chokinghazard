@@ -30,8 +30,11 @@ class Developer implements Serializable<Developer>{
   }
 
   public String serialize() {
-    // TODO Auto-generated method stub
-    return null;
+	    return Json.jsonPair("Developer", Json.jsonObject(Json.jsonMembers(
+	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard.toString().toLower())),
+	    		currentCell.serialize(), 
+	    		owner.serialize()
+	    		)));
   }
 
   public Developer loadObject(String serial) {
