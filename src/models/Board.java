@@ -11,7 +11,28 @@ public class Board implements Serializable<Board> {
     private Stack<OneSpaceTile>[] palaceTiles;
     
     public Board() {
-
+    	// Written by Nathan since I needed to integrate some functionality into Game.
+    	// Let me know if you make any changes or have any questions.
+    	map = new Cell[14][14];
+    	for (int x = 0; x < map.length; x++) {
+    		for (int y = 0; y < map[0].length; y++) {
+    			if (x == 0 || x == 1) {
+    				map[x][y] = new Cell(x, y, false, true);
+    			}
+    			
+    			if (x <= 6 && (y <= 1 || y >= 12)) {
+    				map[x][y] = new Cell(x, y, false, true);
+    			}
+    			
+    			if (x >= 7 && (y <= 1 || y >= 12)) {
+    				map[x][y] = new Cell(x, y, true, false);
+    			}
+    			
+    			if (x == 12 || x == 13) {
+    				map[x][y] = new Cell(x, y, true, false);
+    			}
+    		}
+    	}
     }
 
     public Cell[][] getMap() {

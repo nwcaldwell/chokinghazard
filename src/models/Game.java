@@ -51,7 +51,6 @@ public class Game implements Serializable {
 	// successful and false otherwise. Deducts the appropriate number of action
 	// points depending on whether the player came from the mountains or the lowlands.
 	public boolean moveDeveloperOntoBoard(Developer developer, Cell cell) {
-		//TODO this goes in the Board
 		return true;
 	}
 	
