@@ -1,13 +1,18 @@
 package models;
 
-public class ThreeSpaceTile extends Tile {
-	
-    public ThreeSpaceTile() {
+import java.util.LinkedList;
 
-    }
+class ThreeSpaceTile extends Tile {
+	
+	public ThreeSpaceTile(Space space1,Space space2,Space space3, LinkedList<Space> spaces) {
+	    super(spaces);
+	    spaces.add(space1);
+	    spaces.add(space2);
+	    spaces.add(space3);
+	}
     
     public void rotate() {
-
+	    spaces.addLast(spaces.removeFirst());
     }
 
     public String serialize() {
@@ -20,3 +25,4 @@ public class ThreeSpaceTile extends Tile {
         return null;
     }
 }
+

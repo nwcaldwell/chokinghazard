@@ -6,8 +6,13 @@ import java.util.LinkedList;
 
 public abstract class Tile implements Serializable<Tile> {
     private String imageSource;
-    private LinkedList<Space> spaces;
-
+    protected LinkedList<Space> spaces;
+    
+    public Tile(LinkedList<Space> spaces)
+    {
+    	this.spaces = spaces;
+    }
+    
     public abstract void rotate();
 
     public String getImageSource() {
@@ -26,9 +31,9 @@ public abstract class Tile implements Serializable<Tile> {
         this.spaces = spaces;
     }
     
- /**
- * serialize the Tile and return it as a String
- */
+	/**
+	* serialize the Tile and return it as a String
+	*/
     public String serialize() {
         return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("string", Json.jsonValue(imageSource)),

@@ -1,21 +1,20 @@
 package models;
 
-public class OneSpaceTile extends Tile {
+import java.util.LinkedList;
+
+class OneSpaceTile extends Tile {
     
-    public OneSpaceTile() {
-
-    }
-
-    public OneSpaceTile(Space space) {
-
+    public OneSpaceTile(Space space,LinkedList<Space> spaces) {
+	    super(spaces);
+	    spaces.add(space);
     }
 
     public void rotate() {
-
+	    spaces.addLast(spaces.removeFirst());
     }
 
     public String serialize() {
-        // TODO Auto-generated method stub
+	    // TODO Auto-generated method stub
         return null;
     }
 
