@@ -3,6 +3,7 @@ package models;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Stack;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -14,6 +15,9 @@ public class Game implements Serializable {
 	private int indexOfCurrentPlayer;
 	private Stack<Cell> stack;
 	private int numPlayers;
+	private Stack<OneSpaceTile> irrigationTiles; 
+    private Stack<ThreeSpaceTile> threeSpaceTiles;
+    private ArrayList<Stack<OneSpaceTile>> palaceTiles;
 	
 	// CONSTRUCTORS
 	//default constructor
@@ -29,6 +33,9 @@ public class Game implements Serializable {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
+		this.irrigationTiles = new Stack<OneSpaceTile>();
+		this.threeSpaceTiles = new Stack<ThreeSpaceTile>();
+		this.palaceTiles = new ArrayList<Stack<OneSpaceTile>>();
 		
 		//TODO implement a way to keep track of player colors from views to player models - sydney
 		for(int i = 0; i < numPlayers; ++i){
@@ -44,6 +51,19 @@ public class Game implements Serializable {
 		return players.length;
 	}
 	
+	public Stack<OneSpaceTile> getIrrigationTiles() {
+        return irrigationTiles;
+    }
+
+    public Stack<ThreeSpaceTile> getThreeSpaceTiles() {
+        return threeSpaceTiles;
+    }
+    
+    public ArrayList<Stack<OneSpaceTile>> getPalaceTiles() {
+        return palaceTiles;
+    }
+
+ 
 	// DEVELOPER MOVEMENT
 	// Move player from off the board to on the board. Returns true if
 	// successful and false otherwise. Deducts the appropriate number of action
