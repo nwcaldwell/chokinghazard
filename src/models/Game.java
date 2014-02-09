@@ -25,6 +25,11 @@ public class Game implements Serializable {
 		this.stack = new Stack<Cell>();
 	}
 	
+	// GET/SET METHODS
+	public Player getCurrentPlayer() {
+		return players[indexOfCurrentPlayer];
+	}
+	
 	// DEVELOPER MOVEMENT
 	// Move player from off the board to on the board. Returns true if
 	// successful and false otherwise. Deducts the appropriate number of action
