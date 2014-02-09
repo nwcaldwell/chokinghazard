@@ -1,13 +1,14 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 public class Space implements Serializable<Space> {
     public enum SpaceType {
         RICE, VILLAGE, IRRIGATION, PALACE
     }
 
-    private SpaceType type;
+    protected SpaceType type;
     private String imageSource;
 
     public Space() {
@@ -37,7 +38,7 @@ public class Space implements Serializable<Space> {
 		)));
     }
 
-    public Space loadObject(String serial) {
+    public Space loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

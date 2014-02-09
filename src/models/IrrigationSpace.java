@@ -3,11 +3,11 @@ package models;
 public class IrrigationSpace extends Space {
     
     public IrrigationSpace() {
-
+        this.type = Space.SpaceType.IRRIGATION;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.IRRIGATION;
+        return type;
     }
 
     public String serialize() {

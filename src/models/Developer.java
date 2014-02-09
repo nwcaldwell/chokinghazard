@@ -1,5 +1,7 @@
 package models;
 
+import helpers.JsonObject;
+
 public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
@@ -31,11 +33,27 @@ public class Developer implements Serializable<Developer>{
   }
 
   public String serialize() {
-    // TODO Auto-generated method stub
-    return null;
+	  /*This creates a string that represents a Developer object for saving and loading
+	   *
+	   * The boolean isPlacedOnBoard is stored. toString() for a boolean either returns "True" or "False"
+	   * so it needs to be convered to "true" and "false" so that loading is easier.
+	   * 
+	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
+	   *  This will make the Cell unique
+	   * 
+	   * The owner should (I hope) be unique by the player's color, so that will be saved this way..
+	   * We may not even need to save this, since the Developer should be made with the corresponding
+	   * Player who owns it... anyways :P
+	   */
+	    return Json.jsonPair("Developer", Json.jsonObject(Json.jsonMembers(
+	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard.toString().toLower())),
+	    		Json.jsonPair("currentCellX", Json.jsonValue(currentCell.getX() + "")), 
+	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + "")),
+	    		Json.jsonPair("ownerColor", Json.jsonValue(owner.getColor().toString()))
+	    		)));
   }
 
-  public Developer loadObject(String serial) {
+  public Developer loadObject(JsonObject json) {
     // TODO Auto-generated method stub
     return null;
   }

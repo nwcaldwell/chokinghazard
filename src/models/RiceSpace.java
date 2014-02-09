@@ -3,11 +3,11 @@ package models;
 public class RiceSpace extends Space {
 
     public RiceSpace() {
-
+        this.type = Space.SpaceType.PALACE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.RICE;
+        return type;
     }    
 
     public String serialize() {
