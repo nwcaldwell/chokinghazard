@@ -187,8 +187,27 @@ public class Game implements Serializable {
 	public void rotateCurrentComponent(){
 		System.out.println("rotating current component");
 		//check if currentComponent is a tile
-		//if so, call the rotate method
-		//else do nothing
+		String type = currentComponent.getClass().toString();
+		
+		//If it is, we call the rotate method
+		if (type.equals("OneSpaceTile"))
+		{
+			//it is a tile, call the rotate method
+			((OneSpaceTile) currentComponent).rotate();
+			System.out.println("Rotate called 1");
+		}
+		else if (type.equals("TwoSpaceTile"))
+		{
+			((TwoSpaceTile) currentComponent).rotate();
+			System.out.println("Rotate called 2");
+		}
+		else if (type.equals("ThreeSpaceTile"))
+		{
+			((ThreeSpaceTile) currentComponent).rotate();
+			System.out.println("Rotate called 3");
+		}
+		
+		//If it isn't a tile, we don't do anything
 	}
 	
 	public void addDeveloperToBoard(){
