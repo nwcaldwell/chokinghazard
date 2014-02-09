@@ -1,5 +1,6 @@
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
 
 import java.awt.Color;
@@ -176,13 +177,13 @@ public class Player implements Serializable<Player> {
 	private Stack<TwoSpaceTile> twoSpaceTiles;
  */
 	public String serialize() {
-		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
+		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
-				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed.toString().toLower())),
-				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile.toString().toLower())),
+				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + "")),
+				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile + "")),
 				Json.jsonPair("developers", Json.serializeArray(developers)),	//this line I am not 100% sure about... See after the return statement
 				Json.jsonPair ("palacesUsedInTurn", Json.serializeArray(palacesUsedInTurn)),
 				Json.jsonPair("riceTiles", Json.serializeArray(riceTiles)),
