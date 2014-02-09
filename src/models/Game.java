@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.Stack;
 
@@ -15,6 +16,11 @@ public class Game implements Serializable {
 	private int numPlayers;
 	
 	// CONSTRUCTORS
+	//default constructor
+	public Game(){
+		
+	}
+	
 	// Main Constructor
 	public Game(int numPlayers) {
 		this.board = new Board();
@@ -23,11 +29,19 @@ public class Game implements Serializable {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
+		
+		//TODO implement a way to keep track of player colors from views to player models - sydney
+		for(int i = 0; i < numPlayers; ++i){
+			players[i] = new Player(Color.BLUE);
+		}
 	}
 	
 	// GET/SET METHODS
 	public Player getCurrentPlayer() {
 		return players[indexOfCurrentPlayer];
+	}
+	public int getNumberOfPlayers(){
+		return players.length;
 	}
 	
 	// DEVELOPER MOVEMENT
@@ -119,23 +133,25 @@ public class Game implements Serializable {
 	// ACTION TOKEN
 	// Increases number of action points available for that players 
 	// turn by one. Changes the ifActionTokenUsed boolean to true
-	public void useActionToken() {
+	public boolean useActionToken() {
 		boolean alreadyUsed = players[indexOfCurrentPlayer].isIfActionTokenUsed();
 		int numActionTokensAvailable = players[indexOfCurrentPlayer].getActionTokens();
 		if (!alreadyUsed) {
 			if (numActionTokensAvailable > 0) {
-				players[indexOfCurrentPlayer].setActionTokens(numActionTokensAvailable - 1);
-				players[indexOfCurrentPlayer].setActionPoints(players[indexOfCurrentPlayer].getActionPoints() + 1);
+				players[indexOfCurrentPlayer].useActionToken();
+				return true;
 			}
 			
 			else {
 				JOptionPane.showMessageDialog(null, "You're out of Action Tokens!");
+				return false;
 			}
 		}
 		
 		else {
 			JOptionPane.showMessageDialog(null, "You've already used an Action Token this turn!");
-		}; 
+			return false;
+		} 
 	}
 	
 	// END OF TURN ACTIONS

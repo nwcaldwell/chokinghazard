@@ -2,7 +2,7 @@ package models;
 
 import java.util.LinkedList;
 
-abstract class Tile implements Serializable<Tile> {
+public abstract class Tile implements Serializable<Tile> {
   private String imageSource;
   protected LinkedList<Space> spaces;
   
@@ -33,3 +33,4 @@ abstract class Tile implements Serializable<Tile> {
     // TODO Auto-generated method stub
     return null;
   }
+}
