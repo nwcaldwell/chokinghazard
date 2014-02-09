@@ -1,6 +1,7 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 import java.util.LinkedList;
 
@@ -42,7 +43,7 @@ public abstract class Tile implements Serializable<Tile> {
         )));
     }
 
-    public Tile loadObject(String serial) {
+    public Tile loadObject(JsonObject json) {
         // TODO Auto-generated method stub
         return null;
     }

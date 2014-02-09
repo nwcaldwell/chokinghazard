@@ -1,6 +1,7 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
 
 import java.awt.Color;
 import java.io.Serializable;
@@ -317,7 +318,7 @@ public class Game implements Serializable {
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
-	public Game loadObject(String serial) {
+	public Game loadObject(JsonObject json) {
 		return new Game();
 	}
 }
