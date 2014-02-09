@@ -79,8 +79,9 @@ public class Game implements Serializable {
 			cell.setSpace(palaceSpace);
 		}
 		
-		
-		// TODO else can't upgrade palace, show dialog box
+		// TODO do we need a postcondition other than simply telling the user that they can't upgrade? -brett
+		else 
+			JOptionPane.showMessageDialog(null, "Cannot upgrade palace!");
 		 
 	}
 	
