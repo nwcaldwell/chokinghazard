@@ -1,6 +1,7 @@
 package models;
 
 public class VillageSpace extends Space {
+	private String imageSource = "src/resources/oneTile_village.png";
     private int palacex; 
     private int palacey; 
 
@@ -26,6 +27,10 @@ public class VillageSpace extends Space {
 
     public void setPalacex(int palacex) {
         this.palacex = palacex;
+    }
+    
+    public String getImageSource(){
+    	return this.imageSource;
     }
 
     public String serialize() {

@@ -4,6 +4,7 @@ import helpers.Json;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
@@ -19,7 +20,9 @@ public class Game implements Serializable {
 	private int indexOfCurrentPlayer;
 	private boolean isFinalTurn;
 	private Stack<Cell> stack;
-
+	private Stack<OneSpaceTile> irrigationTiles;
+	private Stack<ThreeSpaceTile> threeSpaceTiles;
+	private ArrayList<Stack<OneSpaceTile>> palaceTiles;
 	
 	// CONSTRUCTORS
 	//default constructor
@@ -119,7 +122,7 @@ public class Game implements Serializable {
 	
 	// Checks to see whether current player placed the last three piece tile. 
 	public boolean ifIPlacedLastThreePieceTile() {
-		return board.getThreeSpaceTiles().size() == 0;
+		return threeSpaceTiles.size() == 0;
 	}
 	
 	public void tabThroughDevelopers(){
@@ -132,6 +135,7 @@ public class Game implements Serializable {
 	}
 	
 	public void rotateCurrentComponent(){
+		System.out.println("rotating current component");
 		//check if currentComponent is a tile
 		//if so, call the rotate method
 		//else do nothing
@@ -139,6 +143,7 @@ public class Game implements Serializable {
 	
 	public void addDeveloperToBoard(){
 		//TODO need to check the board if there's any tiles on the outermost-inner java layer
+		//TODO this should put the developer on the board's first applicable outsideInnercells[]
 		gamePanel.moveDeveloperOntoBoard(50, 50);
 		//TODO change this to a real developer
 		//currentComponent = new Developer(currentGame.getCurrentPlayer());
@@ -225,7 +230,7 @@ public class Game implements Serializable {
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
 				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn.toString().toLower())),
-				Json.jsonPair("stack", Json.serializeArray(stack)),
+				Json.jsonPair("stack", Json.serializeArray(stack))
 				)));
 		}
 	

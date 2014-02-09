@@ -7,7 +7,7 @@ import helpers.JsonObject;
 import java.util.LinkedList;
 
 class ThreeSpaceTile extends Tile {
-	String imageSource = "src/resources/threeTile.png";
+	private String imageSource = "src/resources/threeTile.png";
 	
 	public ThreeSpaceTile(Space[][] spaces) {
 	    super(spaces);
@@ -50,6 +50,9 @@ class ThreeSpaceTile extends Tile {
          
 	}
 
+	public String getImageSource(){
+		return this.imageSource;
+	}
 
     public String serialize() {
         // TODO Auto-generated method stub

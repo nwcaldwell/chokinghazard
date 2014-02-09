@@ -5,6 +5,7 @@ import helpers.JsonObject;
 import java.util.LinkedList;
 
 class TwoSpaceTile extends Tile {
+	private String imageSource = "src/resources/twoTile.png";
   
 	public TwoSpaceTile(Space[][] spaces) {
 		super(spaces);
@@ -40,6 +41,10 @@ class TwoSpaceTile extends Tile {
          spaces[1][0] = null;
       }
          
+	}
+	
+	public String getImageSource(){
+		return this.imageSource;
 	}
 
 	public String serialize() {

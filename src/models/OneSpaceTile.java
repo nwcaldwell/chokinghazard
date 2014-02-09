@@ -6,13 +6,13 @@ import java.util.LinkedList;
 
 class OneSpaceTile extends Tile {
     
-    public OneSpaceTile(Space space,LinkedList<Space> spaces) {
+    public OneSpaceTile(Space space, Space[][] spaces) {
 	    super(spaces);
-	    spaces.add(space);
+	    spaces[0][0] = space;
     }
 
     public void rotate() {
-	    spaces.addLast(spaces.removeFirst());
+	    //spaces.addLast(spaces.removeFirst());
     }
 
     public String serialize() {
