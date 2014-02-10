@@ -1,5 +1,6 @@
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
 
 public class VillageSpace extends Space {
@@ -40,12 +41,16 @@ public class VillageSpace extends Space {
     }
 
     public String serialize() {
-        // TODO Auto-generated method stub
-        return null;
+		return Json.jsonPair("VillageSpace", Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("palacex", Json.jsonValue(palacex + "")),
+			Json.jsonPair("palacey", Json.jsonValue(palacey + ""))
+		)));
     }
 
     public VillageSpace loadObject(JsonObject json) {
-        // TODO Auto-generated method stub
-        return null;
+    	VillageSpace space = new VillageSpace(); 
+    	space.setPalacex(Integer.parseInt(json.getString("palacex")));
+    	space.setPalacey(Integer.parseInt(json.getString("palacey")));
+    	return space;
     }
 }

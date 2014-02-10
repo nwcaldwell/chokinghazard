@@ -285,17 +285,35 @@ public class Board implements Serializable<Board> {
 	}
 
 	public String serialize() {
-		return Json.jsonPair(
-				"Board",
-				Json.jsonObject(Json.jsonMembers(
-						Json.jsonPair("map", Json.serializeArray(map)),
-						Json.jsonPair("stack", Json.serializeArray(path)),
-						Json.jsonPair("outsideInnerCells",
-								Json.serializeArray(outsideInnerCells)))));
+		return Json.jsonPair("Board", Json.jsonObject(Json.jsonMembers(
+				Json.jsonPair("map", Json.serializeArray(map)),
+				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
+		)));
+    }
+
+    public Board loadObject(JsonObject json) {
+    	Cell[][] map = new Cell[14][14];
+    	for(int x = 0; x < 14; ++x) {
+    		for(int y = 0; y < 14; ++y) {
+    			map[x][y] = ((Cell[][]) (Object) json.getObjectArray("map"))[x][y];
+    		}
+    	}
+    	Cell[] cells = new Cell[44];
+		for(int y = 0; y < 14; ++y) {
+			cells[y] = ((Cell[]) (Object) json.getObjectArray("map"))[y];
+		}
+		Board board = new Board();
+		board.setOutsideInnerCells(cells);
+		board.setMap(map);
+        return board;
+    }
+
+	private void setMap(Cell[][] map) {
+		this.map = map;
 	}
 
-	public Board loadObject(JsonObject json) {
-		// TODO Auto-generated method stub
-		return null;
+	private void setOutsideInnerCells(Cell[] cells) {
+		this.outsideInnerCells = cells;
 	}
+
 }
