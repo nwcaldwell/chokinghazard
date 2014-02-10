@@ -14,10 +14,20 @@ public class Json {
 		
 	}
 
+	/**
+	 * wraps object in curly brackets({})
+	 * @param members
+	 * @return
+	 */
 	public static String jsonObject(String members) {
 		return "{\n" + addTab(members) + "\n}";
 	}
 	
+	/**
+	 * implode members in commas(,)
+	 * @param members
+	 * @return
+	 */
 	public static String jsonMembers(String... members) {
 		StringBuilder ret = new StringBuilder();
 		for(int x = 0; x < members.length; ++x) {
@@ -26,14 +36,30 @@ public class Json {
 		return ret.toString();
 	}
 	
+	/**
+	 * separates the pair with a colon(:)
+	 * @param type
+	 * @param value
+	 * @return
+	 */
 	public static String jsonPair(String type, String value) {
 		return "\"" + type + "\" : " + value;
 	}
 
+	/**
+	 * wraps arrays in brackets([])
+	 * @param elements
+	 * @return
+	 */
 	public static String jsonArray(String elements) {
 		return "[\n" + addTab(elements) + "\n]";
 	}
 	
+	/**
+	 * implodes elements with commas(,)
+	 * @param elements
+	 * @return
+	 */
 	public static String jsonElements(String... elements) {
 		StringBuilder ret = new StringBuilder();
 		for(int x = 0; x < elements.length; ++x) {
@@ -42,6 +68,11 @@ public class Json {
 		return ret.toString();
 	}
 	
+	/**
+	 * Wraps json value in quotes("")
+	 * @param value
+	 * @return
+	 */
 	public static String jsonValue(String value) {
 		return "\"" + value + "\"";
 	}
@@ -104,6 +135,11 @@ public class Json {
     	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));
     }
 	
+	/**
+	 * Adds tabs to every line. Meant for easy editing of json
+	 * @param str
+	 * @return
+	 */
 	private static String addTab(String str) {
 		Scanner in = new Scanner(str); 
 		StringBuilder ret = new StringBuilder();
