@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import models.Developer;
 import models.Game;
@@ -17,7 +18,7 @@ import models.Tile;
 public class GamePanel extends JPanel{
 	private final static int WIDTH = 1100;
 	private final static int HEIGHT = 840;
-	private JLabel threePieceTiles, irrigationTiles; 
+	private JLabel threePieceTiles, irrigationTiles, twoPalaceTiles, fourPalaceTiles, sixPalaceTiles, eightPalaceTiles, tenPalaceTiles; 
 	Game gm;
 	BoardPanel board;
 	PlayerPanel[] players;
@@ -38,22 +39,35 @@ public class GamePanel extends JPanel{
 	private void initPanels(int numberOfPlayers){
 		JPanel topContent = new JPanel();
 		topContent.setLayout(new FlowLayout());
-		topContent.setPreferredSize(new Dimension(900, 90));
+		topContent.setPreferredSize(new Dimension(900, 110));
 		add(topContent, BorderLayout.NORTH);
 		
-		threePieceTiles = new JLabel("56");
-		threePieceTiles.setFont(new Font("Lucida Grande", 0, 14));
-		threePieceTiles.setIcon(new ImageIcon("src/resources/layout/layout_threeTile.png")); 
-		threePieceTiles.setPreferredSize(new Dimension(100, 100));
-		threePieceTiles.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 0));
+		threePieceTiles = newJLabel("56", "src/resources/layout/layout_threeTile.png"); 
         topContent.add(threePieceTiles);
         
-        irrigationTiles = new JLabel("10");
-        irrigationTiles.setFont(new Font("Lucida Grande", 0, 14));
-        irrigationTiles.setIcon(new ImageIcon("src/resources/layout/layout_oneTile_irrigation.png")); 
-        irrigationTiles.setPreferredSize(new Dimension(100, 100));
-        irrigationTiles.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 0));
+        irrigationTiles = newJLabel("10", "src/resources/layout/layout_oneTile_irrigation.png"); 
         topContent.add(irrigationTiles);
+        
+        twoPalaceTiles = newJLabel("6", "src/resources/layout/layout_oneTile_2.png"); 
+        topContent.add(twoPalaceTiles);
+        
+        fourPalaceTiles = newJLabel("7", "src/resources/layout/layout_oneTile_4.png"); 
+        topContent.add(fourPalaceTiles);
+        
+        sixPalaceTiles = newJLabel("8", "src/resources/layout/layout_oneTile_6.png"); 
+        topContent.add(sixPalaceTiles);
+        
+        eightPalaceTiles = newJLabel("9", "src/resources/layout/layout_oneTile_8.png");
+        topContent.add(eightPalaceTiles);
+        
+        tenPalaceTiles = newJLabel("10", "src/resources/layout/layout_oneTile_10.png"); 
+        topContent.add(tenPalaceTiles);
+        
+        JLabel actionSummaryCard = new JLabel();
+        actionSummaryCard.setIcon(new ImageIcon("src/resources/layout/actionSummaryCard.png"));
+        actionSummaryCard.setPreferredSize(new Dimension(443, 77));
+        actionSummaryCard.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
+        topContent.add(actionSummaryCard);
 		
 		board = new BoardPanel();
 		add(board, BorderLayout.CENTER);
@@ -71,7 +85,7 @@ public class GamePanel extends JPanel{
 		add(rightColumn, BorderLayout.EAST);
 		
 		for(int i = 0; i < numberOfPlayers; i++){
-			players[i] = new PlayerPanel(gm);
+			players[i] = new PlayerPanel(i);
 			switch(i){
 				case 0:
 					leftColumn.add(players[i], BorderLayout.NORTH);
@@ -89,16 +103,29 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
+	private JLabel newJLabel(String info, String src){
+		JLabel label= new JLabel(info);
+		label.setIcon(new ImageIcon(src));
+		label.setFont(new Font("Lucida Grande", 0, 14));
+		label.setPreferredSize(new Dimension(80, 90));
+		label.setHorizontalTextPosition(SwingConstants.CENTER);
+		label.setVerticalTextPosition(SwingConstants.BOTTOM);
+		label.setVerticalAlignment(SwingConstants.BOTTOM);
+		label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+		return label;
+	}
+	
 	public void updateCurrentPlayerView(){
-		players[currentPlayer].setBackgroundCurrentPlayer();
+		players[currentPlayer].setCurrentPlayer();
 	}
 	
 	public void nextTurn(){
 		//set currentPlayer's background color back to default
-		players[currentPlayer].setBackgroundNotCurrentPlayer();
+		players[currentPlayer].setNotCurrentPlayer();
 		
 		//increment current player to advance to next player
 		currentPlayer = (currentPlayer + 1) % players.length;
+		
 		//update the new current player
 		updateCurrentPlayerView();
 	}
@@ -133,6 +160,36 @@ public class GamePanel extends JPanel{
 	
 	public void placeTile(Tile tile, int xLoc, int yLoc){
 		this.board.placeTile(tile, xLoc, yLoc);
+	}
+	
+	public void rotateTile(Tile tile, int xLoc, int yLoc){
+		this.board.rotate(tile, xLoc, yLoc);
+	}
+	
+	public void cancelActions(){
+		this.board.cancel();
+	}
+	
+	public void setThreePieceTiles(int num){
+		this.threePieceTiles.setText(""+num);
+	}
+	public void setIrrigationTiles(int num){
+		this.irrigationTiles.setText(""+num);
+	}
+	public void setTwoPalaceTiles(int num){
+		this.twoPalaceTiles.setText(""+num);
+	}
+	public void setFourPalaceTiles(int num){
+		this.fourPalaceTiles.setText(""+num);
+	}
+	public void setSixPalaceTiles(int num){
+		this.sixPalaceTiles.setText(""+num);
+	}
+	public void setEightPalaceTiles(int num){
+		this.eightPalaceTiles.setText(""+num);
+	}
+	public void setTenPalaceTiles(int num){
+		this.tenPalaceTiles.setText(""+num);
 	}
 
 }

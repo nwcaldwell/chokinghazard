@@ -109,6 +109,7 @@ public class GameManager{
 			case 27:
 				//cancel action
 				System.out.println("cancel action");
+				currentGame.cancelAction();
 				break;
 			case 88:
 				//end turn

@@ -22,23 +22,7 @@ public class PalaceSpace extends Space{
     }
     
     private void setImageSource(){
-    	switch(value){
-    		case 2:
-    			imageSource = "src/resources/oneTile_2";
-    			break;
-    		case 4:
-    			imageSource = "src/resources/oneTile_4";
-    			break;
-    		case 6:
-    			imageSource = "src/resources/oneTile_6";
-    			break;
-    		case 8:
-    			imageSource = "src/resources/oneTile_8";
-    			break;
-    		case 10:
-    			imageSource = "src/resources/oneTile_10";
-    			break;
-    	}
+    	imageSource = "src/resources/oneTile_"+value+".png";
     }
     
     public String getImageSource(){
