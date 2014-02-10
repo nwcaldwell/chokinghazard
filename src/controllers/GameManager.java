@@ -2,13 +2,27 @@ package controllers;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
 import models.Game;
 import views.GamePanel;
 
+
 public class GameManager{
+	/* for testing
+	 * 	
+	public static void main(String args[]){
+
+		GameManager practice = new GameManager(new Game(2));
+		boolean test = practice.saveGame();
+		System.out.println(test + "");
+	}
+	*/
+	
+
 	private Game currentGame;
 	
 	// CONSTRUCTORS
@@ -19,7 +33,7 @@ public class GameManager{
 	
 	// Main constructor
 	public GameManager(Game currentGame) {
-	
+		this.currentGame = currentGame;
 	}
 
 	// Creates new game using the appropriate number of players.
@@ -30,15 +44,78 @@ public class GameManager{
 	
 	// Loads a game from the specified textfile and assigns it 
 	// to the current game.
+	public String getFileName(String caller){
+		String name = "";
+		boolean okFileName = false;
+		
+		while(!okFileName ){
+			//File name is invalid if it is blank, or has any of the following
+			//  \ / ? % * : | " < > . (space) (empty)
+			try{
+				//rewrite dialog later
+				name = JOptionPane.showInputDialog("Name " + caller + " file as?");
+				String s = ".*[ /\\\\?%*:|\"<>.].*";
+				if (name.matches(s) || name.equals(""))	//means that name doesn't contain any characters in s
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid name");
+					System.out.println("invalid");
+				}
+				else {
+					System.out.println("valid");
+					okFileName = true;
+				}
+			}catch(Exception e){
+
+				okFileName = true;
+			}
+		}
+		return name;
+	}
+	
 	public void loadGame(File fileName) {
-		//parse the file and create a currentGame from it
+		//parse the file and create a currentGame from it.
+		
 		//TODO
 	}
 
 	// Saves the current game to a text file in the format specified
 	// by serializable.
+	//Don't mess with this unless Meghan or Mauricio said so. THANKS
 	public boolean saveGame() {
-		//TODO
+		if(currentGame == null){
+			JOptionPane.showMessageDialog(null, "No game to save!");
+			return false;
+		}
+		
+		String fileName = getFileName("save");
+			
+		File newFile = new File(fileName);
+		
+		try{
+			if (newFile.exists()){
+				int selectedSaveGame = JOptionPane.showConfirmDialog(null, "This file name already has a saved game. Would you like to save anyways?", "Save Game", JOptionPane.YES_NO_CANCEL_OPTION);
+				
+				if(selectedSaveGame == JOptionPane.NO_OPTION){
+					return false;
+				}
+			}
+		}catch(NullPointerException e){
+			return false;
+		}
+		FileWriter writer = null; 
+		try{
+			writer = new FileWriter(newFile);
+			writer.write(currentGame.serialize());
+		}catch(IOException e){
+			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");
+			return false;
+		}finally{
+			try{
+				writer.close();
+			}catch(IOException e){
+				JOptionPane.showMessageDialog(null, "File cannot be closed. Please do something else.");
+			}
+		}
 		return true;
 	}
 	
@@ -152,6 +229,8 @@ public class GameManager{
 				System.out.println("place Irrigation Tile");
 				currentGame.selectIrrigationTile();
 				break;
+			//case 77;
+				//pressed M, chooses the menu
 			case 80:
 				//pressed P, new palace tile, need to ask for value of Tile
 				System.out.println("Place Palace Tile");
