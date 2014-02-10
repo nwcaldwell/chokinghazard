@@ -10,7 +10,6 @@ import java.util.Stack;
 import models.Serializable;
 
 public class Json {
-
 	public static void main(String[] args) {
 		
 	}
@@ -47,6 +46,14 @@ public class Json {
 		return "\"" + value + "\"";
 	}
 	
+	/**
+	 * serializeArray supports: Lists, Stacks and Arrays. 
+	 * These data structures can hold int, long, boolean, char
+	 * String and Object(must implement Serializable)
+	 * 
+	 * @param obj
+	 * @return String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String serializeArray(Object obj) {
     	LinkedList<String> list = new LinkedList<String>();
@@ -56,7 +63,35 @@ public class Json {
     	else if(obj instanceof List) {
     		obj = ((List<Object>) obj).toArray();
     	}
+    	if(obj instanceof int[]) {
+			int[] arr = (int[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof boolean[]) {
+			boolean[] arr = (boolean[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof long[]) {
+			long[] arr = (long[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof char[]) {
+			char[] arr = (char[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof String[]) {
+			String[] arr = (String[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+    	}
     	
+    	if(!(obj instanceof Object[]) || (obj instanceof String[]))
+    		return Json.jsonArray(Json.jsonElements((String[]) list.toArray(new String[1])));
+    		
 		Object[] arr =  (Object[]) obj;
 		for(int x = 0; x < arr.length; ++x) {
 			if(arr[x] instanceof Stack || arr[x] instanceof List || arr[x] instanceof Object[]) {
@@ -66,7 +101,7 @@ public class Json {
 				list.add(Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
 			}
 		}
-    	return Json.jsonArray(Json.jsonElements(list.toArray((new String[list.size()]))));
+    	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));
     }
 	
 	private static String addTab(String str) {
