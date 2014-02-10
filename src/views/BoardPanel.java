@@ -22,6 +22,7 @@ public class BoardPanel extends JPanel {
 	BufferedImage developers;
 	BufferedImage tempImage;
 	Graphics2D g2d;
+	int rotationState = 0;
 
 	public BoardPanel(){
 		getBackgroundImage();
@@ -57,17 +58,31 @@ public class BoardPanel extends JPanel {
 	public void placeTile(Tile tile, int xLoc, int yLoc){
 		clearImage(tempImage);
 		g2d = tileImage.createGraphics();
+		g2d.rotate(rotationState*Math.PI/2, xLoc+50, yLoc+50);
 		g2d.drawImage(getImage(tile.getImageSource()), null, xLoc, yLoc);
+		g2d.dispose();
+		repaint();
+		rotationState = 0;
+	}
+	
+	public void moveTile(Tile tile, int xLoc, int yLoc){
+		clearImage(tempImage);
+		g2d = tempImage.createGraphics();
+		g2d.rotate(rotationState*Math.PI/2, xLoc+50, yLoc+50);
+		g2d.drawImage(getImage(tile.getImageSource()), null, xLoc, yLoc);
+		g2d.setColor(Color.YELLOW);
+		g2d.setStroke(new BasicStroke(2.0f));
+		g2d.drawRect(xLoc, yLoc, 50, 50);
 		g2d.dispose();
 		repaint();
 	}
 	
-	public void moveTile(Tile tile, int xLoc, int yLoc){
+	public void rotate(Tile tile, int xLoc, int yLoc){
+		rotationState = (rotationState +1) % 4;
+		clearImage(tempImage);
 		g2d = tempImage.createGraphics();
+		g2d.rotate(rotationState*Math.PI/2, xLoc+50, yLoc+50);
 		g2d.drawImage(getImage(tile.getImageSource()), null, xLoc, yLoc);
-		g2d.setColor(Color.YELLOW);
-		g2d.setStroke(new BasicStroke());
-		g2d.drawRect(xLoc, yLoc, 50, 50);
 		g2d.dispose();
 		repaint();
 	}
@@ -98,6 +113,12 @@ public class BoardPanel extends JPanel {
 		g2d.setStroke(new BasicStroke(2.0f));
 		g2d.drawRect(x, y, 50, 50);
 		g2d.dispose();
+		repaint();
+	}
+	
+	public void cancel(){
+		clearImage(tempImage);
+		rotationState = 0;
 		repaint();
 	}
 	

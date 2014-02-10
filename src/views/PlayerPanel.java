@@ -12,26 +12,22 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import models.Game;
-
 public class PlayerPanel extends JPanel {
 	private Color playerColor;
 	private JLabel playerName, famePoints, actionPointsLeft, numDevelopers, numOneTileRice, numOneTileVillage, numTwoTile, numActionTokens;
-	private Game gm;
 	
-	public PlayerPanel(Game gm){
+	public PlayerPanel(int index){
 		setLayout(new FlowLayout());
-		this.gm = gm;
-		setBackground(Color.white);
+		setBackground(Color.WHITE);
         setPreferredSize(new Dimension(170, 335));
         setMinimumSize(new Dimension(170, 335));
         setMaximumSize(new Dimension(170, 335));
-        setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
   
-        initLayout();
+        initLayout(index);
 	}
 
-	private void initLayout() {
+	private void initLayout(int index) {
 		JPanel leftPlayerInfo = new JPanel();
 		leftPlayerInfo.setPreferredSize(new Dimension(86, 60));
 		leftPlayerInfo.setBackground(Color.WHITE);
@@ -52,7 +48,6 @@ public class PlayerPanel extends JPanel {
         
         famePoints = new JLabel("0");
         famePoints.setFont(new Font("Lucida Grande", 1, 36));
-        famePoints.setBackground(Color.RED);
         famePoints.setHorizontalAlignment(SwingConstants.LEFT);
         famePoints.setPreferredSize(new Dimension(80, 32));
         famePoints.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 5));
@@ -63,41 +58,30 @@ public class PlayerPanel extends JPanel {
         jSeparator1.setPreferredSize(new Dimension(158, 15));
         this.add(jSeparator1);
         
-        numDevelopers = new JLabel("12");
-        numDevelopers.setFont(new Font("Lucida Grande", 0, 14));
-        numDevelopers.setIcon(new ImageIcon("src/resources/layout/layout_developer_purple.png")); 
-        numDevelopers.setPreferredSize(new Dimension(150, 41));
-        numDevelopers.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+        numDevelopers = newJLabel("12", "src/resources/layout/layout_player_"+index+".png"); 
         this.add(numDevelopers);
 
-        numOneTileRice = new JLabel("3");
-        numOneTileRice.setFont(new Font("Lucida Grande", 0, 14)); 
-        numOneTileRice.setIcon(new ImageIcon("src/resources/layout/layout_oneTile_rice.png")); 
-        numOneTileRice.setPreferredSize(new Dimension(150, 41));
-        numOneTileRice.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+        numOneTileRice = newJLabel("3", "src/resources/layout/layout_oneTile_rice.png"); 
         this.add(numOneTileRice);
         
-        numOneTileVillage = new JLabel("2");
-        numOneTileVillage.setFont(new Font("Lucida Grande", 0, 14)); 
-        numOneTileVillage.setIcon(new ImageIcon("src/resources/layout/layout_oneTile_village.png")); 
-        numOneTileVillage.setPreferredSize(new Dimension(150, 41));
-        numOneTileVillage.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+        numOneTileVillage = newJLabel("2", "src/resources/layout/layout_oneTile_village.png"); 
         this.add(numOneTileVillage);
 
-        numTwoTile = new JLabel("5");
-        numTwoTile.setFont(new Font("Lucida Grande", 0, 14)); 
-        numTwoTile.setIcon(new ImageIcon("src/resources/layout/layout_twoTile.png")); 
-        numTwoTile.setPreferredSize(new Dimension(150, 41));
-        numTwoTile.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+        numTwoTile = newJLabel("5", "src/resources/layout/layout_twoTile.png"); 
         this.add(numTwoTile);
         
-        numActionTokens = new JLabel("3");
-        numActionTokens.setFont(new Font("Lucida Grande", 0, 14)); 
-        numActionTokens.setIcon(new ImageIcon("src/resources/layout/layout_oneTile_irrigation.png")); 
-        numActionTokens.setPreferredSize(new Dimension(150, 41));
-        numActionTokens.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+        numActionTokens = newJLabel("3", "src/resources/layout/layout_actionToken.png"); 
         this.add(numActionTokens);
 		
+	}
+	
+	private JLabel newJLabel(String info, String src){
+		JLabel label= new JLabel(info);
+		label.setIcon(new ImageIcon(src));
+		label.setFont(new Font("Lucida Grande", 0, 14));
+		label.setPreferredSize(new Dimension(150, 41));
+		label.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
+		return label;
 	}
 	
 	public void setPlayerName(String playersName){
@@ -136,12 +120,12 @@ public class PlayerPanel extends JPanel {
 		this.numActionTokens.setText(""+numActionTokens);
 	}
 	
-	public void setBackgroundCurrentPlayer(){
-		this.setBackground(playerColor);
+	public void setCurrentPlayer(){
+		this.setBorder(BorderFactory.createLineBorder(playerColor));
 	}
 	
-	public void setBackgroundNotCurrentPlayer(){
-		this.setBackground(Color.WHITE);
+	public void setNotCurrentPlayer(){
+		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 	}
 
 }

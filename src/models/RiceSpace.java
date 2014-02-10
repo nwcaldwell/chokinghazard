@@ -3,7 +3,7 @@ package models;
 import helpers.JsonObject;
 
 public class RiceSpace extends Space {
-	private String imageSource = "src/resources/oneTile_rice";
+	private String imageSource = "src/resources/oneTile_rice.png";
 
     public RiceSpace() {
         this.type = Space.SpaceType.RICE;
