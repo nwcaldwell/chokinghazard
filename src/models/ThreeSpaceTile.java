@@ -2,9 +2,8 @@
 
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
-
-import java.util.LinkedList;
 
 class ThreeSpaceTile extends Tile {
 	private String imageSource = "src/resources/threeTile.png";
@@ -59,13 +58,17 @@ class ThreeSpaceTile extends Tile {
     }
 
     public String serialize() {
-        // TODO Auto-generated method stub
-        return null;
+        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+            Json.jsonPair("spaces", Json.serializeArray(spaces))
+        )));
     }
 
     public ThreeSpaceTile loadObject(JsonObject json) {
-        // TODO Auto-generated method stub
-        return null;
+    	Space[][] spaces = new Space[2][2];
+    	JsonObject[][] objects = (JsonObject[][]) (Object) json.getObject("spaces");
+    	for(int x = 0; x < 4; ++x)
+    		spaces[x/2][x%2] = (new Space()).loadObject(objects[x/2][x%2]);
+    	return new ThreeSpaceTile(spaces);
     }
 }
 

@@ -1,5 +1,6 @@
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
 
 public class PalaceSpace extends Space{
@@ -34,12 +35,12 @@ public class PalaceSpace extends Space{
     }
 
     public String serialize() {
-        // TODO Auto-generated method stub
-        return null;
+		return Json.jsonPair("PalaceSpace", Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("value", Json.jsonValue(value + ""))
+		)));
     }
 
     public PalaceSpace loadObject(JsonObject json) {
-        // TODO Auto-generated method stub
-        return null;
+    	return new PalaceSpace(Integer.parseInt(json.getString("value")));
     }
 }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 public class JsonObject {
-	HashMap<String, Object> map;
+	private HashMap<String, Object> map;
 
 	public static void main(String[] args) {
 		String str = "{ \"Space\" : { {\"turns\" : [{\"space\": \"yo\"}, \"2\", \"3\"] }}";
@@ -44,7 +44,7 @@ public class JsonObject {
 		return (String) map.get(key);
 	}
 	
-	public JsonObject getMap(String key) {
+	public JsonObject getObject(String key) {
 		return (JsonObject) map.get(key);
 	}
 	
@@ -52,11 +52,12 @@ public class JsonObject {
 		return (String[]) map.get(key);
 	}
 	
-	public JsonObject[] getMapArray(String key) {
+	public JsonObject[] getObjectArray(String key) {
 		return (JsonObject[]) map.get(key);
 	}
 	
-	public Object loadValue(String serial) {
+	
+	private Object loadValue(String serial) {
 		if(serial.trim().charAt(0) == '{') {
 			JsonObject object = new JsonObject(serial);
 			return object;
@@ -65,10 +66,11 @@ public class JsonObject {
 			Object[] arr = loadArray(serial);
 			return arr;
 		}
+		// TODO return null if serial == null
 		return serial;
 	}
 	
-	public void loadSerial(String serial) {
+	private void loadSerial(String serial) {
 		serial = serial.trim();
 		serial = serial.charAt(0) == '{' ? serial.substring(1, serial.length() - 1) : serial;
 
@@ -79,7 +81,7 @@ public class JsonObject {
 		}		
 	}
 	
-	public Object[] loadArray(String serial) {
+	private Object[] loadArray(String serial) {
 		serial = serial.trim();
 		serial = serial.charAt(0) == '[' ? serial.substring(1, serial.length() - 1) : serial;
 		String[] arr = split(serial);
@@ -90,11 +92,11 @@ public class JsonObject {
 		return ret;
 	}
 
-	public static String[] splitPair(String serial) {
+	private static String[] splitPair(String serial) {
 		return new String[] {serial.substring(0,serial.indexOf(":")), serial.substring(serial.indexOf(":") + 1)};
 	}
 	
-	public static String[] split(String serial) {
+	private static String[] split(String serial) {
 		ArrayList<String> list = new ArrayList<String>();
 		int lastIndex = 0; 
 		int count = 0; 

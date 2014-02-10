@@ -80,18 +80,34 @@ public class Cell implements Serializable<Cell> {
     public String serialize() {
 		return Json.jsonPair("Cell", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("space", space.serialize()),
-				Json.jsonPair("developerPlayer", developerPlayer.serialize()),
+				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonPair("connectedCells", Json.serializeArray(connectedCells.toArray()))
+    			Json.jsonPair("connectedCells", Json.serializeArray(connectedCells.toArray())),
+    			Json.jsonPair("fromLowLands", fromLowlands + ""),
+    			Json.jsonPair("fromMountains", fromMountains + "")
 		)));
     }
     
     public Cell loadObject(JsonObject json) {
-        // TODO Auto-generated method stub
-        return null;
+    	Cell cell = new Cell((new Space()).loadObject(json.getObject("space"))); 
+    	cell.setElevation(Integer.parseInt(json.getString("elevation")));
+    	cell.setX(Integer.parseInt(json.getString("x")));
+    	cell.setY(Integer.parseInt(json.getString("y")));
+    	cell.setConnectedCells(connectedCells);
+    	cell.setFromMountains(Boolean.parseBoolean(json.getString("fromMountains")));
+    	cell.setFromLowlands(Boolean.parseBoolean(json.getString("fromLowLands")));
+		return cell;
     }
+
+	private void setFromMountains(boolean fromMountains) {
+		this.fromMountains = fromMountains;
+	}
+
+	private void setFromLowlands(boolean fromLowlands) {
+		this.fromLowlands = fromLowlands;
+	}
 }
 
 
