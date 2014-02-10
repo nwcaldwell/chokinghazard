@@ -2,7 +2,8 @@
 
 package helpers;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -48,31 +49,23 @@ public class Json {
 	
 	@SuppressWarnings("unchecked")
 	public static String serializeArray(Object obj) {
-    	ArrayList<String> list = new ArrayList<String>();
-    	if(obj instanceof Object[]) {
-    		Object[] arr =  (Object[]) obj;
-    		for(int x = 0; x < arr.length; ++x) {
-    			if(arr[x] instanceof Stack || arr[x] instanceof Object[]) {
-    				list.add(serializeArray(arr[x]));
-    			}
-    			else {
-    				list.add(((Serializable<Object>) arr[x]).serialize());
-    			}
-    		}
-    	}
+    	LinkedList<String> list = new LinkedList<String>();
     	if(obj instanceof Stack) {
-    		Stack<Object> stack = (Stack<Object>) obj;
-    		stack = (Stack<Object>) stack.clone();
-    		while(!stack.isEmpty()) {
-    			Object element = stack.pop();
-    			if(element instanceof Stack || element instanceof Object[]) {
-    				list.add(serializeArray(element));
-    			}
-    			else {
-    				list.add(((Serializable<Object>) element).serialize());
-    			}
-    		}
+    		obj = ((Stack<Object>) obj).toArray();
     	}
+    	else if(obj instanceof List) {
+    		obj = ((List<Object>) obj).toArray();
+    	}
+    	
+		Object[] arr =  (Object[]) obj;
+		for(int x = 0; x < arr.length; ++x) {
+			if(arr[x] instanceof Stack || arr[x] instanceof List || arr[x] instanceof Object[]) {
+				list.add(serializeArray(arr[x]));
+			}
+			else {
+				list.add(Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
+			}
+		}
     	return Json.jsonArray(Json.jsonElements(list.toArray((new String[list.size()]))));
     }
 	
