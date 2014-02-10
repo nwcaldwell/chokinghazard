@@ -217,7 +217,7 @@ public class Player implements Serializable<Player> {
 	private int twoSpaceTiles;
 	   *
 	   */
-		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
+		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
@@ -231,11 +231,6 @@ public class Player implements Serializable<Player> {
 				Json.jsonPair("villageTiles", Json.jsonValue(villageTiles + "")),
 				Json.jsonPair("twoSpaceTiles", Json.jsonValue(twoSpaceTiles + ""))
 		)));
-	}
-
-	public Player loadObject(String serial) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

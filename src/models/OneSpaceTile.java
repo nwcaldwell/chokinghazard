@@ -1,8 +1,7 @@
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
-
-import java.util.LinkedList;
 
 class OneSpaceTile extends Tile {
 	private String imageSource;
@@ -24,13 +23,13 @@ class OneSpaceTile extends Tile {
     }
 
     public String serialize() {
-	    // TODO Auto-generated method stub
-        return null;
+        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+            Json.jsonPair("spaces", Json.jsonValue(spaces[0][0].serialize()))
+        )));
     }
-
+    
     public OneSpaceTile loadObject(JsonObject json) {
-        // TODO Auto-generated method stub
-        return null;
+    	return new OneSpaceTile((new Space()).loadObject(json.getObject("spaces")), new Space[2][2]);
     }
     
     public String toString(){
