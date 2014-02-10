@@ -17,6 +17,11 @@ public class JsonObject {
 		return map;
 	}
 	
+	/**
+	 * for testing.
+	 * @param obj
+	 * @return
+	 */
 	public static String toString(Object obj) {
 		String ret = "";
 		if(obj instanceof JsonObject) {
@@ -43,23 +48,47 @@ public class JsonObject {
 		loadSerial(serial);
 	}
 	
+	/**
+	 * returns the value mapped to the key as a String
+	 * @param key
+	 * @return
+	 */
 	public String getString(String key) {
 		return (String) map.get(key);
 	}
 	
+	/**
+	 * returns the value mapped to the key as a JsonObjects
+	 * @param key
+	 * @return
+	 */
 	public JsonObject getObject(String key) {
 		return (JsonObject) map.get(key);
 	}
 	
+	/**
+	 * returns the value mapped to the key as an Array of Strings
+	 * @param key
+	 * @return
+	 */
 	public String[] getStringArray(String key) {
 		return (String[]) map.get(key);
 	}
 	
+	/**
+	 * returns the value mapped to the key as an Array of JsonObjects
+	 * @param key
+	 * @return
+	 */
 	public JsonObject[] getObjectArray(String key) {
 		return (JsonObject[]) map.get(key);
 	}
 	
-	
+	/**
+	 * parses a value into either an Object, Array or String. Returns result as an Object
+	 * @param serial
+	 * @return
+	 */
 	private Object loadValue(String serial) {
 		serial = serial.trim();
 		if(serial.charAt(0) == '{') {
@@ -75,6 +104,10 @@ public class JsonObject {
 		return serial.substring(1,serial.length()-1);
 	}
 	
+	/**
+	 * Main method. Loads a serialized array and Fills in map for this JsonObject
+	 * @param serial
+	 */
 	private void loadSerial(String serial) {
 		serial = serial.trim();
 		serial = serial.charAt(0) == '{' ? serial.substring(1, serial.length() - 1) : serial;
@@ -86,6 +119,11 @@ public class JsonObject {
 		}		
 	}
 	
+	/**
+	 * splits an array of values and sends them to loadValue, which parses them correctly. 
+	 * @param serial
+	 * @return
+	 */
 	private Object[] loadArray(String serial) {
 		serial = serial.trim();
 		serial = serial.charAt(0) == '[' ? serial.substring(1, serial.length() - 1) : serial;
@@ -101,6 +139,11 @@ public class JsonObject {
 		return new String[] {serial.substring(0,serial.indexOf(":")), serial.substring(serial.indexOf(":") + 1)};
 	}
 	
+	/**
+	 * splits serial string by commas and returns the array of strings
+	 * @param serial
+	 * @return
+	 */
 	private static String[] split(String serial) {
 		ArrayList<String> list = new ArrayList<String>();
 		boolean quotes = false;
