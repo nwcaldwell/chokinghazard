@@ -177,8 +177,25 @@ public class Player implements Serializable<Player> {
 	}
 
 	public String serialize() {
-		// TODO Auto-generated method stub
-		return null;
+	  /*This creates a string that represents a Player object for saving and loading
+	   * 
+	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
+	   *  This will make the Cell unique
+	   *
+	   */
+		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
+				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
+				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
+				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
+				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
+				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + ""),
+				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile + ""),
+				Json.jsonPair("developers", Json.serializeArray(developers)),
+				Json.jsonPair ("palacesUsedInTurn", Json.serializeArray(palacesUsedInTurn)),
+				Json.jsonPair("riceTiles", Json.serializeArray(riceTiles)),
+				Json.jsonPair("villageTiles", Json.serializeArray(villageTiles)),
+				Json.jsonPair("twoSpaceTiles", Json.serializeArray(twoSpaceTiles))
+		)));
 	}
 
 	public Player loadObject(String serial) {
