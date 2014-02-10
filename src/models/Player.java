@@ -235,7 +235,12 @@ public class Player implements Serializable<Player> {
 
 	@Override
 	public Player loadObject(JsonObject json) {
-		// TODO Auto-generated method stub
+		// when calling developer load. pass in player.
+		//or add the extra player value onto the json you will be passing developer
+		
+		
+		
+		
 		return null;
 	}
 }
