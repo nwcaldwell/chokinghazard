@@ -110,27 +110,30 @@ public class Board implements Serializable<Board> {
 	// last highlighted Cell, the top Cell is popped off of the Stack.
 	public boolean createDeveloperPath(Developer developer, Cell cell) {
 		
-		
-		if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
-			if(cell.getSpace().getType() == developer.getCurrentCell().getSpace().getType()){
+		try{
+			if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
+				if(cell.getSpace().getType() == developer.getCurrentCell().getSpace().getType()){
+					
+					path.push(cell);				
+					return true;
+				}else if(developer.getOwner().getActionPoints() > 0){
+					
+					decrementedActionPoints++;
+					
+					developer.getOwner().decrementActionPoints(1);
+					
+					path.push(cell);				
+					return true;
+					
+				}else
+					return false;
 				
-				path.push(cell);				
-				return true;
-			}else if(developer.getOwner().getActionPoints() > 0){
-				
-				decrementedActionPoints++;
-				
-				developer.getOwner().decrementActionPoints(1);
-				
-				path.push(cell);				
-				return true;
-				
-			}else
-				return false;
-			
-		}else{
-				return false;
+			}else{
+					return false;
+			}
+		}catch(NullPointerException e){
 		}
+		return false;
 
 	}
 	
@@ -146,11 +149,13 @@ public class Board implements Serializable<Board> {
 	// we use this method to move the developer to its new location.
 	public void moveDeveloperAroundBoard(Developer developer) {
 		
-		for(int i = 0; i < path.size(); i++){				//push until u get to the last cell
-			path.pop();
+		if(path.size() > 0){
+			for(int i = 0; i < path.size(); i++){				//push until u get to the last cell
+				path.pop();
+			}
+			
+			developer.setCurrentCell(path.pop());
 		}
-		
-		developer.setCurrentCell(path.pop());
 		
 	}
 
