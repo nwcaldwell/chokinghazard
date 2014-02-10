@@ -8,7 +8,7 @@ public class JsonObject {
 	private HashMap<String, Object> map;
 
 	public static void main(String[] args) {
-		String str = "{ \"Space\" : { {\"turns\" : [{\"space\": \"yo\"}, \"2\", \"3\"] }}";
+		String str = "{\"Space\" : {\"turns\" : [{\"space\": \"yo\"}, \"2\", \"3\"] }}";
 		JsonObject obj = new JsonObject(str);
 		System.out.println(toString(obj));
 	}
@@ -23,12 +23,15 @@ public class JsonObject {
 			HashMap<String, Object> map = ((JsonObject) obj).getMap();
 			for (Entry<String, Object> entry : map.entrySet())
 			{	
-				ret += "KEY[" + entry.getKey() + "] / VALUE[" + toString(entry.getValue()) + "]";
+				ret += "{KEY(" + entry.getKey() + ") / VALUE(" + toString(entry.getValue()) + ")}";
 			}
 		} else if(obj instanceof Object[]) {
 			Object[] arr = (Object[]) obj;
+			ret += "[";
 			for(Object o : arr) 
-				ret += "," + toString(o);
+				ret += toString(o) + ",";
+			ret.substring(0, ret.length()-1);
+			ret += "]";
 		}
 		else 
 			ret += (String) obj;
@@ -58,16 +61,17 @@ public class JsonObject {
 	
 	
 	private Object loadValue(String serial) {
-		if(serial.trim().charAt(0) == '{') {
+		serial = serial.trim();
+		if(serial.charAt(0) == '{') {
 			JsonObject object = new JsonObject(serial);
 			return object;
 		}
-		else if(serial.trim().charAt(0) == '[') {
+		else if(serial.charAt(0) == '[') {
 			Object[] arr = loadArray(serial);
 			return arr;
 		}
-		// TODO return null if serial == null
-		return serial;
+		// TODO return null if serial == "null"
+		return serial.substring(1,serial.length()-1);
 	}
 	
 	private void loadSerial(String serial) {
@@ -77,7 +81,7 @@ public class JsonObject {
 		String[] pairs = split(serial);
 		for(String pair : pairs) {
 			String[] keyValue = splitPair(pair);
-			map.put(keyValue[0], loadValue(keyValue[1]));
+			map.put((String)loadValue(keyValue[0]), loadValue(keyValue[1]));
 		}		
 	}
 	
@@ -116,7 +120,7 @@ public class JsonObject {
 				lastIndex = x + 1;
 			}
 		}
-		if(lastIndex != serial.length() -1)
+		if(lastIndex != serial.length() - 1)
 			list.add(serial.substring(lastIndex).trim());
 		return list.toArray((new String[list.size()]));
 	}
