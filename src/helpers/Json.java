@@ -2,14 +2,14 @@
 
 package helpers;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
 import models.Serializable;
 
 public class Json {
-
 	public static void main(String[] args) {
 		
 	}
@@ -46,34 +46,62 @@ public class Json {
 		return "\"" + value + "\"";
 	}
 	
+	/**
+	 * serializeArray supports: Lists, Stacks and Arrays. 
+	 * These data structures can hold int, long, boolean, char
+	 * String and Object(must implement Serializable)
+	 * 
+	 * @param obj
+	 * @return String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String serializeArray(Object obj) {
-    	ArrayList<String> list = new ArrayList<String>();
-    	if(obj instanceof Object[]) {
-    		Object[] arr =  (Object[]) obj;
-    		for(int x = 0; x < arr.length; ++x) {
-    			if(arr[x] instanceof Stack || arr[x] instanceof Object[]) {
-    				list.add(serializeArray(arr[x]));
-    			}
-    			else {
-    				list.add(((Serializable<Object>) arr[x]).serialize());
-    			}
-    		}
-    	}
+    	LinkedList<String> list = new LinkedList<String>();
     	if(obj instanceof Stack) {
-    		Stack<Object> stack = (Stack<Object>) obj;
-    		stack = (Stack<Object>) stack.clone();
-    		while(!stack.isEmpty()) {
-    			Object element = stack.pop();
-    			if(element instanceof Stack || element instanceof Object[]) {
-    				list.add(serializeArray(element));
-    			}
-    			else {
-    				list.add(((Serializable<Object>) element).serialize());
-    			}
-    		}
+    		obj = ((Stack<Object>) obj).toArray();
     	}
-    	return Json.jsonArray(Json.jsonElements(list.toArray((new String[list.size()]))));
+    	else if(obj instanceof List) {
+    		obj = ((List<Object>) obj).toArray();
+    	}
+    	if(obj instanceof int[]) {
+			int[] arr = (int[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof boolean[]) {
+			boolean[] arr = (boolean[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof long[]) {
+			long[] arr = (long[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof char[]) {
+			char[] arr = (char[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+		}
+    	else if(obj instanceof String[]) {
+			String[] arr = (String[]) obj;
+			for(int x = 0; x < arr.length; ++x) 
+				list.add(Json.jsonValue(arr[x] + ""));
+    	}
+    	
+    	if(!(obj instanceof Object[]) || (obj instanceof String[]))
+    		return Json.jsonArray(Json.jsonElements((String[]) list.toArray(new String[1])));
+    		
+		Object[] arr =  (Object[]) obj;
+		for(int x = 0; x < arr.length; ++x) {
+			if(arr[x] instanceof Stack || arr[x] instanceof List || arr[x] instanceof Object[]) {
+				list.add(serializeArray(arr[x]));
+			}
+			else {
+				list.add(Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
+			}
+		}
+    	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));
     }
 	
 	private static String addTab(String str) {
