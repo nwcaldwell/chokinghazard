@@ -233,11 +233,6 @@ public class Player implements Serializable<Player> {
 		)));
 	}
 
-	public Player loadObject(String serial) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public Player loadObject(JsonObject json) {
 		// TODO Auto-generated method stub
