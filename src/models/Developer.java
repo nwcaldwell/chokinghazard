@@ -8,9 +8,9 @@ public class Developer implements Serializable<Developer>{
   private Cell currentCell;
   private Player owner;
   
-  public Developer(Player owner) {
+  public Developer(Player owner, Cell currentCell) {
 	  this.owner = owner;
-	  this.isPlacedOnBoard = false;
+	  this.currentCell = currentCell;
   }
   
   public Player getOwner() {
@@ -58,9 +58,14 @@ public class Developer implements Serializable<Developer>{
 	    		)));
   }
 
-  public Developer loadObject(JsonObject json) {
+  public Developer loadObject(String serial) {
     // TODO Auto-generated method stub
     return null;
   }
-}
 
+@Override
+public Developer loadObject(JsonObject json) {
+	// TODO Auto-generated method stub
+	return null;
+}
+}

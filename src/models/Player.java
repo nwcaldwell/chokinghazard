@@ -4,6 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.awt.Color;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class Player implements Serializable<Player> {
@@ -14,11 +15,14 @@ public class Player implements Serializable<Player> {
 	private int actionTokens;
 	private boolean ifActionTokenUsed;
 	private boolean ifPlacedLandTile;
-	private Developer[] developers;
+	private int devOffBoard;
+	private LinkedList<Developer> devsOnBoard;
 	private Cell[] palacesUsedInTurn;
 	private int riceTiles;
 	private int villageTiles;
 	private int twoSpaceTiles;
+
+	// private final String userName;
 
 	public Player(Color color) {
 		this.playerColor = color;
@@ -27,12 +31,10 @@ public class Player implements Serializable<Player> {
 		this.riceTiles = 3;
 		this.villageTiles = 3;
 		this.twoSpaceTiles = 5;
-		this.developers = new Developer[12];
-		for(int i = 0; i < developers.length; ++i){
-			developers[i] = new Developer(this);
-		}
+		// this.userName = userName;
+		devsOnBoard = new LinkedList<Developer>();
+		devOffBoard = 12;
 		
-		startTurn();
 	}
 
 	public void startTurn() {
@@ -40,12 +42,33 @@ public class Player implements Serializable<Player> {
 		ifPlacedLandTile = false;
 		actionPoints = 6;
 	}
+	
+	public void addDevOnBoard(Developer dev, Cell currentCell){
+		
+	 	devsOnBoard.push(new Developer(this, currentCell ));
+	 	
+	 	devOffBoard--;
+		
+	}
+	
+	public void removeOffBoard(Developer dev){
+		devsOnBoard.remove(dev);
+		devOffBoard++;
+	}
+
+
+	public void decrementActionPoints(int actionPoints) {
+		this.actionPoints -= actionPoints;
+	}
+	
+	public void incrementActionPoints(int actionPoints) {
+		this.actionPoints += actionPoints;
+	}
 
 	public void useActionToken() {
-	  actionPoints++;
-	  actionTokens--;
-	  ifActionTokenUsed = true;
-  }
+		actionPoints++;
+		actionTokens--;
+	}
 
 	public void addFamePoints(int fame) {
 		this.famePoints += fame;
@@ -68,16 +91,16 @@ public class Player implements Serializable<Player> {
 	 *            The value to update fame points to.
 	 * @return Whether or not the update succeeded.
 	 */
-//	public boolean setFamePoints(int famePoints) {
-//		//
-//		if (famePoints < 0)
-//			return false;
-//		else {
-//			this.famePoints = famePoints;
-//			return true;
-//		}
-//
-//	}
+	// public Boolean setFamePoints(int famePoints) {
+	// //
+	// if (famePoints < 0)
+	// return false;
+	// else {
+	// this.famePoints = famePoints;
+	// return true;
+	// }
+	//
+	// }
 
 	/**
 	 * Returns the Final color object of the player.
@@ -98,26 +121,22 @@ public class Player implements Serializable<Player> {
 		return actionPoints;
 	}
 
-//	public void setActionPoints(int actionPoints) {
-//		this.actionPoints = actionPoints;
-//	}
-
 	public int getActionTokens() {
 		// TODO implement { 0..3 } constraint
 		return actionTokens;
 	}
 
-//	public void setActionTokens(int actionTokens) {
-//		this.actionTokens = actionTokens;
-//	}
+	// public void setActionTokens(int actionTokens) {
+	// this.actionTokens = actionTokens;
+	// }
 
 	public boolean isIfActionTokenUsed() {
 		return ifActionTokenUsed;
 	}
 
-//	public void setIfActionTokenUsed(boolean ifActionTokenUsed) {
-//		this.ifActionTokenUsed = ifActionTokenUsed;
-//	}
+	// public void setIfActionTokenUsed(boolean ifActionTokenUsed) {
+	// this.ifActionTokenUsed = ifActionTokenUsed;
+	// }
 
 	public boolean isIfPlacedLandTile() {
 		return ifPlacedLandTile;
@@ -127,13 +146,11 @@ public class Player implements Serializable<Player> {
 		this.ifPlacedLandTile = ifPlacedLandTile;
 	}
 
-	public Developer[] getDevelopers() {
-		return developers;
-	}
 
+	/*
 	public void setDevelopers(Developer[] developers) {
 		this.developers = developers;
-	}
+	}*/
 
 	public Cell[] getPalacesUsedInTurn() {
 		return palacesUsedInTurn;
@@ -179,42 +196,51 @@ public class Player implements Serializable<Player> {
 		//decrement the number of rice tiles
 		this.riceTiles--;
 	}
-/*
- * 	private int famePoints;
+
+	public String serialize() {
+	  /*This creates a string that represents a Player object for saving and loading
+	   * 
+	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
+	   *  This will make the Cell unique
+	   *  
+	   *  private int famePoints;
 	private final Color playerColor;
 	private int actionPoints;
 	private int actionTokens;
 	private boolean ifActionTokenUsed;
 	private boolean ifPlacedLandTile;
-	private Developer[] developers;
+	private int devOffBoard;
+	private LinkedList<Developer> devsOnBoard;
 	private Cell[] palacesUsedInTurn;
-	private Stack<OneSpaceTile> riceTiles;
-	private Stack<OneSpaceTile> villageTiles;
-	private Stack<TwoSpaceTile> twoSpaceTiles;
- */
-	public String serialize() {
-	  /* This creates a string that represents a Player object for saving and loading
-	   * 
+	private int riceTiles;
+	private int villageTiles;
+	private int twoSpaceTiles;
+	   *
 	   */
-		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMember(
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
 				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + "")),
 				Json.jsonPair("ifPlacedLandTile", Json.jsonValue(ifPlacedLandTile + "")),
-				Json.jsonPair("developers", Json.serializeArray(developers)),
+				Json.jsonPair("devsOffBoard", Json.jsonValue(devOffBoard + "")),
+				Json.jsonPair("devsOnBoard", Json.serializeArray(devsOnBoard.toArray())), //check this later
 				Json.jsonPair ("palacesUsedInTurn", Json.serializeArray(palacesUsedInTurn)),
-				Json.jsonPair("riceTiles", Json.serializeArray(riceTiles)),
-				Json.jsonPair("villageTiles", Json.serializeArray(villageTiles)),
-				Json.jsonPair("twoSpaceTiles", Json.serializeArray(twoSpaceTiles))
+				Json.jsonPair("riceTiles", Json.jsonValue(riceTiles + "")),
+				Json.jsonPair("villageTiles", Json.jsonValue(villageTiles + "")),
+				Json.jsonPair("twoSpaceTiles", Json.jsonValue(twoSpaceTiles + ""))
 		)));
 	}
 
-	public Player loadObject(JsonObject json) {
+	public Player loadObject(String serial) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public Player loadObject(JsonObject json) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
-

@@ -168,24 +168,24 @@ public class Game implements Serializable {
 			tabCount = 0;
 		else{
 			//we only want to increment the tabCount 
-			tabCount = (tabCount + 1) % players[indexOfCurrentPlayer].getDevelopers().length;
+			//tabCount = (tabCount + 1) % players[indexOfCurrentPlayer].getDevelopers().length;
 		}
-		//get the current player's set of developers
-		Developer[] currentPlayerDeveloper = players[indexOfCurrentPlayer].getDevelopers();
+		//get the current player's set of developers on the board
+		//Developer[] currentPlayerDeveloper = players[indexOfCurrentPlayer].getDevelopers();
 		System.out.println(tabCount);
 		
 		boolean hasDevelopersOnBoard = false;
-		for(int i = tabCount; i < players[indexOfCurrentPlayer].getDevelopers().length; ++i){
-			
-			//find the first developer on the board
-			if(currentPlayerDeveloper[tabCount].isPlacedOnBoard()){
-				gamePanel.highlightDeveloper(currentPlayerDeveloper[tabCount]);
-				hasDevelopersOnBoard = true;
-				break;
-			}
-			else//else that current developer is not on the board, look at the next one
-				continue;
-		}
+//		for(int i = tabCount; i < players[indexOfCurrentPlayer].getDevelopers().length; ++i){
+//			
+//			//find the first developer on the board
+//			if(currentPlayerDeveloper[tabCount].isPlacedOnBoard()){
+//				gamePanel.highlightDeveloper(currentPlayerDeveloper[tabCount]);
+//				hasDevelopersOnBoard = true;
+//				break;
+//			}
+//			else//else that current developer is not on the board, look at the next one
+//				continue;
+//		}
 		if(!hasDevelopersOnBoard){
 			tabCount = -1;
 			System.out.println("no developers on board");
@@ -209,8 +209,8 @@ public class Game implements Serializable {
 		for(int i = 0; i < board.getOutsideInnerCells().length; ++i){
 			
 		}
-		//only create this if there are outsideinnercells
-		currentComponent = new Developer(players[indexOfCurrentPlayer]);
+		//only create this if there are outsideinnercells, will need to change the developer position at some point
+		currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtLocation(x, y));
 		
 		//TODO this should put the developer on the board's first applicable outsideInnercells[]
 		gamePanel.moveDeveloperOntoBoard(x, y);
@@ -262,17 +262,19 @@ public class Game implements Serializable {
 	}
 	
 	public void placeComponent(){
-		Cell currentCell = board.getCellAtPixels(x, y);
+		Cell currentCell = board.getCellAtPixel(x, y);
 		
 		String type = currentComponent.toString();
 		//figure out which type to place the component properly
 		
 		if(type.equals("DEVELOPER")){
 			//set it as on the board if not already in the player model, if returns true then reflect changes appropriately
-			if(board.moveDeveloperAroundBoard((Developer)currentComponent, currentCell)){
-				((Developer)currentComponent).setCurrentCell(currentCell);
-				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
-			}
+			
+			//TODO need to collaborate with the people writing Board
+//			if(board.moveDeveloperAroundBoard((Developer)currentComponent, currentCell)){
+//				((Developer)currentComponent).setCurrentCell(currentCell);
+//				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
+//			}
 		}
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
 			switch(type){
