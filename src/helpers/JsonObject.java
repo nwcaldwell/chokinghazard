@@ -8,7 +8,7 @@ public class JsonObject {
 	private HashMap<String, Object> map;
 
 	public static void main(String[] args) {
-		String str = "{\"Space\" : {\"turns\" : [{\"space\": \"yo\"}, \"2\", \"3\"] }}";
+		String str = "{\"Space\" : {\"turns\" : [{\"space\": \"yo\"}, \"null\", \"3\"] }}";
 		JsonObject obj = new JsonObject(str);
 		System.out.println(toString(obj));
 	}
@@ -34,7 +34,7 @@ public class JsonObject {
 			ret += "]";
 		}
 		else 
-			ret += (String) obj;
+			ret += (String) obj + "*" + (obj == null ? "*NULL*" : obj.getClass().getSimpleName() )+ "*";
 		return ret;
 	}
 	
@@ -70,7 +70,8 @@ public class JsonObject {
 			Object[] arr = loadArray(serial);
 			return arr;
 		}
-		// TODO return null if serial == "null"
+		if(serial.equals("\"null\""))
+			return null;
 		return serial.substring(1,serial.length()-1);
 	}
 	
