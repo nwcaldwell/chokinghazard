@@ -98,10 +98,15 @@ public class JsonObject {
 	
 	private static String[] split(String serial) {
 		ArrayList<String> list = new ArrayList<String>();
+		boolean quotes = false;
 		int lastIndex = 0; 
 		int count = 0; 
 		for(int x = 0; x < serial.length(); ++x) {
 			char ch = serial.charAt(x);
+			if(x > 0 && ch == '\"' && serial.charAt(x-1) != '\\')
+				quotes = !quotes;
+			if(quotes)
+				continue;
 			if(ch == '{' || ch == '[')
 				count++;
 			else if(ch == '}' || ch == ']')
