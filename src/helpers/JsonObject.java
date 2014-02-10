@@ -8,7 +8,7 @@ public class JsonObject {
 	private HashMap<String, Object> map;
 
 	public static void main(String[] args) {
-		String str = "{ \"Space\" : { {\"turns\" : [{\"space\": \"yo\"}, \"2\", \"3\"] }}";
+		String str = "{\"Space\" : {\"turns\" : [{\"space\": \"yo\"}, \"null\", \"3\"] }}";
 		JsonObject obj = new JsonObject(str);
 		System.out.println(toString(obj));
 	}
@@ -17,21 +17,29 @@ public class JsonObject {
 		return map;
 	}
 	
+	/**
+	 * for testing.
+	 * @param obj
+	 * @return
+	 */
 	public static String toString(Object obj) {
 		String ret = "";
 		if(obj instanceof JsonObject) {
 			HashMap<String, Object> map = ((JsonObject) obj).getMap();
 			for (Entry<String, Object> entry : map.entrySet())
 			{	
-				ret += "KEY[" + entry.getKey() + "] / VALUE[" + toString(entry.getValue()) + "]";
+				ret += "{KEY(" + entry.getKey() + ") / VALUE(" + toString(entry.getValue()) + ")}";
 			}
 		} else if(obj instanceof Object[]) {
 			Object[] arr = (Object[]) obj;
+			ret += "[";
 			for(Object o : arr) 
-				ret += "," + toString(o);
+				ret += toString(o) + ",";
+			ret.substring(0, ret.length()-1);
+			ret += "]";
 		}
 		else 
-			ret += (String) obj;
+			ret += (String) obj + "*" + (obj == null ? "*NULL*" : obj.getClass().getSimpleName() )+ "*";
 		return ret;
 	}
 	
@@ -40,36 +48,66 @@ public class JsonObject {
 		loadSerial(serial);
 	}
 	
+	/**
+	 * returns the value mapped to the key as a String
+	 * @param key
+	 * @return
+	 */
 	public String getString(String key) {
 		return (String) map.get(key);
 	}
 	
+	/**
+	 * returns the value mapped to the key as a JsonObjects
+	 * @param key
+	 * @return
+	 */
 	public JsonObject getObject(String key) {
 		return (JsonObject) map.get(key);
 	}
 	
+	/**
+	 * returns the value mapped to the key as an Array of Strings
+	 * @param key
+	 * @return
+	 */
 	public String[] getStringArray(String key) {
 		return (String[]) map.get(key);
 	}
 	
+	/**
+	 * returns the value mapped to the key as an Array of JsonObjects
+	 * @param key
+	 * @return
+	 */
 	public JsonObject[] getObjectArray(String key) {
 		return (JsonObject[]) map.get(key);
 	}
 	
-	
+	/**
+	 * parses a value into either an Object, Array or String. Returns result as an Object
+	 * @param serial
+	 * @return
+	 */
 	private Object loadValue(String serial) {
-		if(serial.trim().charAt(0) == '{') {
+		serial = serial.trim();
+		if(serial.charAt(0) == '{') {
 			JsonObject object = new JsonObject(serial);
 			return object;
 		}
-		else if(serial.trim().charAt(0) == '[') {
+		else if(serial.charAt(0) == '[') {
 			Object[] arr = loadArray(serial);
 			return arr;
 		}
-		// TODO return null if serial == null
-		return serial;
+		if(serial.equals("\"null\""))
+			return null;
+		return serial.substring(1,serial.length()-1);
 	}
 	
+	/**
+	 * Main method. Loads a serialized array and Fills in map for this JsonObject
+	 * @param serial
+	 */
 	private void loadSerial(String serial) {
 		serial = serial.trim();
 		serial = serial.charAt(0) == '{' ? serial.substring(1, serial.length() - 1) : serial;
@@ -77,10 +115,15 @@ public class JsonObject {
 		String[] pairs = split(serial);
 		for(String pair : pairs) {
 			String[] keyValue = splitPair(pair);
-			map.put(keyValue[0], loadValue(keyValue[1]));
+			map.put((String)loadValue(keyValue[0]), loadValue(keyValue[1]));
 		}		
 	}
 	
+	/**
+	 * splits an array of values and sends them to loadValue, which parses them correctly. 
+	 * @param serial
+	 * @return
+	 */
 	private Object[] loadArray(String serial) {
 		serial = serial.trim();
 		serial = serial.charAt(0) == '[' ? serial.substring(1, serial.length() - 1) : serial;
@@ -96,12 +139,22 @@ public class JsonObject {
 		return new String[] {serial.substring(0,serial.indexOf(":")), serial.substring(serial.indexOf(":") + 1)};
 	}
 	
+	/**
+	 * splits serial string by commas and returns the array of strings
+	 * @param serial
+	 * @return
+	 */
 	private static String[] split(String serial) {
 		ArrayList<String> list = new ArrayList<String>();
+		boolean quotes = false;
 		int lastIndex = 0; 
 		int count = 0; 
 		for(int x = 0; x < serial.length(); ++x) {
 			char ch = serial.charAt(x);
+			if(x > 0 && ch == '\"' && serial.charAt(x-1) != '\\')
+				quotes = !quotes;
+			if(quotes)
+				continue;
 			if(ch == '{' || ch == '[')
 				count++;
 			else if(ch == '}' || ch == ']')
@@ -111,7 +164,7 @@ public class JsonObject {
 				lastIndex = x + 1;
 			}
 		}
-		if(lastIndex != serial.length() -1)
+		if(lastIndex != serial.length() - 1)
 			list.add(serial.substring(lastIndex).trim());
 		return list.toArray((new String[list.size()]));
 	}
