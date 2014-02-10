@@ -43,6 +43,7 @@ public class GamePanel extends JPanel{
 		add(topContent, BorderLayout.NORTH);
 		
 		threePieceTiles = newJLabel("56", "src/resources/layout/layout_threeTile.png"); 
+		threePieceTiles.setPreferredSize(new Dimension(70, 90));
         topContent.add(threePieceTiles);
         
         irrigationTiles = newJLabel("10", "src/resources/layout/layout_oneTile_irrigation.png"); 
@@ -65,7 +66,7 @@ public class GamePanel extends JPanel{
         
         JLabel actionSummaryCard = new JLabel();
         actionSummaryCard.setIcon(new ImageIcon("src/resources/layout/actionSummaryCard.png"));
-        actionSummaryCard.setPreferredSize(new Dimension(443, 77));
+        actionSummaryCard.setPreferredSize(new Dimension(473, 77));
         actionSummaryCard.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         topContent.add(actionSummaryCard);
 		
@@ -107,7 +108,7 @@ public class GamePanel extends JPanel{
 		JLabel label= new JLabel(info);
 		label.setIcon(new ImageIcon(src));
 		label.setFont(new Font("Lucida Grande", 0, 14));
-		label.setPreferredSize(new Dimension(80, 90));
+		label.setPreferredSize(new Dimension(40, 90));
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setVerticalTextPosition(SwingConstants.BOTTOM);
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -146,8 +147,8 @@ public class GamePanel extends JPanel{
 		this.board.trackDeveloperPath(x, y);
 	}
 	
-	public void placeDeveloper(Developer dev, int x, int y){
-		this.board.placeDeveloper(dev, x, y);
+	public void placeDeveloper(int player, int x, int y){
+		this.board.placeDeveloper(player, x, y);
 	}
 	
 	public void useActionToken(int tokens){

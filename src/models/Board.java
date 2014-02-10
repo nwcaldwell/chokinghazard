@@ -68,7 +68,7 @@ public class Board implements Serializable<Board> {
  	
  	// Using the stack in the createDeveloperPath method, 
  	// we use this method to move the developer to its new location.
- 	public boolean moveDeveloperAroundBoard(Developer developer) {
+ 	public boolean moveDeveloperAroundBoard(Developer developer, Cell cell) {
  		//TODO
  		return true;
  	}
@@ -126,8 +126,9 @@ public class Board implements Serializable<Board> {
  	// TILE PLACEMENT AND HELPER METHODS
  	// Main method for placing a tile on the board, 
  	// uses several helper methods below.
- 	public void placeTile(Cell cell, Tile tile) {
+ 	public boolean placeTile(Cell cell, Tile tile) {
  		//TODO
+ 		return true;
  	}
  	
  	// Helper method for placeTile. Checks whether Tile can be placed
@@ -147,6 +148,14 @@ public class Board implements Serializable<Board> {
 
     public Cell[][] getMap() {
         return map;
+    }
+    
+    public Cell getCellAtPixels(int x, int y){
+    	return map[((x % 700)/50)][((y % 700)/50)];
+    }
+    
+    public Cell getCellAtLocation(int x, int y){
+    	return map[x][y];
     }
    
     //Given an X and Y, this method sets the connectedCells set of the

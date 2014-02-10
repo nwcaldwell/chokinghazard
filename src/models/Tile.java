@@ -33,6 +33,8 @@ public abstract class Tile implements Serializable<Tile> {
         this.spaces = spaces;
     }
     
+    public abstract String toString();
+    
 	/**
 	* serialize the Tile and return it as a String
 	*/

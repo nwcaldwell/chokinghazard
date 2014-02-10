@@ -46,6 +46,10 @@ class TwoSpaceTile extends Tile {
 	public String getImageSource(){
 		return this.imageSource;
 	}
+	
+	public String toString(){
+    	return "TWO SPACE TILE";
+    }
 
 	public String serialize() {
 		// TODO Auto-generated method stub

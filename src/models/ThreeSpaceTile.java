@@ -53,6 +53,10 @@ class ThreeSpaceTile extends Tile {
 	public String getImageSource(){
 		return this.imageSource;
 	}
+	
+	public String toString(){
+    	return "THREE SPACE TILE";
+    }
 
     public String serialize() {
         // TODO Auto-generated method stub

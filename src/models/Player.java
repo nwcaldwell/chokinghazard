@@ -16,14 +16,17 @@ public class Player implements Serializable<Player> {
 	private boolean ifPlacedLandTile;
 	private Developer[] developers;
 	private Cell[] palacesUsedInTurn;
-	private Stack<OneSpaceTile> riceTiles;
-	private Stack<OneSpaceTile> villageTiles;
-	private Stack<TwoSpaceTile> twoSpaceTiles;
+	private int riceTiles;
+	private int villageTiles;
+	private int twoSpaceTiles;
 
 	public Player(Color color) {
 		this.playerColor = color;
 		this.famePoints = 0;
 		this.actionTokens = 3;
+		this.riceTiles = 3;
+		this.villageTiles = 3;
+		this.twoSpaceTiles = 5;
 		this.developers = new Developer[12];
 		for(int i = 0; i < developers.length; ++i){
 			developers[i] = new Developer(this);
@@ -140,28 +143,41 @@ public class Player implements Serializable<Player> {
 		this.palacesUsedInTurn = palacesUsedInTurn;
 	}
 
-	public Stack<OneSpaceTile> getRiceTiles() {
+	public int getRiceTiles() {
 		return riceTiles;
 	}
 
-	public void setRiceTiles(Stack<OneSpaceTile> riceTiles) {
+	public void setRiceTiles(int riceTiles) {
 		this.riceTiles = riceTiles;
 	}
 
-	public Stack<OneSpaceTile> getVillageTiles() {
+	public int getVillageTiles() {
 		return villageTiles;
 	}
 
-	public void setVillageTiles(Stack<OneSpaceTile> villageTiles) {
+	public void setVillageTiles(int villageTiles) {
 		this.villageTiles = villageTiles;
 	}
 
-	public Stack<TwoSpaceTile> getTwoSpaceTiles() {
+	public int getTwoSpaceTiles() {
 		return twoSpaceTiles;
 	}
 
-	public void setTwoSpaceTiles(Stack<TwoSpaceTile> twoSpaceTiles) {
+	public void setTwoSpaceTiles(int twoSpaceTiles) {
 		this.twoSpaceTiles = twoSpaceTiles;
+	}
+	
+	public void useTwoSpaceTile(){
+		//decrement the number of two space tiles that the use has
+		this.twoSpaceTiles--;
+	}
+	public void useVillageTile(){
+		//decrement the number of village tiles
+		this.villageTiles--;
+	}
+	public void useRiceTile(){
+		//decrement the number of rice tiles
+		this.riceTiles--;
 	}
 /*
  * 	private int famePoints;

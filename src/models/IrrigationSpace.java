@@ -16,6 +16,10 @@ public class IrrigationSpace extends Space {
     public String getImageSource(){
     	return this.imageSource;
     }
+    
+    public String toString(){
+    	return this.type.toString();
+    }
 
     public String serialize() {
         // TODO Auto-generated method stub

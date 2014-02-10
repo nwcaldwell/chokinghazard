@@ -96,13 +96,11 @@ public class BoardPanel extends JPanel {
 		repaint();
 	}
 	
-	public void placeDeveloper(Developer dev, int xLoc, int yLoc){
+	public void placeDeveloper(int player, int xLoc, int yLoc){
 		clearImage(tempImage);
 		g2d = developers.createGraphics();
 		
-		g2d.setColor(Color.RED);
-		g2d.fillRect(xLoc, yLoc, 50, 50);
-		//g2d.drawImage(getImage(dev.getImageSource()), null, xLoc, yLoc);
+		g2d.drawImage(getImage("src/resources/player_"+player+".png"), null, xLoc, yLoc);
 		g2d.dispose();
 		repaint();
 	}

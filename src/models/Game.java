@@ -7,8 +7,6 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 import views.GamePanel;
@@ -22,9 +20,9 @@ public class Game implements Serializable {
 	private int indexOfCurrentPlayer;
 	private boolean isFinalTurn;
 	private Stack<Cell> stack;
-	private Stack<OneSpaceTile> irrigationTiles; 
-    private Stack<ThreeSpaceTile> threeSpaceTiles;
-    private ArrayList<Stack<OneSpaceTile>> palaceTiles;
+	private int irrigationTiles; 
+    private int threeSpaceTiles;
+    private int[] palaceTiles;
     int x = 50;
 	int y = 50;
 	private Object currentComponent;
@@ -44,9 +42,9 @@ public class Game implements Serializable {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
-		this.irrigationTiles = new Stack<OneSpaceTile>();
-		this.threeSpaceTiles = new Stack<ThreeSpaceTile>();
-		this.palaceTiles = new ArrayList<Stack<OneSpaceTile>>();
+		this.irrigationTiles = 16;
+		this.threeSpaceTiles = 56;
+		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
 		//initialize the players and their views
@@ -62,16 +60,27 @@ public class Game implements Serializable {
 		return players.length;
 	}
 	
-	public Stack<OneSpaceTile> getIrrigationTiles() {
+	public int getIrrigationTiles() {
         return irrigationTiles;
     }
+	
+	public void setIrrigationTiles(int nums){
+		this.irrigationTiles = nums;
+	}
 
-    public Stack<ThreeSpaceTile> getThreeSpaceTiles() {
+    public int getThreeSpaceTiles() {
         return threeSpaceTiles;
     }
     
-    public ArrayList<Stack<OneSpaceTile>> getPalaceTiles() {
+    public void setThreeSpaceTiles(int nums) {
+        this.threeSpaceTiles = nums;
+    }
+    
+    public int[] getPalaceTiles() {
         return palaceTiles;
+    }
+    public void setPalaceTiles(int[] nums){
+    	this.palaceTiles = nums;
     }
 	
 	public GamePanel getGamePanel(){
@@ -150,7 +159,7 @@ public class Game implements Serializable {
 	
 	// Checks to see whether current player placed the last three piece tile. 
 	public boolean ifIPlacedLastThreePieceTile() {
-		return threeSpaceTiles.size() == 0;
+		return threeSpaceTiles == 0;
 	}
 	
 	public void tabThroughDevelopers(){
@@ -200,6 +209,9 @@ public class Game implements Serializable {
 		for(int i = 0; i < board.getOutsideInnerCells().length; ++i){
 			
 		}
+		//only create this if there are outsideinnercells
+		currentComponent = new Developer(players[indexOfCurrentPlayer]);
+		
 		//TODO this should put the developer on the board's first applicable outsideInnercells[]
 		gamePanel.moveDeveloperOntoBoard(x, y);
 		//TODO change this to a real developer
@@ -215,14 +227,14 @@ public class Game implements Serializable {
 			x += xChange;
 			y += yChange;
 			if(x < 0)
-				x += 700;
-			else if(x > 700)
 				x = 0;
+			else if(x > 650)
+				x = 650;
 			
 			if(y < 0)
-				y += 700;
-			else if(y > 700)
 				y = 0;
+			else if(y > 650)
+				y = 650;
 			
 			//check if the new location is valid and that there are no developers or irrigation tiles on it
 			//if ok, push the location to the developer path
@@ -250,25 +262,46 @@ public class Game implements Serializable {
 	}
 	
 	public void placeComponent(){
-		String type = currentComponent.getClass().toString();
-		System.out.println(type);
-		//figure out which type to place the component properly
-		if(type.equals("class models.TwoSpaceTile")){
-			//decrement it from the user's stash
-			gamePanel.placeTile((Tile)currentComponent, x, y);
-			
-		}
-		else if(type.equals("class models.ThreeSpaceTile")){
-			gamePanel.placeTile((Tile)currentComponent, x, y);
-		}
-		else if(type.equals("class models.OneSpaceTile")){
-			System.out.println("this is a one space tile\n");
-			gamePanel.placeTile((Tile)currentComponent, x, y);
-		}
-		else if(type.equals("class models.Developer")){
-			gamePanel.placeDeveloper((Developer)currentComponent, x, y);
-		}
+		Cell currentCell = board.getCellAtPixels(x, y);
 		
+		String type = currentComponent.toString();
+		//figure out which type to place the component properly
+		
+		if(type.equals("DEVELOPER")){
+			//set it as on the board if not already in the player model, if returns true then reflect changes appropriately
+			if(board.moveDeveloperAroundBoard((Developer)currentComponent, currentCell)){
+				((Developer)currentComponent).setCurrentCell(currentCell);
+				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
+			}
+		}
+		else if(board.placeTile(currentCell, (Tile)currentComponent)){
+			switch(type){
+			case"THREE SPACE TILE":
+				//decrement it from the global stash
+				--threeSpaceTiles;
+				break;
+			case "TWO SPACE TILE":
+				//decrement it from the user's stash
+				players[indexOfCurrentPlayer].useTwoSpaceTile();
+				break;
+			case "IRRIGATION":
+				//decrement it from the global stash
+				--irrigationTiles;
+				break;
+			case "VILLAGE":
+				//decrement it from the user's stash
+				players[indexOfCurrentPlayer].useVillageTile();
+				break;
+			case "RICE":
+				//decrement it from the user's stash
+				players[indexOfCurrentPlayer].useRiceTile();
+				break;
+			case "PALACE":
+				//need to somehow do checks for which palace tile to place
+				break;
+			}	
+			gamePanel.placeTile((Tile)currentComponent, x, y);
+		}
 		resetInteraction();
 	}
 	
@@ -277,36 +310,50 @@ public class Game implements Serializable {
 		currentComponent = new TwoSpaceTile(new Space[2][2]);
 		gamePanel.moveTile((Tile)currentComponent, x, y);
 		
-		//TODo write stuff to check that the user has placed a land tile
+		//TODO write stuff to check that the user has placed a land tile
 	}
 	
 	public void selectThreeSpaceTile(){
 		//TODO check if the current player can actually place a three space tile
-		currentComponent = new ThreeSpaceTile(new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
-		
-		//TODO write stuff to check that the user has placed a land tile
+		if(this.threeSpaceTiles != 0){
+			currentComponent = new ThreeSpaceTile(new Space[2][2]);
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else
+			showNotEnoughTiles();
 	}
 	
-	//TODO checks and stuff for this stuff:
 	public void selectIrrigationTile(){
-		currentComponent = new OneSpaceTile(new IrrigationSpace(), new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
+		if(this.irrigationTiles != 0){
+			currentComponent = new OneSpaceTile(new IrrigationSpace(), new Space[2][2]);
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else
+			showNotEnoughTiles();
 	}
 	
 	public void selectPalaceTile(){
+		//TODO implementation for checking the upgrading stuff
 		currentComponent = new OneSpaceTile(new PalaceSpace(2), new Space[2][2]);
 		gamePanel.moveTile((Tile)currentComponent, x, y);
 	}
 	
 	public void selectRiceTile(){
-		currentComponent = new OneSpaceTile(new RiceSpace(), new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
+		if(players[indexOfCurrentPlayer].getRiceTiles() != 0){
+			currentComponent = new OneSpaceTile(new RiceSpace(), new Space[2][2]);
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else
+			showNotEnoughTiles();
 	}
 	
 	public void selectVillageTile(){
-		currentComponent = new OneSpaceTile(new VillageSpace(), new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
+		if(players[indexOfCurrentPlayer].getVillageTiles() != 0){
+			currentComponent = new OneSpaceTile(new VillageSpace(), new Space[2][2]);
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+		}
+		else
+			showNotEnoughTiles();
 	}
 	
 	public void cancelAction(){
@@ -318,6 +365,10 @@ public class Game implements Serializable {
 		currentComponent = null;
 		x = 50;
 		y = 50;
+	}
+	
+	private void showNotEnoughTiles(){
+		JOptionPane.showMessageDialog(null, "Cannot perform action, try another");
 	}
 	
 	private void initPlayers(){

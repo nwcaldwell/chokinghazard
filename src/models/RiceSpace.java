@@ -16,6 +16,10 @@ public class RiceSpace extends Space {
     public String getImageSource(){
     	return imageSource;
     }
+    
+    public String toString(){
+    	return this.type.toString();
+    }
 
     public String serialize() {
         // TODO Auto-generated method stub

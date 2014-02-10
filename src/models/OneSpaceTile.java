@@ -6,10 +6,12 @@ import java.util.LinkedList;
 
 class OneSpaceTile extends Tile {
 	private String imageSource;
+	private Space space;
     
     public OneSpaceTile(Space space, Space[][] spaces) {
 	    super(spaces);
 	    spaces[0][0] = space;
+	    this.space = space;
 	    imageSource = space.getImageSource();
     }
 
@@ -30,4 +32,9 @@ class OneSpaceTile extends Tile {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    public String toString(){
+    	return this.space.toString();
+    }
+    
 }

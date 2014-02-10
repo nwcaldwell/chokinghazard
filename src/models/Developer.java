@@ -31,6 +31,11 @@ public class Developer implements Serializable<Developer>{
 
   public void setCurrentCell(Cell currentCell) {
     this.currentCell = currentCell;
+    this.isPlacedOnBoard = true;
+  }
+  
+  public String toString(){
+	  return "DEVELOPER";
   }
 
   //Questioning if we should save ownerColor or not. When creating the Developer
