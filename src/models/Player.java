@@ -43,9 +43,9 @@ public class Player implements Serializable<Player> {
 		actionPoints = 6;
 	}
 	
-	public void addDevOnBoard(Developer dev, Cell currentCell){
+	public void addDevOnBoard(Developer dev){
 		
-	 	devsOnBoard.push(new Developer(this, currentCell ));
+	 	devsOnBoard.push(dev);
 	 	
 	 	devOffBoard--;
 		
