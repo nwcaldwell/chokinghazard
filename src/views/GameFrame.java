@@ -134,7 +134,7 @@ public class GameFrame extends JFrame {
             }
         }); 
         file.add(saveGame);
-        
+    /*    
         JMenuItem deleteGame = new JMenuItem("Delete Game");
         deleteGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
@@ -152,7 +152,7 @@ public class GameFrame extends JFrame {
             }
         });
         file.add(exit);
-        
+     */   
         JMenu help = new JMenu("Help");
         
         JMenuItem controls = new JMenuItem("Game Controls");
