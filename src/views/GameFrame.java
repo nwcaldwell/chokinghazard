@@ -124,7 +124,7 @@ public class GameFrame extends JFrame {
         file.add(saveGame);
         
         JMenuItem deleteGame = new JMenuItem("Delete Game");
-        saveGame.addActionListener(new ActionListener(){
+        deleteGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	gm.deleteGame();
             }
