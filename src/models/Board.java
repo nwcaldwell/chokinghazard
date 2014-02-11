@@ -149,7 +149,6 @@ public class Board implements Serializable<Board> {
 	// Using the stack in the createDeveloperPath method,
 	// we use this method to move the developer to its new location.
 	public void moveDeveloperAroundBoard(Developer developer) {
-
 		developer.setCurrentCell(path.pop());
 
 		for (int i = 0; i < path.size(); i++) {
@@ -170,7 +169,7 @@ public class Board implements Serializable<Board> {
 	}
 
 	// Checks all of the logic needed to make sure the user can legally
-	// upgrade the palace. Calls checkForNumberOfVillages method.
+	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	private boolean checkIfICanUpgradePalace(Space palaceSpace, Cell cell) {
 		// TODO
 		return true;
@@ -185,9 +184,9 @@ public class Board implements Serializable<Board> {
 	}
 
 	// Returns an integer array with the city ranks for each player. The indices
-	// in
-	// the array correspond to the indices for the players in the main player
-	// array.
+	// in the array correspond to the indices for the players in the main player
+	// array. For example, if players 1, 2, 3, and 4 have the 3rd, 4th, 1st, and 2nd highest 
+	// ranking developers respectively, return the array [3, 4, 1, and 2]. remember players array is indexed starting at 0
 	private int[] findCityRanks(Cell cell) {
 		// TODO
 		return new int[0];
@@ -195,9 +194,11 @@ public class Board implements Serializable<Board> {
 
 	// IRRIGATION TILES
 	// Similarly to the method above, returns an integer array
-	// for the players surrounding an irrigation tile.
+	// for the players surrounding an irrigation tile. For example, if players 1, 2, 3, and 4 have the 3rd, 4th, 1st, and 2nd highest 
+	// ranking developers respectively, return the array [3, 4, 1, and 2]. remember players array is indexed starting at 0
+	
 	private int[] findIrrigationRanks(Cell cell) {
-		// TODO
+		// TODO 
 		return new int[0];
 	}
 
@@ -205,23 +206,47 @@ public class Board implements Serializable<Board> {
 	// Main method for placing a tile on the board,
 	// uses several helper methods below.
 	// Returns true if successful
-	public boolean placeTile(Cell cell, Tile tile) {
-		// TODO
-		return true;
+	public boolean placeTile(Cell[][] cells, Tile tile) {
+		if (checkValidTilePlacement(cells, tile)) {
+			Space[][] spacesArray = tile.getSpaces();
+		
+			for (int i = 0; i < spacesArray.length; i++) {
+				for (int j = 0; j < spacesArray[0].length; j++) {
+					if (spacesArray[i][j] != null) {
+						cells[i][j].setSpace(spacesArray[i][j]);
+						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
+					}
+				}
+			}
+			
+			return true;
+		}
+		
+		else {
+			return false;
+		}
 	}
 
 	// Helper method for placeTile. Checks whether Tile can be placed
 	// in the Cell selected. This method also calls several helper methods.
-	private boolean checkValidTilePlacement(Cell cell, Tile tile) {
-		// TODO
-		return true;
+	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
+		if (checkTilesBelow(cells, tile)) {
+			// TODO check other factors in valid tile placement not related to cells below
+			// This could be connecting cities. Don't worry about this Jose -Nathan
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 	// Helper method for checkValidTilePlacement. Checks to make sure you're
 	// not placing a three tile on a three tile, two tile on a two tile, a
 	// smaller tile on a larger tile, etc.
-	private boolean checkTilesBelow(Tile tile, Cell cell) {
-		// TODO
+	private boolean checkTilesBelow(Cell[][] cells, Tile tile) {
+		// TODO Jose - Also need to make sure there isn't a developer currently on the tile - Nathan
+		
+		
 		return true;
 	}
 
