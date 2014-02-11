@@ -178,9 +178,10 @@ public class Board implements Serializable<Board> {
 	// Returns the number of village Spaces surrounding the given Cell. Called
 	// by checkIfICanUpgradePalace to make sure number of surrounding villages
 	// is greater than or equal to the palace number.
-	private int checkForNumberOfVillages(Cell cell) {
-		// TODO
-		return 0;
+	private int checkForNumberOfVillages(Cell cell) 
+   {
+		setConnectedCells(cell);
+		return cell.getConnectedCells().size();
 	}
 
 	// Returns an integer array with the city ranks for each player. The indices
@@ -264,9 +265,12 @@ public class Board implements Serializable<Board> {
 
 	// Given an X and Y, this method sets the connectedCells set of the
 	// cell at the given coordinates
-	public void SetConnectedCells(int x, int y) {
-		Cell root = map[x][y];
+	public void setConnectedCells(Cell root) {
+      
 		ArrayList<Cell> connected = new ArrayList<Cell>();
+      int x = root.getX();
+      int y = root.getY();
+      
 		connected.add(root);
 
 		int i = 0;
