@@ -56,16 +56,10 @@ public class Developer implements Serializable<Developer>{
 	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + "")),
 	    		Json.jsonPair("ownerColor", Json.jsonValue(owner + ""))
 	    		)));
-  }
+  	}
 
-  public Developer loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-@Override
-public Developer loadObject(JsonObject json) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	public Developer loadObject(JsonObject json) {
+		// TODO Auto-generated method stub
+		return this;
+	}
 }

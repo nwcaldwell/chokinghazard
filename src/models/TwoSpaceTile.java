@@ -61,7 +61,8 @@ class TwoSpaceTile extends Tile {
     	JsonObject[][] objects = (JsonObject[][]) (Object) json.getObject("spaces");
     	for(int x = 0; x < 4; ++x)
     		spaces[x/2][x%2] = (new Space()).loadObject(objects[x/2][x%2]);
-    	return new TwoSpaceTile(spaces);
+    	this.spaces = spaces;
+    	return this;
 	}
 }
 

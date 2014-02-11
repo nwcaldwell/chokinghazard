@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import models.Game;
 import models.Serializable;
 
 public class Json {
 	public static void main(String[] args) {
-		
+		Game game = new Game(2);
+		String str = game.serialize();
+		JsonObject json = new JsonObject(str);
+		System.out.println(JsonObject.toString(json));
 	}
 
 	/**
@@ -144,7 +148,7 @@ public class Json {
 		Scanner in = new Scanner(str); 
 		StringBuilder ret = new StringBuilder();
 		while(in.hasNextLine()) {
-			ret.append("  " + in.nextLine());
+			ret.append("\n  " + in.nextLine());
 		}
 		in.close();
 		return ret.toString();

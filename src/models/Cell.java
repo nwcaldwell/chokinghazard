@@ -91,23 +91,15 @@ public class Cell implements Serializable<Cell> {
     }
     
     public Cell loadObject(JsonObject json) {
-    	Cell cell = new Cell((new Space()).loadObject(json.getObject("space"))); 
-    	cell.setElevation(Integer.parseInt(json.getString("elevation")));
-    	cell.setX(Integer.parseInt(json.getString("x")));
-    	cell.setY(Integer.parseInt(json.getString("y")));
-    	cell.setConnectedCells(connectedCells);
-    	cell.setFromMountains(Boolean.parseBoolean(json.getString("fromMountains")));
-    	cell.setFromLowlands(Boolean.parseBoolean(json.getString("fromLowLands")));
-		return cell;
+    	this.space = (new Space()).loadObject(json.getObject("space")); 
+    	this.elevation = Integer.parseInt(json.getString("elevation"));
+    	this.x = Integer.parseInt(json.getString("x"));
+    	this.y = Integer.parseInt(json.getString("y"));
+    	this.connectedCells = null;
+    	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
+    	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
+    	return this;
     }
-
-	private void setFromMountains(boolean fromMountains) {
-		this.fromMountains = fromMountains;
-	}
-
-	private void setFromLowlands(boolean fromLowlands) {
-		this.fromLowlands = fromLowlands;
-	}
 }
 
 
