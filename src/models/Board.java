@@ -205,7 +205,7 @@ public class Board implements Serializable<Board> {
 	// Main method for placing a tile on the board,
 	// uses several helper methods below.
 	// Returns true if successful
-	public boolean placeTile(Cell cell, Tile tile) {
+	public boolean placeTile(Cell[][] cell, Tile tile) {
 		// TODO
 		return true;
 	}

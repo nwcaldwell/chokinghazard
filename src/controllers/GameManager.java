@@ -16,15 +16,6 @@ import views.GamePanel;
 
 
 public class GameManager{
-	// for testing
-	 	
-	public static void main(String args[]){
-
-		GameManager practice = new GameManager(new Game(2));
-		practice.quitGame();
-	}
-	
-	
 	//Attributes
 	private Game currentGame;
 	
@@ -78,35 +69,19 @@ public class GameManager{
 	
 	public boolean loadGame(File loadFile) {
 		//parse the file and create a currentGame from it.
-			/*
-			try{
-				int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to load a past game?", "Confirm Load Game", JOptionPane.YES_NO_OPTION);
-				if(confirmSaveGame == JOptionPane.NO_OPTION ){
-					return false;
-				}
-			}catch(NullPointerException e){
-				return false;
-			}
-		
-			if(!getFileName(fileName, "Name of file to load?")){
-				return false;
-			}
-			*/
-			
-			StringBuilder alpha = new StringBuilder();
-			
-			;
-			try{
-				Scanner input = new Scanner(loadFile);
-				System.out.println("got here line 101 gamemang");
-				while(input.hasNextLine()){
-					alpha.append(input.nextLine());
-				}
-				input.close();
-			}catch(FileNotFoundException e){
-				JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
-				return false;
+		StringBuilder alpha = new StringBuilder();
+		try{
+			Scanner input = new Scanner(loadFile);
+			System.out.println("got here line 101 gamemang");
+			while(input.hasNextLine()){
+				alpha.append(input.nextLine());
 		}
+			input.close();
+		}catch(FileNotFoundException e){
+			JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
+			return false;
+		}
+		
 		return true;
 	}
 
@@ -164,9 +139,7 @@ public class GameManager{
 		return true;
 	}
 	
-	
-	
-	// Quits the current game. Asks the user if they want to save first.
+	// Deletes the current game. Asks the user if they are sure before proceeding.
 	public boolean deleteGame() {
 		try{
 			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Do you want to save before you delete the current game?", "Confirm Delete Game", JOptionPane.YES_NO_OPTION);
@@ -192,7 +165,7 @@ public class GameManager{
 		}
 	}
 	
-	// Deletes the current game. Asks the user if they are sure before proceeding.
+	//quits the current game, asks the user if they want to save first
 	public boolean quitGame() {
 		try{
 			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
@@ -213,15 +186,8 @@ public class GameManager{
 	public GamePanel getGamePanel(){
 		return currentGame.getGamePanel();
 	}
-	
-	public void keyTyped(KeyEvent e) {
-	}
-
-	public void keyPressed(KeyEvent e) {
-	}
 
 	public void keyReleased(KeyEvent e) {
-		System.out.println(e.getKeyCode());
 		//set up the key input events
 		//1 selects one piece tile
 		switch(e.getKeyCode()){
@@ -239,7 +205,6 @@ public class GameManager{
 				break;
 			case 88:
 				//end turn
-				System.out.println("end turn");
 				currentGame.nextTurn();
 				break;
 			case 32:

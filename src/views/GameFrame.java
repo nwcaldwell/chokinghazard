@@ -12,6 +12,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import controllers.GameManager;
 
@@ -33,17 +35,16 @@ public class GameFrame extends JFrame {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				gm.keyTyped(e);
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				gm.keyPressed(e);
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				gm.keyReleased(e);
+				if(gm != null)
+					gm.keyReleased(e);
 			}
 		});
 		setFocusTraversalKeysEnabled(false);
@@ -51,9 +52,11 @@ public class GameFrame extends JFrame {
 	
 	private void addMenu(){
 		//this method adds a menu bar to the JFrame (this class)
-		JMenu file = new JMenu("File");
+		final JMenu file = new JMenu("File");
+		file.setMnemonic(KeyEvent.VK_A);
 		
 		JMenuItem newGame = new JMenuItem("New Game");
+		newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -94,7 +97,8 @@ public class GameFrame extends JFrame {
 		});
 		file.add(newGame);
 		
-		JMenuItem loadGame = new JMenuItem("Load Game");
+		JMenuItem loadGame = new JMenuItem("Open Game");
+		loadGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.ALT_MASK));
 		loadGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,6 +120,7 @@ public class GameFrame extends JFrame {
 		file.add(loadGame);
 		
 		JMenuItem saveGame = new JMenuItem("Save Game");
+		saveGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
         saveGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	gm.saveGame();
@@ -126,12 +131,17 @@ public class GameFrame extends JFrame {
         JMenuItem deleteGame = new JMenuItem("Delete Game");
         deleteGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
-            	gm.deleteGame();
+            	if(gm.deleteGame()){
+            		setContentPane(new JPanel());
+            		pack();
+            		validate();
+            	}
             }
         }); 
         file.add(deleteGame);
         
         JMenuItem exit = new JMenuItem("Exit");
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
         exit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	boolean quit = gm.quitGame();
@@ -144,6 +154,7 @@ public class GameFrame extends JFrame {
         JMenu help = new JMenu("Help");
         
         JMenuItem controls = new JMenuItem("Game Controls");
+        controls.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.ALT_MASK));
         controls.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	//display a frame that shows a keyboard mapping of the game controls

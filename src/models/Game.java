@@ -264,12 +264,15 @@ public class Game implements Serializable {
 	}
 	
 	public void placeComponent(){
-		Cell currentCell = board.getCellAtPixel(x, y);
+		Cell[][] currentCell = {
+			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1)},
+			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
+		};//TODO someone double check this make sure it's right
 		
 		System.out.println(currentComponent.toString());
 		String type = currentComponent.toString();
-		//figure out which type to place the component properly
 		
+		//figure out which type to place the component properly
 		if(type.equals("DEVELOPER")){
 
 			board.moveDeveloperAroundBoard((Developer)currentComponent);
@@ -313,56 +316,94 @@ public class Game implements Serializable {
 	}
 	
 	public void selectTwoSpaceTile(){
-		//TODO check if the current player can actually place a two space tile
-		currentComponent = new TwoSpaceTile(new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
+		
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else if(players[indexOfCurrentPlayer].getTwoSpaceTiles() == 0){
+			showNotEnoughTiles();
+		}
+		else{
+			currentComponent = new TwoSpaceTile(new Space[2][2]);
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+			
+		}
 	}
 	
 	public void selectThreeSpaceTile(){
-		if(this.threeSpaceTiles != 0){
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else if(this.threeSpaceTiles == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new ThreeSpaceTile(new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
 	}
 	
 	public void selectIrrigationTile(){
-		if(this.irrigationTiles != 0){
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else if(this.irrigationTiles == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new OneSpaceTile(new IrrigationSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
+			
 	}
 	
 	public void selectPalaceTile(){
-		String palace = JOptionPane.showInputDialog("What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
-		placePalace(palace);
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else{
+			String palace = JOptionPane.showInputDialog("What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
+			placePalace(palace);
+		}
 	}
 	
 	public void selectRiceTile(){
-		if(players[indexOfCurrentPlayer].getRiceTiles() > 0){
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else if(players[indexOfCurrentPlayer].getRiceTiles() == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new OneSpaceTile(new RiceSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
+			
 	}
 	
 	public void selectVillageTile(){
-		if(players[indexOfCurrentPlayer].getVillageTiles() > 0){
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else if(players[indexOfCurrentPlayer].getVillageTiles() == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new OneSpaceTile(new VillageSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
+			
 	}
 	
 	public void selectPalaceToUpgrade(){
 		//ask the user what value of tile they would like to place
-		String upgrade = JOptionPane.showInputDialog("What value of Palace would you like to upgrade to?\n 2, 4, 6, 8, or 10");
-		placePalace(upgrade);
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else{
+			String upgrade = JOptionPane.showInputDialog("What value of Palace would you like to upgrade to?\n 2, 4, 6, 8, or 10");
+			placePalace(upgrade);
+		}
 	}
 	
 	private void placePalace(String input){
@@ -395,6 +436,9 @@ public class Game implements Serializable {
 	
 	private void showNotEnoughTiles(){
 		JOptionPane.showMessageDialog(null, "Not enough tiles!");
+	}
+	private void showNotEnoughActionPoints(){
+		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
 	}
 	
 	private void initPlayers(){

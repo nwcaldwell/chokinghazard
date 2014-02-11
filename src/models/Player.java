@@ -163,18 +163,24 @@ public class Player implements Serializable<Player> {
 	}
 	
 	public void useTwoSpaceTile(){
+		//decrement the number of action points the user has
+		this.actionPoints--;
 		//decrement the number of two space tiles that the use has
 		this.twoSpaceTiles--;
 		//set the ifPlacedLandTile to true 
 		this.ifPlacedLandTile = true;
 	}
 	public void useVillageTile(){
+		//decrement the number of action points the user has
+		this.actionPoints--;
 		//decrement the number of village tiles
 		this.villageTiles--;
 		//set the ifPlacedLandTile to true 
 		this.ifPlacedLandTile = true;
 	}
 	public void useRiceTile(){
+		//decrement the number of action points the user has
+		this.actionPoints--;
 		//decrement the number of rice tiles
 		this.riceTiles--;
 		//set the ifPlacedLandTile to true 
