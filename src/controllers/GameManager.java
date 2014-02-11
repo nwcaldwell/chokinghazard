@@ -2,7 +2,6 @@ package controllers;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,9 +10,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import models.Game;
-import sun.misc.IOUtils;
 import views.GamePanel;
-
 
 public class GameManager{
 	
@@ -29,7 +26,7 @@ public class GameManager{
 	
 	// Main constructor
 	public GameManager(Game currentGame) {
-		this.currentGame = currentGame;
+	
 	}
 	
 	// Creates new game using the appropriate number of players.
@@ -165,14 +162,17 @@ public class GameManager{
 		switch(e.getKeyCode()){
 			case 9:
 				//tab through developers
+				System.out.println("next developer");
 				currentGame.tabThroughDevelopers();
 				break;
 			case 10:
 				//pressed enter
+				System.out.println("pressed enter");
 				currentGame.placeComponent();
 				break;	
 			case 27:
 				//cancel action
+				System.out.println("cancel action");
 				currentGame.cancelAction();
 				break;
 			case 88:
@@ -182,6 +182,7 @@ public class GameManager{
 				break;
 			case 32:
 				//pressed the space bar
+				System.out.println("rotate");
 				currentGame.rotateCurrentComponent();
 				break;
 			
@@ -207,31 +208,32 @@ public class GameManager{
 				break;
 			case 68:
 				//pressed D, add new developer onto board
+				System.out.println("add new developer");
 				currentGame.addDeveloperToBoard();
 				break;
 			case 73:
 				//pressed I, add new Irrigation tile
+				System.out.println("place Irrigation Tile");
 				currentGame.selectIrrigationTile();
 				break;
-			//case 77;
-				//pressed M, chooses the menu
 			case 80:
 				//pressed P, new palace tile, need to ask for value of Tile
+				System.out.println("Place Palace Tile");
 				currentGame.selectPalaceTile();
 				break;
 			case 82:
 				//pressed R, place rice tile
+				System.out.println("Place Palace Tile");
 				currentGame.selectRiceTile();
 				break;
 			case 84:
 				//pressed T, use action token
+				System.out.println("Use Extra Action Token");
 				currentGame.useActionToken();
 				break;
-			case 85:
-				//pressed U, upgrade new palace
-				currentGame.selectPalaceToUpgrade();
 			case 86:
 				//pressed V, place Village
+				System.out.println("Place Village Tile");
 				currentGame.selectVillageTile();
 				break;
 		/*
