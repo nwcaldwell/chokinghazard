@@ -27,7 +27,7 @@ public class GameFrame extends JFrame {
 		setTitle("Java - by Choking Hazard");
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
-		gm = new GameManager();
+		gm = GameManager.getInstance();
 		addMenu();
 		addKeyListener(new KeyListener() {
 			
