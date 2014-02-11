@@ -21,12 +21,13 @@ public class GameManager{
 	public static void main(String args[]){
 
 		GameManager practice = new GameManager(new Game(2));
-		practice.saveGame();
+		practice.quitGame();
 	}
 	
 	
-
+	//Attributes
 	private Game currentGame;
+	
 	
 	// CONSTRUCTORS
 	// Default constructor
@@ -39,14 +40,16 @@ public class GameManager{
 		this.currentGame = currentGame;
 	}
 
+	
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
 		currentGame = new Game(numPlayers);
 	}
+
 	
-	// Loads a game from the specified textfile and assigns it 
-	// to the current game.
+	
+	// This gets the name of the text file for saving/loading the game
 	public boolean getFileName(String name, String message){
 		boolean okFileName = false;
 		
@@ -174,42 +177,51 @@ public class GameManager{
 	
 	
 	// Quits the current game. Asks the user if they want to save first.
-	public boolean quitGame() {
+	public boolean deleteCurrentGame() {
 		//returning true quits the game
 		if(currentGame == null){
-			return true;
+			JOptionPane.showMessageDialog(null, "No current game to delete!");
+			return false;
 		}
 		
-		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save this game before quitting?", "Quit Game", JOptionPane.YES_NO_OPTION);
-		
-		if(selectedSaveGame == JOptionPane.YES_OPTION){
-			saveGame();
-			return true;
+		try{
+			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before deleting?", "Confirm Delete Game", JOptionPane.YES_NO_CANCEL_OPTION);
+			
+			if(confirmDeleteGame == JOptionPane.YES_OPTION){
+				return saveGame();
+			}
+			else if(confirmDeleteGame == JOptionPane.CANCEL_OPTION){
+				return false;
+			}
+			else{
+				currentGame = null;
+				JOptionPane.showMessageDialog(null, "You have now quit the game...");
+				return true;
+			}
+		}catch(NullPointerException e){
+			return false;
 		}
-		else if(selectedSaveGame == JOptionPane.NO_OPTION){
-			//makes the game frame quit
-			return true;
-		}
-		
-		return false;
 	}
 	
 	// Deletes the current game. Asks the user if they are sure before proceeding.
-	public boolean deleteGame() {
+	public boolean exitGameAndFrame() {
 		if(currentGame == null)
 			return false;
 		
-		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this game?", "Delete Game", JOptionPane.YES_NO_OPTION);
-		if(selectedSaveGame == JOptionPane.YES_OPTION){
-			currentGame = null;
-			//delete the file
-			//TODO
-			return true;
+		try{
+			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
+			
+			if(confirmExitGame == JOptionPane.YES_OPTION){
+				currentGame = null;
+				JOptionPane.showMessageDialog(null, "You have now exit Java. Enjoy the real world.");
+				return true;
+			}
+			else {
+				return false;
+			}
+		}catch(NullPointerException e){
+			return false;
 		}
-		else if(selectedSaveGame == JOptionPane.NO_OPTION){
-			return true;
-		}
-		return false;
 	}
 	
 	public GamePanel getGamePanel(){
