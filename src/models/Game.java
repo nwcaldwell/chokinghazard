@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
+
 import javax.swing.JOptionPane;
 
 import views.GamePanel;
@@ -206,8 +207,18 @@ public class Game implements Serializable {
 	}
 	
 	public void addDeveloperToBoard(){
+
+		//TODO need to check the board if there's any tiles on the outermost-inner java layer
+		for(int i = 0; i < board.getOutsideInnerCells().length; ++i){
+			
+		}
+		//only create this if there are outsideinnercells, will need to change the developer position at some point
+		if (board.getCellAtPixel(x, y).getSpace() != null) {
+			board.moveDeveloperOntoBoard(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
+		}
+
 		
-		currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
+		//currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
 		
 		//TODO this should put the developer on the board's first applicable outsideInnercells[]
 		gamePanel.moveDeveloperOntoBoard(x, y);
