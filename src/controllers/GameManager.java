@@ -16,14 +16,6 @@ import views.GamePanel;
 
 
 public class GameManager{
-	// for testing
-	 	
-	public static void main(String args[]){
-
-		GameManager practice = new GameManager(new Game(2));
-		practice.quitGame();
-	}
-	
 	
 	//Attributes
 	private Game currentGame;
@@ -39,15 +31,12 @@ public class GameManager{
 	public GameManager(Game currentGame) {
 		this.currentGame = currentGame;
 	}
-
 	
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
 		currentGame = new Game(numPlayers);
 	}
-
-	
 	
 	// This gets the name of the text file for saving/loading the game
 	public boolean getFileName(String name, String message){
@@ -77,28 +66,9 @@ public class GameManager{
 	}
 	
 	public boolean loadGame(File loadFile) {
-		//parse the file and create a currentGame from it.
-			/*
-			try{
-				int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to load a past game?", "Confirm Load Game", JOptionPane.YES_NO_OPTION);
-				if(confirmSaveGame == JOptionPane.NO_OPTION ){
-					return false;
-				}
-			}catch(NullPointerException e){
-				return false;
-			}
-		
-			if(!getFileName(fileName, "Name of file to load?")){
-				return false;
-			}
-			*/
-			
 			StringBuilder alpha = new StringBuilder();
-			
-			;
 			try{
 				Scanner input = new Scanner(loadFile);
-				System.out.println("got here line 101 gamemang");
 				while(input.hasNextLine()){
 					alpha.append(input.nextLine());
 				}
@@ -110,8 +80,6 @@ public class GameManager{
 		return true;
 	}
 
-	
-	
 	// Saves the current game to a text file in the format specified by serializable.
 	//Don't mess with this unless Meghan or Mauricio said so. THANKS
 	public boolean saveGame() {
@@ -151,43 +119,28 @@ public class GameManager{
 		try{
 			writer = new FileWriter(newFile);
 			writer.write(currentGame.serialize());
+			writer.close();
 		}catch(IOException e){
 			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");
 			return false;
-		}finally{
-			try{
-				writer.close();
-			}catch(IOException e){
-				JOptionPane.showMessageDialog(null, "File cannot be closed. Please do something else.");
-			}
 		}
 		return true;
 	}
 	
-	
-	
 	// Quits the current game. Asks the user if they want to save first.
 	public boolean deleteGame() {
 		try{
-			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Do you want to save before you delete the current game?", "Confirm Delete Game", JOptionPane.YES_NO_OPTION);
+			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the current game?", "Confirm Delete Game", JOptionPane.YES_NO_OPTION);
 			
 			if(confirmDeleteGame == JOptionPane.YES_OPTION){
-				if(saveGame()){
 					//Will figure out how to get the old game to not be on screen
 					//Need to consult the expert
 					currentGame = null;
 					return true;
 				}
-				return false;
-			}
-			else if(confirmDeleteGame == JOptionPane.CANCEL_OPTION){
-				return false;
-			}
-			else{
-				
-				return true;
-			}
-		}catch(NullPointerException e){
+			return false;
+		}
+		catch(NullPointerException e){
 			return false;
 		}
 	}
@@ -195,13 +148,22 @@ public class GameManager{
 	// Deletes the current game. Asks the user if they are sure before proceeding.
 	public boolean quitGame() {
 		try{
-			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
+			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before exiting?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
 			
 			if(confirmExitGame == JOptionPane.YES_OPTION){
+				if(saveGame()){
+					currentGame = null;
+					JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
+					return true;
+				}
+				return false;
+			}
+			else if(confirmExitGame == JOptionPane.NO_OPTION){
 				currentGame = null;
-				JOptionPane.showMessageDialog(null, "You have now exit Java. Enjoy the real world!");
+				JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
 				return true;
 			}
+			
 			else{
 				return false;
 			}
