@@ -1,6 +1,8 @@
 package models;
 
 import helpers.Json;
+import helpers.JsonObject;
+
 
 public abstract class Tile implements Serializable<Tile> {
 

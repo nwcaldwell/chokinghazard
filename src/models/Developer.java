@@ -3,6 +3,9 @@ package models;
 import helpers.Json;
 import helpers.JsonObject;
 
+
+
+
 public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
@@ -53,8 +56,7 @@ public class Developer implements Serializable<Developer>{
 	    return Json.jsonPair("Developer", Json.jsonObject(Json.jsonMembers(
 	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard + "")),
 	    		Json.jsonPair("currentCellX", Json.jsonValue(currentCell.getX() + "")), 
-	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + "")),
-	    		Json.jsonPair("ownerColor", Json.jsonValue(owner + ""))
+	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + ""))
 	    		)));
   }
 
@@ -64,8 +66,11 @@ public class Developer implements Serializable<Developer>{
   }
 
 @Override
-public Developer loadObject(JsonObject json) {
-	// TODO Auto-generated method stub
-	return null;
+public Developer loadObject(JsonObject json) { 
+	//will be written after attributes have been solidified in Player, Game, Developer
+	Developer result = new Developer(null, null);
+	result.setPlacedOnBoard(Boolean.parseBoolean(json.getString("isPlacedOnBoard")));
+	
+	return result;
 }
 }
