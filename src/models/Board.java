@@ -189,7 +189,31 @@ public class Board implements Serializable<Board> {
 	// array. For example, if players 1, 2, 3, and 4 have the 3rd, 4th, 1st, and 2nd highest 
 	// ranking developers respectively, return the array [3, 4, 1, and 2]. remember players array is indexed starting at 0
 	private int[] findCityRanks(Cell cell) {
-		// TODO
+		setConnectedCells(cell);
+      
+      HashMap<Player, int> scores = new HashMap<Player, int>();
+      
+      for(cell c : cell.getConnectedCells())
+      {
+         if(c.hasDeveloper())
+         {
+            Player p = c.getDeveloper.getOwner();
+            int rank = c.getElevation();
+            if(!scores.containsKey(p))
+            {
+               scores.put(p, rank);
+            }
+            else
+            {
+               int newRank = c.getElevation();
+               if(newRank > rank)
+                  scores.get(p) = newRank;
+            }
+         }
+      }
+      //we now have each player mapped to their rank or not mapped if they don't have a developer 
+      //on the city.
+      
 		return new int[0];
 	}
 
