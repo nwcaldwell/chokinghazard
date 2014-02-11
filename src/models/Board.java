@@ -236,7 +236,102 @@ public class Board implements Serializable<Board> {
 	// ranking developers respectively, return the array [3, 4, 1, and 2]. remember players array is indexed starting at 0
 	
 	private int[] findIrrigationRanks(Cell cell) {
-		// TODO 
+        
+         int x = cell.getX();
+         int y = cell.getY();
+         int max = 0;
+         
+         HashMap<Player, Integer> scores = new HashMap<Player, Integer>();
+
+         
+		   if (y < 14 && map[y + 1][x].hasDeveloper())
+			{
+            Cell c = map[y + 1][x];
+            Player p = c.getDeveloper().getOwner();
+            int rank = c.getElevation();
+            if(max < rank)
+            {
+               max = rank;
+            }
+            if(!scores.containsKey(p))
+            {
+               scores.put(p, rank);
+            }
+            else
+            {
+               int newRank = c.getElevation();
+               if(newRank > rank)
+                  scores.put(p, newRank);
+            }
+         }
+			if (y > 0 && map[y - 1][x].hasDeveloper())
+			{
+            Cell c = map[y - 1][x];
+				Player p = cell.getDeveloper().getOwner();
+            int rank = cell.getElevation();
+            if(max < rank)
+            {
+               max = rank;
+            }
+            if(!scores.containsKey(p))
+            {
+               scores.put(p, rank);
+            }
+            else
+            {
+               int newRank = c.getElevation();
+               if(newRank > rank)
+                  scores.put(p, newRank);
+            }
+         }
+			if (x < 14 && map[y][x + 1].hasDeveloper())
+			{
+            Cell c = map[y][x+1];
+            Player p = c.getDeveloper().getOwner();
+            int rank = c.getElevation();
+            if(max < rank)
+            {
+               max = rank;
+            }
+            if(!scores.containsKey(p))
+            {
+               scores.put(p, rank);
+            }
+            else
+            {
+               int newRank = c.getElevation();
+               if(newRank > rank)
+                  scores.put(p, newRank);
+            }
+         }
+			if (x > 0 && map[y][x - 1].hasDeveloper())
+			{
+            Cell c = map[y][x-1];
+            Player p = cell.getDeveloper().getOwner();
+            int rank = cell.getElevation();
+            if(max < rank)
+            {
+               max = rank;
+            }
+            if(!scores.containsKey(p))
+            {
+               scores.put(p, rank);
+            }
+            else
+            {
+               int newRank = c.getElevation();
+               if(newRank > rank)
+                  scores.put(p, newRank);
+            }
+         }
+
+      ArrayList<Player> maxRank = new ArrayList<Player>();
+      for(Player p : scores.keySet())
+      {
+         if(scores.get(p) == max)
+            maxRank.add(p);
+      }
+      
 		return new int[0];
 	}
 
