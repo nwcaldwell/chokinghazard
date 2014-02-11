@@ -123,14 +123,14 @@ public class GameFrame extends JFrame {
         }); 
         file.add(saveGame);
         
-        JMenuItem deleteGame = new JMenuItem("Delete Game");
+  /*      JMenuItem deleteGame = new JMenuItem("Delete Game");
         deleteGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	gm.deleteGame();
             }
         }); 
         file.add(deleteGame);
-        
+  */      
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
