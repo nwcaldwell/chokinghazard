@@ -14,6 +14,9 @@ public class Board implements Serializable<Board> {
 	private int decrementedActionPoints;
 
 	public Board() {
+		// Written by Nathan since I needed to integrate some functionality into
+		// Game.
+		// Let me know if you make any changes or have any questions.
 		this.map = new Cell[14][14];
 		this.outsideInnerCells = new Cell[44];
 		// outside inner cells are the boarder around inner java.
@@ -42,15 +45,13 @@ public class Board implements Serializable<Board> {
 				if ((x == 1 || x == 12) && (y != 0 && y != 13)) {
 					outsideInnerCells[k] = map[x][y];
 					k++;
-				}
-
-				else if ((y == 1 || y == 12) && (x != 0 && x != 13)) {
+				} else if ((y == 1 || y == 12) && (x != 0 && x != 13)) {
 					outsideInnerCells[k] = map[x][y];
 					k++;
 				}
 			}
 		}
-
+		
 		this.path = new Stack<Cell>();
 		decrementedActionPoints = 0;
 
@@ -61,47 +62,47 @@ public class Board implements Serializable<Board> {
 	// successful and false otherwise. Deducts the appropriate number of action
 	// points depending on whether the player came from the mountains or the
 	// lowlands.
-	public boolean moveDeveloperOntoBoard(Player player, Cell cell) {
-		// it needs to be in outside square
-		// has to be rice and village
-		if (cell.getSpace().getType() == SpaceType.RICE
-				&& cell.getSpace().getType() == SpaceType.VILLAGE) {
-			if (cell.getFromMountains() && player.getActionPoints() == 2
-					&& player.isIfPlacedLandTile()) {
-				player.addDevOnBoard(new Developer(player, cell));
-
+	public boolean moveDeveloperOntoBoard(Developer developer, Cell cell) {
+		
+		//it needs to be in outside square
+		//has to be rice and village
+		if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
+			if(cell.getFromMountains() && developer.getOwner().getActionPoints() == 2 && developer.getOwner().isIfPlacedLandTile()){
+				
+				developer.getOwner().addDevOnBoard(developer, cell);
+				
+				return true;
+			}else if(cell.getFromMountains() && developer.getOwner().getActionPoints() >= 2){
+				
+				developer.getOwner().addDevOnBoard(developer, cell);
+				
+				return true;
+			}else if(cell.getFromLowlands() && developer.getOwner().getActionPoints() == 1 && developer.getOwner().isIfPlacedLandTile()){
+				
+				developer.getOwner().addDevOnBoard(developer, cell);
+				
+				return true;
+			}else if(cell.getFromLowlands() && developer.getOwner().getActionPoints() >= 1){
+				
+				developer.getOwner().addDevOnBoard(developer, cell);
+				
 				return true;
 			}
-
-			else if (cell.getFromMountains() && player.getActionPoints() >= 2) {
-				player.addDevOnBoard(new Developer(player, cell));
-
-				return true;
-			}
-
-			else if (cell.getFromLowlands() && player.getActionPoints() == 1
-					&& player.isIfPlacedLandTile()) {
-				player.addDevOnBoard(new Developer(player, cell));
-
-				return true;
-			}
-
-			else if (cell.getFromLowlands() && player.getActionPoints() >= 1) {
-				player.addDevOnBoard(new Developer(player, cell));
-
-				return true;
-			}
-
+			
 		}
-
+		
 		return false;
-	}
+		
 
+	}
+	
 	// Move a player that's already on the board off of the board.
-	// Add developer back into array of available developers.
+		// Add developer back into array of available developers.
 	public boolean moveDeveloperOffBoard(Developer developer) {
-		developer.getOwner().removeOffBoard(developer);
-		return true;
+		
+				developer.getOwner().removeOffBoard(developer);
+		
+			return true;
 	}
 
 	// Uses the stack variable to create the developer path as the
@@ -109,53 +110,51 @@ public class Board implements Serializable<Board> {
 	// last highlighted Cell, the top Cell is popped off of the Stack.
 	public boolean createDeveloperPath(Developer developer, Cell cell) {
 		
-		try{
-			if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
-				if(cell.getSpace().getType() == developer.getCurrentCell().getSpace().getType()){
-					
-					path.push(cell);				
-					return true;
-				}else if(developer.getOwner().getActionPoints() > 0){
-					
-					decrementedActionPoints++;
-					
-					developer.getOwner().decrementActionPoints(1);
-					
-					path.push(cell);				
-					return true;
-					
-				}else
-					return false;
+		
+		if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
+			if(cell.getSpace().getType() == developer.getCurrentCell().getSpace().getType()){
 				
-			}else{
-					return false;
-			}
-		}catch(NullPointerException e){
-
+				path.push(cell);				
+				return true;
+			}else if(developer.getOwner().getActionPoints() > 0){
+				
+				decrementedActionPoints++;
+				
+				developer.getOwner().decrementActionPoints(1);
+				
+				path.push(cell);				
+				return true;
+				
+			}else
+				return false;
+			
+		}else{
+				return false;
 		}
-		return false;
+
 	}
-
+	
 	public void deleteDeveloperPath(Developer developer) {
-		developer.getOwner().incrementActionPoints(decrementedActionPoints); // restores the ActionPoints
-		decrementedActionPoints = 0; // it makes decrementedActionPoints to be
-										// use again
+		
+		developer.getOwner().incrementActionPoints(decrementedActionPoints);  //it restores the ActionPoints
+		decrementedActionPoints = 0;										  //it makes decrementedActionPoints to be use again
+	
 
-		for (int i = 0; i < path.size(); i++) { // push until u get to the last cell
-			path.pop();
-		}
 	}
 
 	// Using the stack in the createDeveloperPath method,
 	// we use this method to move the developer to its new location.
 	public void moveDeveloperAroundBoard(Developer developer) {
-
-		developer.setCurrentCell(path.pop());
-
-		for (int i = 0; i < path.size(); i++) {
+		
+		for(int i = 0; i < path.size(); i++){				//push until u get to the last cell
 			path.pop();
 		}
+		
+		developer.setCurrentCell(path.pop());
+		
 	}
+
+	
 
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
@@ -228,13 +227,12 @@ public class Board implements Serializable<Board> {
 	public Cell[][] getMap() {
 		return map;
 	}
-
-	public Cell getCellAtLocation(int x, int y) {
+	
+	public Cell getCellAtLocation(int x, int y){
 		return map[x][y];
 	}
-
-	public Cell getCellAtPixel(int x, int y) {
-		return map[((x % 700) / 50)][((y % 700) / 50)];
+	public Cell getCellAtPixel(int x, int y){
+		return map[((x%700)/50)][((y%700)/50)];
 	}
 
 	// Given an X and Y, this method sets the connectedCells set of the
@@ -287,30 +285,28 @@ public class Board implements Serializable<Board> {
 	}
 
 	public String serialize() {
-		return Json.jsonPair(
-				"Board",
-				Json.jsonObject(Json.jsonMembers(
-						Json.jsonPair("map", Json.serializeArray(map)),
-						Json.jsonPair("outsideInnerCells",
-								Json.serializeArray(outsideInnerCells)))));
-	}
+		return Json.jsonPair("Board", Json.jsonObject(Json.jsonMembers(
+				Json.jsonPair("map", Json.serializeArray(map)),
+				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
+		)));
+    }
 
-	public Board loadObject(JsonObject json) {
-		Cell[][] map = new Cell[14][14];
-		for (int x = 0; x < 14; ++x) {
-			for (int y = 0; y < 14; ++y) {
-				map[x][y] = ((Cell[][]) (Object) json.getObjectArray("map"))[x][y];
-			}
-		}
-		Cell[] cells = new Cell[44];
-		for (int y = 0; y < 14; ++y) {
+    public Board loadObject(JsonObject json) {
+    	Cell[][] map = new Cell[14][14];
+    	for(int x = 0; x < 14; ++x) {
+    		for(int y = 0; y < 14; ++y) {
+    			map[x][y] = ((Cell[][]) (Object) json.getObjectArray("map"))[x][y];
+    		}
+    	}
+    	Cell[] cells = new Cell[44];
+		for(int y = 0; y < 14; ++y) {
 			cells[y] = ((Cell[]) (Object) json.getObjectArray("map"))[y];
 		}
 		Board board = new Board();
 		board.setOutsideInnerCells(cells);
 		board.setMap(map);
-		return board;
-	}
+        return board;
+    }
 
 	private void setMap(Cell[][] map) {
 		this.map = map;
