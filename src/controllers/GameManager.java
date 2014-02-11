@@ -13,6 +13,11 @@ import models.Game;
 import views.GamePanel;
 
 public class GameManager{
+	public static void main(String args[]) {
+		Game game = new Game(2); 
+		System.out.println(game.serialize());
+	}
+	
 	
 	//Attributes
 	private Game currentGame;
@@ -113,6 +118,7 @@ public class GameManager{
 		
 		FileWriter writer = null; 
 		try{
+			System.out.println(fileName);
 			writer = new FileWriter(newFile);
 			writer.write(currentGame.serialize());
 			writer.close();

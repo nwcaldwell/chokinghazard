@@ -79,12 +79,12 @@ public class Cell implements Serializable<Cell> {
 
     public String serialize() {
 		return Json.jsonPair("Cell", Json.jsonObject(Json.jsonMembers(
-				Json.jsonPair("space", space.serialize()),
+				Json.jsonPair("space", (space == null ? null : space.serialize())),
 				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonPair("connectedCells", Json.serializeArray(connectedCells.toArray())),
+    			Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
     			Json.jsonPair("fromLowLands", fromLowlands + ""),
     			Json.jsonPair("fromMountains", fromMountains + "")
 		)));

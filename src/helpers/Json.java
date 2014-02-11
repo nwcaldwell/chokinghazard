@@ -129,7 +129,7 @@ public class Json {
 				list.add(serializeArray(arr[x]));
 			}
 			else {
-				list.add(Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
+				list.add(arr[x] == null? null : Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
 			}
 		}
     	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));
