@@ -58,6 +58,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				// TODO keep asking if it isn't an number, not break the game.
 				String playerCount = JOptionPane.showInputDialog("How many players? 2-4");
 				boolean canProceed = false; //goes true when we have acceptable input
 				while (!canProceed)
@@ -126,7 +127,7 @@ public class GameFrame extends JFrame {
         JMenuItem deleteGame = new JMenuItem("Delete Game");
         saveGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
-            	gm.deleteGame();
+            	//gm.deleteGame();
             }
         }); 
         file.add(deleteGame);
