@@ -191,14 +191,19 @@ public class Board implements Serializable<Board> {
 	private int[] findCityRanks(Cell cell) {
 		setConnectedCells(cell);
       
-      HashMap<Player, int> scores = new HashMap<Player, int>();
+      HashMap<Player, Integer> scores = new HashMap<Player, Integer>();
+      int max = 0;
       
-      for(cell c : cell.getConnectedCells())
+      for(Cell c : cell.getConnectedCells())
       {
          if(c.hasDeveloper())
          {
-            Player p = c.getDeveloper.getOwner();
+            Player p = c.getDeveloper().getOwner();
             int rank = c.getElevation();
+            if(max < rank)
+            {
+               max = rank;
+            }
             if(!scores.containsKey(p))
             {
                scores.put(p, rank);
@@ -207,12 +212,20 @@ public class Board implements Serializable<Board> {
             {
                int newRank = c.getElevation();
                if(newRank > rank)
-                  scores.get(p) = newRank;
+                  scores.put(p, newRank);
             }
          }
       }
       //we now have each player mapped to their rank or not mapped if they don't have a developer 
       //on the city.
+      
+      
+      ArrayList<Player> maxRank = new ArrayList<Player>();
+      for(Player p : scores.keySet())
+      {
+         if(scores.get(p) == max)
+            maxRank.add(p);
+      }
       
 		return new int[0];
 	}
@@ -374,3 +387,4 @@ public class Board implements Serializable<Board> {
 	}
 
 }
+
