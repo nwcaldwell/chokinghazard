@@ -40,32 +40,8 @@ public class GameManager{
 		currentGame = new Game(numPlayers);
 	}
 	
-	// This gets the name of the text file for saving/loading the game
-	public boolean getFileName(String name, String message){
-		boolean okFileName = false;
-		
-		while(!okFileName ){
-			//File name is invalid if it is blank, or has any of the following
-			//  \ / ? % * : | " < > . (space) (empty)
-			try{
-				//rewrite dialog later
-				name = JOptionPane.showInputDialog(message);
-				String s = ".*[ /\\\\?%*:|\"<>.].*";
-				if (name.matches(s) || name.equals(""))	//means that name doesn't contain any characters in s
-				{
-					JOptionPane.showMessageDialog(null, "Please enter a valid name");
-				}
-				else {
-					okFileName = true;
-				}
-			}catch(NullPointerException e){
 
-				okFileName = true;
-				return false;
-			}
-		}
-		return true;
-	}
+		
 	//this loads the game given a File object from the GameFrame
 	public boolean loadGame(File loadFile) {
 			StringBuilder alpha = new StringBuilder();
@@ -98,11 +74,30 @@ public class GameManager{
 			return false;
 		}
 		
+		
 		String fileName = "";
-		boolean nameSuccess = getFileName(fileName, "Name save file as?");
-		if(!nameSuccess){
-			return false;
+		boolean okFileName = false;
+		
+		while(!okFileName ){
+			//File name is invalid if it is blank, or has any of the following
+			//  \ / ? % * : | " < > . (space) (empty)
+			try{
+				//rewrite dialog later
+				fileName = JOptionPane.showInputDialog("Name save file as?");
+				String s = ".*[ /\\\\?%*:|\"<>.].*";
+				if (fileName.matches(s) || fileName.equals(""))	//means that name doesn't contain any characters in s
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid name");
+				}
+				else {
+					okFileName = true;
+				}
+			}catch(NullPointerException e){
+				return false;
+			}
 		}
+		
+		
 		File newFile = new File(fileName);
 		
 		try{
@@ -116,11 +111,11 @@ public class GameManager{
 			return false;
 		}
 		
-		FileWriter writer = null; 
+		FileWriter writer; 
 		try{
 			System.out.println(fileName);
 			writer = new FileWriter(newFile);
-			writer.write(currentGame.serialize());
+			writer.write("Meghan king dsahbweiujsadfkj");
 			writer.close();
 		}catch(IOException e){
 			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");
