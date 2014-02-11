@@ -2,25 +2,28 @@ package controllers;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
 import models.Game;
+import sun.misc.IOUtils;
 import views.GamePanel;
 
 
 public class GameManager{
-	/* for testing
-	 * 	
+	// for testing
+	 	
 	public static void main(String args[]){
 
 		GameManager practice = new GameManager(new Game(2));
-		boolean test = practice.saveGame();
-		System.out.println(test + "");
+		practice.saveGame();
 	}
-	*/
+	
 	
 
 	private Game currentGame;
@@ -44,8 +47,7 @@ public class GameManager{
 	
 	// Loads a game from the specified textfile and assigns it 
 	// to the current game.
-	public String getFileName(String caller){
-		String name = "";
+	public boolean getFileName(String name, String message){
 		boolean okFileName = false;
 		
 		while(!okFileName ){
@@ -53,33 +55,71 @@ public class GameManager{
 			//  \ / ? % * : | " < > . (space) (empty)
 			try{
 				//rewrite dialog later
-				name = JOptionPane.showInputDialog("Name " + caller + " file as?");
+				name = JOptionPane.showInputDialog(message);
 				String s = ".*[ /\\\\?%*:|\"<>.].*";
 				if (name.matches(s) || name.equals(""))	//means that name doesn't contain any characters in s
 				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid name");
-					System.out.println("invalid");
 				}
 				else {
-					System.out.println("valid");
 					okFileName = true;
 				}
-			}catch(Exception e){
+			}catch(NullPointerException e){
 
 				okFileName = true;
+				return false;
 			}
 		}
-		return name;
+		return true;
 	}
 	
-	public void loadGame(File fileName) {
+	public boolean loadGame() {
 		//parse the file and create a currentGame from it.
+		boolean loadSuccess = false;
+		String fileName = "";
 		
-		//TODO
+		while(!loadSuccess ){
+			
+			try{
+				int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to load a past game?", "Confirm Load Game", JOptionPane.YES_NO_OPTION);
+				if(confirmSaveGame == JOptionPane.NO_OPTION ){
+					return false;
+				}
+			}catch(NullPointerException e){
+				return false;
+			}
+		
+			if(!getFileName(fileName, "Name of file to load?")){
+				return false;
+			}
+			
+			
+			StringBuilder alpha = new StringBuilder();
+			
+			File loadFile = new File(fileName + ".txt");
+			try{
+				if(loadFile.exists()){
+					Scanner input = new Scanner(loadFile);
+					while(input.hasNextLine()){
+						alpha.append(input.nextLine());
+					}
+					input.close();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "File " + fileName + " could not be found.");
+					loadSuccess = false;
+				}
+			}catch(FileNotFoundException e){
+				JOptionPane.showMessageDialog(null, "File " + fileName + " could not be read. Check permissions.");
+				loadSuccess = false;
+			}
+		}
+		return true;
 	}
 
-	// Saves the current game to a text file in the format specified
-	// by serializable.
+	
+	
+	// Saves the current game to a text file in the format specified by serializable.
 	//Don't mess with this unless Meghan or Mauricio said so. THANKS
 	public boolean saveGame() {
 		if(currentGame == null){
@@ -87,21 +127,33 @@ public class GameManager{
 			return false;
 		}
 		
-		String fileName = getFileName("save");
-			
+		try{
+			int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game?", "Save Game", JOptionPane.YES_NO_OPTION);
+			if(confirmSaveGame == JOptionPane.NO_OPTION ){
+				return false;
+			}
+		}catch(NullPointerException e){
+			return false;
+		}
+		
+		String fileName = "";
+		boolean nameSuccess = getFileName(fileName, "Name save file as?");
+		if(!nameSuccess){
+			return false;
+		}
 		File newFile = new File(fileName);
 		
 		try{
 			if (newFile.exists()){
-				int selectedSaveGame = JOptionPane.showConfirmDialog(null, "This file name already has a saved game. Would you like to save anyways?", "Save Game", JOptionPane.YES_NO_CANCEL_OPTION);
-				
-				if(selectedSaveGame == JOptionPane.NO_OPTION){
+				int selectedSaveGame = JOptionPane.showConfirmDialog(null, "This file name already has a saved game. Would you like to save anyways?", "Save Game", JOptionPane.YES_NO_OPTION);
+				if(selectedSaveGame == JOptionPane.NO_OPTION ){
 					return false;
 				}
 			}
 		}catch(NullPointerException e){
 			return false;
 		}
+		
 		FileWriter writer = null; 
 		try{
 			writer = new FileWriter(newFile);
@@ -119,6 +171,8 @@ public class GameManager{
 		return true;
 	}
 	
+	
+	
 	// Quits the current game. Asks the user if they want to save first.
 	public boolean quitGame() {
 		//returning true quits the game
@@ -126,7 +180,7 @@ public class GameManager{
 			return true;
 		}
 		
-		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save this game before quitting?", "Quit Game", JOptionPane.YES_NO_CANCEL_OPTION);
+		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save this game before quitting?", "Quit Game", JOptionPane.YES_NO_OPTION);
 		
 		if(selectedSaveGame == JOptionPane.YES_OPTION){
 			saveGame();
@@ -145,7 +199,7 @@ public class GameManager{
 		if(currentGame == null)
 			return false;
 		
-		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this game?", "Delete Game", JOptionPane.YES_NO_CANCEL_OPTION);
+		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this game?", "Delete Game", JOptionPane.YES_NO_OPTION);
 		if(selectedSaveGame == JOptionPane.YES_OPTION){
 			currentGame = null;
 			//delete the file
