@@ -64,7 +64,7 @@ public class GameManager{
 		}
 		return true;
 	}
-	
+	//this loads the game given a File object from the GameFrame
 	public boolean loadGame(File loadFile) {
 			StringBuilder alpha = new StringBuilder();
 			try{
@@ -81,7 +81,6 @@ public class GameManager{
 	}
 
 	// Saves the current game to a text file in the format specified by serializable.
-	//Don't mess with this unless Meghan or Mauricio said so. THANKS
 	public boolean saveGame() {
 		if(currentGame == null){
 			JOptionPane.showMessageDialog(null, "No game to save!");
@@ -125,24 +124,6 @@ public class GameManager{
 			return false;
 		}
 		return true;
-	}
-	
-	// Quits the current game. Asks the user if they want to save first.
-	public boolean deleteGame() {
-		try{
-			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the current game?", "Confirm Delete Game", JOptionPane.YES_NO_OPTION);
-			
-			if(confirmDeleteGame == JOptionPane.YES_OPTION){
-					//Will figure out how to get the old game to not be on screen
-					//Need to consult the expert
-					currentGame = null;
-					return true;
-				}
-			return false;
-		}
-		catch(NullPointerException e){
-			return false;
-		}
 	}
 	
 	// Deletes the current game. Asks the user if they are sure before proceeding.
