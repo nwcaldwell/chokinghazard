@@ -3,10 +3,8 @@ package models;
 import helpers.Json;
 import helpers.JsonObject;
 
-
-
-
 public class Developer implements Serializable<Developer>{
+  
   private boolean isPlacedOnBoard;
   private Cell currentCell;
   private Player owner;
@@ -41,17 +39,12 @@ public class Developer implements Serializable<Developer>{
 	  return "DEVELOPER";
   }
 
-  //Questioning if we should save ownerColor or not. When creating the Developer
-  //objects, we would already be in the Player that owns the Developer...
   public String serialize() {
 	  /*This creates a string that represents a Developer object for saving and loading
 	   * 
 	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
 	   *  This will make the Cell unique
 	   * 
-	   * The owner should (I hope) be unique by the player's color, so that will be saved this way..
-	   * We may not even need to save this, since the Developer should be made with the corresponding
-	   * Player who owns it... anyways :P
 	   */
 	    return Json.jsonPair("Developer", Json.jsonObject(Json.jsonMembers(
 	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard + "")),
@@ -66,11 +59,8 @@ public class Developer implements Serializable<Developer>{
   }
 
 @Override
-public Developer loadObject(JsonObject json) { 
-	//will be written after attributes have been solidified in Player, Game, Developer
-	Developer result = new Developer(null, null);
-	result.setPlacedOnBoard(Boolean.parseBoolean(json.getString("isPlacedOnBoard")));
-	
-	return result;
+public Developer loadObject(JsonObject json) {
+	// TODO Auto-generated method stub
+	return null;
 }
 }
