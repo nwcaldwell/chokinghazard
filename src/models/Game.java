@@ -21,7 +21,7 @@ public class Game implements Serializable {
 	private boolean isFinalTurn;
 	private Stack<Cell> stack;
 	private int irrigationTiles; 
-    private int threeSpaceTiles;
+    private int threeSpacfeTiles;
     private int[] palaceTiles;
     int x = 50;
 	int y = 50;
