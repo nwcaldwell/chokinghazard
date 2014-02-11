@@ -2,6 +2,10 @@ package controllers;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +13,10 @@ import models.Game;
 import views.GamePanel;
 
 public class GameManager{
+	
+	//Attributes
 	private Game currentGame;
+	
 	
 	// CONSTRUCTORS
 	// Default constructor
@@ -21,64 +28,126 @@ public class GameManager{
 	public GameManager(Game currentGame) {
 	
 	}
-
+	
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
 		currentGame = new Game(numPlayers);
 	}
 	
-	// Loads a game from the specified textfile and assigns it 
-	// to the current game.
-	public void loadGame(File fileName) {
-		//parse the file and create a currentGame from it
-		//TODO
+	// This gets the name of the text file for saving/loading the game
+	public boolean getFileName(String name, String message){
+		boolean okFileName = false;
+		
+		while(!okFileName ){
+			//File name is invalid if it is blank, or has any of the following
+			//  \ / ? % * : | " < > . (space) (empty)
+			try{
+				//rewrite dialog later
+				name = JOptionPane.showInputDialog(message);
+				String s = ".*[ /\\\\?%*:|\"<>.].*";
+				if (name.matches(s) || name.equals(""))	//means that name doesn't contain any characters in s
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid name");
+				}
+				else {
+					okFileName = true;
+				}
+			}catch(NullPointerException e){
+
+				okFileName = true;
+				return false;
+			}
+		}
+		return true;
+	}
+	//this loads the game given a File object from the GameFrame
+	public boolean loadGame(File loadFile) {
+			StringBuilder alpha = new StringBuilder();
+			try{
+				Scanner input = new Scanner(loadFile);
+				while(input.hasNextLine()){
+					alpha.append(input.nextLine());
+				}
+				input.close();
+			}catch(FileNotFoundException e){
+				JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
+				return false;
+		}
+		return true;
 	}
 
-	// Saves the current game to a text file in the format specified
-	// by serializable.
+	// Saves the current game to a text file in the format specified by serializable.
 	public boolean saveGame() {
-		//TODO
+		if(currentGame == null){
+			JOptionPane.showMessageDialog(null, "No game to save!");
+			return false;
+		}
+		
+		try{
+			int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game?", "Save Game", JOptionPane.YES_NO_OPTION);
+			if(confirmSaveGame == JOptionPane.NO_OPTION ){
+				return false;
+			}
+		}catch(NullPointerException e){
+			return false;
+		}
+		
+		String fileName = "";
+		boolean nameSuccess = getFileName(fileName, "Name save file as?");
+		if(!nameSuccess){
+			return false;
+		}
+		File newFile = new File(fileName);
+		
+		try{
+			if (newFile.exists()){
+				int selectedSaveGame = JOptionPane.showConfirmDialog(null, "This file name already has a saved game. Would you like to save anyways?", "Save Game", JOptionPane.YES_NO_OPTION);
+				if(selectedSaveGame == JOptionPane.NO_OPTION ){
+					return false;
+				}
+			}
+		}catch(NullPointerException e){
+			return false;
+		}
+		
+		FileWriter writer = null; 
+		try{
+			writer = new FileWriter(newFile);
+			writer.write(currentGame.serialize());
+			writer.close();
+		}catch(IOException e){
+			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");
+			return false;
+		}
 		return true;
 	}
 	
-	// Quits the current game. Asks the user if they want to save first.
-	public boolean quitGame() {
-		//returning true quits the game
-		if(currentGame == null){
-			return true;
-		}
-		
-		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save this game before quitting?", "Quit Game", JOptionPane.YES_NO_CANCEL_OPTION);
-		
-		if(selectedSaveGame == JOptionPane.YES_OPTION){
-			saveGame();
-			return true;
-		}
-		else if(selectedSaveGame == JOptionPane.NO_OPTION){
-			//makes the game frame quit
-			return true;
-		}
-		
-		return false;
-	}
-	
 	// Deletes the current game. Asks the user if they are sure before proceeding.
-	public boolean deleteGame() {
-		if(currentGame == null)
+	public boolean quitGame() {
+		try{
+			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before exiting?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
+			
+			if(confirmExitGame == JOptionPane.YES_OPTION){
+				if(saveGame()){
+					currentGame = null;
+					JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
+					return true;
+				}
+				return false;
+			}
+			else if(confirmExitGame == JOptionPane.NO_OPTION){
+				currentGame = null;
+				JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
+				return true;
+			}
+			
+			else{
+				return false;
+			}
+		}catch(NullPointerException e){
 			return false;
-		
-		int selectedSaveGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this game?", "Delete Game", JOptionPane.YES_NO_CANCEL_OPTION);
-		if(selectedSaveGame == JOptionPane.YES_OPTION){
-			currentGame = null;
-			//delete the file
-			//TODO
-			return true;
 		}
-		else if(selectedSaveGame == JOptionPane.NO_OPTION){
-			return true;
-		}
-		return false;
 	}
 	
 	public GamePanel getGamePanel(){

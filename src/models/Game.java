@@ -86,6 +86,7 @@ public class Game implements Serializable {
 	public GamePanel getGamePanel(){
 		return this.gamePanel;
 	}
+	
 
 	// ACTION TOKEN
 	// Increases number of action points available for that players 
