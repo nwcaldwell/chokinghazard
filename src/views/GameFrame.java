@@ -57,14 +57,26 @@ public class GameFrame extends JFrame {
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				/** Brett ***/ 
 				String playerCount = JOptionPane.showInputDialog("How many players? 2-4");
 				boolean canProceed = false; //goes true when we have acceptable input
+				boolean isInt = true; //For successful parse
+				int inputPlayers = -1;
 				while (!canProceed)
 				{	
-					if (!playerCount.equals("")) //check that they entered something
+					try 
 					{
-						final int numPlayers = Integer.parseInt(playerCount);
+						inputPlayers = Integer.parseInt(playerCount); //try to parse
+						isInt = true;;
+					}
+					catch (NumberFormatException ex) //catch exception if they entered blank or a non-numeric value
+					{
+						isInt = false;  //if we catch an exception, set to false, go back to above loop
+						
+					}
+					if (isInt) //successful entry passes this
+					{
+						final int numPlayers = inputPlayers;
 						if(numPlayers >= 2 && numPlayers <= 4)	//check that it is in the appropriate range
 						{
 							new Thread(new Runnable(){
@@ -122,9 +134,9 @@ public class GameFrame extends JFrame {
             }
         }); 
         file.add(saveGame);
-        
+    /*    
         JMenuItem deleteGame = new JMenuItem("Delete Game");
-        saveGame.addActionListener(new ActionListener(){
+        deleteGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	gm.deleteGame();
             }
@@ -140,7 +152,7 @@ public class GameFrame extends JFrame {
             }
         });
         file.add(exit);
-        
+     */   
         JMenu help = new JMenu("Help");
         
         JMenuItem controls = new JMenuItem("Game Controls");

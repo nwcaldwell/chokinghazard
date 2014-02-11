@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
-
 import javax.swing.JOptionPane;
 
 import views.GamePanel;
@@ -87,6 +86,7 @@ public class Game implements Serializable {
 	public GamePanel getGamePanel(){
 		return this.gamePanel;
 	}
+	
 
 	// ACTION TOKEN
 	// Increases number of action points available for that players 
@@ -206,27 +206,25 @@ public class Game implements Serializable {
 	}
 	
 	public void addDeveloperToBoard(){
-
 		//TODO need to check the board if there's any tiles on the outermost-inner java layer
 		for(int i = 0; i < board.getOutsideInnerCells().length; ++i){
 			
 		}
 		//only create this if there are outsideinnercells, will need to change the developer position at some point
-		if (board.getCellAtPixel(x, y).getSpace() != null) {
-			board.moveDeveloperOntoBoard(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
-		}
-
-		
-		//currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
+		currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtLocation(x, y));
 		
 		//TODO this should put the developer on the board's first applicable outsideInnercells[]
 		gamePanel.moveDeveloperOntoBoard(x, y);
-		
+		//TODO change this to a real developer
+		//currentComponent = new Developer(currentGame.getCurrentPlayer());
+		//get the index of the first developer not on the board in the players.developer[]
+		//get that developer's cell position, and set to isOnBoard or whatever the boolean is
+		//currentGame.moveDeveloperOntoBoard();
 	}
 	
 	public void moveComponentAroundBoard(int xChange, int yChange){
+		//TODO get that current developer and push the location to the stack
 		if(currentComponent != null){
-			
 			x += xChange;
 			y += yChange;
 			if(x < 0)
@@ -239,49 +237,51 @@ public class Game implements Serializable {
 			else if(y > 650)
 				y = 650;
 			
-			String type = currentComponent.getClass().toString();
+			//check if the new location is valid and that there are no developers or irrigation tiles on it
+			//if ok, push the location to the developer path
 			
+			//reflects the changes in the GUI
+			String type = currentComponent.getClass().toString();
 			if(type.equals("class models.TwoSpaceTile")){
+				System.out.println("this is a two space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.ThreeSpaceTile")){
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.OneSpaceTile")){
+				System.out.println("this is a one space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.Developer")){
-				if(board.createDeveloperPath((Developer)currentComponent, board.getCellAtPixel(x, y))){
-					gamePanel.moveDeveloperOntoBoard(x, y);
-				}
-				else{
-					//don't let the user go there
-				}
+				System.out.println("this is a developer");
+				gamePanel.moveDeveloperOntoBoard(x, y);
 			}
 			
+			//if it's not ok, dont let the user go there and dont push the location
 		}
 	}
 	
 	public void placeComponent(){
 		Cell currentCell = board.getCellAtPixel(x, y);
 		
-		System.out.println(currentComponent.toString());
 		String type = currentComponent.toString();
 		//figure out which type to place the component properly
 		
 		if(type.equals("DEVELOPER")){
-
-			board.moveDeveloperAroundBoard((Developer)currentComponent);
-			gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
+			//set it as on the board if not already in the player model, if returns true then reflect changes appropriately
+			
+			//TODO need to collaborate with the people writing Board
+//			if(board.moveDeveloperAroundBoard((Developer)currentComponent, currentCell)){
+//				((Developer)currentComponent).setCurrentCell(currentCell);
+//				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
+//			}
 		}
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
-			//TODO correspond these to the number of Action Points available
 			switch(type){
 			case"THREE SPACE TILE":
 				//decrement it from the global stash
 				--threeSpaceTiles;
-				//notify the player that he placed a land tile
-				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "TWO SPACE TILE":
 				//decrement it from the user's stash
@@ -301,9 +301,6 @@ public class Game implements Serializable {
 				break;
 			case "PALACE":
 				//need to somehow do checks for which palace tile to place
-				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
-				--this.palaceTiles[(value/2 -1)];
-				//update the player model to say that the user upgraded this cell.
 				break;
 			}	
 			gamePanel.placeTile((Tile)currentComponent, x, y);
@@ -315,9 +312,12 @@ public class Game implements Serializable {
 		//TODO check if the current player can actually place a two space tile
 		currentComponent = new TwoSpaceTile(new Space[2][2]);
 		gamePanel.moveTile((Tile)currentComponent, x, y);
+		
+		//TODO write stuff to check that the user has placed a land tile
 	}
 	
 	public void selectThreeSpaceTile(){
+		//TODO check if the current player can actually place a three space tile
 		if(this.threeSpaceTiles != 0){
 			currentComponent = new ThreeSpaceTile(new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
@@ -336,12 +336,13 @@ public class Game implements Serializable {
 	}
 	
 	public void selectPalaceTile(){
-		String palace = JOptionPane.showInputDialog("What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
-		placePalace(palace);
+		//TODO implementation for checking the upgrading stuff
+		currentComponent = new OneSpaceTile(new PalaceSpace(2), new Space[2][2]);
+		gamePanel.moveTile((Tile)currentComponent, x, y);
 	}
 	
 	public void selectRiceTile(){
-		if(players[indexOfCurrentPlayer].getRiceTiles() > 0){
+		if(players[indexOfCurrentPlayer].getRiceTiles() != 0){
 			currentComponent = new OneSpaceTile(new RiceSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
@@ -350,35 +351,12 @@ public class Game implements Serializable {
 	}
 	
 	public void selectVillageTile(){
-		if(players[indexOfCurrentPlayer].getVillageTiles() > 0){
+		if(players[indexOfCurrentPlayer].getVillageTiles() != 0){
 			currentComponent = new OneSpaceTile(new VillageSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
 		else
 			showNotEnoughTiles();
-	}
-	
-	public void selectPalaceToUpgrade(){
-		//ask the user what value of tile they would like to place
-		String upgrade = JOptionPane.showInputDialog("What value of Palace would you like to upgrade to?\n 2, 4, 6, 8, or 10");
-		placePalace(upgrade);
-	}
-	
-	private void placePalace(String input){
-		if(input != null){
-			int value = Integer.parseInt(input);
-			if(value < 11 && value % 2 == 0){
-				if(this.palaceTiles[(value/2-1)] > 0){
-					currentComponent = new OneSpaceTile(new PalaceSpace(value), new Space[2][2]);
-					System.out.println(((Tile)currentComponent).getImageSource());
-					gamePanel.moveTile((Tile)currentComponent, x, y);
-				}
-				else
-					JOptionPane.showMessageDialog(null, "Not enough "+value+" Palace tiles!");
-			}
-			else
-				JOptionPane.showMessageDialog(null,  "Please enter a number, 2, 4, 6, 8, or 10.");
-		}
 	}
 	
 	public void cancelAction(){
@@ -393,7 +371,7 @@ public class Game implements Serializable {
 	}
 	
 	private void showNotEnoughTiles(){
-		JOptionPane.showMessageDialog(null, "Not enough tiles!");
+		JOptionPane.showMessageDialog(null, "Cannot perform action, try another");
 	}
 	
 	private void initPlayers(){
