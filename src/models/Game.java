@@ -87,13 +87,6 @@ public class Game implements Serializable {
 		return this.gamePanel;
 	}
 	
-	//Meghan added this set method so that I can clear out the GamePanel when the
-	//user asks to quit the current game. Sorry!
-	public void setGamePanel(GamePanel gamePanel){
-		this.gamePanel = gamePanel;
-	}
-	
-	
 
 	// ACTION TOKEN
 	// Increases number of action points available for that players 

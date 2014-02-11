@@ -76,13 +76,9 @@ public class GameManager{
 		return true;
 	}
 	
-	public boolean loadGame() {
+	public boolean loadGame(File loadFile) {
 		//parse the file and create a currentGame from it.
-		boolean loadSuccess = false;
-		String fileName = "";
-		
-		while(!loadSuccess ){
-			
+			/*
 			try{
 				int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to load a past game?", "Confirm Load Game", JOptionPane.YES_NO_OPTION);
 				if(confirmSaveGame == JOptionPane.NO_OPTION ){
@@ -95,27 +91,21 @@ public class GameManager{
 			if(!getFileName(fileName, "Name of file to load?")){
 				return false;
 			}
-			
+			*/
 			
 			StringBuilder alpha = new StringBuilder();
 			
-			File loadFile = new File(fileName + ".txt");
+			;
 			try{
-				if(loadFile.exists()){
-					Scanner input = new Scanner(loadFile);
-					while(input.hasNextLine()){
-						alpha.append(input.nextLine());
-					}
-					input.close();
+				Scanner input = new Scanner(loadFile);
+				System.out.println("got here line 101 gamemang");
+				while(input.hasNextLine()){
+					alpha.append(input.nextLine());
 				}
-				else{
-					JOptionPane.showMessageDialog(null, "File " + fileName + " could not be found.");
-					loadSuccess = false;
-				}
+				input.close();
 			}catch(FileNotFoundException e){
-				JOptionPane.showMessageDialog(null, "File " + fileName + " could not be read. Check permissions.");
-				loadSuccess = false;
-			}
+				JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
+				return false;
 		}
 		return true;
 	}
@@ -177,25 +167,24 @@ public class GameManager{
 	
 	
 	// Quits the current game. Asks the user if they want to save first.
-	public boolean deleteCurrentGame() {
-		//returning true quits the game
-		if(currentGame == null){
-			JOptionPane.showMessageDialog(null, "No current game to delete!");
-			return false;
-		}
-		
+	public boolean deleteGame() {
 		try{
-			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before deleting?", "Confirm Delete Game", JOptionPane.YES_NO_CANCEL_OPTION);
+			int confirmDeleteGame = JOptionPane.showConfirmDialog(null, "Do you want to save before you delete the current game?", "Confirm Delete Game", JOptionPane.YES_NO_OPTION);
 			
 			if(confirmDeleteGame == JOptionPane.YES_OPTION){
-				return saveGame();
+				if(saveGame()){
+					//Will figure out how to get the old game to not be on screen
+					//Need to consult the expert
+					currentGame = null;
+					return true;
+				}
+				return false;
 			}
 			else if(confirmDeleteGame == JOptionPane.CANCEL_OPTION){
 				return false;
 			}
 			else{
-				currentGame = null;
-				JOptionPane.showMessageDialog(null, "You have now quit the game...");
+				
 				return true;
 			}
 		}catch(NullPointerException e){
@@ -204,19 +193,16 @@ public class GameManager{
 	}
 	
 	// Deletes the current game. Asks the user if they are sure before proceeding.
-	public boolean exitGameAndFrame() {
-		if(currentGame == null)
-			return false;
-		
+	public boolean quitGame() {
 		try{
 			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
 			
 			if(confirmExitGame == JOptionPane.YES_OPTION){
 				currentGame = null;
-				JOptionPane.showMessageDialog(null, "You have now exit Java. Enjoy the real world.");
+				JOptionPane.showMessageDialog(null, "You have now exit Java. Enjoy the real world!");
 				return true;
 			}
-			else {
+			else{
 				return false;
 			}
 		}catch(NullPointerException e){
