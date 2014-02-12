@@ -499,6 +499,7 @@ public class Game implements Serializable <Game>  {
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			System.out.println("START " + devs.size() + " END");
 			for(int j = 0; j < devs.size(); j++){
+				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
 		}
