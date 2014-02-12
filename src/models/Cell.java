@@ -136,6 +136,9 @@ public class Cell implements Serializable<Cell> {
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));
+    	if(json.getObject("player") != null) {
+    		this.developerPlayer = (Player)json.getObject("player");
+    	}
     	if(json.getObject("list") != null) {
     		@SuppressWarnings("unchecked")
 			ArrayList<Cell> tempCells = ((ArrayList<Cell>)json.getObject("list"));
