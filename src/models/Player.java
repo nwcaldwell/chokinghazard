@@ -24,6 +24,7 @@ public class Player implements Serializable<Player> {
 
 	// private final String userName;
 
+	//This is the constructor for player where we are going to update all the fields
 	public Player(Color color) {
 		this.playerColor = color;
 		this.famePoints = 0;
@@ -36,13 +37,17 @@ public class Player implements Serializable<Player> {
 		devOffBoard = 12;
 		
 	}
-
+	
+	
+//this is use to start a new turn and it resets the ActionTokenUsed, the placed land tile, and the action points to 6;
 	public void startTurn() {
 		ifActionTokenUsed = false;
 		ifPlacedLandTile = false;
 		actionPoints = 6;
 	}
 	
+//use to play developer on the board..we have a linkedlist and we add the developers that we want to place on the board. We also decrease the deOffBoard
+// by one
 	public void addDevOnBoard(Developer dev){
 		
 	 	devsOnBoard.push(dev);
@@ -50,13 +55,14 @@ public class Player implements Serializable<Player> {
 	 	devOffBoard--;
 		
 	}
-	
+
+//use to remove developerOffBoard...we remove the developer off the linkedlist and increase the devOffBoard by one
 	public void removeOffBoard(Developer dev){
 		devsOnBoard.remove(dev);
 		devOffBoard++;
 	}
 
-
+//use to decrementActionPoints
 	public void decrementActionPoints(int actionPoints) {
 		this.actionPoints -= actionPoints;
 	}
