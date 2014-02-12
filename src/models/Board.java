@@ -38,16 +38,19 @@ public class Board implements Serializable<Board> {
 					map[x][y] = new Cell(x, y, false, true);
 				}
 
-				if (x <= 6 && (y <= 1 || y >= 12)) {
+				else if (x <= 6 && (y <= 1 || y >= 12)) {
 					map[x][y] = new Cell(x, y, false, true);
 				}
 
-				if (x >= 7 && (y <= 1 || y >= 12)) {
+				else if (x >= 7 && (y <= 1 || y >= 12)) {
 					map[x][y] = new Cell(x, y, true, false);
 				}
 
-				if (x == 12 || x == 13) {
+				else if (x == 12 || x == 13) {
 					map[x][y] = new Cell(x, y, true, false);
+				}
+				else{
+					map[x][y] = new Cell(x,y,false,false);	//this creates Cell objects for the rest of central Java
 				}
 
 				// outsideInnerCells
