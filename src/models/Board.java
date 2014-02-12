@@ -848,13 +848,29 @@ public class Board implements Serializable<Board> {
     }
 
     public Board loadObject(JsonObject json) {
+    	// Initialize cells in map.
     	Cell[][] map = new Cell[14][14];
+    	for(int x = 0; x < 14; ++x)
+    		for(int y = 0; y < 14; ++y)
+    			map[x][y] = (new Cell(null));
+    	
+    	// Load information on cells. Separated them to be able to link connected Cells.
     	Object[] rows = (Object[]) json.getObject("map");
     	for(int x = 0; x < 14; ++x) {
         	Object[] fields = (Object[]) rows[x];
     		for(int y = 0; y < 14; ++y) {
     			if(fields[y] == null)
     				continue;
+    			if(((JsonObject) fields[y]).getObject("connectedCells") != null) {
+	    			Object[] connectedCells = (Object[]) ((JsonObject) fields[y]).getObject("connectedCells");
+	    			ArrayList<Cell> connectedCellsList = new ArrayList<Cell>();
+	    			for(Object obj : connectedCells) {
+	    				int i = Integer.parseInt(((JsonObject) obj).getString("x"));
+	    				int j = Integer.parseInt(((JsonObject) obj).getString("x"));
+	    				connectedCellsList.add(map[i][j]);
+	    			}
+					((JsonObject)fields[y]).getMap().put("list", connectedCellsList);
+    			}
     			map[x][y] = (new Cell(null)).loadObject((JsonObject)fields[y]);
     		}
     	}

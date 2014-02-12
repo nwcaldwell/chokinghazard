@@ -5,6 +5,7 @@ import helpers.JsonObject;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Cell implements Serializable<Cell> {
     private Space space; 
@@ -102,9 +103,11 @@ public class Cell implements Serializable<Cell> {
 
     public String serialize() {
     	LinkedList<String> connections = new LinkedList<String>(); 
-    	if(connectedCells != null)
-    		for(Cell cell : connectedCells)
+    	if(connectedCells != null) {
+    		for(Cell cell : connectedCells) {
     			connections.add(Json.jsonObject(Json.jsonMembers(Json.jsonPair("x", cell.x + ""), Json.jsonPair("y", cell.y + ""))));
+    		}
+    	}
 		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("space", (space == null ? null : space.serialize())),
 				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
@@ -134,6 +137,12 @@ public class Cell implements Serializable<Cell> {
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));
+    	if(json.getObject("list") != null) {
+    		@SuppressWarnings("unchecked")
+			ArrayList<Cell> tempCells = ((ArrayList<Cell>)json.getObject("list"));
+    		for(Cell cell : tempCells) 
+    			connectedCells.add(cell);
+    	}
     	this.connectedCells = null;
     	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
     	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
@@ -143,7 +152,6 @@ public class Cell implements Serializable<Cell> {
     public String toString() { 
     	return space + " " + elevation + " "
     			+ x + " " + y + " " + connectedCells + " " + fromLowlands + " " + fromMountains;
-    	
     }
 }
 
