@@ -259,6 +259,7 @@ public class Game implements Serializable <Game>  {
 			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
 		};
 		String type = currentComponent.toString();
+		System.out.println(type);
 		
 		if(type.equals("DEVELOPER")){
 			//check to see if the developer is being selected rather than being placed
