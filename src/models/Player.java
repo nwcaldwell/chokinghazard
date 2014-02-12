@@ -11,7 +11,7 @@ public class Player implements Serializable<Player> {
 
 	private int famePoints;
 	private String name;
-	private final Color playerColor;
+	private Color playerColor;
 	private int actionPoints;
 	private int actionTokens;
 	private boolean ifActionTokenUsed;
@@ -242,7 +242,7 @@ public class Player implements Serializable<Player> {
 		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
-				Json.jsonPair("Color", Json.jsonValue(playerColor.toString())),
+				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRBG() + ""),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
 				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + "")),
@@ -262,7 +262,7 @@ public class Player implements Serializable<Player> {
 		famePoints = Integer.parseInt(json.getString("famePoints"));
 		
 		//figure out color
-		
+		playerColor = new Color(Integer.parseInt(json.getString("rgb")));
 		
 		actionPoints = Integer.parseInt(json.getString("actionPoints"));
 		actionTokens = Integer.parseInt(json.getString("actionTokens"));
