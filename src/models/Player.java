@@ -282,7 +282,6 @@ public class Player implements Serializable<Player> {
 		
 		//make methods that set up the Player and the Current Cell.....
 		//figure out developer
-		devsOnBoard = new LinkedList<Developer>();
 		Object[] tempDevelopers = (Object[]) json.getObject("devsOnBoard");
 		for(int i = 0; i < tempDevelopers.length; i++){
 			devsOnBoard.add(new Developer(this, null).loadObject((JsonObject) tempDevelopers[i]));
