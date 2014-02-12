@@ -386,7 +386,7 @@ public class Board implements Serializable<Board> {
          HashMap<Player, Integer> scores = new HashMap<Player, Integer>();
 
          
-		   if (y < 14 && map[y + 1][x].hasDeveloper())
+		   if (y < 13 && map[y + 1][x].hasDeveloper())
 			{
             Cell c = map[y + 1][x];
             Player p = c.getDeveloper().getOwner();
@@ -490,6 +490,7 @@ public class Board implements Serializable<Board> {
 			for (int i = 0; i < spacesArray.length; i++) {
 				for (int j = 0; j < spacesArray[0].length; j++) {
 					if (spacesArray[i][j] != null) {
+						// TODO I get a NULL Pointer on the line below?
 						cells[i][j].setSpace(spacesArray[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
 					}
@@ -509,7 +510,7 @@ public class Board implements Serializable<Board> {
 
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
 		
-			if (checkPalacePlacement(cells, tile) && checkTilesBelow(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile))
+			if (checkPalacePlacement(cells, tile) && checkTilesBelow(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile))
 				return true;
 		
 		return false;
@@ -605,16 +606,16 @@ public class Board implements Serializable<Board> {
 			int numberOutside = 0; 
 			
 			for(int i = 0; i < outsideInnerCells.length; i++){
-				if(temp[0]!= null && temp[0].getX() == outsideInnerCells[i].getX() && temp[0].getY() == outsideInnerCells[i].getY()){
+				if(temp[0]!= null && outsideInnerCells[i] != null && temp[0].getX() == outsideInnerCells[i].getX() && temp[0].getY() == outsideInnerCells[i].getY()){
 					numberOutside++;
 				}
-				if(temp[1]!= null && temp[1].getX() == outsideInnerCells[i].getX() && temp[1].getY() == outsideInnerCells[i].getY()){
+				if(temp[1]!= null && outsideInnerCells[i] != null && temp[1].getX() == outsideInnerCells[i].getX() && temp[1].getY() == outsideInnerCells[i].getY()){
 					numberOutside++;
 				}
-				if(temp[2]!= null && temp[2].getX() == outsideInnerCells[i].getX() && temp[2].getY() == outsideInnerCells[i].getY()){
+				if(temp[2]!= null && outsideInnerCells[i] != null && temp[2].getX() == outsideInnerCells[i].getX() && temp[2].getY() == outsideInnerCells[i].getY()){
 					numberOutside++;
 				}
-				if(temp[3]!= null && temp[3].getX() == outsideInnerCells[i].getX() && temp[3].getY() == outsideInnerCells[i].getY()){
+				if(temp[3]!= null && outsideInnerCells[i] != null && temp[3].getX() == outsideInnerCells[i].getX() && temp[3].getY() == outsideInnerCells[i].getY()){
 					numberOutside++;
 				}
 				
