@@ -435,7 +435,7 @@ public class Game implements Serializable <Game>  {
 		players = new Player[numPlayers];
 		JsonObject[] tempPlayers = json.getJsonObjectArray("players");
 		for (int i = 0; i < numPlayers; i++){
-			players[i] = new Player(null).loadObject(tempPlayers[i]);
+			players[i] = new Player(null).loadObject(tempPlayers[i]); //will have to update with change in Player constructor
 		}
 		
 		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
@@ -449,8 +449,12 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < 5; i++){
 			palaceTiles[i] = Integer.parseInt(tempPalaceTiles[i]);
 		}
+		//setDevelopersCurrentCell();
+		
 		return this;
 	}	
+	
+	//private void setDevelopersCurrentCell()
 
 	
 	public String toString() {
