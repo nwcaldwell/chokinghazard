@@ -11,6 +11,8 @@ import java.util.Stack;
 
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
+import javax.swing.JOptionPane;
+
 import models.Space.SpaceType;
 
 public class Board implements Serializable<Board> {
@@ -203,22 +205,106 @@ public class Board implements Serializable<Board> {
 
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
-	public void upgradePalace(Space palaceSpace, Cell cell) {
+	public void upgradePalace(PalaceSpace palaceSpace, Cell cell) {
 		boolean canUpgrade = checkIfICanUpgradePalace(palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
 
 		// TODO else can't upgrade palace, show dialog box
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Can't upgrade palace :(");
+		}
 
 	}
 
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
-	private boolean checkIfICanUpgradePalace(Space palaceSpace, Cell cell) {
-		// TODO
+	
+	private boolean checkIfICanUpgradePalace(PalaceSpace palaceSpace, Cell cell) {
+		// TODO : All of this, not nearly finished just pushing for the method below
+		/*Three conditions to upgrade palace:
+		 * 1) This palace has not been 'touched' yet during this turn
+		 * 2) There are enough villages connected for the upgrade. Upgrading to an elevation '8'
+		 *    palace requires 7 villages and a palace, and so on
+		 * 3) The developer is the highest ranked in the city
+		 */
+		
+		// First check if there is a palace to upgrade
+		if (palaceSpace.getType().toString()  != "Palace")
+			return false;
+		
+		//Check if palace has been modified on this turn
+		
+		//Check if there are enough villages connected
+		if (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue())  //New elevation)
+				{
+					// Enough connected, we can do stuff
+				}
+		else
+		{
+			//can't do stuff
+		}
+		
+		//Check if developer is highest ranked
+		
+		//Not nearly done with this method
+		
 		return true;
 	}
+	
+	// Helper method to check the number of connected villages to a cell
+	// When you call this, it returns the number of surrounding villages + 1
+	// The +1 is the palace itself, which counts when we are trying to upgrade the palace
+		private static int findNumberConnected(int a, int b, Cell [][] z)
+		{
+			// Make copy of array as to not damage original
+			// Need to check that this actually works when we implement
+			Cell[][] copy = new Cell[14][14];
+			
+			for (int i = 0; i < 14; i++ )
+				for (int j = 0; j < 14; j++)
+				{
+					{
+						copy[i][j] = z[i][j];
+					}
+				}
+			
+			
+			boolean canUp = (a - 1 >= 0);
+			boolean canDown = (a + 1 < copy.length);
+			boolean canRight = (b + 1 < copy[0].length);
+			boolean canLeft = (b - 1 >= 0);
+
+			SpaceType value = copy[a][b].getSpace().getType();
+
+			int up = 0;
+			int down = 0;
+			int right = 0;
+			int left = 0;
+
+			copy[a][b] = null;
+
+			if (canUp && copy[a-1][b].getSpace().getType() == value)
+			{
+				up = findNumberConnected(a-1,b,copy);
+			}
+			if (canDown && copy[a+1][b].getSpace().getType() == value)
+			{
+				down = findNumberConnected(a+1,b,copy);
+			}
+			if (canLeft && copy[a][b-1].getSpace().getType() == value)
+			{
+				up = findNumberConnected(a,b-1,copy);
+			}
+			if (canRight && copy[a][b+1].getSpace().getType() == value)
+			{
+				up = findNumberConnected(a,b+1,copy);
+			}
+
+			return up + left + right + down + 1;
+		}
 
 	// Returns the number of village Spaces surrounding the given Cell. Called
 	// by checkIfICanUpgradePalace to make sure number of surrounding villages
@@ -261,6 +347,7 @@ public class Board implements Serializable<Board> {
             }
          }
       }
+      
       //we now have each player mapped to their rank or not mapped if they don't have a developer 
       //on the city.
       
