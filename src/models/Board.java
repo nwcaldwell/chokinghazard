@@ -79,52 +79,20 @@ public class Board implements Serializable<Board> {
 		// it needs to be in outside square
 		// has to be rice and village
 		if (cell.getSpace().getType() == SpaceType.RICE
-				&& cell.getSpace().getType() == SpaceType.VILLAGE) {
-			if (cell.getFromMountains() && player.getActionPoints() == 2
-					&& player.isIfPlacedLandTile()) {
+				|| cell.getSpace().getType() == SpaceType.VILLAGE) {
+			if ((cell.getFromMountains() && player.getActionPoints() == 2 && player.isIfPlacedLandTile()) ||
+			   (cell.getFromMountains() && player.getActionPoints() >= 2) ||
+			   (cell.getFromLowlands() && player.getActionPoints() == 1 && player.isIfPlacedLandTile()) ||
+				((cell.getFromLowlands() && player.getActionPoints() >= 1)))
 				
 				Developer dev =new Developer(player, cell);
 				player.addDevOnBoard(dev);
 				cell.setDeveloper(dev);
 
 				return true;
-			}
-
-			else if (cell.getFromMountains() && player.getActionPoints() >= 2) {
-				
-				Developer dev =new Developer(player, cell);
-				player.addDevOnBoard(dev);
-				cell.setDeveloper(dev);
-
-				return true;
-			}
-
-			else if (cell.getFromLowlands() && player.getActionPoints() == 1
-					&& player.isIfPlacedLandTile()) {
-				
-				Developer dev =new Developer(player, cell);
-				player.addDevOnBoard(dev);
-				cell.setDeveloper(dev);
-
-				return true;
-			}
-
-			else if (cell.getFromLowlands() && player.getActionPoints() >= 1) {
-				
-				
-				Developer dev =new Developer(player, cell);
-				player.addDevOnBoard(dev);
-				cell.setDeveloper(dev);
-
-
-				return true;
-			}
-			
-		}
+		}	
 		
 		return false;
-		
-
 	}
 	
 	// Move a player that's already on the board off of the board.
@@ -148,7 +116,7 @@ public class Board implements Serializable<Board> {
 
 		try {
 			if (cell.getSpace().getType() == SpaceType.RICE
-					&& cell.getSpace().getType() == SpaceType.VILLAGE) {
+					|| cell.getSpace().getType() == SpaceType.VILLAGE) {
 				if (cell.getSpace().getType() == developer.getCurrentCell()
 						.getSpace().getType()) {
 
