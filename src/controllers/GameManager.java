@@ -68,8 +68,10 @@ public final class GameManager {
 			
 			String loadString = alpha.toString();
 			JsonObject json = new JsonObject(loadString);
-			Game loadedGame = new Game();
-			loadedGame.loadObject(json);
+			Game loadedGame = new Game().loadObject(json.getJsonObject("Game"));
+			/*try {FileWriter fw = new FileWriter(new File("outs.txt"));
+			fw.write(loadedGame.serialize());
+			fw.close(); } catch(Exception e)*/
 			currentGame = loadedGame;
 	
 		return true;

@@ -459,7 +459,7 @@ public class Game implements Serializable <Game>  {
 		  * 
 		  * May not need to save stack
 		  */
-		return Json.jsonObject(Json.jsonMembers(
+		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("players", Json.serializeArray(players)),
@@ -468,15 +468,14 @@ public class Game implements Serializable <Game>  {
 				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
 				Json.jsonPair("threeSpaceTiles", Json.jsonValue(threeSpaceTiles + "")),
 				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
-				));
+				)));
 		}
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
 
 	public Game loadObject(JsonObject json) {
-		System.out.println(JsonObject.toString(json));
-		board.loadObject(json.getJsonObject("board"));
+		board = (new Board()).loadObject(json.getJsonObject("board"));
 		numPlayers = Integer.parseInt(json.getString("numPlayers"));
 		
 		//Players I have to go through the JsonObject array and call loadJsonObject on each one
@@ -493,9 +492,9 @@ public class Game implements Serializable <Game>  {
 		
 		//Go through each in the String array and parse them and add them to the palaceTiles array
 		Object[] tempPalaceTiles = new Object[5];
+		palaceTiles = new int[5];
 		tempPalaceTiles = (Object[]) json.getObject("palaceTiles");
 		for(int i = 0; i < 5; i++){
-			System.out.println(tempPalaceTiles[i]);
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
 		
