@@ -45,9 +45,9 @@ public class Player implements Serializable<Player> {
 		actionPoints = 6;
 	}
 	
-	public void addDevOnBoard(Developer dev, Cell currentCell){
+	public void addDevOnBoard(Developer dev){
 		
-	 	devsOnBoard.push(new Developer(this, currentCell ));
+	 	devsOnBoard.push(dev);
 	 	
 	 	devOffBoard--;
 		
@@ -252,6 +252,15 @@ public class Player implements Serializable<Player> {
 	@Override
 	public Player loadObject(JsonObject json) {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
+	}
+	
+	public String toString() { 
+		String ret = "";
+		for(Cell cell : palacesUsedInTurn)
+			ret += cell; 
+		return ret + " " + famePoints + " " + playerColor + " " + actionPoints + " " + actionTokens + " " + ifActionTokenUsed
+				+ " " + ifPlacedLandTile + " " + devOffBoard + " " + devsOnBoard.toString() + " " + riceTiles
+				+ " " + villageTiles + " " + twoSpaceTiles;
 	}
 }

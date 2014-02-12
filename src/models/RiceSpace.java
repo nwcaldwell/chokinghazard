@@ -27,6 +27,6 @@ public class RiceSpace extends Space {
     }
 
     public RiceSpace loadObject(JsonObject json) {
-    	return new RiceSpace();
+    	return this;
     }
 }

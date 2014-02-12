@@ -9,6 +9,7 @@ public class Cell implements Serializable<Cell> {
     private Space space; 
     private int elevation; 
     private Player developerPlayer;
+    private Developer developer;
     private int x; 
     private int y; 
     private HashSet<Cell> connectedCells;
@@ -20,10 +21,24 @@ public class Cell implements Serializable<Cell> {
     	this.y = y;
     	this.fromLowlands = fromLowlands;
     	this.fromMountains = fromMountains;
+      developer = null;
     }
     
     public Cell(Space space) {
         this.space = space;
+    }
+    
+    public void setDeveloper(Developer developer){
+    	this.developer = developer;
+    }
+    
+    public void removeDeveloper(Developer developer){
+    	developer = null;
+    }
+    
+    public Developer getDeveloper(){
+    	
+    	return developer;
     }
     
     public Space getSpace() {
@@ -76,38 +91,43 @@ public class Cell implements Serializable<Cell> {
     public boolean getFromLowlands() {
     	return fromLowlands;
     }
+    
+    
+    
+    public boolean hasDeveloper()
+    {
+         return developer != null;
+    }
 
     public String serialize() {
 		return Json.jsonPair("Cell", Json.jsonObject(Json.jsonMembers(
-				Json.jsonPair("space", space.serialize()),
+				Json.jsonPair("space", (space == null ? null : space.serialize())),
 				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonPair("connectedCells", Json.serializeArray(connectedCells.toArray())),
+    			Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
     			Json.jsonPair("fromLowLands", fromLowlands + ""),
     			Json.jsonPair("fromMountains", fromMountains + "")
 		)));
     }
     
     public Cell loadObject(JsonObject json) {
-    	Cell cell = new Cell((new Space()).loadObject(json.getObject("space"))); 
-    	cell.setElevation(Integer.parseInt(json.getString("elevation")));
-    	cell.setX(Integer.parseInt(json.getString("x")));
-    	cell.setY(Integer.parseInt(json.getString("y")));
-    	cell.setConnectedCells(connectedCells);
-    	cell.setFromMountains(Boolean.parseBoolean(json.getString("fromMountains")));
-    	cell.setFromLowlands(Boolean.parseBoolean(json.getString("fromLowLands")));
-		return cell;
+    	this.space = (new Space()).loadObject(json.getJsonObject("space")); 
+    	this.elevation = Integer.parseInt(json.getString("elevation"));
+    	this.x = Integer.parseInt(json.getString("x"));
+    	this.y = Integer.parseInt(json.getString("y"));
+    	this.connectedCells = null;
+    	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
+    	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
+    	return this;
     }
-
-	private void setFromMountains(boolean fromMountains) {
-		this.fromMountains = fromMountains;
-	}
-
-	private void setFromLowlands(boolean fromLowlands) {
-		this.fromLowlands = fromLowlands;
-	}
+    
+    public String toString() { 
+    	return space.toString() + " " + elevation + "" + developerPlayer.getPlayerColor() + " " + developer.getClass() + " "
+    			+ x + " " + y + " " + connectedCells.toString() + " " + fromLowlands + " " + fromMountains;
+    	
+    }
 }
 
 

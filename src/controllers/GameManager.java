@@ -12,20 +12,29 @@ import javax.swing.JOptionPane;
 import models.Game;
 import views.GamePanel;
 
-public class GameManager{
+public final class GameManager {
+    
+    private static GameManager instance;
 	//Attributes
 	private Game currentGame;
 	
 	
 	// CONSTRUCTORS
 	// Default constructor
-	public GameManager() {
+	private GameManager() {
 		
 	}
 	
 	// Main constructor
 	public GameManager(Game currentGame) {
 	
+	}
+	
+	public static synchronized GameManager getInstance() {
+	    if(instance == null)
+	        instance = new GameManager();
+	    
+	    return instance;
 	}
 	
 	// Creates new game using the appropriate number of players.
@@ -112,8 +121,9 @@ public class GameManager{
 		
 		FileWriter writer; 
 		try{
+			System.out.println(fileName);
 			writer = new FileWriter(newFile);
-			writer.write("Meghan king dsahbweiujsadfkj");
+			writer.write(currentGame.serialize());
 			writer.close();
 		}catch(IOException e){
 			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");

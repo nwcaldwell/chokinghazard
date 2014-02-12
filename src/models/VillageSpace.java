@@ -48,9 +48,8 @@ public class VillageSpace extends Space {
     }
 
     public VillageSpace loadObject(JsonObject json) {
-    	VillageSpace space = new VillageSpace(); 
-    	space.setPalacex(Integer.parseInt(json.getString("palacex")));
-    	space.setPalacey(Integer.parseInt(json.getString("palacey")));
-    	return space;
+    	this.palacex = Integer.parseInt(json.getString("palacex"));
+    	this.palacey = Integer.parseInt(json.getString("palacey"));
+    	return this;
     }
 }

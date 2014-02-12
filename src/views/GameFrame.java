@@ -89,7 +89,7 @@ public class GameFrame extends JFrame {
 							if(numPlayers >= 2 && numPlayers <= 4){
 								new Thread(new Runnable(){
 									public void run(){
-										gm = new GameManager();
+										gm = GameManager.getInstance();
 										gm.createNewGame(numPlayers);
 										setContentPane(gm.getGamePanel());
 										pack();
@@ -127,7 +127,7 @@ public class GameFrame extends JFrame {
 						//starts a new thread
 						new Thread(new Runnable(){
 							public void run(){
-								gm = new GameManager();
+								gm = GameManager.getInstance();
 								gm.loadGame(file);
 								setContentPane(gm.getGamePanel());
 								pack();

@@ -1,5 +1,6 @@
 package models;
 
+import helpers.Json;
 import helpers.JsonObject;
 
 public class IrrigationSpace extends Space {
@@ -22,12 +23,10 @@ public class IrrigationSpace extends Space {
     }
 
     public String serialize() {
-        // TODO Auto-generated method stub
-        return null;
+		return Json.jsonPair("IrrigationSpace", "{}");
     }
 
     public IrrigationSpace loadObject(JsonObject json) {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 }
