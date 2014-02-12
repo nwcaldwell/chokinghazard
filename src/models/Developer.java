@@ -36,7 +36,8 @@ public class Developer implements Serializable<Developer>{
   }
   
   public String toString(){
-	  return "DEVELOPER";
+	  //return "DEVELOPER";
+	  return isPlacedOnBoard + " " + currentCell.getClass() + " " + owner.getPlayerColor();
   }
 
   public String serialize() {

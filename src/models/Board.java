@@ -468,5 +468,15 @@ public class Board implements Serializable<Board> {
 		this.map = map;
 		return this;
     }
+    
+    public String toString() {
+    	String ret = ""; 
+    	for(Cell[] row : map) 
+    		for(Cell cell : row) 
+    			ret += cell.toString() + " ";
+    	for(Cell cell : outsideInnerCells)
+    		ret += cell.toString() + " "; 
+    	return ret + "  " + path.toString() + " " + decrementedActionPoints;
+    }
 }
 

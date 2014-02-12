@@ -117,6 +117,12 @@ public class Cell implements Serializable<Cell> {
     	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
     	return this;
     }
+    
+    public String toString() { 
+    	return space.toString() + " " + elevation + "" + developerPlayer.getPlayerColor() + " " + developer.getClass() + " "
+    			+ x + " " + y + " " + connectedCells.toString() + " " + fromLowlands + " " + fromMountains;
+    	
+    }
 }
 
 

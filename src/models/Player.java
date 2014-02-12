@@ -238,4 +238,13 @@ public class Player implements Serializable<Player> {
 		// TODO Auto-generated method stub
 		return this;
 	}
+	
+	public String toString() { 
+		String ret = "";
+		for(Cell cell : palacesUsedInTurn)
+			ret += cell; 
+		return ret + " " + famePoints + " " + playerColor + " " + actionPoints + " " + actionTokens + " " + ifActionTokenUsed
+				+ " " + ifPlacedLandTile + " " + devOffBoard + " " + devsOnBoard.toString() + " " + riceTiles
+				+ " " + villageTiles + " " + twoSpaceTiles;
+	}
 }

@@ -2,6 +2,7 @@
 
 package helpers;
 
+import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,9 +14,11 @@ import models.Serializable;
 public class Json {
 	public static void main(String[] args) {
 		Game game = new Game(2);
+		//FileWriter fw = new FileWriter(new File("in"));
 		String str = game.serialize();
 		JsonObject json = new JsonObject(str);
-		System.out.println(JsonObject.toString(json));
+		
+		//System.out.println(JsonObject.toString(json));
 	}
 
 	/**
