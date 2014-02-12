@@ -9,6 +9,7 @@ public class Cell implements Serializable<Cell> {
     private Space space; 
     private int elevation; 
     private Player developerPlayer;
+    private Developer developer;
     private int x; 
     private int y; 
     private HashSet<Cell> connectedCells;
@@ -20,6 +21,7 @@ public class Cell implements Serializable<Cell> {
     	this.y = y;
     	this.fromLowlands = fromLowlands;
     	this.fromMountains = fromMountains;
+      developer = null;
     }
     
     public Cell(Space space) {
@@ -76,6 +78,21 @@ public class Cell implements Serializable<Cell> {
     public boolean getFromLowlands() {
     	return fromLowlands;
     }
+    
+    public void setDeveloper(Developer d)
+    {
+         developer = d;
+    }
+    
+    public Developer getDeveloper()
+    {
+         return developer;
+    }
+    
+    public boolean hasDeveloper()
+    {
+         return developer != null;
+    }
 
     public String serialize() {
 		return Json.jsonPair("Cell", Json.jsonObject(Json.jsonMembers(
@@ -91,7 +108,7 @@ public class Cell implements Serializable<Cell> {
     }
     
     public Cell loadObject(JsonObject json) {
-    	this.space = (new Space()).loadObject(json.getObject("space")); 
+    	this.space = (new Space()).loadObject(json.getJsonObject("space")); 
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));

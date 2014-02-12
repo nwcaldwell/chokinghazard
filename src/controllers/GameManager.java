@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import models.Game;
 import views.GamePanel;
 
-public class GameManager{
+public final class GameManager {
+    
+    private static GameManager instance;
 	
 	//Attributes
 	private Game currentGame;
@@ -20,13 +22,20 @@ public class GameManager{
 	
 	// CONSTRUCTORS
 	// Default constructor
-	public GameManager() {
+	private GameManager() {
 		
 	}
 	
 	// Main constructor
 	public GameManager(Game currentGame) {
 	
+	}
+	
+	public static synchronized GameManager getInstance() {
+	    if(instance == null)
+	        instance = new GameManager();
+	    
+	    return instance;
 	}
 	
 	// Creates new game using the appropriate number of players.

@@ -30,7 +30,7 @@ class OneSpaceTile extends Tile {
     
     public OneSpaceTile loadObject(JsonObject json) {
     	this.spaces = new Space[2][2];
-    	spaces[0][0] = (new Space()).loadObject(json.getObject("spaces"));
+    	spaces[0][0] = (new Space()).loadObject(json.getJsonObject("spaces"));
     	return this;
     }
     
