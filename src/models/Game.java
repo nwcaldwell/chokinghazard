@@ -409,7 +409,7 @@ public class Game implements Serializable {
 		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
-				Json.jsonPair("Players", Json.serializeArray(players)),
+				Json.jsonPair("players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
 				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
 				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
@@ -422,16 +422,27 @@ public class Game implements Serializable {
 	// This method returns the Game
 	public void loadJsonObject(JsonObject json) {
 		
-		board.loadJsonObject(json.getObject("board"));
+		board = loadJsonObject(json.getJsonObject("board"));
 		numPlayers = Integer.parseInt(json.getString("numPlayers"));
-		//Players I have to go through and call loadJsonObject on each one
+		
+		//Players I have to go through the JsonObject array and call loadJsonObject on each one
 		players = new Player[numPlayers];
+		JsonObject[] tempPlayers = json.getJsonObjectArray("players");
+		for (int i = 0; i < numPlayers; i++){
+			Player tempPlayer = new Player(null).loadJsonObject(tempPlayers[i]);
+		}
 		
 		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
 		isFinalTurn = Boolean.parseBoolean(json.getString("isFinalTurn"));
 		irrigationTiles = Integer.parseInt(json.getString("irrigationTiles"));
 		threeSpaceTiles = Integer.parseInt(json.getString("threeSpaceTiles"));
-		palaceTiles = (Integer[5])(json.("palaceTiles"));
+		
+		//Go through each in the String array and parse them and add them to the palaceTiles array
+		String[] tempPalaceTiles = new String[5];
+		tempPalaceTiles = json.getStringArray("palaceTiles");
+		for(int i = 0; i < 5; i++){
+			palaceTiles[i] = Integer.parseInt(tempPalaceTiles[i]);
+		}
 		
 		
 		
