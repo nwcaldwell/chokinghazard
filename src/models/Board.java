@@ -457,6 +457,10 @@ public class Board implements Serializable<Board> {
 
 	public boolean placeTile(Cell[][] cells, Tile tile) {
 		// TODO Super Important, need to assign the value of connected cells when placing tile
+		HashSet<Cell> connected = new HashSet<Cell>();
+		
+		Space[][] spaces = tile.getSpaces();
+		
 		if (checkValidTilePlacement(cells, tile)) {
 			Space[][] spacesArray = tile.getSpaces();
 		
@@ -470,8 +474,20 @@ public class Board implements Serializable<Board> {
 				}
 			}
 			
+			for(int i = 0; i < spaces.length; i++) {
+				for(int j = 0; j < spaces[0].length; j++) {
+					if(spaces[i][j] != null) {
+						if (cells[i][j] != null) {
+							connected.add(cells[i][j]);
+						}
+					}
+				}
+			}
+			
 			return true;
 		}
+		
+		
 		
 		else {
 			return false;
