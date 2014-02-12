@@ -27,7 +27,7 @@ public class Board implements Serializable<Board> {
 		// Game.
 		// Let me know if you make any changes or have any questions.
 		this.map = new Cell[14][14];
-		this.outsideInnerCells = new Cell[52];
+		this.outsideInnerCells = new Cell[44];
 		// outside inner cells are the boarder around inner java.
 		// These will be populated once a user places a tile onto it, for
 		// developer movement
