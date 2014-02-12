@@ -5,8 +5,8 @@ import helpers.JsonObject;
 
 public class VillageSpace extends Space {
 	private String imageSource = "src/resources/oneTile_village.png";
-    private int palacex; 
-    private int palacey; 
+    private int palacex = -1; 
+    private int palacey = -1; 
 
     public VillageSpace() {
         this.type = Space.SpaceType.VILLAGE;
