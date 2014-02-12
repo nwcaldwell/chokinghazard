@@ -234,7 +234,7 @@ public class Player implements Serializable<Player> {
 	}
 
 	@Override
-	public Player loadObject(JsonObject json) {
+	public Player loadJsonObject(JsonObject json) {
 		// TODO Auto-generated method stub
 		return null;
 	}

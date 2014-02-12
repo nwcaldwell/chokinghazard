@@ -59,7 +59,7 @@ public class Developer implements Serializable<Developer>{
   }
 
 @Override
-public Developer loadObject(JsonObject json) {
+public Developer loadJsonObject(JsonObject json) {
 	// TODO Auto-generated method stub
 	return null;
 }
