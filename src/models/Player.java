@@ -78,6 +78,12 @@ public class Player implements Serializable<Player> {
 
 	// --------Getters and Setters--------//
 
+	//Meghan wrote to be able to set the currentCell for loading the game. Is called in Game's loadObject(...)
+	public LinkedList<Developer> getDevsOnBoard(){
+		return devsOnBoard;
+	}
+	
+	
 	public int getFamePoints() {
 		return famePoints;
 	}
