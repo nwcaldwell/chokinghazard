@@ -9,6 +9,7 @@ public class Cell implements Serializable<Cell> {
     private Space space; 
     private int elevation; 
     private Player developerPlayer;
+    private Developer developer;
     private int x; 
     private int y; 
     private HashSet<Cell> connectedCells;
@@ -24,6 +25,19 @@ public class Cell implements Serializable<Cell> {
     
     public Cell(Space space) {
         this.space = space;
+    }
+    
+    public void setDeveloper(Developer developer){
+    	this.developer = developer;
+    }
+    
+    public void removeDeveloper(Developer developer){
+    	developer = null;
+    }
+    
+    public Developer getDeveloper(){
+    	
+    	return developer;
     }
     
     public Space getSpace() {
