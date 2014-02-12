@@ -11,7 +11,7 @@ public class Player implements Serializable<Player> {
 
 	private int famePoints;
 	private String name;
-	private final Color playerColor;
+	private Color playerColor;
 	private int actionPoints;
 	private int actionTokens;
 	private boolean ifActionTokenUsed;
@@ -78,6 +78,12 @@ public class Player implements Serializable<Player> {
 
 	// --------Getters and Setters--------//
 
+	//Meghan wrote to be able to set the currentCell for loading the game. Is called in Game's loadObject(...)
+	public LinkedList<Developer> getDevsOnBoard(){
+		return devsOnBoard;
+	}
+	
+	
 	public int getFamePoints() {
 		return famePoints;
 	}
@@ -236,7 +242,7 @@ public class Player implements Serializable<Player> {
 		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
-				Json.jsonPair("Color", playerColor == null ? null : Json.jsonValue(playerColor.toString())),
+				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRGB() + "")),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
 				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + "")),
@@ -256,7 +262,7 @@ public class Player implements Serializable<Player> {
 		famePoints = Integer.parseInt(json.getString("famePoints"));
 		
 		//figure out color
-		
+		playerColor = new Color(Integer.parseInt(json.getString("rgb")));
 		
 		actionPoints = Integer.parseInt(json.getString("actionPoints"));
 		actionTokens = Integer.parseInt(json.getString("actionTokens"));

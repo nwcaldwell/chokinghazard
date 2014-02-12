@@ -8,11 +8,26 @@ public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
   private Player owner;
+  //these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
+  //these dont get updated...
+  private int currentCellX;
+  private int currentCellY;
   
   public Developer(Player owner, Cell currentCell) {
 	  this.owner = owner;
 	  this.currentCell = currentCell;
   }
+  
+//these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
+  public int getCurrentCellX(){
+	  return currentCellX;
+  }
+  
+  public int getCurrentCellY(){
+	  return currentCellY;
+  }
+  
+//these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
   
   public Player getOwner() {
 	  return owner;
@@ -60,6 +75,8 @@ public Developer loadObject(JsonObject json) {
 	if(json == null)
 		return null;
 	isPlacedOnBoard = Boolean.parseBoolean(json.getString("isPlacedOnBoard"));
+	currentCellX = Integer.parseInt(json.getString("currentCellX"));
+	currentCellY = Integer.parseInt(json.getString("currentCelly"));
 	return this;
 }
 
