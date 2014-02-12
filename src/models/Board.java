@@ -626,14 +626,21 @@ public class Board implements Serializable<Board> {
 
     public Board loadObject(JsonObject json) {
     	Cell[][] map = new Cell[14][14];
+    	Object[] rows = (Object[]) json.getObject("map");
     	for(int x = 0; x < 14; ++x) {
+        	Object[] fields = (Object[]) rows[x];
     		for(int y = 0; y < 14; ++y) {
-    			map[x][y] = ((Cell[][]) (Object) json.getJsonObjectArray("map"))[x][y];
+    			if(fields[y] == null)
+    				continue;
+    			map[x][y] = (new Cell(null)).loadObject((JsonObject)fields[y]);
     		}
     	}
     	Cell[] cells = new Cell[44];
-		for(int y = 0; y < 14; ++y) {
-			cells[y] = ((Cell[]) (Object) json.getJsonObjectArray("map"))[y];
+    	rows = (Object[]) json.getObject("outsideInnerCells");
+		for(int y = 0; y < 44; ++y) {
+			if(rows[y] == null)
+				continue;
+			cells[y] = (new Cell(null)).loadObject((JsonObject)rows[y]);
 		}
 		this.outsideInnerCells = cells;
 		this.map = map;
@@ -644,7 +651,7 @@ public class Board implements Serializable<Board> {
     	String ret = ""; 
     	for(Cell[] row : map) 
     		for(Cell cell : row) 
-    			ret += cell.toString() + " ";
+    			ret += cell == null ? null : cell.toString() + " ";
     	for(Cell cell : outsideInnerCells)
     		ret += cell.toString() + " "; 
     	return ret + "  " + path.toString() + " " + decrementedActionPoints;

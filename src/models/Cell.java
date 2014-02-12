@@ -107,13 +107,14 @@ public class Cell implements Serializable<Cell> {
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
     			Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
-    			Json.jsonPair("fromLowLands", fromLowlands + ""),
-    			Json.jsonPair("fromMountains", fromMountains + "")
+    			Json.jsonPair("fromLowLands", Json.jsonValue(fromLowlands + "")),
+    			Json.jsonPair("fromMountains", Json.jsonValue(fromMountains + ""))
 		)));
     }
     
     public Cell loadObject(JsonObject json) {
-    	this.space = (new Space()).loadObject(json.getJsonObject("space")); 
+    	json = json.getJsonObject("Cell");
+    	this.space = json.getObject("space") == null ? null : (new Space()).loadObject(json.getJsonObject("space")); 
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));
@@ -124,8 +125,8 @@ public class Cell implements Serializable<Cell> {
     }
     
     public String toString() { 
-    	return space.toString() + " " + elevation + "" + developerPlayer.getPlayerColor() + " " + developer.getClass() + " "
-    			+ x + " " + y + " " + connectedCells.toString() + " " + fromLowlands + " " + fromMountains;
+    	return space + " " + elevation + " "
+    			+ x + " " + y + " " + connectedCells + " " + fromLowlands + " " + fromMountains;
     	
     }
 }

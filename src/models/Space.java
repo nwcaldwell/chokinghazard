@@ -35,7 +35,7 @@ public class Space implements Serializable<Space> {
     }
 
     public Space loadObject(JsonObject json) {
-    	this.type = SpaceType.valueOf((json.getString("SpaceType")));
+    	this.type = json.getString("SpaceType") == "null" ? null : SpaceType.valueOf((json.getString("SpaceType")));
     	this.imageSource = json.getString("imageSource");
     	return this;
     }

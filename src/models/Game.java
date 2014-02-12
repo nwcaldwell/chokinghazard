@@ -506,4 +506,8 @@ public class Game implements Serializable <Game>  {
 				+ " " + stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + Arrays.toString(palaceTiles)
 				+ " " + x + " " + y + currentComponent.toString() + " " + tabCount;
 	}
+	
+	public Board getBoard() {
+		return this.board;
+	}
 }
