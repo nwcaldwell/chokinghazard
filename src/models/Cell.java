@@ -114,7 +114,17 @@ public class Cell implements Serializable<Cell> {
     
     public Cell loadObject(JsonObject json) {
     	if(json == null) return null;
-    	this.space = json.getObject("space") == null ? null : (new Space()).loadObject(json.getJsonObject("space")); 
+    	if(json.getObject("space") != null) {
+    		String type = json.getJsonObject("space").getString("type");
+    		if(type.equals("RICE"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    		if(type.equals("VILLAGE"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    		if(type.equals("IRRIGATION"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    		if(type.equals("PALACE"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    	}
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));
