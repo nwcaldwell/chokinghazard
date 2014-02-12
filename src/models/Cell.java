@@ -108,7 +108,7 @@ public class Cell implements Serializable<Cell> {
     }
     
     public Cell loadObject(JsonObject json) {
-    	Cell cell = new Cell((new Space()).loadObject(json.getObject("space"))); 
+    	Cell cell = new Cell((new Space()).loadObject(json.getJsonObject("space"))); 
     	cell.setElevation(Integer.parseInt(json.getString("elevation")));
     	cell.setX(Integer.parseInt(json.getString("x")));
     	cell.setY(Integer.parseInt(json.getString("y")));

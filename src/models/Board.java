@@ -457,12 +457,12 @@ public class Board implements Serializable<Board> {
     	Cell[][] map = new Cell[14][14];
     	for(int x = 0; x < 14; ++x) {
     		for(int y = 0; y < 14; ++y) {
-    			map[x][y] = ((Cell[][]) (Object) json.getObjectArray("map"))[x][y];
+    			map[x][y] = ((Cell[][]) (Object) json.getJsonObjectArray("map"))[x][y];
     		}
     	}
     	Cell[] cells = new Cell[44];
 		for(int y = 0; y < 14; ++y) {
-			cells[y] = ((Cell[]) (Object) json.getObjectArray("map"))[y];
+			cells[y] = ((Cell[]) (Object) json.getJsonObjectArray("map"))[y];
 		}
 		Board board = new Board();
 		board.setOutsideInnerCells(cells);
