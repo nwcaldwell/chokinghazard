@@ -2,23 +2,41 @@
 
 package helpers;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import models.Board;
 import models.Game;
 import models.Serializable;
 
 public class Json {
-	public static void main(String[] args) {
+	
+	/**
+	 * Just for testing
+	 */
+	public static void main(String[] args) throws IOException {
 		Game game = new Game(2);
-		//FileWriter fw = new FileWriter(new File("in"));
+		FileWriter fw = new FileWriter(new File("mau.txt"));
 		String str = game.serialize();
+		System.out.println(str);
+		fw.write(game.serialize());
+		fw.close();
+		fw = new FileWriter(new File("in.txt"));
+		fw.write(str);
+		fw.close();
+		//System.out.println(game.getBoard().toString());
+		fw = new FileWriter(new File("out.txt"));
 		JsonObject json = new JsonObject(str);
+		System.out.println(JsonObject.toString(json));
+		game = new Game(2).loadObject(json);
+		fw.write(game.serialize());
+		fw.close();
 		
-		//System.out.println(JsonObject.toString(json));
 	}
 
 	/**
@@ -136,7 +154,7 @@ public class Json {
 				list.add(serializeArray(arr[x]));
 			}
 			else {
-				list.add(arr[x] == null? null : Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
+				list.add(arr[x] == null? null : ((Serializable<Object>) arr[x]).serialize());
 			}
 		}
     	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));

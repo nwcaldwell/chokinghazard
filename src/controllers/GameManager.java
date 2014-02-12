@@ -1,5 +1,8 @@
 package controllers;
 
+import helpers.Json;
+import helpers.JsonObject;
+
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +18,6 @@ import views.GamePanel;
 public final class GameManager {
     
     private static GameManager instance;
-	
 	//Attributes
 	private Game currentGame;
 	
@@ -41,24 +43,34 @@ public final class GameManager {
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
-		currentGame = new Game(numPlayers);
+		if(currentGame != null){
+			saveGame();
+			currentGame = new Game(numPlayers);
+			currentGame.initPlayers();
+		}
+		else{
+			currentGame = new Game(numPlayers);
+		}
 	}
 	
-
-		
-	//this loads the game given a File object from the GameFrame
 	public boolean loadGame(File loadFile) {
-			StringBuilder alpha = new StringBuilder();
-			try{
-				Scanner input = new Scanner(loadFile);
-				while(input.hasNextLine()){
-					alpha.append(input.nextLine());
-				}
-				input.close();
-			}catch(FileNotFoundException e){
-				JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
-				return false;
+		StringBuilder alpha = new StringBuilder();
+		try{
+			Scanner input = new Scanner(loadFile);
+			while(input.hasNextLine()){
+				alpha.append(input.nextLine());
+			}
+			input.close();
+		}catch(FileNotFoundException e){
+			JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
+			return false;
 		}
+			
+			String loadString = alpha.toString();
+			JsonObject json = new JsonObject(loadString);
+			Game loadedGame = new Game().loadObject(json.getJsonObject("Game"));
+			currentGame = loadedGame;
+	
 		return true;
 	}
 
@@ -128,11 +140,11 @@ public final class GameManager {
 		return true;
 	}
 	
-	// Deletes the current game. Asks the user if they are sure before proceeding.
+
 	public boolean quitGame() {
 		try{
 			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before exiting?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
-			
+
 			if(confirmExitGame == JOptionPane.YES_OPTION){
 				if(saveGame()){
 					currentGame = null;
@@ -146,7 +158,7 @@ public final class GameManager {
 				JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
 				return true;
 			}
-			
+
 			else{
 				return false;
 			}
@@ -155,18 +167,12 @@ public final class GameManager {
 		}
 	}
 	
+	
 	public GamePanel getGamePanel(){
 		return currentGame.getGamePanel();
 	}
-	
-	public void keyTyped(KeyEvent e) {
-	}
-
-	public void keyPressed(KeyEvent e) {
-	}
 
 	public void keyReleased(KeyEvent e) {
-		System.out.println(e.getKeyCode());
 		//set up the key input events
 		//1 selects one piece tile
 		switch(e.getKeyCode()){
@@ -187,7 +193,6 @@ public final class GameManager {
 				break;
 			case 88:
 				//end turn
-				System.out.println("end turn");
 				currentGame.nextTurn();
 				break;
 			case 32:
@@ -218,28 +223,27 @@ public final class GameManager {
 				break;
 			case 68:
 				//pressed D, add new developer onto board
-				System.out.println("add new developer");
 				currentGame.addDeveloperToBoard();
 				break;
 			case 73:
 				//pressed I, add new Irrigation tile
-				System.out.println("place Irrigation Tile");
 				currentGame.selectIrrigationTile();
 				break;
 			case 80:
 				//pressed P, new palace tile, need to ask for value of Tile
-				System.out.println("Place Palace Tile");
 				currentGame.selectPalaceTile();
 				break;
 			case 82:
 				//pressed R, place rice tile
-				System.out.println("Place Palace Tile");
 				currentGame.selectRiceTile();
 				break;
 			case 84:
 				//pressed T, use action token
-				System.out.println("Use Extra Action Token");
 				currentGame.useActionToken();
+				break;
+			case 85:
+				//pressed U, upgrade palace
+				currentGame.selectPalaceToUpgrade();
 				break;
 			case 86:
 				//pressed V, place Village

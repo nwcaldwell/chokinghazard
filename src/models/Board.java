@@ -11,6 +11,8 @@ import java.util.Stack;
 
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
+import javax.swing.JOptionPane;
+
 import models.Space.SpaceType;
 
 public class Board implements Serializable<Board> {
@@ -204,31 +206,124 @@ public class Board implements Serializable<Board> {
 
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
-	public void upgradePalace(Space palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(palaceSpace, cell);
+	public void upgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+		boolean canUpgrade = checkIfICanUpgradePalace(player, palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
 
 		// TODO else can't upgrade palace, show dialog box
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Can't upgrade palace :(");
+		}
 
 	}
 
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
-	private boolean checkIfICanUpgradePalace(Space palaceSpace, Cell cell) {
-		// TODO
+	
+	private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+		// TODO : This method is not finished, finishing tomorrow -Brett
+		
+		/*Three conditions to upgrade palace:
+		 * 1) This palace has not been modified yet during this turn
+		 * 2) There are enough villages connected for the upgrade. Upgrading to an elevation '8'
+		 *    palace requires 7 villages and a palace, and so on
+		 * 3) The developer is the highest ranked in the city
+		 */
+		
+		
+		//Check if palace has been modified on this turn
+		if (hasPalaceBeenModified(player, cell))
+			return false;
+		
+		//Check if there are enough villages connected
+		if (! (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue()))  //New elevation)
+				return false;
+		{
+			//can't do stuff
+		}
+		
+		//Check if developer is highest ranked
+		
 		return true;
 	}
+	
+	    private boolean hasPalaceBeenModified(Player player, Cell currentCell)
+	    {
+	    	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
+	    	
+	    	for (int i = 0; i < copyArray.length; i++)
+	    	{
+	    		if (copyArray[i] == currentCell)
+	    				return true;
+	    	}
+	    	return false;
+	    }
+	
+	// Helper method to check the number of connected villages to a cell
+	// When you call this, it returns the number of surrounding villages + 1
+	// The +1 is the palace itself, which counts when we are trying to upgrade the palace
+		private static int findNumberConnected(int a, int b, Cell [][] z)
+		{
+			// Make copy of array as to not damage original
+			// Need to check that this actually works when we implement
+			Cell[][] copy = new Cell[14][14];
+			
+			for (int i = 0; i < 14; i++ )
+				for (int j = 0; j < 14; j++)
+				{
+					{
+						copy[i][j] = z[i][j];
+					}
+				}
+			
+			
+			boolean canUp = (a - 1 >= 0);
+			boolean canDown = (a + 1 < copy.length);
+			boolean canRight = (b + 1 < copy[0].length);
+			boolean canLeft = (b - 1 >= 0);
 
-	// Returns the number of village Spaces surrounding the given Cell. Called
-	// by checkIfICanUpgradePalace to make sure number of surrounding villages
-	// is greater than or equal to the palace number.
-	private int checkForNumberOfVillages(Cell cell) 
-   {
-		setConnectedCells(cell);
-		return cell.getConnectedCells().size();
-	}
+			SpaceType value = copy[a][b].getSpace().getType();
+
+			int up = 0;
+			int down = 0;
+			int right = 0;
+			int left = 0;
+
+			copy[a][b] = null;
+
+			if (canUp && copy[a-1][b].getSpace().getType() == value)
+			{
+				up = findNumberConnected(a-1,b,copy);
+			}
+			if (canDown && copy[a+1][b].getSpace().getType() == value)
+			{
+				down = findNumberConnected(a+1,b,copy);
+			}
+			if (canLeft && copy[a][b-1].getSpace().getType() == value)
+			{
+				up = findNumberConnected(a,b-1,copy);
+			}
+			if (canRight && copy[a][b+1].getSpace().getType() == value)
+			{
+				up = findNumberConnected(a,b+1,copy);
+			}
+
+			return up + left + right + down + 1;
+		}
+		
+		// Returns the number of village Spaces surrounding the given Cell. Called
+		// by checkIfICanUpgradePalace to make sure number of surrounding villages
+		// is greater than or equal to the palace number.
+		private int checkForNumberOfVillages(Cell cell) 
+	   {
+			setConnectedCells(cell);
+			return cell.getConnectedCells().size();
+		}
+
+
 
 	// Returns an integer array with the city ranks for each player. The indices
 	// in the array correspond to the indices for the players in the main player
@@ -262,6 +357,7 @@ public class Board implements Serializable<Board> {
             }
          }
       }
+      
       //we now have each player mapped to their rank or not mapped if they don't have a developer 
       //on the city.
       
@@ -385,6 +481,7 @@ public class Board implements Serializable<Board> {
 	// Main method for placing a tile on the board,
 	// uses several helper methods below.
 	// Returns true if successful
+
 	public boolean placeTile(Cell[][] cells, Tile tile) {
 		// TODO Super Important, need to assign the value of connected cells when placing tile
 		if (checkValidTilePlacement(cells, tile)) {
@@ -405,7 +502,6 @@ public class Board implements Serializable<Board> {
 		else {
 			return false;
 		}
-
 	}
 
 	// Helper method for placeTile. Checks whether Tile can be placed
@@ -741,22 +837,29 @@ public class Board implements Serializable<Board> {
 	}
 
 	public String serialize() {
-		return Json.jsonPair("Board", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("map", Json.serializeArray(map)),
 				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
-		)));
+		));
     }
 
     public Board loadObject(JsonObject json) {
     	Cell[][] map = new Cell[14][14];
+    	Object[] rows = (Object[]) json.getObject("map");
     	for(int x = 0; x < 14; ++x) {
+        	Object[] fields = (Object[]) rows[x];
     		for(int y = 0; y < 14; ++y) {
-    			map[x][y] = ((Cell[][]) (Object) json.getJsonObjectArray("map"))[x][y];
+    			if(fields[y] == null)
+    				continue;
+    			map[x][y] = (new Cell(null)).loadObject((JsonObject)fields[y]);
     		}
     	}
     	Cell[] cells = new Cell[44];
-		for(int y = 0; y < 14; ++y) {
-			cells[y] = ((Cell[]) (Object) json.getJsonObjectArray("map"))[y];
+    	rows = (Object[]) json.getObject("outsideInnerCells");
+		for(int y = 0; y < 44; ++y) {
+			if(rows[y] == null)
+				continue;
+			cells[y] = (new Cell(null)).loadObject((JsonObject)rows[y]);
 		}
 		this.outsideInnerCells = cells;
 		this.map = map;
@@ -767,7 +870,7 @@ public class Board implements Serializable<Board> {
     	String ret = ""; 
     	for(Cell[] row : map) 
     		for(Cell cell : row) 
-    			ret += cell.toString() + " ";
+    			ret += cell == null ? null : cell.toString() + " ";
     	for(Cell cell : outsideInnerCells)
     		ret += cell.toString() + " "; 
     	return ret + "  " + path.toString() + " " + decrementedActionPoints;
