@@ -4,6 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -817,19 +818,37 @@ public class Board implements Serializable<Board> {
     }
 
     public Board loadObject(JsonObject json) {
+    	// Initialize cells in map.
     	Cell[][] map = new Cell[14][14];
+    	for(int x = 0; x < 14; ++x)
+    		for(int y = 0; y < 14; ++y)
+    			map[x][y] = (new Cell(null));
+    	
+    	// Load information on cells. Separated them to be able to link connected Cells.
     	Object[] rows = (Object[]) json.getObject("map");
     	for(int x = 0; x < 14; ++x) {
         	Object[] fields = (Object[]) rows[x];
     		for(int y = 0; y < 14; ++y) {
     			if(fields[y] == null)
     				continue;
+    			if(((JsonObject) fields[y]).getObject("connectedCells") != null) {
+	    			Object[] connectedCells = (Object[]) ((JsonObject) fields[y]).getObject("connectedCells");
+	    			ArrayList<Cell> connectedCellsList = new ArrayList<Cell>();
+	    			if(connectedCells[0] != null) {
+		    			for(Object obj : connectedCells) {
+		    				int i = Integer.parseInt(((JsonObject) obj).getString("x"));
+		    				int j = Integer.parseInt(((JsonObject) obj).getString("x"));
+		    				connectedCellsList.add(map[i][j]);
+		    			}
+    				}
+					((JsonObject)fields[y]).getMap().put("list", connectedCellsList);
+    			}
     			map[x][y] = (new Cell(null)).loadObject((JsonObject)fields[y]);
     		}
     	}
-    	Cell[] cells = new Cell[44];
+    	Cell[] cells = new Cell[this.outsideInnerCells.length];
     	rows = (Object[]) json.getObject("outsideInnerCells");
-		for(int y = 0; y < 44; ++y) {
+		for(int y = 0; y < cells.length; ++y) {
 			if(rows[y] == null)
 				continue;
 			cells[y] = (new Cell(null)).loadObject((JsonObject)rows[y]);

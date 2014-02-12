@@ -228,7 +228,7 @@ public class Player implements Serializable<Player> {
 
 	public String serialize() {
 	  //This creates a string that represents a Player object for saving and loading
-		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRGB() + "")),
@@ -242,7 +242,7 @@ public class Player implements Serializable<Player> {
 				Json.jsonPair("riceTiles", Json.jsonValue(riceTiles + "")),
 				Json.jsonPair("villageTiles", Json.jsonValue(villageTiles + "")),
 				Json.jsonPair("twoSpaceTiles", Json.jsonValue(twoSpaceTiles + ""))
-		)));
+		));
 	}
 
 	@Override
@@ -259,10 +259,10 @@ public class Player implements Serializable<Player> {
 		ifPlacedLandTile = Boolean.parseBoolean(json.getString("ifPlacedLandTile"));
 		devOffBoard = Integer.parseInt(json.getString("devOffBoard"));
 		
-		JsonObject[] tempPalacesUsedInTurn = json.getJsonObjectArray("palacesUsedInTurn");
+		Object[] tempPalacesUsedInTurn = (Object[]) json.getObject("palacesUsedInTurn");
 		palacesUsedInTurn = new Cell[tempPalacesUsedInTurn.length];
 		for(int i = 0; i < tempPalacesUsedInTurn.length; i++){
-			palacesUsedInTurn[i] = new Cell(null).loadObject(tempPalacesUsedInTurn[i]);
+			palacesUsedInTurn[i] = new Cell(null).loadObject((JsonObject) tempPalacesUsedInTurn[i]);
 		}
 		
 		riceTiles = Integer.parseInt(json.getString("riceTiles"));
@@ -271,9 +271,9 @@ public class Player implements Serializable<Player> {
 		
 		//make methods that set up the Player and the Current Cell.....
 		//figure out developer
-		JsonObject[] tempDevelopers = json.getJsonObjectArray("devsOnBoard");
+		Object[] tempDevelopers = (Object[]) json.getObject("devsOnBoard");
 		for(int i = 0; i < tempDevelopers.length; i++){
-			devsOnBoard.add(new Developer(this, null).loadObject(tempDevelopers[i]));
+			devsOnBoard.add(new Developer(this, null).loadObject((JsonObject) tempDevelopers[i]));
 		}
 		
 		

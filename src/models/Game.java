@@ -481,6 +481,8 @@ public class Game implements Serializable <Game>  {
 	// This method returns the Game
 
 	public Game loadObject(JsonObject json) {
+		if(json.getObject("board") == null)
+			json = json.getJsonObject("Game");
 		board = (new Board()).loadObject(json.getJsonObject("board"));
 		numPlayers = Integer.parseInt(json.getString("numPlayers"));
 		

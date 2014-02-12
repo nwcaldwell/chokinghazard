@@ -4,6 +4,8 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Cell implements Serializable<Cell> {
     private Space space; 
@@ -100,13 +102,20 @@ public class Cell implements Serializable<Cell> {
     }
 
     public String serialize() {
+    	LinkedList<String> connections = new LinkedList<String>(); 
+    	if(connectedCells != null) {
+    		for(Cell cell : connectedCells) {
+    			connections.add(Json.jsonObject(Json.jsonMembers(Json.jsonPair("x", cell.x + ""), Json.jsonPair("y", cell.y + ""))));
+    		}
+    	}
 		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("space", (space == null ? null : space.serialize())),
 				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
+    			//Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
+				Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
     			Json.jsonPair("fromLowLands", Json.jsonValue(fromLowlands + "")),
     			Json.jsonPair("fromMountains", Json.jsonValue(fromMountains + ""))
 		));
@@ -114,10 +123,26 @@ public class Cell implements Serializable<Cell> {
     
     public Cell loadObject(JsonObject json) {
     	if(json == null) return null;
-    	this.space = json.getObject("space") == null ? null : (new Space()).loadObject(json.getJsonObject("space")); 
+    	if(json.getObject("space") != null) {
+    		String type = json.getJsonObject("space").getString("type");
+    		if(type.equals("RICE"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    		if(type.equals("VILLAGE"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    		if(type.equals("IRRIGATION"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    		if(type.equals("PALACE"))
+    			this.space = (new RiceSpace()).loadObject(json.getJsonObject("space"));
+    	}
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));
+    	if(json.getObject("list") != null) {
+    		@SuppressWarnings("unchecked")
+			ArrayList<Cell> tempCells = ((ArrayList<Cell>)json.getObject("list"));
+    		for(Cell cell : tempCells) 
+    			connectedCells.add(cell);
+    	}
     	this.connectedCells = null;
     	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
     	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
@@ -127,7 +152,6 @@ public class Cell implements Serializable<Cell> {
     public String toString() { 
     	return space + " " + elevation + " "
     			+ x + " " + y + " " + connectedCells + " " + fromLowlands + " " + fromMountains;
-    	
     }
 }
 
