@@ -4,6 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -864,19 +865,21 @@ public class Board implements Serializable<Board> {
     			if(((JsonObject) fields[y]).getObject("connectedCells") != null) {
 	    			Object[] connectedCells = (Object[]) ((JsonObject) fields[y]).getObject("connectedCells");
 	    			ArrayList<Cell> connectedCellsList = new ArrayList<Cell>();
-	    			for(Object obj : connectedCells) {
-	    				int i = Integer.parseInt(((JsonObject) obj).getString("x"));
-	    				int j = Integer.parseInt(((JsonObject) obj).getString("x"));
-	    				connectedCellsList.add(map[i][j]);
-	    			}
+	    			if(connectedCells[0] != null) {
+		    			for(Object obj : connectedCells) {
+		    				int i = Integer.parseInt(((JsonObject) obj).getString("x"));
+		    				int j = Integer.parseInt(((JsonObject) obj).getString("x"));
+		    				connectedCellsList.add(map[i][j]);
+		    			}
+    				}
 					((JsonObject)fields[y]).getMap().put("list", connectedCellsList);
     			}
     			map[x][y] = (new Cell(null)).loadObject((JsonObject)fields[y]);
     		}
     	}
-    	Cell[] cells = new Cell[44];
+    	Cell[] cells = new Cell[this.outsideInnerCells.length];
     	rows = (Object[]) json.getObject("outsideInnerCells");
-		for(int y = 0; y < 44; ++y) {
+		for(int y = 0; y < cells.length; ++y) {
 			if(rows[y] == null)
 				continue;
 			cells[y] = (new Cell(null)).loadObject((JsonObject)rows[y]);

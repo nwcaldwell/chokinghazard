@@ -21,18 +21,14 @@ public class Json {
 	 */
 	public static void main(String[] args) throws IOException {
 		Game game = new Game(2);
-		FileWriter fw = new FileWriter(new File("mau.txt"));
+		FileWriter fw = new FileWriter(new File("in.txt"));
 		String str = game.serialize();
-		System.out.println(str);
-		fw.write(game.serialize());
-		fw.close();
-		fw = new FileWriter(new File("in.txt"));
 		fw.write(str);
 		fw.close();
 		//System.out.println(game.getBoard().toString());
 		fw = new FileWriter(new File("out.txt"));
 		JsonObject json = new JsonObject(str);
-		System.out.println(JsonObject.toString(json));
+		//System.out.println(JsonObject.toString(json));
 		game = new Game(2).loadObject(json);
 		fw.write(game.serialize());
 		fw.close();
