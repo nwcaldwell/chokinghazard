@@ -18,7 +18,7 @@ public class Player implements Serializable<Player> {
 	private boolean ifPlacedLandTile;
 	private int devOffBoard;
 	private LinkedList<Developer> devsOnBoard;
-	private Cell[] palacesUsedInTurn;
+	public Cell[] palacesUsedInTurn;
 	private int riceTiles;
 	private int villageTiles;
 	private int twoSpaceTiles;
@@ -36,6 +36,7 @@ public class Player implements Serializable<Player> {
 		// this.userName = userName;
 		devsOnBoard = new LinkedList<Developer>();
 		devOffBoard = 12;
+		palacesUsedInTurn = new Cell[7];
 		
 	}
 

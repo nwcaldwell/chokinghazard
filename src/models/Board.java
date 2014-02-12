@@ -205,8 +205,8 @@ public class Board implements Serializable<Board> {
 
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
-	public void upgradePalace(PalaceSpace palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(palaceSpace, cell);
+	public void upgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+		boolean canUpgrade = checkIfICanUpgradePalace(player, palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
@@ -222,37 +222,44 @@ public class Board implements Serializable<Board> {
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	
-	private boolean checkIfICanUpgradePalace(PalaceSpace palaceSpace, Cell cell) {
-		// TODO : All of this, not nearly finished just pushing for the method below
+	private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+		// TODO : This method is not finished, finishing tomorrow -Brett
+		
 		/*Three conditions to upgrade palace:
-		 * 1) This palace has not been 'touched' yet during this turn
+		 * 1) This palace has not been modified yet during this turn
 		 * 2) There are enough villages connected for the upgrade. Upgrading to an elevation '8'
 		 *    palace requires 7 villages and a palace, and so on
 		 * 3) The developer is the highest ranked in the city
 		 */
 		
-		// First check if there is a palace to upgrade
-		if (palaceSpace.getType().toString()  != "Palace")
-			return false;
 		
 		//Check if palace has been modified on this turn
+		if (hasPalaceBeenModified(player, cell))
+			return false;
 		
 		//Check if there are enough villages connected
-		if (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue())  //New elevation)
-				{
-					// Enough connected, we can do stuff
-				}
-		else
+		if (! (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue()))  //New elevation)
+				return false;
 		{
 			//can't do stuff
 		}
 		
 		//Check if developer is highest ranked
 		
-		//Not nearly done with this method
-		
 		return true;
 	}
+	
+	    private boolean hasPalaceBeenModified(Player player, Cell currentCell)
+	    {
+	    	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
+	    	
+	    	for (int i = 0; i < copyArray.length; i++)
+	    	{
+	    		if (copyArray[i] == currentCell)
+	    				return true;
+	    	}
+	    	return false;
+	    }
 	
 	// Helper method to check the number of connected villages to a cell
 	// When you call this, it returns the number of surrounding villages + 1
@@ -305,15 +312,17 @@ public class Board implements Serializable<Board> {
 
 			return up + left + right + down + 1;
 		}
+		
+		// Returns the number of village Spaces surrounding the given Cell. Called
+		// by checkIfICanUpgradePalace to make sure number of surrounding villages
+		// is greater than or equal to the palace number.
+		private int checkForNumberOfVillages(Cell cell) 
+	   {
+			setConnectedCells(cell);
+			return cell.getConnectedCells().size();
+		}
 
-	// Returns the number of village Spaces surrounding the given Cell. Called
-	// by checkIfICanUpgradePalace to make sure number of surrounding villages
-	// is greater than or equal to the palace number.
-	private int checkForNumberOfVillages(Cell cell) 
-   {
-		setConnectedCells(cell);
-		return cell.getConnectedCells().size();
-	}
+
 
 	// Returns an integer array with the city ranks for each player. The indices
 	// in the array correspond to the indices for the players in the main player
