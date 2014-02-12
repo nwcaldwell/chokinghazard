@@ -1,5 +1,8 @@
 package controllers;
 
+import helpers.Json;
+import helpers.JsonObject;
+
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,6 +62,25 @@ public final class GameManager {
 				JOptionPane.showMessageDialog(null, "File " + loadFile.getName() + " could not be loaded.");
 				return false;
 		}
+			
+			/*
+			 * Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
+				Json.jsonPair("board", board.serialize()),
+				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
+				Json.jsonPair("Players", Json.serializeArray(players)),
+				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
+				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
+				Json.jsonPair("stack", Json.serializeArray(stack)),
+				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
+				Json.jsonPair("threeSpaceTiles", Json.jsonValue(threeSpaceTiles + "")),
+				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
+				)));
+			 */
+			String loadString = alpha.toString();
+			JsonObject json = new JsonObject(loadString);
+			Game loadedGame = new Game();
+			loadedGame.loadJsonObject(json.getObject("Game"));
+			
 		return true;
 	}
 

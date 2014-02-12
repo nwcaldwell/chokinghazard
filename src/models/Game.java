@@ -412,7 +412,6 @@ public class Game implements Serializable {
 				Json.jsonPair("Players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
 				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
-				Json.jsonPair("stack", Json.serializeArray(stack)),
 				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
 				Json.jsonPair("threeSpaceTiles", Json.jsonValue(threeSpaceTiles + "")),
 				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
@@ -421,7 +420,20 @@ public class Game implements Serializable {
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
-	public Game loadObject(JsonObject json) {
-		return new Game();
+	public void loadJsonObject(JsonObject json) {
+		
+		board.loadJsonObject(json.getObject("board"));
+		numPlayers = Integer.parseInt(json.getString("numPlayers"));
+		//Players I have to go through and call loadJsonObject on each one
+		players = new Player[numPlayers];
+		
+		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
+		isFinalTurn = Boolean.parseBoolean(json.getString("isFinalTurn"));
+		irrigationTiles = Integer.parseInt(json.getString("irrigationTiles"));
+		threeSpaceTiles = Integer.parseInt(json.getString("threeSpaceTiles"));
+		palaceTiles = (Integer[5])(json.("palaceTiles"));
+		
+		
+		
 	}
 }
