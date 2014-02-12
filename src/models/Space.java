@@ -28,10 +28,10 @@ public class Space implements Serializable<Space> {
     }
 
     public String serialize() {
-		return Json.jsonPair("Space", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
 			Json.jsonPair("type", Json.jsonValue(type.toString())),
 			Json.jsonPair("imageSource", Json.jsonValue(imageSource))
-		)));
+		));
     }
 
     public Space loadObject(JsonObject json) {

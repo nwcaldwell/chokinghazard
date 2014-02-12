@@ -36,9 +36,9 @@ public abstract class Tile implements Serializable<Tile> {
 	* serialize the Tile and return it as a String
 	*/
     public String serialize() {
-        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+        return Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("string", Json.jsonValue(imageSource)),
             Json.jsonPair("spaces", Json.serializeArray(spaces))
-        )));
+        ));
     }
 }

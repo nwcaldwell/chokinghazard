@@ -22,18 +22,21 @@ public class Json {
 	public static void main(String[] args) throws IOException {
 		Game game = new Game(2);
 		FileWriter fw = new FileWriter(new File("mau.txt"));
-		String str = game.getBoard().serialize();
-		//System.out.println(str);
-		fw.write(game.getBoard().toString());
+		String str = game.serialize();
+		System.out.println(str);
+		fw.write(game.serialize());
+		fw.close();
+		fw = new FileWriter(new File("in.txt"));
+		fw.write(str);
 		fw.close();
 		//System.out.println(game.getBoard().toString());
 		fw = new FileWriter(new File("out.txt"));
 		JsonObject json = new JsonObject(str);
-		Board board = new Board().loadObject(json.getJsonObject("Board"));
-		fw.write(board.toString());
+		System.out.println(JsonObject.toString(json));
+		game = new Game(2).loadObject(json);
+		fw.write(game.serialize());
 		fw.close();
 		
-		//System.out.println(JsonObject.toString(json));
 	}
 
 	/**
@@ -151,7 +154,7 @@ public class Json {
 				list.add(serializeArray(arr[x]));
 			}
 			else {
-				list.add(arr[x] == null? null : Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
+				list.add(arr[x] == null? null : ((Serializable<Object>) arr[x]).serialize());
 			}
 		}
     	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));
