@@ -187,7 +187,9 @@ public final class GameManager {
 			case 10:
 				//pressed enter
 				System.out.println("pressed enter");
-				currentGame.placeComponent();
+				if (currentGame.getCurrentComponent() != null) {
+					currentGame.placeComponent();
+				}
 				break;	
 			case 27:
 				//cancel action

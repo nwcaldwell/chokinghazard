@@ -92,7 +92,13 @@ public class Game implements Serializable <Game>  {
 		return this.gamePanel;
 	}
 	
-
+	public Object getCurrentComponent() {
+		return currentComponent;
+	}
+	
+	public void setCurrentComponent(Object currentComponent) {
+		this.currentComponent = currentComponent;
+	}
 	// ACTION TOKEN
 	// Increases number of action points available for that players 
 	// turn by one. Changes the ifActionTokenUsed boolean to true
