@@ -81,15 +81,16 @@ public class Board implements Serializable<Board> {
 		if (cell.getSpace().getType() == SpaceType.RICE
 				|| cell.getSpace().getType() == SpaceType.VILLAGE) {
 			if ((cell.getFromMountains() && player.getActionPoints() == 2 && player.isIfPlacedLandTile()) ||
-			   (cell.getFromMountains() && player.getActionPoints() >= 2) ||
+			   (cell.getFromMountains() && player.getActionPoints() > 2) ||
 			   (cell.getFromLowlands() && player.getActionPoints() == 1 && player.isIfPlacedLandTile()) ||
-				((cell.getFromLowlands() && player.getActionPoints() >= 1)))
+			   ((cell.getFromLowlands() && player.getActionPoints() > 1))) {
 				
-				Developer dev =new Developer(player, cell);
+				Developer dev = new Developer(player, cell);
 				player.addDevOnBoard(dev);
 				cell.setDeveloper(dev);
 
 				return true;
+			}
 		}	
 		
 		return false;
