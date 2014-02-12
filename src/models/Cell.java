@@ -114,8 +114,7 @@ public class Cell implements Serializable<Cell> {
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			//Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
-				Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
+    			Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
     			Json.jsonPair("fromLowLands", Json.jsonValue(fromLowlands + "")),
     			Json.jsonPair("fromMountains", Json.jsonValue(fromMountains + ""))
 		));
