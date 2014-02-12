@@ -78,8 +78,7 @@ public final class GameManager {
 			 */
 			String loadString = alpha.toString();
 			JsonObject json = new JsonObject(loadString);
-			Game loadedGame = new Game();
-			loadedGame.loadJsonObject(json.getObject("Game"));
+			Game loadedGame = new Game().loadObject(json.getJsonObject("Game"));
 			
 		return true;
 	}
