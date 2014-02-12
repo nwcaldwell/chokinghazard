@@ -297,6 +297,7 @@ public class Game implements Serializable <Game>  {
 			case"THREE SPACE TILE":
 				//decrement it from the global stash
 				--threeSpaceTiles;
+				gamePanel.setThreePieceTiles(threeSpaceTiles);
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "TWO SPACE TILE":
@@ -424,7 +425,7 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	private void showNotEnoughTiles(){
-		JOptionPane.showMessageDialog(null, "Cannot perform action, try another");
+		JOptionPane.showMessageDialog(null, "No more tiles of this type, try another");
 	}
 	private void showNotEnoughActionPoints(){
 		JOptionPane.showMessageDialog(null, "Not enough Action Points!");

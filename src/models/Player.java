@@ -50,11 +50,14 @@ public class Player implements Serializable<Player> {
 	
 //use to play developer on the board..we have a linkedlist and we add the developers that we want to place on the board. We also decrease the deOffBoard
 // by one
-	public void addDevOnBoard(Developer dev){
+	public boolean addDevOnBoard(Developer dev){
 		
-	 	devsOnBoard.push(dev);
-	 	
+	 	if(devOffBoard == 0){
+	 		return false;
+	 	}
+		devsOnBoard.push(dev);
 	 	devOffBoard--;
+	 	return true;
 		
 	}
 
