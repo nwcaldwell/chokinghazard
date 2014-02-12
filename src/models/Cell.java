@@ -4,6 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Cell implements Serializable<Cell> {
     private Space space; 
@@ -100,13 +101,18 @@ public class Cell implements Serializable<Cell> {
     }
 
     public String serialize() {
+    	LinkedList<String> connections = new LinkedList<String>(); 
+    	if(connectedCells != null)
+    		for(Cell cell : connectedCells)
+    			connections.add(Json.jsonObject(Json.jsonMembers(Json.jsonPair("x", cell.x + ""), Json.jsonPair("y", cell.y + ""))));
 		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("space", (space == null ? null : space.serialize())),
 				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
+    			//Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
+				Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
     			Json.jsonPair("fromLowLands", Json.jsonValue(fromLowlands + "")),
     			Json.jsonPair("fromMountains", Json.jsonValue(fromMountains + ""))
 		));
