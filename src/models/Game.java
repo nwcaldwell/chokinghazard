@@ -297,6 +297,7 @@ public class Game implements Serializable <Game>  {
 			case"THREE SPACE TILE":
 				//decrement it from the global stash
 				--threeSpaceTiles;
+				gamePanel.setThreePieceTiles(threeSpaceTiles);
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "TWO SPACE TILE":
@@ -307,6 +308,7 @@ public class Game implements Serializable <Game>  {
 			case "IRRIGATION":
 				//decrement it from the global stash
 				--irrigationTiles;
+				gamePanel.setIrrigationTiles(irrigationTiles);
 				break;
 			case "VILLAGE":
 				//decrement it from the user's stash
@@ -319,6 +321,7 @@ public class Game implements Serializable <Game>  {
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "PALACE":
+				
 				//need to somehow do checks for which palace tile to place
 				break;
 			}	
@@ -424,7 +427,7 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	private void showNotEnoughTiles(){
-		JOptionPane.showMessageDialog(null, "Cannot perform action, try another");
+		JOptionPane.showMessageDialog(null, "No more tiles of this type, try another");
 	}
 	private void showNotEnoughActionPoints(){
 		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
