@@ -236,6 +236,15 @@ public class Player implements Serializable<Player> {
 	@Override
 	public Player loadJsonObject(JsonObject json) {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
+	}
+	
+	public String toString() { 
+		String ret = "";
+		for(Cell cell : palacesUsedInTurn)
+			ret += cell; 
+		return ret + " " + famePoints + " " + playerColor + " " + actionPoints + " " + actionTokens + " " + ifActionTokenUsed
+				+ " " + ifPlacedLandTile + " " + devOffBoard + " " + devsOnBoard.toString() + " " + riceTiles
+				+ " " + villageTiles + " " + twoSpaceTiles;
 	}
 }

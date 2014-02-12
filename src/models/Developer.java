@@ -36,7 +36,8 @@ public class Developer implements Serializable<Developer>{
   }
   
   public String toString(){
-	  return "DEVELOPER";
+	  //return "DEVELOPER";
+	  return isPlacedOnBoard + " " + currentCell.getClass() + " " + owner.getPlayerColor();
   }
 
   public String serialize() {
@@ -51,16 +52,13 @@ public class Developer implements Serializable<Developer>{
 	    		Json.jsonPair("currentCellX", Json.jsonValue(currentCell.getX() + "")), 
 	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + ""))
 	    		)));
-  }
+  	}
 
-  public Developer loadObject(String serial) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
 @Override
 public Developer loadJsonObject(JsonObject json) {
 	// TODO Auto-generated method stub
 	return null;
 }
+
 }
