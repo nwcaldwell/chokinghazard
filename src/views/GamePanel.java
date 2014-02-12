@@ -132,8 +132,8 @@ public class GamePanel extends JPanel{
 		updateCurrentPlayerView();
 	}
 	
-	public void highlightDeveloper(Developer dev){
-		this.board.highlightDeveloper(dev.getCurrentCell().getX(), dev.getCurrentCell().getY());
+	public void highlightDeveloper(Developer dev, int x, int y){
+		this.board.highlightDeveloper(x, y);
 	}
 	
 	public PlayerPanel[] getPlayerPanels(){
