@@ -223,13 +223,14 @@ public class Board implements Serializable<Board> {
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	
 	private boolean checkIfICanUpgradePalace(PalaceSpace palaceSpace, Cell cell) {
-		// TODO
+		// TODO : All of this, not nearly finished just pushing for the method below
 		/*Three conditions to upgrade palace:
 		 * 1) This palace has not been 'touched' yet during this turn
 		 * 2) There are enough villages connected for the upgrade. Upgrading to an elevation '8'
 		 *    palace requires 7 villages and a palace, and so on
 		 * 3) The developer is the highest ranked in the city
 		 */
+		
 		// First check if there is a palace to upgrade
 		if (palaceSpace.getType().toString()  != "Palace")
 			return false;
@@ -239,9 +240,16 @@ public class Board implements Serializable<Board> {
 		//Check if there are enough villages connected
 		if (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue())  //New elevation)
 				{
-			
+					// Enough connected, we can do stuff
 				}
+		else
+		{
+			//can't do stuff
+		}
 		
+		//Check if developer is highest ranked
+		
+		//Not nearly done with this method
 		
 		return true;
 	}
@@ -251,35 +259,48 @@ public class Board implements Serializable<Board> {
 	// The +1 is the palace itself, which counts when we are trying to upgrade the palace
 		private static int findNumberConnected(int a, int b, Cell [][] z)
 		{
+			// Make copy of array as to not damage original
+			// Need to check that this actually works when we implement
+			Cell[][] copy = new Cell[14][14];
+			
+			for (int i = 0; i < 14; i++ )
+				for (int j = 0; j < 14; j++)
+				{
+					{
+						copy[i][j] = z[i][j];
+					}
+				}
+			
+			
 			boolean canUp = (a - 1 >= 0);
-			boolean canDown = (a + 1 < z.length);
-			boolean canRight = (b + 1 < z[0].length);
+			boolean canDown = (a + 1 < copy.length);
+			boolean canRight = (b + 1 < copy[0].length);
 			boolean canLeft = (b - 1 >= 0);
 
-			SpaceType value = z[a][b].getSpace().getType();
+			SpaceType value = copy[a][b].getSpace().getType();
 
 			int up = 0;
 			int down = 0;
 			int right = 0;
 			int left = 0;
 
-			z[a][b] = null;
+			copy[a][b] = null;
 
-			if (canUp && z[a-1][b].getSpace().getType() == value)
+			if (canUp && copy[a-1][b].getSpace().getType() == value)
 			{
-				up = findNumberConnected(a-1,b,z);
+				up = findNumberConnected(a-1,b,copy);
 			}
-			if (canDown && z[a+1][b].getSpace().getType() == value)
+			if (canDown && copy[a+1][b].getSpace().getType() == value)
 			{
-				down = findNumberConnected(a+1,b,z);
+				down = findNumberConnected(a+1,b,copy);
 			}
-			if (canLeft && z[a][b-1].getSpace().getType() == value)
+			if (canLeft && copy[a][b-1].getSpace().getType() == value)
 			{
-				up = findNumberConnected(a,b-1,z);
+				up = findNumberConnected(a,b-1,copy);
 			}
-			if (canRight && z[a][b+1].getSpace().getType() == value)
+			if (canRight && copy[a][b+1].getSpace().getType() == value)
 			{
-				up = findNumberConnected(a,b+1,z);
+				up = findNumberConnected(a,b+1,copy);
 			}
 
 			return up + left + right + down + 1;
