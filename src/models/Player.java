@@ -76,6 +76,7 @@ public class Player implements Serializable<Player> {
 	public void useActionToken() {
 		actionPoints++;
 		actionTokens--;
+		ifActionTokenUsed = true;
 	}
 
 	public void addFamePoints(int fame) {
@@ -226,25 +227,7 @@ public class Player implements Serializable<Player> {
 	}
 
 	public String serialize() {
-	  /*This creates a string that represents a Player object for saving and loading
-	   * 
-	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
-	   *  This will make the Cell unique
-	   *  
-	   *  private int famePoints;
-	private final Color playerColor;
-	private int actionPoints;
-	private int actionTokens;
-	private boolean ifActionTokenUsed;
-	private boolean ifPlacedLandTile;
-	private int devOffBoard;
-	private LinkedList<Developer> devsOnBoard;
-	private Cell[] palacesUsedInTurn;
-	private int riceTiles;
-	private int villageTiles;
-	private int twoSpaceTiles;
-	   *
-	   */
+	  //This creates a string that represents a Player object for saving and loading
 		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
