@@ -110,12 +110,10 @@ public class Cell implements Serializable<Cell> {
     	}
 		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("space", (space == null ? null : space.serialize())),
-				//Json.jsonPair("developerPlayer", developerPlayer.serialize()),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			//Json.jsonPair("connectedCells", (connectedCells == null ? null : Json.serializeArray(connectedCells.toArray()))),
-				Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
+    			Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
     			Json.jsonPair("fromLowLands", Json.jsonValue(fromLowlands + "")),
     			Json.jsonPair("fromMountains", Json.jsonValue(fromMountains + ""))
 		));
@@ -137,6 +135,9 @@ public class Cell implements Serializable<Cell> {
     	this.elevation = Integer.parseInt(json.getString("elevation"));
     	this.x = Integer.parseInt(json.getString("x"));
     	this.y = Integer.parseInt(json.getString("y"));
+    	if(json.getObject("player") != null) {
+    		this.developerPlayer = (Player)json.getObject("player");
+    	}
     	if(json.getObject("list") != null) {
     		@SuppressWarnings("unchecked")
 			ArrayList<Cell> tempCells = ((ArrayList<Cell>)json.getObject("list"));
@@ -147,6 +148,13 @@ public class Cell implements Serializable<Cell> {
     	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
     	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
     	return this;
+    }
+    
+    public void loadDeveloper(Developer developer) {
+    	if(developer.getCurrentCell() == this) {
+    		this.developer = developer;
+    		this.developerPlayer = developer.getOwner();
+    	}
     }
     
     public String toString() { 

@@ -296,6 +296,7 @@ public class Game implements Serializable <Game>  {
 			case "IRRIGATION":
 				//decrement it from the global stash
 				--irrigationTiles;
+				gamePanel.setIrrigationTiles(irrigationTiles);
 				break;
 			case "VILLAGE":
 				//decrement it from the user's stash
@@ -308,6 +309,7 @@ public class Game implements Serializable <Game>  {
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "PALACE":
+				
 				//need to somehow do checks for which palace tile to place
 				break;
 			}	
@@ -498,8 +500,10 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
-				if(devs.get(j) != null)
-				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+				if(devs.get(j) != null) {
+					devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+					board.loadCellsDevelopers(devs.get(j));
+				}
 			}
 		}
 		
