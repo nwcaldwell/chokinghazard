@@ -57,8 +57,8 @@ public class Developer implements Serializable<Developer>{
 
 @Override
 public Developer loadObject(JsonObject json) {
-	// TODO Auto-generated method stub
-	return null;
+	isPlacedOnBoard = Boolean.parseBoolean(json.getString("isPlacedOnBoard"));
+	return this;
 }
 
 }
