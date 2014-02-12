@@ -426,7 +426,7 @@ public class Game implements Serializable <Game>  {
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
 
-	public Game loadJsonObject(JsonObject json) {
+	public Game loadObject(JsonObject json) {
 		
 		board.loadObject(json.getJsonObject("board"));
 		numPlayers = Integer.parseInt(json.getString("numPlayers"));
@@ -435,7 +435,7 @@ public class Game implements Serializable <Game>  {
 		players = new Player[numPlayers];
 		JsonObject[] tempPlayers = json.getJsonObjectArray("players");
 		for (int i = 0; i < numPlayers; i++){
-			Player tempPlayer = new Player(null).loadJsonObject(tempPlayers[i]);
+			players[i] = new Player(null).loadObject(tempPlayers[i]);
 		}
 		
 		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
