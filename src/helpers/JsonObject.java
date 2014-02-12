@@ -66,6 +66,10 @@ public class JsonObject {
 		return (JsonObject) map.get(key);
 	}
 	
+	public Object getObject(String key) {
+		return map.get(key);
+	}
+	
 	/**
 	 * returns the value mapped to the key as an Array of Strings
 	 * @param key
@@ -99,9 +103,11 @@ public class JsonObject {
 			Object[] arr = loadArray(serial);
 			return arr;
 		}
-		if(serial.equals("\"null\""))
+		if(serial.equals("\"null\"") || serial.equals("null"))
 			return null;
-		return serial.substring(1,serial.length()-1);
+		if(serial.charAt(0) == '\"')
+			return serial.substring(1,serial.length()-1);
+		return serial;
 	}
 	
 	/**

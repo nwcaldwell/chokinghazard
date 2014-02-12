@@ -2,16 +2,38 @@
 
 package helpers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import models.Board;
+import models.Game;
 import models.Serializable;
 
 public class Json {
-	public static void main(String[] args) {
+	
+	/**
+	 * Just for testing
+	 */
+	public static void main(String[] args) throws IOException {
+		Game game = new Game(2);
+		FileWriter fw = new FileWriter(new File("mau.txt"));
+		String str = game.getBoard().serialize();
+		//System.out.println(str);
+		fw.write(game.getBoard().toString());
+		fw.close();
+		//System.out.println(game.getBoard().toString());
+		fw = new FileWriter(new File("out.txt"));
+		JsonObject json = new JsonObject(str);
+		Board board = new Board().loadObject(json.getJsonObject("Board"));
+		fw.write(board.toString());
+		fw.close();
 		
+		//System.out.println(JsonObject.toString(json));
 	}
 
 	/**
@@ -129,7 +151,7 @@ public class Json {
 				list.add(serializeArray(arr[x]));
 			}
 			else {
-				list.add(Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
+				list.add(arr[x] == null? null : Json.jsonObject(((Serializable<Object>) arr[x]).serialize()));
 			}
 		}
     	return Json.jsonArray(Json.jsonElements(list.toArray((new String[1]))));
@@ -144,7 +166,7 @@ public class Json {
 		Scanner in = new Scanner(str); 
 		StringBuilder ret = new StringBuilder();
 		while(in.hasNextLine()) {
-			ret.append("  " + in.nextLine());
+			ret.append("\n  " + in.nextLine());
 		}
 		in.close();
 		return ret.toString();

@@ -2,16 +2,18 @@ package models;
 
 import helpers.Json;
 import helpers.JsonObject;
+import models.Serializable;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
+
 import javax.swing.JOptionPane;
 
 import views.GamePanel;
 
-public class Game implements Serializable {
+public class Game implements Serializable <Game>  {
 	// VARIABLES
 	private GamePanel gamePanel;
 	private Board board;
@@ -263,11 +265,15 @@ public class Game implements Serializable {
 	}
 	
 	public void placeComponent(){
-		Cell currentCell = board.getCellAtPixel(x, y);
+		Cell[][] currentCell = {
+			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1)},
+			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
+		};//TODO someone double check this make sure it's right
+
 		
 		String type = currentComponent.toString();
-		//figure out which type to place the component properly
 		
+		//figure out which type to place the component properly
 		if(type.equals("DEVELOPER")){
 			//set it as on the board if not already in the player model, if returns true then reflect changes appropriately
 			
@@ -309,54 +315,88 @@ public class Game implements Serializable {
 	}
 	
 	public void selectTwoSpaceTile(){
-		//TODO check if the current player can actually place a two space tile
-		currentComponent = new TwoSpaceTile(new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
-		
-		//TODO write stuff to check that the user has placed a land tile
+		if(players[indexOfCurrentPlayer].getTwoSpaceTiles() == 0){
+			showNotEnoughTiles();
+		}
+		else{
+			currentComponent = new TwoSpaceTile(new Space[2][2]);
+			gamePanel.moveTile((Tile)currentComponent, x, y);
+			
+		}
 	}
 	
 	public void selectThreeSpaceTile(){
-		//TODO check if the current player can actually place a three space tile
-		if(this.threeSpaceTiles != 0){
+		if(this.threeSpaceTiles == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new ThreeSpaceTile(new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
 	}
 	
 	public void selectIrrigationTile(){
-		if(this.irrigationTiles != 0){
+		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+			showNotEnoughActionPoints();
+		}
+		else if(this.irrigationTiles == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new OneSpaceTile(new IrrigationSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
+			
 	}
 	
 	public void selectPalaceTile(){
-		//TODO implementation for checking the upgrading stuff
-		currentComponent = new OneSpaceTile(new PalaceSpace(2), new Space[2][2]);
-		gamePanel.moveTile((Tile)currentComponent, x, y);
+		String palace = JOptionPane.showInputDialog("What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
+		placePalace(palace);
 	}
 	
 	public void selectRiceTile(){
-		if(players[indexOfCurrentPlayer].getRiceTiles() != 0){
+		if(players[indexOfCurrentPlayer].getRiceTiles() == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new OneSpaceTile(new RiceSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
+			
 	}
 	
 	public void selectVillageTile(){
-		if(players[indexOfCurrentPlayer].getVillageTiles() != 0){
+		if(players[indexOfCurrentPlayer].getVillageTiles() == 0){
+			showNotEnoughTiles();
+		}
+		else{
 			currentComponent = new OneSpaceTile(new VillageSpace(), new Space[2][2]);
 			gamePanel.moveTile((Tile)currentComponent, x, y);
 		}
-		else
-			showNotEnoughTiles();
+			
+	}
+	
+	public void selectPalaceToUpgrade(){
+		//ask the user what value of tile they would like to place
+		String upgrade = JOptionPane.showInputDialog("What value of Palace would you like to upgrade to?\n 2, 4, 6, 8, or 10");
+		placePalace(upgrade);
+	}
+	
+	private void placePalace(String input){
+		if(input != null){
+			int value = Integer.parseInt(input);
+			if(value < 11 && value % 2 == 0){
+				if(this.palaceTiles[(value/2-1)] > 0){
+					currentComponent = new OneSpaceTile(new PalaceSpace(value), new Space[2][2]);
+					System.out.println(((Tile)currentComponent).getImageSource());
+					gamePanel.moveTile((Tile)currentComponent, x, y);
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Not enough "+value+" Palace tiles!");
+			}
+			else
+				JOptionPane.showMessageDialog(null,  "Please enter a number, 2, 4, 6, 8, or 10.");
+		}
 	}
 	
 	public void cancelAction(){
@@ -373,8 +413,11 @@ public class Game implements Serializable {
 	private void showNotEnoughTiles(){
 		JOptionPane.showMessageDialog(null, "Cannot perform action, try another");
 	}
+	private void showNotEnoughActionPoints(){
+		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
+	}
 	
-	private void initPlayers(){
+	public void initPlayers(){
 		//ask the players for their name's and color preferences
 		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
 		for(int i = 0; i < numPlayers; ++i){
@@ -392,10 +435,13 @@ public class Game implements Serializable {
 					okName = true; //Acceptable input, proceed to next step
 				}
 			}
-			players[i] = new Player(colors[i]);
-			gamePanel.getPlayerPanels()[i].setPlayerName(name);
-			gamePanel.getPlayerPanels()[i].setPlayerColor(colors[i]);
+			players[i] = new Player(colors[i], name);
 		}
+		setPlayerNamesInView();
+	}
+	
+	public void setPlayerNamesInView(){
+		gamePanel.setPlayerPanels(players);
 		gamePanel.updateCurrentPlayerView();
 	}
 		
@@ -409,10 +455,9 @@ public class Game implements Serializable {
 		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
-				Json.jsonPair("Players", Json.serializeArray(players)),
+				Json.jsonPair("players", Json.serializeArray(players)),
 				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
 				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
-				Json.jsonPair("stack", Json.serializeArray(stack)),
 				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
 				Json.jsonPair("threeSpaceTiles", Json.jsonValue(threeSpaceTiles + "")),
 				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
@@ -421,7 +466,48 @@ public class Game implements Serializable {
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
+
 	public Game loadObject(JsonObject json) {
-		return new Game();
+		
+		board.loadObject(json.getJsonObject("board"));
+		numPlayers = Integer.parseInt(json.getString("numPlayers"));
+		
+		//Players I have to go through the JsonObject array and call loadJsonObject on each one
+		players = new Player[numPlayers];
+		JsonObject[] tempPlayers = json.getJsonObjectArray("players");
+		for (int i = 0; i < numPlayers; i++){
+			players[i] = new Player(null).loadObject(tempPlayers[i]); //will have to update with change in Player constructor
+		}
+		
+		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
+		isFinalTurn = Boolean.parseBoolean(json.getString("isFinalTurn"));
+		irrigationTiles = Integer.parseInt(json.getString("irrigationTiles"));
+		threeSpaceTiles = Integer.parseInt(json.getString("threeSpaceTiles"));
+		
+		//Go through each in the String array and parse them and add them to the palaceTiles array
+		String[] tempPalaceTiles = new String[5];
+		tempPalaceTiles = json.getStringArray("palaceTiles");
+		for(int i = 0; i < 5; i++){
+			palaceTiles[i] = Integer.parseInt(tempPalaceTiles[i]);
+		}
+		//setDevelopersCurrentCell();
+		
+		return this;
+	}	
+	
+	//private void setDevelopersCurrentCell()
+
+	
+	public String toString() {
+		String ret = ""; 
+		for(Player player : players) 
+			ret += player.toString() + " ";
+		return ret + " " + board.toString() + " " + numPlayers + " " + indexOfCurrentPlayer + " " + isFinalTurn 
+				+ " " + stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + Arrays.toString(palaceTiles)
+				+ " " + x + " " + y + currentComponent.toString() + " " + tabCount;
+	}
+	
+	public Board getBoard() {
+		return this.board;
 	}
 }
