@@ -2,21 +2,36 @@
 
 package helpers;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import models.Board;
 import models.Game;
 import models.Serializable;
 
 public class Json {
-	public static void main(String[] args) {
+	
+	/**
+	 * Just for testing
+	 */
+	public static void main(String[] args) throws IOException {
 		Game game = new Game(2);
-		//FileWriter fw = new FileWriter(new File("in"));
-		String str = game.serialize();
+		FileWriter fw = new FileWriter(new File("mau.txt"));
+		String str = game.getBoard().serialize();
+		//System.out.println(str);
+		fw.write(game.getBoard().toString());
+		fw.close();
+		//System.out.println(game.getBoard().toString());
+		fw = new FileWriter(new File("out.txt"));
 		JsonObject json = new JsonObject(str);
+		Board board = new Board().loadObject(json.getJsonObject("Board"));
+		fw.write(board.toString());
+		fw.close();
 		
 		//System.out.println(JsonObject.toString(json));
 	}
