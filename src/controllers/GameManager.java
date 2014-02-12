@@ -31,7 +31,14 @@ public class GameManager{
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
-		currentGame = new Game(numPlayers);
+		if(currentGame != null){
+			saveGame();
+			currentGame = new Game(numPlayers);
+			currentGame.initPlayers();
+		}
+		else{
+			currentGame = new Game(numPlayers);
+		}
 	}
 	
 	public boolean loadGame(File loadFile) {
@@ -198,28 +205,27 @@ public class GameManager{
 				break;
 			case 68:
 				//pressed D, add new developer onto board
-				System.out.println("add new developer");
 				currentGame.addDeveloperToBoard();
 				break;
 			case 73:
 				//pressed I, add new Irrigation tile
-				System.out.println("place Irrigation Tile");
 				currentGame.selectIrrigationTile();
 				break;
 			case 80:
 				//pressed P, new palace tile, need to ask for value of Tile
-				System.out.println("Place Palace Tile");
 				currentGame.selectPalaceTile();
 				break;
 			case 82:
 				//pressed R, place rice tile
-				System.out.println("Place Palace Tile");
 				currentGame.selectRiceTile();
 				break;
 			case 84:
 				//pressed T, use action token
-				System.out.println("Use Extra Action Token");
 				currentGame.useActionToken();
+				break;
+			case 85:
+				//pressed U, upgrade palace
+				currentGame.selectPalaceToUpgrade();
 				break;
 			case 86:
 				//pressed V, place Village

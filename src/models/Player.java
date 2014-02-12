@@ -10,6 +10,7 @@ import java.util.Stack;
 public class Player implements Serializable<Player> {
 
 	private int famePoints;
+	private String name;
 	private final Color playerColor;
 	private int actionPoints;
 	private int actionTokens;
@@ -24,8 +25,9 @@ public class Player implements Serializable<Player> {
 
 	// private final String userName;
 
-	public Player(Color color) {
+	public Player(Color color, String name) {
 		this.playerColor = color;
+		this.name = name;
 		this.famePoints = 0;
 		this.actionTokens = 3;
 		this.riceTiles = 3;
@@ -182,6 +184,14 @@ public class Player implements Serializable<Player> {
 
 	public void setTwoSpaceTiles(int twoSpaceTiles) {
 		this.twoSpaceTiles = twoSpaceTiles;
+	}
+	
+	public String getPlayerName(){
+		return this.name;
+	}
+	
+	public void setPlayerName(String newName){
+		this.name = newName;
 	}
 	
 	public void useTwoSpaceTile(){

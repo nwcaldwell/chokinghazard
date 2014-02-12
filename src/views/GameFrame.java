@@ -29,7 +29,6 @@ public class GameFrame extends JFrame {
 		setTitle("Java - by Choking Hazard");
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
-		gm = new GameManager();
 		addMenu();
 		addKeyListener(new KeyListener() {
 			
@@ -60,51 +59,58 @@ public class GameFrame extends JFrame {
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/** Brett ***/ 
-				String playerCount = JOptionPane.showInputDialog("How many players? 2-4");
-				boolean canProceed = false; //goes true when we have acceptable input
-				boolean isInt = true; //For successful parse
-				int inputPlayers = -1;
-				while (!canProceed)
-				{	
-					try 
-					{
-						inputPlayers = Integer.parseInt(playerCount); //try to parse
-						isInt = true;;
+				if(gm != null){
+					//they're already in a game, so ask if they're sure they want to do this, and ask to save game
+					int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new game in the middle of this game?");
+					if(response == JOptionPane.YES_OPTION){
+						gm.saveGame();
 					}
-					catch (NumberFormatException ex) //catch exception if they entered blank or a non-numeric value
-					{
-						isInt = false;  //if we catch an exception, set to false, go back to above loop
-						
+					else{
+						//do nothing
 					}
-					if (isInt) //successful entry passes this
-					{
-						final int numPlayers = inputPlayers;
-						if(numPlayers >= 2 && numPlayers <= 4)	//check that it is in the appropriate range
-						{
-							new Thread(new Runnable(){
-								public void run(){
-									gm.createNewGame(numPlayers);
-									setContentPane(gm.getGamePanel());
-									pack();
-									validate();
-								}
-							}).start();
-							
-							canProceed = true; //good to go 
-						} //end if
-						else
-						{
-							JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again");
+				}
+				else{
+					/** Brett ***/ 
+					String playerCount = JOptionPane.showInputDialog("How many players? 2-4", null);
+					
+					boolean canProceed = false; //goes true when we have acceptable input
+					boolean isInt = true; //For successful parse
+					int inputPlayers = -1;
+					while (!canProceed){	
+						try {
+							inputPlayers = Integer.parseInt(playerCount); //try to parse
+							isInt = true;
+						} catch (NumberFormatException ex) {
+							//if we catch an exception, set to false, go back to above loop
+							isInt = false; 
+						}
+						if (isInt){
+							final int numPlayers = inputPlayers;
+							if(numPlayers >= 2 && numPlayers <= 4){
+								new Thread(new Runnable(){
+									public void run(){
+										gm = new GameManager();
+										gm.createNewGame(numPlayers);
+										setContentPane(gm.getGamePanel());
+										pack();
+										validate();
+									}
+								}).start();
+								
+								canProceed = true;
+							} 
+							else {
+								JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again");
+								playerCount = JOptionPane.showInputDialog("How many players? 2-4");
+							} //end else
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Please enter a number of players");
 							playerCount = JOptionPane.showInputDialog("How many players? 2-4");
-						} //end else
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null, "Please enter a number of players");
-						playerCount = JOptionPane.showInputDialog("How many players? 2-4");
-					}
-				} //end while
+						}
+					} //end while
+					
+				}
 			}
 		});
 		file.add(newGame);
@@ -114,18 +120,31 @@ public class GameFrame extends JFrame {
 		loadGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//loads a game
-				final File file = getFile();
-				if(file != null){
-					//starts a new thread
-					new Thread(new Runnable(){
-						public void run(){
-							gm.loadGame(file);
-							setContentPane(gm.getGamePanel());
-							pack();
-							validate();
-						}
-					}).start();
+				if(gm == null){
+					//loads a game
+					final File file = getFile();
+					if(file != null){
+						//starts a new thread
+						new Thread(new Runnable(){
+							public void run(){
+								gm = new GameManager();
+								gm.loadGame(file);
+								setContentPane(gm.getGamePanel());
+								pack();
+								validate();
+							}
+						}).start();
+					}
+				}
+				else{
+					//they're already in a game, so ask if they're sure they want to do this, and ask to save game
+					int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new game in the middle of this game?");
+					if(response == JOptionPane.YES_OPTION){
+						gm.saveGame();
+					}
+					else{
+						//do nothing
+					}
 				}
 			}
 		});
@@ -135,25 +154,18 @@ public class GameFrame extends JFrame {
 		saveGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
         saveGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
-            	gm.saveGame();
-            }
-        }); 
-        file.add(saveGame);
-    /*    
-        JMenuItem deleteGame = new JMenuItem("Delete Game");
-        deleteGame.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent event){
-            	if(gm.deleteGame()){
-            		setContentPane(new JPanel());
-            		pack();
-            		validate();
+            	if(gm != null){
+            		gm.saveGame();
+            	}
+            	else{
+            		JOptionPane.showMessageDialog(null, "You don't have a game started, try creating a new one.");
             	}
             }
         }); 
-        file.add(deleteGame);
+        file.add(saveGame);
         
         JMenuItem exit = new JMenuItem("Exit");
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
+        saveGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
         exit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	boolean quit = gm.quitGame();
@@ -162,7 +174,7 @@ public class GameFrame extends JFrame {
             }
         });
         file.add(exit);
-     */   
+ 
         JMenu help = new JMenu("Help");
         
         JMenuItem controls = new JMenuItem("Game Controls");
@@ -170,7 +182,8 @@ public class GameFrame extends JFrame {
         controls.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             	//display a frame that shows a keyboard mapping of the game controls
-            	
+            	HelpFrame frame = new HelpFrame();
+        		frame.setVisible(true);
             }
         });
         help.add(controls);

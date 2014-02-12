@@ -414,7 +414,7 @@ public class Game implements Serializable {
 		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
 	}
 	
-	private void initPlayers(){
+	public void initPlayers(){
 		//ask the players for their name's and color preferences
 		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
 		for(int i = 0; i < numPlayers; ++i){
@@ -432,10 +432,13 @@ public class Game implements Serializable {
 					okName = true; //Acceptable input, proceed to next step
 				}
 			}
-			players[i] = new Player(colors[i]);
-			gamePanel.getPlayerPanels()[i].setPlayerName(name);
-			gamePanel.getPlayerPanels()[i].setPlayerColor(colors[i]);
+			players[i] = new Player(colors[i], name);
 		}
+		setPlayerNamesInView();
+	}
+	
+	public void setPlayerNamesInView(){
+		gamePanel.setPlayerPanels(players);
 		gamePanel.updateCurrentPlayerView();
 	}
 		
