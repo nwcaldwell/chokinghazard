@@ -63,23 +63,11 @@ public final class GameManager {
 				return false;
 		}
 			
-			/*
-			 * Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
-				Json.jsonPair("board", board.serialize()),
-				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
-				Json.jsonPair("Players", Json.serializeArray(players)),
-				Json.jsonPair("indexOfCurrentPlayer", Json.jsonValue(indexOfCurrentPlayer + "")),
-				Json.jsonPair("isFinalTurn", Json.jsonValue(isFinalTurn + "")),
-				Json.jsonPair("stack", Json.serializeArray(stack)),
-				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
-				Json.jsonPair("threeSpaceTiles", Json.jsonValue(threeSpaceTiles + "")),
-				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
-				)));
-			 */
 			String loadString = alpha.toString();
 			JsonObject json = new JsonObject(loadString);
 			Game loadedGame = new Game().loadObject(json.getJsonObject("Game"));
-			
+			currentGame = loadedGame;
+	
 		return true;
 	}
 
