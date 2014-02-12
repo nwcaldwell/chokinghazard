@@ -9,6 +9,7 @@ public class Developer implements Serializable<Developer>{
   private Cell currentCell;
   private Player owner;
   //these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
+  //these dont get updated...
   private int currentCellX;
   private int currentCellY;
   
@@ -16,6 +17,18 @@ public class Developer implements Serializable<Developer>{
 	  this.owner = owner;
 	  this.currentCell = currentCell;
   }
+  
+//these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
+  public int getCurrentCellX(){
+	  return currentCellX;
+  }
+  
+//these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
+  public int getCurrentCellY(){
+	  return currentCellY;
+  }
+  
+
   
   public Player getOwner() {
 	  return owner;
