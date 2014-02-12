@@ -20,13 +20,14 @@ public class Board implements Serializable<Board> {
 	private Cell[] outsideInnerCells;
 	private Stack<Cell> path;
 	private int decrementedActionPoints;
+	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
 
 	public Board() {
 		// Written by Nathan since I needed to integrate some functionality into
 		// Game.
 		// Let me know if you make any changes or have any questions.
 		this.map = new Cell[14][14];
-		this.outsideInnerCells = new Cell[44];
+		this.outsideInnerCells = new Cell[52];
 		// outside inner cells are the boarder around inner java.
 		// These will be populated once a user places a tile onto it, for
 		// developer movement
@@ -37,16 +38,19 @@ public class Board implements Serializable<Board> {
 					map[x][y] = new Cell(x, y, false, true);
 				}
 
-				if (x <= 6 && (y <= 1 || y >= 12)) {
+				else if (x <= 6 && (y <= 1 || y >= 12)) {
 					map[x][y] = new Cell(x, y, false, true);
 				}
 
-				if (x >= 7 && (y <= 1 || y >= 12)) {
+				else if (x >= 7 && (y <= 1 || y >= 12)) {
 					map[x][y] = new Cell(x, y, true, false);
 				}
 
-				if (x == 12 || x == 13) {
+				else if (x == 12 || x == 13) {
 					map[x][y] = new Cell(x, y, true, false);
+				}
+				else{
+					map[x][y] = new Cell(x,y,false,false);	//this creates Cell objects for the rest of central Java
 				}
 
 				// outsideInnerCells
@@ -205,8 +209,8 @@ public class Board implements Serializable<Board> {
 
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
-	public void upgradePalace(PalaceSpace palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(palaceSpace, cell);
+	public void upgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+		boolean canUpgrade = checkIfICanUpgradePalace(player, palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
@@ -222,37 +226,44 @@ public class Board implements Serializable<Board> {
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	
-	private boolean checkIfICanUpgradePalace(PalaceSpace palaceSpace, Cell cell) {
-		// TODO : All of this, not nearly finished just pushing for the method below
+	private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+		// TODO : This method is not finished, finishing tomorrow -Brett
+		
 		/*Three conditions to upgrade palace:
-		 * 1) This palace has not been 'touched' yet during this turn
+		 * 1) This palace has not been modified yet during this turn
 		 * 2) There are enough villages connected for the upgrade. Upgrading to an elevation '8'
 		 *    palace requires 7 villages and a palace, and so on
 		 * 3) The developer is the highest ranked in the city
 		 */
 		
-		// First check if there is a palace to upgrade
-		if (palaceSpace.getType().toString()  != "Palace")
-			return false;
 		
 		//Check if palace has been modified on this turn
+		if (hasPalaceBeenModified(player, cell))
+			return false;
 		
 		//Check if there are enough villages connected
-		if (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue())  //New elevation)
-				{
-					// Enough connected, we can do stuff
-				}
-		else
+		if (! (findNumberConnected(cell.getX(), cell.getY(), map) >= palaceSpace.getValue()))  //New elevation)
+				return false;
 		{
 			//can't do stuff
 		}
 		
 		//Check if developer is highest ranked
 		
-		//Not nearly done with this method
-		
 		return true;
 	}
+	
+	    private boolean hasPalaceBeenModified(Player player, Cell currentCell)
+	    {
+	    	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
+	    	
+	    	for (int i = 0; i < copyArray.length; i++)
+	    	{
+	    		if (copyArray[i] == currentCell)
+	    				return true;
+	    	}
+	    	return false;
+	    }
 	
 	// Helper method to check the number of connected villages to a cell
 	// When you call this, it returns the number of surrounding villages + 1
@@ -305,15 +316,17 @@ public class Board implements Serializable<Board> {
 
 			return up + left + right + down + 1;
 		}
+		
+		// Returns the number of village Spaces surrounding the given Cell. Called
+		// by checkIfICanUpgradePalace to make sure number of surrounding villages
+		// is greater than or equal to the palace number.
+		private int checkForNumberOfVillages(Cell cell) 
+	   {
+			setConnectedCells(cell);
+			return cell.getConnectedCells().size();
+		}
 
-	// Returns the number of village Spaces surrounding the given Cell. Called
-	// by checkIfICanUpgradePalace to make sure number of surrounding villages
-	// is greater than or equal to the palace number.
-	private int checkForNumberOfVillages(Cell cell) 
-   {
-		setConnectedCells(cell);
-		return cell.getConnectedCells().size();
-	}
+
 
 	// Returns an integer array with the city ranks for each player. The indices
 	// in the array correspond to the indices for the players in the main player
@@ -376,7 +389,7 @@ public class Board implements Serializable<Board> {
          HashMap<Player, Integer> scores = new HashMap<Player, Integer>();
 
          
-		   if (y < 14 && map[y + 1][x].hasDeveloper())
+		   if (y < 13 && map[y + 1][x].hasDeveloper())
 			{
             Cell c = map[y + 1][x];
             Player p = c.getDeveloper().getOwner();
@@ -473,13 +486,14 @@ public class Board implements Serializable<Board> {
 	// Returns true if successful
 
 	public boolean placeTile(Cell[][] cells, Tile tile) {
-
+		// TODO Super Important, need to assign the value of connected cells when placing tile
 		if (checkValidTilePlacement(cells, tile)) {
 			Space[][] spacesArray = tile.getSpaces();
 		
 			for (int i = 0; i < spacesArray.length; i++) {
 				for (int j = 0; j < spacesArray[0].length; j++) {
 					if (spacesArray[i][j] != null) {
+						// TODO I get a NULL Pointer on the line below?
 						cells[i][j].setSpace(spacesArray[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
 					}
@@ -498,15 +512,75 @@ public class Board implements Serializable<Board> {
 	// in the Cell selected. This method also calls several helper methods.
 
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
-		if (checkTilesBelow(cells, tile)) {
-			// TODO check other factors in valid tile placement not related to cells below
-			// This could be connecting cities. Don't worry about this Jose -Nathan
-			
-			return true;
-		}
+		
+			if (checkPalacePlacement(cells, tile) && checkTilesBelow(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile))
+				return true;
 		
 		return false;
 
+	}
+	
+	private boolean checkCityConnection(Cell[][] cells, Tile tile) {
+		Cell[][] mapCopy = new Cell[map.length][map[0].length];
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				mapCopy[i][j] = map[i][j];
+			}
+		}
+		
+		Space[][] spaces = tile.getSpaces();
+		for (int i = 0; i < spaces.length; i++) {
+			for (int j = 0; j < spaces[0].length; j++) {
+				if (spaces[i][j] != null && spaces[i][j].getType() == SpaceType.VILLAGE && cells[i][j] != null) {
+					findPalaceSpaces(cells[i][j].getX(), cells[i][j].getY(), mapCopy);
+				}
+			}
+		}
+		
+		
+		for (int i = 0; i < connectedPalaces.size(); i++) {
+			for (int j = i + 1; j < connectedPalaces.size(); j++) {
+				if (connectedPalaces.get(i) != null && connectedPalaces.get(j) != null) {
+					if(connectedPalaces.get(i) != connectedPalaces.get(j)) {
+						return false;
+					}
+				}
+		    }
+		}
+		
+		return true;
+	}
+	
+	private void findPalaceSpaces(int x, int y, Cell[][] map) {
+		boolean canUp = (x - 1 >= 0);
+		boolean canDown = (x + 1 < map.length);
+		boolean canRight = (y + 1 < map[0].length);
+		boolean canLeft = (y - 1 >= 0);
+
+		if (map[x][y] != null && map[x][y].getSpace() != null && map[x][y].getSpace().getType() == SpaceType.PALACE) {
+			connectedPalaces.add((PalaceSpace) map[x][y].getSpace());
+		}
+		
+		map[x][y] = null;
+
+		if (canUp && (map[x-1][y] != null && map[x-1][y].getSpace() != null && (map[x-1][y].getSpace().getType() == SpaceType.VILLAGE || map[x-1][y].getSpace().getType() == SpaceType.PALACE)))
+		{
+			findPalaceSpaces(x-1, y, map);
+		}
+		if (canDown && (map[x+1][y] != null && map[x+1][y].getSpace() != null && (map[x+1][y].getSpace().getType() == SpaceType.VILLAGE || map[x+1][y].getSpace().getType() == SpaceType.PALACE)))
+		{
+			findPalaceSpaces(x+1, y, map);
+		}
+		if (canLeft && (map[x][y-1] != null && map[x][y-1].getSpace() != null && (map[x][y-1].getSpace().getType() == SpaceType.VILLAGE || map[x][y-1].getSpace().getType() == SpaceType.PALACE)))
+		{
+			findPalaceSpaces(x, y-1, map);
+		}
+		if (canRight && (map[x][y+1] != null && map[x][y+1].getSpace() != null && (map[x][y+1].getSpace().getType() == SpaceType.VILLAGE || map[x][y+1].getSpace().getType() == SpaceType.PALACE)))
+		{
+			findPalaceSpaces(x, y+1, map);
+		}
+		
+		return;
 	}
 	
 	private boolean checkPalacePlacement(Cell[][] cells, Tile tile){
@@ -516,7 +590,64 @@ public class Board implements Serializable<Board> {
 		for(int i = 0; i < spaces.length ; i++) 
 			for(int j = 0; j < spaces[i].length; j++)
 				if(spaces[i][j] != null)
-					if(cells[i][j] != null && cells[i][j].getSpace().getType() == SpaceType.PALACE)
+					if(cells[i][j] != null && cells[i][j].getSpace() != null && cells[i][j].getSpace().getType() == SpaceType.PALACE)
+						return false;
+		
+		return true;
+	}
+	
+	private boolean checkEdgePlacement(Cell[][] cells, Tile tile){
+		
+		Cell[] temp = new Cell[4];
+		
+		
+			for(int i = 0; i < cells.length; i++)
+				for(int j = 0; j < cells[i].length; j++)
+					temp[i] = cells[i][j];
+			
+			
+			int numberOutside = 0; 
+			
+			for(int i = 0; i < outsideInnerCells.length; i++){
+				if(temp[0]!= null && outsideInnerCells[i] != null && temp[0].getX() == outsideInnerCells[i].getX() && temp[0].getY() == outsideInnerCells[i].getY()){
+					numberOutside++;
+				}
+				if(temp[1]!= null && outsideInnerCells[i] != null && temp[1].getX() == outsideInnerCells[i].getX() && temp[1].getY() == outsideInnerCells[i].getY()){
+					numberOutside++;
+				}
+				if(temp[2]!= null && outsideInnerCells[i] != null && temp[2].getX() == outsideInnerCells[i].getX() && temp[2].getY() == outsideInnerCells[i].getY()){
+					numberOutside++;
+				}
+				if(temp[3]!= null && outsideInnerCells[i] != null && temp[3].getX() == outsideInnerCells[i].getX() && temp[3].getY() == outsideInnerCells[i].getY()){
+					numberOutside++;
+				}
+				
+			}	
+			
+			String tileS = tile.toString();
+			
+			if(tileS == "TWO SPACE TILE" && numberOutside == 2){
+				return false;
+			}else if(tileS == "THREE SPACE TILE" && numberOutside == 3){
+				return false;
+			}
+			
+			
+			
+		
+		
+		return true;
+	}
+	
+	
+	private boolean checkDeveloperOnCell(Cell[][] cells, Tile tile){
+		
+		Space[][] spaces = tile.getSpaces();
+		
+		for(int i = 0; i < spaces.length ; i++) 
+			for(int j = 0; j < spaces[i].length; j++)
+				if(spaces[i][j] != null)
+					if(cells[i][j] != null && cells[i][j].hasDeveloper())
 						return false;
 		
 		return true;
@@ -529,7 +660,7 @@ public class Board implements Serializable<Board> {
 		for(int i = 0; i < spaces.length ; i++) 
 			for(int j = 0; j < spaces[i].length; j++)
 				if(spaces[i][j] != null)
-					if(cells[i][j] != null && cells[i][j].getSpace().getType() == SpaceType.IRRIGATION)
+					if(cells[i][j] != null && cells[i][j].getSpace() != null && cells[i][j].getSpace().getType() == SpaceType.IRRIGATION)
 						return false;
 		
 		return true;
@@ -574,7 +705,7 @@ public class Board implements Serializable<Board> {
 		for(int i = 0; i < spaces.length ; i++) 
 			for(int j = 0; j < spaces[i].length; j++)
 				if (spaces[i][j] != null)
-					if (cells[i][j].getSpace() != null)
+					if (cells[i][j] != null && cells[i][j].getSpace() != null)
 						if(ref == null)
 							if (cells[i][j].getConnectedCells().size() == numSpacesOnTile)
 								ref = cells[i][j].getConnectedCells();
@@ -588,14 +719,19 @@ public class Board implements Serializable<Board> {
 		
 		int height = -1;
 		for(int i = 0; i < spaces.length; i++)
-			for(int j = 0; j < spaces[i].length; i++)
+			for(int j = 0; j < spaces[0].length; j++)
 				if(spaces[i][j] != null)
-					if(height == -1)
-						height = cells[i][j].getElevation();
-					else
-						if(height != cells[i][j].getElevation())
-							return false;
-
+					if (cells[i][j] != null) {
+						if(height == -1) {
+							height = cells[i][j].getElevation();
+						}
+						
+						else { 
+							if(height != cells[i][j].getElevation())
+								return false;
+						}
+					}
+		
 		return true;
 			
 

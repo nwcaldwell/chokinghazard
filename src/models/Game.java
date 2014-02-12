@@ -291,10 +291,12 @@ public class Game implements Serializable <Game>  {
 			case"THREE SPACE TILE":
 				//decrement it from the global stash
 				--threeSpaceTiles;
+				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "TWO SPACE TILE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useTwoSpaceTile();
+				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "IRRIGATION":
 				//decrement it from the global stash
@@ -303,10 +305,12 @@ public class Game implements Serializable <Game>  {
 			case "VILLAGE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
+				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
+				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "PALACE":
 				//need to somehow do checks for which palace tile to place

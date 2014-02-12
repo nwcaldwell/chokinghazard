@@ -18,14 +18,14 @@ public class Player implements Serializable<Player> {
 	private boolean ifPlacedLandTile;
 	private int devOffBoard;
 	private LinkedList<Developer> devsOnBoard;
-	private Cell[] palacesUsedInTurn;
+	public Cell[] palacesUsedInTurn;
 	private int riceTiles;
 	private int villageTiles;
 	private int twoSpaceTiles;
 
 	// private final String userName;
-
 	public Player(Color color, String name) {
+
 		this.playerColor = color;
 		this.name = name;
 		this.famePoints = 0;
@@ -36,15 +36,20 @@ public class Player implements Serializable<Player> {
 		// this.userName = userName;
 		devsOnBoard = new LinkedList<Developer>();
 		devOffBoard = 12;
+		palacesUsedInTurn = new Cell[7];
 		
 	}
-
+	
+	
+//this is use to start a new turn and it resets the ActionTokenUsed, the placed land tile, and the action points to 6;
 	public void startTurn() {
 		ifActionTokenUsed = false;
 		ifPlacedLandTile = false;
 		actionPoints = 6;
 	}
 	
+//use to play developer on the board..we have a linkedlist and we add the developers that we want to place on the board. We also decrease the deOffBoard
+// by one
 	public void addDevOnBoard(Developer dev){
 		
 	 	devsOnBoard.push(dev);
@@ -52,13 +57,14 @@ public class Player implements Serializable<Player> {
 	 	devOffBoard--;
 		
 	}
-	
+
+//use to remove developerOffBoard...we remove the developer off the linkedlist and increase the devOffBoard by one
 	public void removeOffBoard(Developer dev){
 		devsOnBoard.remove(dev);
 		devOffBoard++;
 	}
 
-
+//use to decrementActionPoints
 	public void decrementActionPoints(int actionPoints) {
 		this.actionPoints -= actionPoints;
 	}
@@ -70,6 +76,7 @@ public class Player implements Serializable<Player> {
 	public void useActionToken() {
 		actionPoints++;
 		actionTokens--;
+		ifActionTokenUsed = true;
 	}
 
 	public void addFamePoints(int fame) {
@@ -220,26 +227,8 @@ public class Player implements Serializable<Player> {
 	}
 
 	public String serialize() {
-	  /*This creates a string that represents a Player object for saving and loading
-	   * 
-	   * currentCell will be saved using it's (x,y) coordinatesm in currentCellX and currentCellY .
-	   *  This will make the Cell unique
-	   *  
-	   *  private int famePoints;
-	private final Color playerColor;
-	private int actionPoints;
-	private int actionTokens;
-	private boolean ifActionTokenUsed;
-	private boolean ifPlacedLandTile;
-	private int devOffBoard;
-	private LinkedList<Developer> devsOnBoard;
-	private Cell[] palacesUsedInTurn;
-	private int riceTiles;
-	private int villageTiles;
-	private int twoSpaceTiles;
-	   *
-	   */
-		return Json.jsonObject(Json.jsonMembers(
+	  //This creates a string that represents a Player object for saving and loading
+		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRGB() + "")),
@@ -253,7 +242,7 @@ public class Player implements Serializable<Player> {
 				Json.jsonPair("riceTiles", Json.jsonValue(riceTiles + "")),
 				Json.jsonPair("villageTiles", Json.jsonValue(villageTiles + "")),
 				Json.jsonPair("twoSpaceTiles", Json.jsonValue(twoSpaceTiles + ""))
-		));
+		)));
 	}
 
 	@Override
@@ -270,10 +259,10 @@ public class Player implements Serializable<Player> {
 		ifPlacedLandTile = Boolean.parseBoolean(json.getString("ifPlacedLandTile"));
 		devOffBoard = Integer.parseInt(json.getString("devOffBoard"));
 		
-		Object[] tempPalacesUsedInTurn = (Object[]) json.getObject("palacesUsedInTurn");
+		JsonObject[] tempPalacesUsedInTurn = json.getJsonObjectArray("palacesUsedInTurn");
 		palacesUsedInTurn = new Cell[tempPalacesUsedInTurn.length];
 		for(int i = 0; i < tempPalacesUsedInTurn.length; i++){
-			palacesUsedInTurn[i] = new Cell(null).loadObject((JsonObject) tempPalacesUsedInTurn[i]);
+			palacesUsedInTurn[i] = new Cell(null).loadObject(tempPalacesUsedInTurn[i]);
 		}
 		
 		riceTiles = Integer.parseInt(json.getString("riceTiles"));
@@ -282,9 +271,9 @@ public class Player implements Serializable<Player> {
 		
 		//make methods that set up the Player and the Current Cell.....
 		//figure out developer
-		Object[] tempDevelopers = (Object[]) json.getObject("devsOnBoard");
+		JsonObject[] tempDevelopers = json.getJsonObjectArray("devsOnBoard");
 		for(int i = 0; i < tempDevelopers.length; i++){
-			devsOnBoard.add(new Developer(this, null).loadObject((JsonObject) tempDevelopers[i]));
+			devsOnBoard.add(new Developer(this, null).loadObject(tempDevelopers[i]));
 		}
 		
 		
@@ -293,11 +282,10 @@ public class Player implements Serializable<Player> {
 	
 	public String toString() { 
 		String ret = "";
-		if(palacesUsedInTurn != null)
-			for(Cell cell : palacesUsedInTurn)
-				ret += cell == null ? "null" : cell; 
+		for(Cell cell : palacesUsedInTurn)
+			ret += cell; 
 		return ret + " " + famePoints + " " + name + " " + playerColor + " " + actionPoints + " " + actionTokens + " " + ifActionTokenUsed
-				+ " " + ifPlacedLandTile + " " + devOffBoard + " " + riceTiles
+				+ " " + ifPlacedLandTile + " " + devOffBoard + " " + devsOnBoard.toString() + " " + riceTiles
 				+ " " + villageTiles + " " + twoSpaceTiles;
 	}
 }
