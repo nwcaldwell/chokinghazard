@@ -471,6 +471,7 @@ public class Game implements Serializable <Game>  {
 	// This method returns the Game
 
 	public Game loadObject(JsonObject json) {
+		System.out.println(JsonObject.toString(json));
 		board.loadObject(json.getJsonObject("board"));
 		numPlayers = Integer.parseInt(json.getString("numPlayers"));
 		

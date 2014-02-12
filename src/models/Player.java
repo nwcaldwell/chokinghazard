@@ -242,7 +242,7 @@ public class Player implements Serializable<Player> {
 		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
-				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRBG() + "")),
+				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRGB() + "")),
 				Json.jsonPair("actionPoints", Json.jsonValue(actionPoints + "")),
 				Json.jsonPair("actionTokens", Json.jsonValue(actionTokens + "")),
 				Json.jsonPair("ifActionTokenUsed", Json.jsonValue(ifActionTokenUsed + "")),
