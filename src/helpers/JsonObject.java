@@ -62,7 +62,7 @@ public class JsonObject {
 	 * @param key
 	 * @return
 	 */
-	public JsonObject getObject(String key) {
+	public JsonObject getJsonObject(String key) {
 		return (JsonObject) map.get(key);
 	}
 	
@@ -80,7 +80,7 @@ public class JsonObject {
 	 * @param key
 	 * @return
 	 */
-	public JsonObject[] getObjectArray(String key) {
+	public JsonObject[] getJsonObjectArray(String key) {
 		return (JsonObject[]) map.get(key);
 	}
 	
