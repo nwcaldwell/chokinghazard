@@ -81,6 +81,28 @@ public class Player implements Serializable<Player> {
 	}
 
 	/**
+	 * Updates instance fame points to {@link famePoints}.
+	 * <p>
+	 * Succeeds and returns true if {@link famePoints} is >= 0.
+	 * <p>
+	 * Fails and returns false if {@link famePoints} is < 0.
+	 * 
+	 * @param famePoints
+	 *            The value to update fame points to.
+	 * @return Whether or not the update succeeded.
+	 */
+	// public Boolean setFamePoints(int famePoints) {
+	// //
+	// if (famePoints < 0)
+	// return false;
+	// else {
+	// this.famePoints = famePoints;
+	// return true;
+	// }
+	//
+	// }
+
+	/**
 	 * Returns the Final color object of the player.
 	 * 
 	 * @return The color of the player.
@@ -165,20 +187,14 @@ public class Player implements Serializable<Player> {
 	public void useTwoSpaceTile(){
 		//decrement the number of two space tiles that the use has
 		this.twoSpaceTiles--;
-		//set the ifPlacedLandTile to true 
-		this.ifPlacedLandTile = true;
 	}
 	public void useVillageTile(){
 		//decrement the number of village tiles
 		this.villageTiles--;
-		//set the ifPlacedLandTile to true 
-		this.ifPlacedLandTile = true;
 	}
 	public void useRiceTile(){
 		//decrement the number of rice tiles
 		this.riceTiles--;
-		//set the ifPlacedLandTile to true 
-		this.ifPlacedLandTile = true;
 	}
 
 	public String serialize() {
@@ -219,12 +235,16 @@ public class Player implements Serializable<Player> {
 
 	@Override
 	public Player loadObject(JsonObject json) {
-		// when calling developer load. pass in player.
-		//or add the extra player value onto the json you will be passing developer
-		
-		
-		
-		
-		return null;
+		// TODO Auto-generated method stub
+		return this;
+	}
+	
+	public String toString() { 
+		String ret = "";
+		for(Cell cell : palacesUsedInTurn)
+			ret += cell; 
+		return ret + " " + famePoints + " " + playerColor + " " + actionPoints + " " + actionTokens + " " + ifActionTokenUsed
+				+ " " + ifPlacedLandTile + " " + devOffBoard + " " + devsOnBoard.toString() + " " + riceTiles
+				+ " " + villageTiles + " " + twoSpaceTiles;
 	}
 }

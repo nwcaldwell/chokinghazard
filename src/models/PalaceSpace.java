@@ -4,7 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 public class PalaceSpace extends Space{
-    private final int value; 
+    private int value; 
     private String imageSource;
 
     // {2, 4, 6, 8, 10}
@@ -41,6 +41,7 @@ public class PalaceSpace extends Space{
     }
 
     public PalaceSpace loadObject(JsonObject json) {
-    	return new PalaceSpace(Integer.parseInt(json.getString("value")));
+        this.value = Integer.parseInt(json.getString("value"));
+        return this;
     }
 }
