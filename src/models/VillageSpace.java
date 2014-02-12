@@ -1,15 +1,19 @@
 package models;
 
+import helpers.Json;
+import helpers.JsonObject;
+
 public class VillageSpace extends Space {
-    private int palacex; 
-    private int palacey; 
+	private String imageSource = "src/resources/oneTile_village.png";
+    private int palacex = -1; 
+    private int palacey = -1; 
 
     public VillageSpace() {
-
+        this.type = Space.SpaceType.VILLAGE;
     }
 
     public Space.SpaceType getSpaceType() {
-        return Space.SpaceType.VILLAGE;
+        return type;
     }
 
     public int getPalacey() {
@@ -27,14 +31,25 @@ public class VillageSpace extends Space {
     public void setPalacex(int palacex) {
         this.palacex = palacex;
     }
-
-    public String serialize() {
-        // TODO Auto-generated method stub
-        return null;
+    
+    public String getImageSource(){
+    	return this.imageSource;
+    }
+    
+    public String toString(){
+    	return this.type.toString();
     }
 
-    public VillageSpace loadObject(String serial) {
-        // TODO Auto-generated method stub
-        return null;
+    public String serialize() {
+		return Json.jsonPair("VillageSpace", Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("palacex", Json.jsonValue(palacex + "")),
+			Json.jsonPair("palacey", Json.jsonValue(palacey + ""))
+		)));
+    }
+
+    public VillageSpace loadObject(JsonObject json) {
+    	this.palacex = Integer.parseInt(json.getString("palacex"));
+    	this.palacey = Integer.parseInt(json.getString("palacey"));
+    	return this;
     }
 }
