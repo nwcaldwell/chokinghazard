@@ -8,6 +8,9 @@ public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
   private Player owner;
+  //these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
+  private int currentCellX;
+  private int currentCellY;
   
   public Developer(Player owner, Cell currentCell) {
 	  this.owner = owner;
@@ -58,6 +61,8 @@ public class Developer implements Serializable<Developer>{
 @Override
 public Developer loadObject(JsonObject json) {
 	isPlacedOnBoard = Boolean.parseBoolean(json.getString("isPlacedOnBoard"));
+	currentCellX = Integer.parseInt(json.getString("currentCellX"));
+	currentCellY = Integer.parseInt(json.getString("currentCelly"));
 	return this;
 }
 
