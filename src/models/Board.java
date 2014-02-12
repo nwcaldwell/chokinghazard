@@ -553,25 +553,25 @@ public class Board implements Serializable<Board> {
 		boolean canRight = (y + 1 < map[0].length);
 		boolean canLeft = (y - 1 >= 0);
 
-		if (map[x][y].getSpace().getType() == SpaceType.PALACE) {
+		if (map[x][y] != null && map[x][y].getSpace() != null && map[x][y].getSpace().getType() == SpaceType.PALACE) {
 			connectedPalaces.add((PalaceSpace) map[x][y].getSpace());
 		}
 		
 		map[x][y] = null;
 
-		if (canUp && (map[x-1][y].getSpace().getType() == SpaceType.VILLAGE || map[x-1][y].getSpace().getType() == SpaceType.PALACE))
+		if (canUp && (map[x-1][y] != null && map[x-1][y].getSpace() != null && (map[x-1][y].getSpace().getType() == SpaceType.VILLAGE || map[x-1][y].getSpace().getType() == SpaceType.PALACE)))
 		{
 			findPalaceSpaces(x-1, y, map);
 		}
-		if (canDown && (map[x+1][y].getSpace().getType() == SpaceType.VILLAGE || map[x+1][y].getSpace().getType() == SpaceType.PALACE))
+		if (canDown && (map[x+1][y] != null && map[x+1][y].getSpace() != null && (map[x+1][y].getSpace().getType() == SpaceType.VILLAGE || map[x+1][y].getSpace().getType() == SpaceType.PALACE)))
 		{
 			findPalaceSpaces(x+1, y, map);
 		}
-		if (canLeft && (map[x][y-1].getSpace().getType() == SpaceType.VILLAGE || map[x][y-1].getSpace().getType() == SpaceType.PALACE))
+		if (canLeft && (map[x][y-1] != null && map[x][y-1].getSpace() != null && (map[x][y-1].getSpace().getType() == SpaceType.VILLAGE || map[x][y-1].getSpace().getType() == SpaceType.PALACE)))
 		{
 			findPalaceSpaces(x, y-1, map);
 		}
-		if (canRight && (map[x][y+1].getSpace().getType() == SpaceType.VILLAGE || map[x][y+1].getSpace().getType() == SpaceType.PALACE))
+		if (canRight && (map[x][y+1] != null && map[x][y+1].getSpace() != null && (map[x][y+1].getSpace().getType() == SpaceType.VILLAGE || map[x][y+1].getSpace().getType() == SpaceType.PALACE)))
 		{
 			findPalaceSpaces(x, y+1, map);
 		}
