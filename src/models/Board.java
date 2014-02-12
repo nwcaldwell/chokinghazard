@@ -10,11 +10,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
-
 import javax.swing.JOptionPane;
 
 import models.Space.SpaceType;
+
 
 public class Board implements Serializable<Board> {
 	private Cell[][] map;
