@@ -7,6 +7,7 @@ import models.Serializable;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import views.GamePanel;
 
 public class Game implements Serializable <Game>  {
+	
+
 	// VARIABLES
 	private GamePanel gamePanel;
 	private Board board;
@@ -476,7 +479,7 @@ public class Game implements Serializable <Game>  {
 		players = new Player[numPlayers];
 		JsonObject[] tempPlayers = json.getJsonObjectArray("players");
 		for (int i = 0; i < numPlayers; i++){
-			players[i] = new Player(null).loadObject(tempPlayers[i]); //will have to update with change in Player constructor
+			players[i] = new Player(null, null).loadObject(tempPlayers[i]); //will have to update with change in Player constructor
 		}
 		
 		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
@@ -490,12 +493,18 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < 5; i++){
 			palaceTiles[i] = Integer.parseInt(tempPalaceTiles[i]);
 		}
-		//setDevelopersCurrentCell();
+		
+		for(int i = 0; i < players.length; i++){
+			LinkedList<Developer> devs = players[i].getDevsOnBoard();
+			for(int j = 0; j < devs.size(); j++){
+				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+			}
+		}
 		
 		return this;
 	}	
 	
-	//private void setDevelopersCurrentCell()
+
 
 	
 	public String toString() {
@@ -505,9 +514,5 @@ public class Game implements Serializable <Game>  {
 		return ret + " " + board.toString() + " " + numPlayers + " " + indexOfCurrentPlayer + " " + isFinalTurn 
 				+ " " + stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + Arrays.toString(palaceTiles)
 				+ " " + x + " " + y + currentComponent.toString() + " " + tabCount;
-	}
-	
-	public Board getBoard() {
-		return this.board;
 	}
 }

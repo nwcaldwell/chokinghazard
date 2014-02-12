@@ -23,12 +23,11 @@ public class Developer implements Serializable<Developer>{
 	  return currentCellX;
   }
   
-//these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
   public int getCurrentCellY(){
 	  return currentCellY;
   }
   
-
+//these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
   
   public Player getOwner() {
 	  return owner;
