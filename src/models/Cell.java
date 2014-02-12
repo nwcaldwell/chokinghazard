@@ -110,7 +110,6 @@ public class Cell implements Serializable<Cell> {
     	}
 		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("space", (space == null ? null : space.serialize())),
-				Json.jsonPair("developerPlayer", developerPlayer.getPlayerColor().getRGB() + ""),
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
@@ -149,6 +148,13 @@ public class Cell implements Serializable<Cell> {
     	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
     	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));
     	return this;
+    }
+    
+    public void loadDeveloper(Developer developer) {
+    	if(developer.getCurrentCell() == this) {
+    		this.developer = developer;
+    		this.developerPlayer = developer.getOwner();
+    	}
     }
     
     public String toString() { 
