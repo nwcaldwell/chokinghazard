@@ -228,7 +228,7 @@ public class Player implements Serializable<Player> {
 
 	public String serialize() {
 	  //This creates a string that represents a Player object for saving and loading
-		return Json.jsonPair("Player", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("name", Json.jsonValue(name)),
 				Json.jsonPair("famePoints", Json.jsonValue(famePoints + "")),
 				Json.jsonPair("rgb", Json.jsonValue(playerColor.getRGB() + "")),
@@ -242,7 +242,7 @@ public class Player implements Serializable<Player> {
 				Json.jsonPair("riceTiles", Json.jsonValue(riceTiles + "")),
 				Json.jsonPair("villageTiles", Json.jsonValue(villageTiles + "")),
 				Json.jsonPair("twoSpaceTiles", Json.jsonValue(twoSpaceTiles + ""))
-		)));
+		));
 	}
 
 	@Override
