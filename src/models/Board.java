@@ -618,10 +618,10 @@ public class Board implements Serializable<Board> {
 	}
 
 	public String serialize() {
-		return Json.jsonPair("Board", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("map", Json.serializeArray(map)),
 				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
-		)));
+		));
     }
 
     public Board loadObject(JsonObject json) {

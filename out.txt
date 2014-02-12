@@ -1,0 +1,1614 @@
+{
+
+  "board" : {
+  
+    "map" : [
+    
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "8",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "8",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "8",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "8",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ]
+    ],
+    "outsideInnerCells" : [
+    
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "2",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "3",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "4",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "5",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "6",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "7",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "8",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "9",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "10",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "11",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "2",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "2",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "3",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "3",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "4",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "4",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "5",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "5",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "6",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "6",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "7",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "7",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "8",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "8",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "9",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "9",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "10",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "10",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "11",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "11",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "2",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "3",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "4",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "5",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "6",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "7",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "8",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "9",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "10",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "11",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      }
+    ]
+  },
+  "numPlayers" : "2",
+  "players" : [
+  
+    {
+    
+      "name" : "j",
+      "famePoints" : "0",
+      "Color" : null,
+      "actionPoints" : "0",
+      "actionTokens" : "3",
+      "ifActionTokenUsed" : "false",
+      "ifPlacedLandTile" : "false",
+      "devOffBoard" : "12",
+      "devsOnBoard" : [
+      
+        null
+      ],
+      "palacesUsedInTurn" : [
+      
+        null
+      ],
+      "riceTiles" : "3",
+      "villageTiles" : "3",
+      "twoSpaceTiles" : "5"
+    },
+    {
+    
+      "name" : "j",
+      "famePoints" : "0",
+      "Color" : null,
+      "actionPoints" : "0",
+      "actionTokens" : "3",
+      "ifActionTokenUsed" : "false",
+      "ifPlacedLandTile" : "false",
+      "devOffBoard" : "12",
+      "devsOnBoard" : [
+      
+        null
+      ],
+      "palacesUsedInTurn" : [
+      
+        null
+      ],
+      "riceTiles" : "3",
+      "villageTiles" : "3",
+      "twoSpaceTiles" : "5"
+    }
+  ],
+  "indexOfCurrentPlayer" : "0",
+  "isFinalTurn" : "false",
+  "irrigationTiles" : "16",
+  "threeSpaceTiles" : "56",
+  "palaceTiles" : [
+  
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ]
+}

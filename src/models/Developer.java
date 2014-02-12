@@ -47,16 +47,18 @@ public class Developer implements Serializable<Developer>{
 	   *  This will make the Cell unique
 	   * 
 	   */
-	    return Json.jsonPair("Developer", Json.jsonObject(Json.jsonMembers(
+	    return Json.jsonObject(Json.jsonMembers(
 	    		Json.jsonPair("isPlacedOnBoard", Json.jsonValue(isPlacedOnBoard + "")),
 	    		Json.jsonPair("currentCellX", Json.jsonValue(currentCell.getX() + "")), 
 	    		Json.jsonPair("currentCellY", Json.jsonValue(currentCell.getY() + ""))
-	    		)));
+	    		));
   	}
 
 
 @Override
 public Developer loadObject(JsonObject json) {
+	if(json == null)
+		return null;
 	isPlacedOnBoard = Boolean.parseBoolean(json.getString("isPlacedOnBoard"));
 	return this;
 }

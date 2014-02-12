@@ -452,7 +452,7 @@ public class Game implements Serializable <Game>  {
 		  * 
 		  * May not need to save stack
 		  */
-		return Json.jsonPair("Game", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
 				Json.jsonPair("board", board.serialize()),
 				Json.jsonPair("numPlayers", Json.jsonValue(numPlayers + "")),
 				Json.jsonPair("players", Json.serializeArray(players)),
@@ -461,22 +461,21 @@ public class Game implements Serializable <Game>  {
 				Json.jsonPair("irrigationTiles", Json.jsonValue(irrigationTiles + "")),
 				Json.jsonPair("threeSpaceTiles", Json.jsonValue(threeSpaceTiles + "")),
 				Json.jsonPair("palaceTiles", Json.serializeArray(palaceTiles))
-				)));
+				));
 		}
 	
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
 
 	public Game loadObject(JsonObject json) {
-		
 		board.loadObject(json.getJsonObject("board"));
 		numPlayers = Integer.parseInt(json.getString("numPlayers"));
 		
 		//Players I have to go through the JsonObject array and call loadJsonObject on each one
 		players = new Player[numPlayers];
-		JsonObject[] tempPlayers = json.getJsonObjectArray("players");
+		Object[] tempPlayers = (Object[]) json.getObject("players");
 		for (int i = 0; i < numPlayers; i++){
-			players[i] = new Player(null).loadObject(tempPlayers[i]); //will have to update with change in Player constructor
+			players[i] = new Player(null, null).loadObject((JsonObject) tempPlayers[i]); //will have to update with change in Player constructor
 		}
 		
 		indexOfCurrentPlayer = Integer.parseInt(json.getString("indexOfCurrentPlayer"));
@@ -485,10 +484,11 @@ public class Game implements Serializable <Game>  {
 		threeSpaceTiles = Integer.parseInt(json.getString("threeSpaceTiles"));
 		
 		//Go through each in the String array and parse them and add them to the palaceTiles array
-		String[] tempPalaceTiles = new String[5];
-		tempPalaceTiles = json.getStringArray("palaceTiles");
+		Object[] tempPalaceTiles = new Object[5];
+		tempPalaceTiles = (Object[]) json.getObject("palaceTiles");
 		for(int i = 0; i < 5; i++){
-			palaceTiles[i] = Integer.parseInt(tempPalaceTiles[i]);
+			System.out.println(tempPalaceTiles[i]);
+			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
 		//setDevelopersCurrentCell();
 		
@@ -502,9 +502,9 @@ public class Game implements Serializable <Game>  {
 		String ret = ""; 
 		for(Player player : players) 
 			ret += player.toString() + " ";
-		return ret + " " + board.toString() + " " + numPlayers + " " + indexOfCurrentPlayer + " " + isFinalTurn 
-				+ " " + stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + Arrays.toString(palaceTiles)
-				+ " " + x + " " + y + currentComponent.toString() + " " + tabCount;
+		return ret + " " + board == null ? "null" : board.toString() + " " + numPlayers + " " + indexOfCurrentPlayer + " " + isFinalTurn 
+				+ " " + stack == null ? "null" : stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + palaceTiles == null ? "null" : Arrays.toString(palaceTiles)
+				+ " " + x + " " + y + " " + (currentComponent == null ? "NULL" : currentComponent.toString()) + " " + tabCount;
 	}
 	
 	public Board getBoard() {
