@@ -28,6 +28,19 @@ public class Cell implements Serializable<Cell> {
         this.space = space;
     }
     
+    public void setDeveloper(Developer developer){
+    	this.developer = developer;
+    }
+    
+    public void removeDeveloper(Developer developer){
+    	developer = null;
+    }
+    
+    public Developer getDeveloper(){
+    	
+    	return developer;
+    }
+    
     public Space getSpace() {
         return space;
     }
@@ -79,15 +92,7 @@ public class Cell implements Serializable<Cell> {
     	return fromLowlands;
     }
     
-    public void setDeveloper(Developer d)
-    {
-         developer = d;
-    }
     
-    public Developer getDeveloper()
-    {
-         return developer;
-    }
     
     public boolean hasDeveloper()
     {

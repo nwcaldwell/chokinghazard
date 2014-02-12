@@ -3,7 +3,13 @@ package models;
 import helpers.Json;
 import helpers.JsonObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Stack;
+
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import models.Space.SpaceType;
 
@@ -62,30 +68,49 @@ public class Board implements Serializable<Board> {
 	// successful and false otherwise. Deducts the appropriate number of action
 	// points depending on whether the player came from the mountains or the
 	// lowlands.
-	public boolean moveDeveloperOntoBoard(Developer developer, Cell cell) {
-		
-		//it needs to be in outside square
-		//has to be rice and village
-		if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
-			if(cell.getFromMountains() && developer.getOwner().getActionPoints() == 2 && developer.getOwner().isIfPlacedLandTile()){
+
+	public boolean moveDeveloperOntoBoard(Player player, Cell cell) {
+		// it needs to be in outside square
+		// has to be rice and village
+		if (cell.getSpace().getType() == SpaceType.RICE
+				&& cell.getSpace().getType() == SpaceType.VILLAGE) {
+			if (cell.getFromMountains() && player.getActionPoints() == 2
+					&& player.isIfPlacedLandTile()) {
 				
-				developer.getOwner().addDevOnBoard(developer, cell);
-				
+				Developer dev =new Developer(player, cell);
+				player.addDevOnBoard(dev);
+				cell.setDeveloper(dev);
+
 				return true;
-			}else if(cell.getFromMountains() && developer.getOwner().getActionPoints() >= 2){
+			}
+
+			else if (cell.getFromMountains() && player.getActionPoints() >= 2) {
 				
-				developer.getOwner().addDevOnBoard(developer, cell);
-				
+				Developer dev =new Developer(player, cell);
+				player.addDevOnBoard(dev);
+				cell.setDeveloper(dev);
+
 				return true;
-			}else if(cell.getFromLowlands() && developer.getOwner().getActionPoints() == 1 && developer.getOwner().isIfPlacedLandTile()){
+			}
+
+			else if (cell.getFromLowlands() && player.getActionPoints() == 1
+					&& player.isIfPlacedLandTile()) {
 				
-				developer.getOwner().addDevOnBoard(developer, cell);
-				
+				Developer dev =new Developer(player, cell);
+				player.addDevOnBoard(dev);
+				cell.setDeveloper(dev);
+
 				return true;
-			}else if(cell.getFromLowlands() && developer.getOwner().getActionPoints() >= 1){
+			}
+
+			else if (cell.getFromLowlands() && player.getActionPoints() >= 1) {
 				
-				developer.getOwner().addDevOnBoard(developer, cell);
 				
+				Developer dev =new Developer(player, cell);
+				player.addDevOnBoard(dev);
+				cell.setDeveloper(dev);
+
+
 				return true;
 			}
 			
@@ -99,46 +124,66 @@ public class Board implements Serializable<Board> {
 	// Move a player that's already on the board off of the board.
 		// Add developer back into array of available developers.
 	public boolean moveDeveloperOffBoard(Developer developer) {
+
+		developer.getOwner().removeOffBoard(developer);
 		
-				developer.getOwner().removeOffBoard(developer);
+		Cell cell = developer.getCurrentCell();
 		
-			return true;
+		cell.removeDeveloper(developer);
+		
+		return true;
 	}
 
 	// Uses the stack variable to create the developer path as the
 	// user highlights the desired cells. If the user decides to undo the
 	// last highlighted Cell, the top Cell is popped off of the Stack.
 	public boolean createDeveloperPath(Developer developer, Cell cell) {
-		
-		
-		if(cell.getSpace().getType() == SpaceType.RICE && cell.getSpace().getType() == SpaceType.VILLAGE ){
-			if(cell.getSpace().getType() == developer.getCurrentCell().getSpace().getType()){
-				
-				path.push(cell);				
-				return true;
-			}else if(developer.getOwner().getActionPoints() > 0){
-				
-				decrementedActionPoints++;
-				
-				developer.getOwner().decrementActionPoints(1);
-				
-				path.push(cell);				
-				return true;
-				
-			}else
+
+
+		try {
+			if (cell.getSpace().getType() == SpaceType.RICE
+					&& cell.getSpace().getType() == SpaceType.VILLAGE) {
+				if (cell.getSpace().getType() == developer.getCurrentCell()
+						.getSpace().getType()) {
+
+					path.push(cell);
+					return true;
+				} else if (developer.getOwner().getActionPoints() > 0) {
+
+					decrementedActionPoints++;
+
+					developer.getOwner().decrementActionPoints(1);
+
+					path.push(cell);
+					return true;
+
+				} else
+					return false;
+
+			} else {
 				return false;
-			
-		}else{
-				return false;
+			}
+		} catch (NullPointerException e) {
+
+
 		}
+		
+		return false;
 
 	}
 	
 	public void deleteDeveloperPath(Developer developer) {
-		
-		developer.getOwner().incrementActionPoints(decrementedActionPoints);  //it restores the ActionPoints
-		decrementedActionPoints = 0;										  //it makes decrementedActionPoints to be use again
-	
+
+		developer.getOwner().incrementActionPoints(decrementedActionPoints); // restores
+																				// the
+																				// ActionPoints
+		decrementedActionPoints = 0; // it makes decrementedActionPoints to be
+										// use again
+
+		for (int i = 0; i < path.size(); i++) { // push until u get to the last
+												// cell
+			path.pop();
+		}
 
 	}
 
@@ -339,7 +384,9 @@ public class Board implements Serializable<Board> {
 	// Main method for placing a tile on the board,
 	// uses several helper methods below.
 	// Returns true if successful
+
 	public boolean placeTile(Cell[][] cells, Tile tile) {
+
 		if (checkValidTilePlacement(cells, tile)) {
 			Space[][] spacesArray = tile.getSpaces();
 		
@@ -362,6 +409,7 @@ public class Board implements Serializable<Board> {
 
 	// Helper method for placeTile. Checks whether Tile can be placed
 	// in the Cell selected. This method also calls several helper methods.
+
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
 		if (checkTilesBelow(cells, tile)) {
 			// TODO check other factors in valid tile placement not related to cells below
@@ -371,16 +419,139 @@ public class Board implements Serializable<Board> {
 		}
 		
 		return false;
+
+	}
+	
+	private boolean checkPalacePlacement(Cell[][] cells, Tile tile){
+		
+		Space[][] spaces = tile.getSpaces();
+		
+		for(int i = 0; i < spaces.length ; i++) 
+			for(int j = 0; j < spaces[i].length; j++)
+				if(spaces[i][j] != null)
+					if(cells[i][j] != null && cells[i][j].getSpace().getType() == SpaceType.PALACE)
+						return false;
+		
+		return true;
+	}
+	
+	private boolean checkIrrigationPlacement(Cell[][] cells, Tile tile){
+		
+		Space[][] spaces = tile.getSpaces();
+		
+		for(int i = 0; i < spaces.length ; i++) 
+			for(int j = 0; j < spaces[i].length; j++)
+				if(spaces[i][j] != null)
+					if(cells[i][j] != null && cells[i][j].getSpace().getType() == SpaceType.IRRIGATION)
+						return false;
+		
+		return true;
 	}
 
 	// Helper method for checkValidTilePlacement. Checks to make sure you're
 	// not placing a three tile on a three tile, two tile on a two tile, a
 	// smaller tile on a larger tile, etc.
 	private boolean checkTilesBelow(Cell[][] cells, Tile tile) {
-		// TODO Jose - Also need to make sure there isn't a developer currently on the tile - Nathan
+
+		Space[][] spaces = tile.getSpaces();
+		
+		HashSet<Cell> ref = new HashSet<Cell>(); 
+		
+		int numSpacesOnTile;
+		
+		switch(tile.toString()){
+		case"THREE SPACE TILE":
+			numSpacesOnTile = 3;
+			break;
+		case "TWO SPACE TILE":
+			numSpacesOnTile = 2;
+			break;
+		case "VILLAGE":
+			numSpacesOnTile = 1;
+			break;
+		case "RICE":
+			numSpacesOnTile = 1;
+			break;
+		case "PALACE":
+			numSpacesOnTile = 1;
+			break;
+		case "IRRIGATION":
+			numSpacesOnTile = 1;
+			break;
+		default: 
+				return false;
+		
+		}	
 		
 		
+		for(int i = 0; i < spaces.length ; i++) 
+			for(int j = 0; j < spaces[i].length; j++)
+				if (spaces[i][j] != null)
+					if (cells[i][j].getSpace() != null)
+						if(ref == null)
+							if (cells[i][j].getConnectedCells().size() == numSpacesOnTile)
+								ref = cells[i][j].getConnectedCells();
+							else
+								return true;
+						else
+							if(!ref.equals(cells[i][j].getConnectedCells()))
+								return true;
+					else
+						return true;
+		
+		int height = -1;
+		for(int i = 0; i < spaces.length; i++)
+			for(int j = 0; j < spaces[i].length; i++)
+				if(spaces[i][j] != null)
+					if(height == -1)
+						height = cells[i][j].getElevation();
+					else
+						if(height != cells[i][j].getElevation())
+							return false;
+
 		return true;
+			
+
+//		boolean heightBoolean = true;
+//		boolean connectedCellsBoolean = false;
+//		int height = -1;
+		
+//		for(int i = 0; i < spaces.length ; i++) 
+//			for(int j = 0; j < spaces[i].length; j++) 
+//				if (spaces[i][j] != null) {
+//					if (cells[i][j].getSpace() != null) {
+//						if (height == -1) {
+//							height = cells[i][j].getElevation();
+//						}
+//						
+//						else {
+//							if (height != cells[i][j].getElevation()) {
+//								heightBoolean = false;
+//							}
+//						}
+//						
+//						if(ref == null)
+//							if (cells[i][j].getConnectedCells().size() == numSpacesOnTile) {
+//								ref = cells[i][j].getConnectedCells();
+//							}
+//						
+//							else {
+//								connectedCellsBoolean = true;
+//							}
+//						
+//						else {
+//							if(!ref.equals(cells[i][j].getConnectedCells())) {
+//								connectedCellsBoolean = true;
+//							}
+//						}
+//						
+//					else {
+//						connectedCellsBoolean = true;
+//					}
+//		
+//		return false;
+		
+
 	}
 
 	public Cell[][] getMap() {

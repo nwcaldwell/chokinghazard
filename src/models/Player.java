@@ -25,8 +25,9 @@ public class Player implements Serializable<Player> {
 
 	// private final String userName;
 
-	public Player(Color color) {
+	public Player(Color color, String name) {
 		this.playerColor = color;
+		this.name = name;
 		this.famePoints = 0;
 		this.actionTokens = 3;
 		this.riceTiles = 3;
@@ -44,9 +45,9 @@ public class Player implements Serializable<Player> {
 		actionPoints = 6;
 	}
 	
-	public void addDevOnBoard(Developer dev, Cell currentCell){
+	public void addDevOnBoard(Developer dev){
 		
-	 	devsOnBoard.push(new Developer(this, currentCell ));
+	 	devsOnBoard.push(dev);
 	 	
 	 	devOffBoard--;
 		
@@ -185,15 +186,29 @@ public class Player implements Serializable<Player> {
 		this.twoSpaceTiles = twoSpaceTiles;
 	}
 	
+	public String getPlayerName(){
+		return this.name;
+	}
+	
+	public void setPlayerName(String newName){
+		this.name = newName;
+	}
+	
 	public void useTwoSpaceTile(){
+		//decrement the number of action points the user has
+		this.actionPoints--;
 		//decrement the number of two space tiles that the use has
 		this.twoSpaceTiles--;
 	}
 	public void useVillageTile(){
+		//decrement the number of action points the user has
+		this.actionPoints--;
 		//decrement the number of village tiles
 		this.villageTiles--;
 	}
 	public void useRiceTile(){
+		//decrement the number of action points the user has
+		this.actionPoints--;
 		//decrement the number of rice tiles
 		this.riceTiles--;
 	}

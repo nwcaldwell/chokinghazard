@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import models.Developer;
 import models.Game;
+import models.Player;
 import models.Tile;
 
 public class GamePanel extends JPanel{
@@ -191,6 +192,12 @@ public class GamePanel extends JPanel{
 	}
 	public void setTenPalaceTiles(int num){
 		this.tenPalaceTiles.setText(""+num);
+	}
+	public void setPlayerPanels(Player[] playerModels){
+		for(int i = 0; i < playerModels.length; ++i){
+			this.players[i].setPlayerName(playerModels[i].getPlayerName());
+			this.players[i].setPlayerColor(playerModels[i].getPlayerColor());
+		}
 	}
 
 }
