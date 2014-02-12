@@ -117,8 +117,9 @@ public final class GameManager {
 		
 		FileWriter writer; 
 		try{
+			System.out.println(fileName);
 			writer = new FileWriter(newFile);
-			writer.write("Meghan king dsahbweiujsadfkj");
+			writer.write(currentGame.serialize());
 			writer.close();
 		}catch(IOException e){
 			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");

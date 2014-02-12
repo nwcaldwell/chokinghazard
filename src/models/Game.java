@@ -2,16 +2,18 @@ package models;
 
 import helpers.Json;
 import helpers.JsonObject;
+import models.Serializable;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
+
 import javax.swing.JOptionPane;
 
 import views.GamePanel;
 
-public class Game implements Serializable {
+public class Game implements Serializable <Game>  {
 	// VARIABLES
 	private GamePanel gamePanel;
 	private Board board;
@@ -263,7 +265,10 @@ public class Game implements Serializable {
 	}
 	
 	public void placeComponent(){
-		Cell currentCell = board.getCellAtPixel(x, y);
+		//TODO someone fix this. This is a solution so that I can test.
+		//Cell currentCell = board.getCellAtPixel(x, y);
+		Cell currentCell[][] = new Cell[2][2];
+		currentCell[0][0] = board.getCellAtPixel(x, y);
 		
 		String type = currentComponent.toString();
 		//figure out which type to place the component properly
@@ -422,6 +427,15 @@ public class Game implements Serializable {
 	// The polymorphic method loadObject is inherited from the serializable interface.
 	// This method returns the Game
 	public Game loadObject(JsonObject json) {
-		return new Game();
+		return null;
+	}
+	
+	public String toString() {
+		String ret = ""; 
+		for(Player player : players) 
+			ret += player.toString() + " ";
+		return ret + " " + board.toString() + " " + numPlayers + " " + indexOfCurrentPlayer + " " + isFinalTurn 
+				+ " " + stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + Arrays.toString(palaceTiles)
+				+ " " + x + " " + y + currentComponent.toString() + " " + tabCount;
 	}
 }

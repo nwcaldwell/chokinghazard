@@ -464,19 +464,19 @@ public class Board implements Serializable<Board> {
 		for(int y = 0; y < 14; ++y) {
 			cells[y] = ((Cell[]) (Object) json.getJsonObjectArray("map"))[y];
 		}
-		Board board = new Board();
-		board.setOutsideInnerCells(cells);
-		board.setMap(map);
-        return board;
-    }
-
-	private void setMap(Cell[][] map) {
-		this.map = map;
-	}
-
-	private void setOutsideInnerCells(Cell[] cells) {
 		this.outsideInnerCells = cells;
-	}
-
+		this.map = map;
+		return this;
+    }
+    
+    public String toString() {
+    	String ret = ""; 
+    	for(Cell[] row : map) 
+    		for(Cell cell : row) 
+    			ret += cell.toString() + " ";
+    	for(Cell cell : outsideInnerCells)
+    		ret += cell.toString() + " "; 
+    	return ret + "  " + path.toString() + " " + decrementedActionPoints;
+    }
 }
 

@@ -29,11 +29,12 @@ class OneSpaceTile extends Tile {
     }
     
     public OneSpaceTile loadObject(JsonObject json) {
-    	return new OneSpaceTile((new Space()).loadObject(json.getJsonObject("spaces")), new Space[2][2]);
+    	this.spaces = new Space[2][2];
+    	spaces[0][0] = (new Space()).loadObject(json.getJsonObject("spaces"));
+    	return this;
     }
     
     public String toString(){
     	return this.space.toString();
     }
-    
 }

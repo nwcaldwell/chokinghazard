@@ -68,7 +68,8 @@ class ThreeSpaceTile extends Tile {
     	JsonObject[][] objects = (JsonObject[][]) (Object) json.getJsonObject("spaces");
     	for(int x = 0; x < 4; ++x)
     		spaces[x/2][x%2] = (new Space()).loadObject(objects[x/2][x%2]);
-    	return new ThreeSpaceTile(spaces);
+    	this.spaces = spaces;
+    	return this;
     }
 }
 
