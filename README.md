@@ -22,7 +22,7 @@ Software Implementation of the Board Game Java
 	
 	1) Make sure the .jar file is in the same folder as all the resources. 
 	2) Run the following command: 
-		java -jar game.jar
+		java -jar ChokingHazard.jar
 
 ## Keyboard Controls<a name="Keyboard"/>
 
