@@ -646,14 +646,16 @@ public class Game implements Serializable <Game>  {
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
+
+			this.gamePanel = new GamePanel(numPlayers, this);
 			
 			//set everything for each of the player panels
 			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
 			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
 			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getTwoSpaceTiles());
+			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getRiceTiles());
+			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getVillageTiles());
 			
 			
 			if(i == indexOfCurrentPlayer){
@@ -678,6 +680,7 @@ public class Game implements Serializable <Game>  {
 			}
 		}
 		
+		gamePanel.setIrrigationTiles(irrigationTiles);
 		gamePanel.setThreePieceTiles(threeSpaceTiles);
 		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
 		gamePanel.setFourPalaceTiles(palaceTiles[1]);

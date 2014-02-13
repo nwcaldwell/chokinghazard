@@ -23,7 +23,7 @@ public class PalaceSpace extends Space{
     }
     
     private void setImageSource(){
-    	imageSource = "src/resources/oneTile_"+value+".png";
+    	imageSource = "images/oneTile_"+value+".png";
     }
     
     public String getImageSource(){

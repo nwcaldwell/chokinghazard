@@ -31,7 +31,7 @@ public class Player implements Serializable<Player> {
 		this.famePoints = 0;
 		this.actionTokens = 3;
 		this.riceTiles = 3;
-		this.villageTiles = 3;
+		this.villageTiles = 2;
 		this.twoSpaceTiles = 5;
 		// this.userName = userName;
 		devsOnBoard = new LinkedList<Developer>();
