@@ -348,10 +348,10 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void selectIrrigationTile(){
-		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
-			showNotEnoughActionPoints();
-		}
-		else if(this.irrigationTiles == 0){
+		//if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+		//	showNotEnoughActionPoints();
+		//}
+		 if(this.irrigationTiles == 0){
 			showNotEnoughTiles();
 		}
 		else{
