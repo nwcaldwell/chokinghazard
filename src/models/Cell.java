@@ -144,12 +144,12 @@ public class Cell implements Serializable<Cell> {
     	if(json.getObject("player") != null) {
     		this.developerPlayer = (Player)json.getObject("player");
     	}
-    	if(json.getObject("list") != null) {
-    		@SuppressWarnings("unchecked")
-			ArrayList<Cell> tempCells = ((ArrayList<Cell>)json.getObject("list"));
-    		for(Cell cell : tempCells) 
-    			connectedCells.add(cell);
-    	}
+//    	if(json.getObject("list") != null) {
+//    		@SuppressWarnings("unchecked")
+//			ArrayList<Cell> tempCells = ((ArrayList<Cell>)json.getObject("list"));
+//    		for(Cell cell : tempCells) 
+//    			connectedCells.add(cell);
+//    	}
     	this.connectedCells = null;
     	this.fromMountains = Boolean.parseBoolean(json.getString("fromMountains"));
     	this.fromLowlands = Boolean.parseBoolean(json.getString("fromLowLands"));

@@ -659,7 +659,7 @@ public class Game implements Serializable <Game>  {
 					int y1 = dev.getCurrentCellY();
 
 					dev.setCurrentCell(board.getCellAtLocation(x1,y1));
-
+				
 					gamePanel.placeDeveloper(x1*50, y1*50, 0, i);
 
 				}
