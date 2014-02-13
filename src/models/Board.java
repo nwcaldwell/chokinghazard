@@ -471,7 +471,7 @@ public class Board implements Serializable<Board> {
 		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
 		//if (checkValidTilePlacement(cells, tile)) {
-			//HashSet<Cell> connected = new HashSet<Cell>();
+			HashSet<Cell> connected = new HashSet<Cell>();
 			Space[][] spaces = tile.getSpaces();
 			
 		
@@ -491,12 +491,13 @@ public class Board implements Serializable<Board> {
 						System.out.println("Space at " + x + " and " + y + " : " + map[x][y].getSpace().getType());
 				}
 			}
-		/*	for(int i = 0; i < spaces.length; i++) {
+			for(int i = 0; i < spaces.length; i++) {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
 						if (cells[i][j] != null) {
 							cells[i][j].toString();
 							connected.add(cells[i][j]);
+							System.out.println(connected.size() + "");
 						}
 					}
 				}
@@ -511,14 +512,14 @@ public class Board implements Serializable<Board> {
 					}
 				}
 			}
-			*/
+			
 			return true;
 		
 		
 		//return false;
 	}
-	
-	public boolean placeTile(Cell nw, Cell ne, Cell se, Cell sw, Tile tile) {
+	//this was written when to test the real placeTile method
+	/*public boolean placeTile(Cell nw, Cell ne, Cell se, Cell sw, Tile tile) {
 		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
 		//if (checkValidTilePlacement(cells, tile)) {
@@ -546,7 +547,7 @@ public class Board implements Serializable<Board> {
 		
 		
 		//return false;
-	}
+	}*/
 
 	// Helper method for placeTile. Checks whether Tile can be placed
 	// in the Cell selected. This method also calls several helper methods.
