@@ -473,26 +473,35 @@ public class Board implements Serializable<Board> {
 		//if (checkValidTilePlacement(cells, tile)) {
 			HashSet<Cell> connected = new HashSet<Cell>();
 			Space[][] spaces = tile.getSpaces();
+			
 		
 			for (int i = 0; i < spaces.length; i++) {
-				for (int j = 0; j < spaces[0].length; j++) {
+				for (int j = 0; j < spaces[i].length; j++) {
 					if (spaces[i][j] != null) {
+						System.out.println(spaces[i][j].toString() + " i is " + i + " j is " + j );
 						cells[i][j].setSpace(spaces[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
+						
 					}
 				}
 			}
-			
+			for(int x = 0; x < map.length; ++x) { 
+				for(int y = 0; y < map[0].length; ++y) {
+					if(map[x][y] != null && map[x][y].getSpace() != null)
+						System.out.println("Space at " + x + " and " + y + " : " + map[x][y].getSpace().getType());
+				}
+			}
 			for(int i = 0; i < spaces.length; i++) {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
 						if (cells[i][j] != null) {
 							cells[i][j].toString();
 							connected.add(cells[i][j]);
+							System.out.println(connected.size() + "");
 						}
 					}
 				}
-			}
+			} 
 				
 			for(int i = 0; i < spaces.length; i++) {
 				for(int j = 0; j < spaces[0].length; j++) {
@@ -506,9 +515,39 @@ public class Board implements Serializable<Board> {
 			
 			return true;
 		//}
-		
+			
 		//return false;
 	}
+	//this was written when to test the real placeTile method
+	/*public boolean placeTile(Cell nw, Cell ne, Cell se, Cell sw, Tile tile) {
+		// TODO Super Important, need to assign the value of connected cells when placing tile	
+
+		//if (checkValidTilePlacement(cells, tile)) {
+			//HashSet<Cell> connected = new HashSet<Cell>();
+			Space[][] spaces = tile.getSpaces();
+			
+			if(spaces[0][0] != null){
+			nw.setSpace(spaces[0][0]);
+			System.out.println("nw " + nw.getSpace().toString());
+			}
+			
+			if(spaces[0][1] != null){
+			ne.setSpace(spaces[0][1]);
+			System.out.println("ne " + ne.getSpace().toString());
+			}
+			if(spaces[1][1] != null){
+				se.setSpace(spaces[1][1]);
+				System.out.println("se" + se.getSpace().toString());
+			}
+			if(spaces[1][0] != null){
+				sw.setSpace(spaces[1][0]);
+				System.out.println("sw " + sw.getSpace().toString());
+			}
+			return true;
+		
+		
+		//return false;
+	}*/
 
 	// Helper method for placeTile. Checks whether Tile can be placed
 	// in the Cell selected. This method also calls several helper methods.

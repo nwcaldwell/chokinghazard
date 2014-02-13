@@ -83,6 +83,7 @@ public class GameFrame extends JFrame {
 						try{
 							playerCount = JOptionPane.showInputDialog("How many players? 2-4", null);
 							
+							
 						} catch(NullPointerException f){
 							wantContinue = false;
 							

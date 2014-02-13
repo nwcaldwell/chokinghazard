@@ -36,7 +36,16 @@ public class Game implements Serializable <Game>  {
 	// CONSTRUCTORS
 	//default constructor
 	public Game(){
-		
+		this.board = new Board();
+		this.players = new Player[numPlayers];
+		this.numPlayers = numPlayers;
+		this.isFinalTurn = false;
+		this.indexOfCurrentPlayer = 0;
+		this.stack = new Stack<Cell>();
+		this.irrigationTiles = 10;
+		this.threeSpaceTiles = 56;
+		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
+		this.gamePanel = new GamePanel(numPlayers, this);
 	}
 	
 	// Main Constructor
@@ -68,7 +77,6 @@ public class Game implements Serializable <Game>  {
 	public Player[] getPlayers(){
 		return players;
 	}
-	
 	
 	public int getNumberOfPlayers(){
 		return players.length;
@@ -285,9 +293,9 @@ public class Game implements Serializable <Game>  {
 	public void placeComponent(){
 		Cell[][] currentCell = {
 			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+50)},
-			{board.getCellAtPixel(x+50, y),board.getCellAtPixel(x+1, y+50)}
+			{board.getCellAtPixel(x+50, y),board.getCellAtPixel(x+50, y+50)}
 		};//TODO someone double check this make sure it's right
-
+		
 		
 		String type = currentComponent.toString();
 		
@@ -301,6 +309,7 @@ public class Game implements Serializable <Game>  {
 //				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
 //			}
 		}
+		//else if(board.placeTile(board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1),board.getCellAtPixel(x+1, y), board.getCellAtPixel(x+1, y+1), (Tile)currentComponent)){
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
 			switch(type){
 			case"THREE SPACE TILE":
@@ -313,6 +322,7 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useTwoSpaceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setNumTwoTile(players[indexOfCurrentPlayer].getTwoSpaceTiles());
 				break;
 			case "IRRIGATION":
 				//decrement it from the global stash
@@ -323,11 +333,13 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setNumOneTileVillage(players[indexOfCurrentPlayer].getVillageTiles());
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setNumOneTileRice(players[indexOfCurrentPlayer].getRiceTiles());
 				break;
 			case "PALACE":
 
@@ -477,9 +489,9 @@ public class Game implements Serializable <Game>  {
 	private void showNotEnoughTiles(){
 		JOptionPane.showMessageDialog(null, "No more tiles of this type, try another");
 	}
-	private void showNotEnoughActionPoints(){
-		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
-	}
+	//private void showNotEnoughActionPoints(){
+	//	JOptionPane.showMessageDialog(null, "Not enough Action Points!");
+	//}
 	
 	public void initPlayers(){
 		//ask the players for their name's and color preferences
@@ -568,9 +580,29 @@ public class Game implements Serializable <Game>  {
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
+			
+			//set everything for each of the player panels
+			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
+			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
+			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getFamePoints());
+			
+			
+			if(i == indexOfCurrentPlayer){
+				gamePanel.setCurrentPlayer(i);
+				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+				
+			}
+			else{
+				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
+			}
+			
 		}
 
 		this.gamePanel = new GamePanel(numPlayers, this);
+		
 		setPlayerNamesInView();
 
 		for(Cell[] row : board.getMap()) {
@@ -580,6 +612,13 @@ public class Game implements Serializable <Game>  {
 				}
 			}
 		}
+		
+		gamePanel.setThreePieceTiles(threeSpaceTiles);
+		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
+		gamePanel.setFourPalaceTiles(palaceTiles[1]);
+		gamePanel.setSixPalaceTiles(palaceTiles[2]);
+		gamePanel.setEightPalaceTiles(palaceTiles[3]);
+		gamePanel.setTenPalaceTiles(palaceTiles[4]);
 		return this;
 	}	
 	
