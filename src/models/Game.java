@@ -284,8 +284,8 @@ public class Game implements Serializable <Game>  {
 	
 	public void placeComponent(){
 		Cell[][] currentCell = {
-			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1)},
-			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
+			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+50)},
+			{board.getCellAtPixel(x+50, y),board.getCellAtPixel(x+1, y+50)}
 		};//TODO someone double check this make sure it's right
 
 		
@@ -571,6 +571,15 @@ public class Game implements Serializable <Game>  {
 		}
 
 		this.gamePanel = new GamePanel(numPlayers, this);
+		setPlayerNamesInView();
+
+		for(Cell[] row : board.getMap()) {
+			for(Cell cell : row) {
+				if(cell.getSpace() != null) {
+					gamePanel.placeTile((new OneSpaceTile(cell.getSpace(), new Space[2][2])), cell.getX()*50, cell.getY()*50);
+				}
+			}
+		}
 		return this;
 	}	
 	

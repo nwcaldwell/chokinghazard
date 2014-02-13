@@ -470,7 +470,7 @@ public class Board implements Serializable<Board> {
 	public boolean placeTile(Cell[][] cells, Tile tile) {
 		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
-		if (checkValidTilePlacement(cells, tile)) {
+		//if (checkValidTilePlacement(cells, tile)) {
 			HashSet<Cell> connected = new HashSet<Cell>();
 			Space[][] spaces = tile.getSpaces();
 		
@@ -505,9 +505,9 @@ public class Board implements Serializable<Board> {
 			}
 			
 			return true;
-		}
+		//}
 		
-		return false;
+		//return false;
 	}
 
 	// Helper method for placeTile. Checks whether Tile can be placed
@@ -832,8 +832,8 @@ public class Board implements Serializable<Board> {
 
 	public String serialize() {
 		return Json.jsonObject(Json.jsonMembers(
-				Json.jsonPair("map", Json.serializeArray(map)),
-				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
+			Json.jsonPair("map", Json.serializeArray(map)),
+			Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
 		));
     }
 

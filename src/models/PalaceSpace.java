@@ -43,6 +43,7 @@ public class PalaceSpace extends Space{
 
     public PalaceSpace loadObject(JsonObject json) {
         this.value = Integer.parseInt(json.getString("value"));
+        setImageSource();
         return this;
     }
 }
