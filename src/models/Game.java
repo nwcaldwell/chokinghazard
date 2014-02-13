@@ -175,21 +175,24 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void tabThroughDevelopers(){
-		if(tabbing < 0){
-			tabbing = 0;
-		}
 		//tab through the user's developers on board linked list
 		LinkedList<Developer> devsOnBoard = players[indexOfCurrentPlayer].getDevsOnBoard();
 		
-		//don't want a tab index that is greater than the size of the thing. 
-		tabbing %= devsOnBoard.size();
-		
-		//current component now is equal to the tabbed-to developer
-		//because if the player presses enter, we want the method to know what's going on
-		Developer highlightedDeveloper = players[indexOfCurrentPlayer].getDeveloperOnBoardAtIndex(tabbing);
-		x = highlightedDeveloper.getCurrentCellX() * 50;
-		x = highlightedDeveloper.getCurrentCellY() * 50;
-		gamePanel.highlightDeveloper(highlightedDeveloper, x, y);
+		if(!devsOnBoard.isEmpty()){
+			//don't want a tab index that is greater than the size of the thing. 
+			tabbing %= devsOnBoard.size();
+			
+			//current component now is equal to the tabbed-to developer
+			//because if the player presses enter, we want the method to know what's going on
+			currentComponent = players[indexOfCurrentPlayer].getDeveloperOnBoardAtIndex(tabbing);
+			
+			//set the global x and y values to reflect the selected developer
+			x = ((Developer)currentComponent).getCurrentCellX() * 50;
+			y = ((Developer)currentComponent).getCurrentCellY() * 50;
+			
+			//update the view
+			gamePanel.highlightDeveloper(((Developer)currentComponent), x, y);
+		}
 		
 	}
 	
@@ -210,12 +213,47 @@ public class Game implements Serializable <Game>  {
 		if(players[indexOfCurrentPlayer].getDevsOffBoard() > 0){
 			//create a new Developer
 			currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
-		
+			//add the first location of the developer to the path
+			board.createDeveloperPath((Developer)currentComponent, board.getCellAtPixel(x, y));
+			
 			//place the developer in the GUI
+//			int[] x1 = {x};
+//			int[] y1 = {y};
+//			gamePanel.drawPlayerPath(x1, y1);
 			gamePanel.moveDeveloperOntoBoard(x, y);
 		}
 		else{
 			//player doesn't have any developers to place
+		}
+		
+	}
+	
+	public void removeDeveloper(){
+		if(tabbing < 0){
+			//do nothing
+		}
+		else if(!players[indexOfCurrentPlayer].getDevsOnBoard().isEmpty()){
+			
+			//get the devs on the board
+			LinkedList<Developer> devsOnBoard = players[indexOfCurrentPlayer].getDevsOnBoard();
+			
+			//don't want a tab index that is greater than the size of the devs on board
+			tabbing %= devsOnBoard.size();
+			
+			//get the developer that is to be deleted
+			Developer dev = players[indexOfCurrentPlayer].getDeveloperOnBoardAtIndex(tabbing);
+			
+			//remove the dev from the player model
+			players[indexOfCurrentPlayer].removeOffBoard(dev);
+			
+			//remove the dev from the board model
+			((Cell)board.getCellAtPixel(x, y)).removeDeveloper(dev);
+			
+			//update the view
+			gamePanel.removeDeveloper(x,y, players[indexOfCurrentPlayer].getDevsOffBoard());
+			
+			//reset the global values to default and cancel out of the tabbing
+			cancelAction();
 		}
 		
 	}
@@ -248,6 +286,22 @@ public class Game implements Serializable <Game>  {
 			}
 			else if(type.equals("class models.Developer")){
 				//TODO this needs to change, or at least the gamepanel thing needs to change
+				board.createDeveloperPath((Developer)currentComponent, board.getCellAtPixel(x, y));
+				
+				//instead of passing the stack of cells to the view, just pass the values
+//				Cell[] cells = new Cell[board.getPlayerPath().size()];
+//				board.getPlayerPath().toArray(cells);
+//				
+//				int[] X = new int[cells.length];
+//				int[] Y = new int[cells.length];
+//				for(int i = 0; i < cells.length; ++i){
+//					X[i] = cells[i].getX() * 50;
+//					Y[i] = cells[i].getY() * 50;
+//					//System.out.println("[ "+X[i]+" , "+Y[i]+" ]");
+//				}
+//				
+//				gamePanel.drawPlayerPath(X, Y);
+//				cells = null;
 				gamePanel.moveDeveloperOntoBoard(x, y);
 			}
 		}
@@ -259,25 +313,36 @@ public class Game implements Serializable <Game>  {
 			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
 		};
 		String type = currentComponent.toString();
-		System.out.println(type);
-		
+				
 		if(type.equals("DEVELOPER")){
 			//check to see if the developer is being selected rather than being placed
 			if(tabbing < 0){
 				//developer is being placed
-				//set it as on the board if not already in the player model
 				if(!((Developer)currentComponent).isPlacedOnBoard()){
+					//set it as on the board if not already in the player model
 					players[indexOfCurrentPlayer].addDevOnBoard((Developer)currentComponent);
-					
 				}
 				
+				//set the developer's current cell to the one that is highlighted
 				((Developer)currentComponent).setCurrentCell(board.getCellAtPixel(x, y));
-				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
+				
+				//set the current cell to have the developer on it
+				((Cell)board.getCellAtPixel(x, y)).setDeveloper((Developer)currentComponent);
+				
+				//update the view
+				gamePanel.placeDeveloper(x, y, players[indexOfCurrentPlayer].getDevsOffBoard());
+				
+				board.deleteDeveloperPath((Developer)currentComponent);
+				
+				//set x & y's back to default
+				cancelAction();
 			}
 			else{
-				//developer is being selected to be moved around
-				tabbing = -1;
+				//developer has been selected to be moved around
 				currentComponent = players[indexOfCurrentPlayer].getDeveloperOnBoardAtIndex(tabbing);
+				//update the view
+				gamePanel.selectHighlightedDeveloper(x, y);
+				tabbing = -1;
 			}
 				
 		}
@@ -286,13 +351,14 @@ public class Game implements Serializable <Game>  {
 			case"THREE SPACE TILE":
 				//decrement it from the global stash
 				--threeSpaceTiles;
-				gamePanel.setThreePieceTiles(threeSpaceTiles);
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.setThreePieceTiles(threeSpaceTiles);
 				break;
 			case "TWO SPACE TILE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useTwoSpaceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.setPlayerTwoSpaceTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
 				break;
 			case "IRRIGATION":
 				//decrement it from the global stash
@@ -303,20 +369,21 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
 				break;
 			case "PALACE":
-				
-				//need to somehow do checks for which palace tile to place
+				//TODO place palace in board
 				break;
 			}	
 			gamePanel.placeTile((Tile)currentComponent, x, y);
+			resetInteraction();
 		}
-		resetInteraction();
 	}
 	
 	public void selectTwoSpaceTile(){
@@ -393,7 +460,6 @@ public class Game implements Serializable <Game>  {
 			if(value < 11 && value % 2 == 0){
 				if(this.palaceTiles[(value/2-1)] > 0){
 					currentComponent = new OneSpaceTile(new PalaceSpace(value), new Space[2][2]);
-					System.out.println(((Tile)currentComponent).getImageSource());
 					gamePanel.moveTile((Tile)currentComponent, x, y);
 				}
 				else
@@ -411,6 +477,7 @@ public class Game implements Serializable <Game>  {
 	
 	private void resetInteraction(){
 		currentComponent = null;
+		tabbing = -1;
 		x = 50;
 		y = 50;
 	}
@@ -448,6 +515,10 @@ public class Game implements Serializable <Game>  {
 	public void setPlayerNamesInView(){
 		gamePanel.setPlayerPanels(players);
 		gamePanel.updateCurrentPlayerView();
+	}
+	
+	public void incrementTab(){
+		tabbing++;
 	}
 		
 	public String serialize() {

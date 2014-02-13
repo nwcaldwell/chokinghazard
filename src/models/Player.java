@@ -56,6 +56,7 @@ public class Player implements Serializable<Player> {
 	 		return false;
 	 	}
 		devsOnBoard.push(dev);
+		dev.setPlacedOnBoard(true);
 	 	devOffBoard--;
 	 	return true;
 		
@@ -64,10 +65,12 @@ public class Player implements Serializable<Player> {
 //use to remove developerOffBoard...we remove the developer off the linkedlist and increase the devOffBoard by one
 	public void removeOffBoard(Developer dev){
 		devsOnBoard.remove(dev);
+		dev.setPlacedOnBoard(false);
 		devOffBoard++;
 	}
 	
 	public Developer getDeveloperOnBoardAtIndex(int index){
+		System.out.println("Index: "+index+", LinkedList Size = "+devsOnBoard.size());
 		if(devsOnBoard.size() > 0){
 			if(devsOnBoard.get(index) != null);
 				return devsOnBoard.get(index);

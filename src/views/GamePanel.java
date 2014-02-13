@@ -136,6 +136,10 @@ public class GamePanel extends JPanel{
 		this.board.highlightDeveloper(x, y);
 	}
 	
+	public void selectHighlightedDeveloper(int x, int y){
+		this.board.selectHighlightedDeveloper(currentPlayer, x, y);
+	}
+	
 	public PlayerPanel[] getPlayerPanels(){
 		return this.players;
 	}
@@ -145,11 +149,21 @@ public class GamePanel extends JPanel{
 	}
 	
 	public void moveDeveloperOntoBoard(int x, int y){
-		this.board.trackDeveloperPath(x, y);
+		this.board.trackDeveloperPath(currentPlayer, x, y);
 	}
 	
-	public void placeDeveloper(int player, int x, int y){
-		this.board.placeDeveloper(player, x, y);
+//	public void drawPlayerPath(int[] x, int[] y){
+//		board.drawPlayerPath(currentPlayer, x, y);
+//	}
+	
+	public void placeDeveloper(int x, int y, int devsOffBoard){
+		this.board.placeDeveloper(currentPlayer, x, y);
+		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
+	}
+	
+	public void removeDeveloper(int x, int y, int devsOffBoard){
+		this.board.removeDeveloper(x, y);
+		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
 	}
 	
 	public void useActionToken(int tokens){
@@ -193,6 +207,16 @@ public class GamePanel extends JPanel{
 	public void setTenPalaceTiles(int num){
 		this.tenPalaceTiles.setText(""+num);
 	}
+	public void setPlayerTwoSpaceTiles(int num){
+		players[currentPlayer].setNumTwoTile(num);
+	}
+	public void setPlayerRiceTiles(int num){
+		players[currentPlayer].setNumOneTileRice(num);
+	}
+	public void setPlayerVillageTiles(int num){
+		players[currentPlayer].setNumOneTileVillage(num);
+	}
+	
 	public void setPlayerPanels(Player[] playerModels){
 		for(int i = 0; i < playerModels.length; ++i){
 			this.players[i].setPlayerName(playerModels[i].getPlayerName());

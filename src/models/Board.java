@@ -835,6 +835,9 @@ public class Board implements Serializable<Board> {
 		root.setConnectedCells(connectedSet);
 
 	}
+	public Stack<Cell> getPlayerPath(){
+		return this.path;
+	}
 
 	public Cell[] getOutsideInnerCells() {
 		return outsideInnerCells;
