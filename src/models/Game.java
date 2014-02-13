@@ -642,7 +642,7 @@ public class Game implements Serializable <Game>  {
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
 		//setPlayerNames in view updates the view will all the player information
-		setPlayerNamesInView();
+		gamePanel.setPlayerPanels(players);
 		//set the labels on the global tiles
 		gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
 
@@ -650,13 +650,19 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
-				if(devs.get(j) != null)
-				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
-				int x1 = devs.get(j).getCurrentCellX()*50;
-				int y1 = devs.get(j).getCurrentCellY()*50;
+				if(devs.get(j) != null){
+					Developer dev = devs.get(j);
+					
+					int x1 = dev.getCurrentCellX();
+					int y1 = dev.getCurrentCellY();
+					
+					dev.setCurrentCell(board.getCellAtLocation(x1,y1));
 				
-				gamePanel.placeDeveloper(x1, y1);
+					gamePanel.placeDeveloper(x1*50, y1*50);
+					
+				}
 			}
+			//gamePanel.setDevsOffBoard(players[i].getDevsOffBoard());
 
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
@@ -665,8 +671,6 @@ public class Game implements Serializable <Game>  {
 			else{
 				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
 			}
-			
-			gamePanel.setDevsOffBoard(players[i].getDevsOffBoard());
 			
 		}
 
