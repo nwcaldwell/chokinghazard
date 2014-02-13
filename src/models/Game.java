@@ -310,6 +310,13 @@ public class Game implements Serializable <Game>  {
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "PALACE":
+				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
+				palaceTiles[value/2-1]--; 
+				if(value == 2) gamePanel.setTwoPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 4) gamePanel.setFourPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 6) gamePanel.setSixPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 8) gamePanel.setEightPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 10) gamePanel.setTenPalaceTiles(palaceTiles[value/2-1]);
 				
 				//need to somehow do checks for which palace tile to place
 				break;
