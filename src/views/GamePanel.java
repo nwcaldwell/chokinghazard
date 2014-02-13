@@ -170,6 +170,10 @@ public class GamePanel extends JPanel{
 		this.board.placeDeveloper(currentPlayer, x, y);
 	}
 	
+	public void placeDeveloper(int x, int y, int devsOffBoard, int playerIndex){
+		this.board.placeDeveloper(playerIndex, x, y);
+	}
+	
 	public void removeDeveloper(int x, int y, int devsOffBoard){
 		this.board.removeDeveloper(x, y);
 		setDevsOffBoard(devsOffBoard);
