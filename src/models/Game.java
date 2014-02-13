@@ -36,7 +36,16 @@ public class Game implements Serializable <Game>  {
 	// CONSTRUCTORS
 	//default constructor
 	public Game(){
-		
+		this.board = new Board();
+		this.players = new Player[numPlayers];
+		this.numPlayers = numPlayers;
+		this.isFinalTurn = false;
+		this.indexOfCurrentPlayer = 0;
+		this.stack = new Stack<Cell>();
+		this.irrigationTiles = 10;
+		this.threeSpaceTiles = 56;
+		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
+		this.gamePanel = new GamePanel(numPlayers, this);
 	}
 	
 	// Main Constructor
@@ -477,9 +486,9 @@ public class Game implements Serializable <Game>  {
 	private void showNotEnoughTiles(){
 		JOptionPane.showMessageDialog(null, "No more tiles of this type, try another");
 	}
-	private void showNotEnoughActionPoints(){
-		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
-	}
+	//private void showNotEnoughActionPoints(){
+	//	JOptionPane.showMessageDialog(null, "Not enough Action Points!");
+	//}
 	
 	public void initPlayers(){
 		//ask the players for their name's and color preferences
