@@ -330,7 +330,14 @@ public class Game implements Serializable <Game>  {
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "PALACE":
-				//TODO
+
+				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
+				palaceTiles[value/2-1]--; 
+				if(value == 2) gamePanel.setTwoPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 4) gamePanel.setFourPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 6) gamePanel.setSixPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 8) gamePanel.setEightPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 10) gamePanel.setTenPalaceTiles(palaceTiles[value/2-1]);
 				//need to somehow do checks for which palace tile to place
 				break;
 			}	
@@ -375,8 +382,40 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void selectPalaceTile(){
-		String palace = JOptionPane.showInputDialog("What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
-		placePalace(palace);
+		String palace = null;
+		boolean isInt = false;
+		boolean validRange = false;
+		int value = 0;
+		
+		while (!isInt || !validRange)
+		{
+			palace = JOptionPane.showInputDialog(null,"What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
+			if (palace == null)
+				break;
+			try 
+			{
+				value = Integer.parseInt(palace);
+				isInt = true;
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(null,"Not a valid entry!");
+			}
+			
+			if (isInt && !palace.equals(""))
+			{
+				if (value > 0 && value <  11 && value%2==0) //check if 2,4,6,8,or 10
+					validRange = true;
+				else
+				{
+					JOptionPane.showMessageDialog(null,"Not a valid entry!");
+					isInt = false;
+				}
+					
+			}
+		}
+		if (isInt && validRange)	//since we're breaking out of the loop above on escape, have to check valid input
+			placePalace(palace);
 	}
 	
 	public void selectRiceTile(){
