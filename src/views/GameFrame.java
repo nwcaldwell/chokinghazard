@@ -122,7 +122,7 @@ public class GameFrame extends JFrame {
 								JOptionPane.showMessageDialog(null, "Please enter a number of players.");
 								} catch(NullPointerException g){
 									canProceed = true;
-							}
+								}
 						}
 					} //end while
 					

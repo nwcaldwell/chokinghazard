@@ -31,7 +31,7 @@ public class Game implements Serializable <Game>  {
     int x = 50;
 	int y = 50;
 	private Object currentComponent;
-	private int tabbing = -1;
+	private int tabCount = -1;
 	
 	// CONSTRUCTORS
 	//default constructor
@@ -52,9 +52,8 @@ public class Game implements Serializable <Game>  {
 		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
-		//TODO
 		//initialize the players and their views
-		//initPlayers();
+		initPlayers();
 	}
 	
 	// GET/SET METHODS
@@ -176,22 +175,33 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void tabThroughDevelopers(){
-		if(tabbing < 0){
-			tabbing = 0;
+		
+		if(tabCount < 0)
+			tabCount = 0;
+		else{
+			//we only want to increment the tabCount 
+			//tabCount = (tabCount + 1) % players[indexOfCurrentPlayer].getDevelopers().length;
 		}
-		//tab through the user's developers on board linked list
-		LinkedList<Developer> devsOnBoard = players[indexOfCurrentPlayer].getDevsOnBoard();
+		//get the current player's set of developers on the board
+		//Developer[] currentPlayerDeveloper = players[indexOfCurrentPlayer].getDevelopers();
+		System.out.println(tabCount);
 		
-		//don't want a tab index that is greater than the size of the thing. 
-		tabbing %= devsOnBoard.size();
-		
-		//current component now is equal to the tabbed-to developer
-		//because if the player presses enter, we want the method to know what's going on
-		Developer highlightedDeveloper = players[indexOfCurrentPlayer].getDeveloperOnBoardAtIndex(tabbing);
-		x = highlightedDeveloper.getCurrentCellX() * 50;
-		x = highlightedDeveloper.getCurrentCellY() * 50;
-		gamePanel.highlightDeveloper(highlightedDeveloper, x, y);
-		
+		boolean hasDevelopersOnBoard = false;
+//		for(int i = tabCount; i < players[indexOfCurrentPlayer].getDevelopers().length; ++i){
+//			
+//			//find the first developer on the board
+//			if(currentPlayerDeveloper[tabCount].isPlacedOnBoard()){
+//				gamePanel.highlightDeveloper(currentPlayerDeveloper[tabCount]);
+//				hasDevelopersOnBoard = true;
+//				break;
+//			}
+//			else//else that current developer is not on the board, look at the next one
+//				continue;
+//		}
+		if(!hasDevelopersOnBoard){
+			tabCount = -1;
+			System.out.println("no developers on board");
+		}
 	}
 	
 	public void rotateCurrentComponent(){
@@ -207,21 +217,24 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void addDeveloperToBoard(){
-		
-		if(players[indexOfCurrentPlayer].getDevsOffBoard() > 0){
-			//create a new Developer
-			currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtPixel(x, y));
-		
-			//place the developer in the GUI
-			gamePanel.moveDeveloperOntoBoard(x, y);
+		//TODO need to check the board if there's any tiles on the outermost-inner java layer
+		for(int i = 0; i < board.getOutsideInnerCells().length; ++i){
+			
 		}
-		else{
-			//player doesn't have any developers to place
-		}
+		//only create this if there are outsideinnercells, will need to change the developer position at some point
+		currentComponent = new Developer(players[indexOfCurrentPlayer], board.getCellAtLocation(x, y));
 		
+		//TODO this should put the developer on the board's first applicable outsideInnercells[]
+		gamePanel.moveDeveloperOntoBoard(x, y);
+		//TODO change this to a real developer
+		//currentComponent = new Developer(currentGame.getCurrentPlayer());
+		//get the index of the first developer not on the board in the players.developer[]
+		//get that developer's cell position, and set to isOnBoard or whatever the boolean is
+		//currentGame.moveDeveloperOntoBoard();
 	}
 	
 	public void moveComponentAroundBoard(int xChange, int yChange){
+		//TODO get that current developer and push the location to the stack
 		if(currentComponent != null){
 			x += xChange;
 			y += yChange;
@@ -235,22 +248,28 @@ public class Game implements Serializable <Game>  {
 			else if(y > 650)
 				y = 650;
 			
+			//check if the new location is valid and that there are no developers or irrigation tiles on it
+			//if ok, push the location to the developer path
 			
 			//reflects the changes in the GUI
 			String type = currentComponent.getClass().toString();
 			if(type.equals("class models.TwoSpaceTile")){
+				System.out.println("this is a two space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.ThreeSpaceTile")){
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.OneSpaceTile")){
+				System.out.println("this is a one space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.Developer")){
-				//TODO this needs to change, or at least the gamepanel thing needs to change
+				System.out.println("this is a developer");
 				gamePanel.moveDeveloperOntoBoard(x, y);
 			}
+			
+			//if it's not ok, dont let the user go there and dont push the location
 		}
 	}
 	
@@ -258,29 +277,20 @@ public class Game implements Serializable <Game>  {
 		Cell[][] currentCell = {
 			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1)},
 			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
-		};
-		String type = currentComponent.toString();
-		System.out.println(type);
+		};//TODO someone double check this make sure it's right
+
 		
+		String type = currentComponent.toString();
+		
+		//figure out which type to place the component properly
 		if(type.equals("DEVELOPER")){
-			//check to see if the developer is being selected rather than being placed
-			if(tabbing < 0){
-				//developer is being placed
-				//set it as on the board if not already in the player model
-				if(!((Developer)currentComponent).isPlacedOnBoard()){
-					players[indexOfCurrentPlayer].addDevOnBoard((Developer)currentComponent);
-					
-				}
-				
-				((Developer)currentComponent).setCurrentCell(board.getCellAtPixel(x, y));
-				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
-			}
-			else{
-				//developer is being selected to be moved around
-				tabbing = -1;
-				currentComponent = players[indexOfCurrentPlayer].getDeveloperOnBoardAtIndex(tabbing);
-			}
-				
+			//set it as on the board if not already in the player model, if returns true then reflect changes appropriately
+			
+			//TODO need to collaborate with the people writing Board
+//			if(board.moveDeveloperAroundBoard((Developer)currentComponent, currentCell)){
+//				((Developer)currentComponent).setCurrentCell(currentCell);
+//				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
+//			}
 		}
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
 			switch(type){
@@ -507,10 +517,8 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
-				if(devs.get(j) != null) {
-					devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
-					board.loadCellsDevelopers(devs.get(j));
-				}
+				if(devs.get(j) != null)
+				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
 		}
 		
@@ -526,6 +534,6 @@ public class Game implements Serializable <Game>  {
 			ret += player.toString() + " ";
 		return ret + " " + board == null ? "null" : board.toString() + " " + numPlayers + " " + indexOfCurrentPlayer + " " + isFinalTurn 
 				+ " " + stack == null ? "null" : stack.toString() + " " + irrigationTiles + " " + threeSpaceTiles + " " + palaceTiles == null ? "null" : Arrays.toString(palaceTiles)
-				+ " " + x + " " + y + " " + (currentComponent == null ? "NULL" : currentComponent.toString()) + " " + tabbing;
+				+ " " + x + " " + y + " " + (currentComponent == null ? "NULL" : currentComponent.toString()) + " " + tabCount;
 	}
 }
