@@ -12,7 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+//import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import controllers.GameManager;
@@ -59,58 +59,77 @@ public class GameFrame extends JFrame {
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean wantContinue = true;;
 				if(gm != null){
 					//they're already in a game, so ask if they're sure they want to do this, and ask to save game
-					int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new game in the middle of this game?");
+					try{
+					int response = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before creating a new one?");
 					if(response == JOptionPane.YES_OPTION){
 						gm.saveGame();
 					}
-					else{
-						//do nothing
+					}catch(NullPointerException exce) {
+						wantContinue = false;
 					}
-				}
-				else{
-					/** Brett ***/ 
-					String playerCount = JOptionPane.showInputDialog("How many players? 2-4", null);
 					
-					boolean canProceed = false; //goes true when we have acceptable input
+				}
+					/** Brett ***/ 
+					String playerCount = "";
+					
+					//boolean canProceed = false; //goes true when we have acceptable input
 					boolean isInt = true; //For successful parse
 					int inputPlayers = -1;
-					while (!canProceed){	
-						try {
-							inputPlayers = Integer.parseInt(playerCount); //try to parse
-							isInt = true;
-						} catch (NumberFormatException ex) {
-							//if we catch an exception, set to false, go back to above loop
-							isInt = false; 
+					while (wantContinue){
+						
+						try{
+							playerCount = JOptionPane.showInputDialog("How many players? 2-4", null);
+							
+							
+						} catch(NullPointerException f){
+							wantContinue = false;
+							
 						}
-						if (isInt){
-							final int numPlayers = inputPlayers;
-							if(numPlayers >= 2 && numPlayers <= 4){
-								new Thread(new Runnable(){
-									public void run(){
-										gm = GameManager.getInstance();
-										gm.createNewGame(numPlayers);
-										setContentPane(gm.getGamePanel());
-										pack();
-										validate();
+						if(wantContinue){
+							try {
+								inputPlayers = Integer.parseInt(playerCount); //try to parse
+								isInt = true;
+							} catch (NumberFormatException ex) {
+								//if we catch an exception, set to false, go back to above loop
+								isInt = false; 
+							}
+							if (isInt){
+								final int numPlayers = inputPlayers;
+								if(numPlayers >= 2 && numPlayers <= 4){
+									new Thread(new Runnable(){
+										public void run(){
+											gm = GameManager.getInstance();
+											gm.createNewGame(numPlayers);
+											setContentPane(gm.getGamePanel());
+											pack();
+											validate();
+										}
+									}).start();
+									
+									wantContinue = false;
+								} 
+								else {
+									try{
+									JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again.");
+									} catch(NullPointerException g){
+										wantContinue = false;
 									}
-								}).start();
-								
-								canProceed = true;
-							} 
-							else {
-								JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again");
-								playerCount = JOptionPane.showInputDialog("How many players? 2-4");
-							} //end else
-						}
-						else{
-							JOptionPane.showMessageDialog(null, "Please enter a number of players");
-							playerCount = JOptionPane.showInputDialog("How many players? 2-4");
-						}
-					} //end while
+								} //end else
+							}
+							else{
+								try{
+									JOptionPane.showMessageDialog(null, "Please enter a number of players.");
+									} catch(NullPointerException g){
+										wantContinue = false;
+									}
+							}
+						} 
+					}//end while
 					
-				}
+				
 			}
 		});
 		file.add(newGame);
@@ -120,8 +139,23 @@ public class GameFrame extends JFrame {
 		loadGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(gm == null){
-					//loads a game
+				int response = -1;
+				boolean good = true;
+				if(gm != null){
+					//they're already in a game, so ask if they're sure they want to do this, and ask to save game
+					try{
+						response = JOptionPane.showConfirmDialog(null, "Are you sure you want to load a new game in the middle of this game?");
+						if(response == JOptionPane.YES_OPTION || response == JOptionPane.NO_OPTION ){
+							if(response == JOptionPane.YES_OPTION){
+								gm.saveGame();
+							}
+							good = true;
+						}
+					} catch(NullPointerException exe) {
+						good = false;
+					}
+				}
+				if(good) {
 					final File file = getFile();
 					if(file != null){
 						//starts a new thread
@@ -136,18 +170,9 @@ public class GameFrame extends JFrame {
 						}).start();
 					}
 				}
-				else{
-					//they're already in a game, so ask if they're sure they want to do this, and ask to save game
-					int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new game in the middle of this game?");
-					if(response == JOptionPane.YES_OPTION){
-						gm.saveGame();
-					}
-					else{
-						//do nothing
-					}
-				}
 			}
 		});
+		
 		file.add(loadGame);
 		
 		JMenuItem saveGame = new JMenuItem("Save Game");

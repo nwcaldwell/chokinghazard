@@ -1,6 +1,6 @@
 package controllers;
 
-import helpers.Json;
+//import helpers.Json;
 import helpers.JsonObject;
 
 import java.awt.event.KeyEvent;
@@ -43,14 +43,8 @@ public final class GameManager {
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
-		if(currentGame != null){
-			saveGame();
 			currentGame = new Game(numPlayers);
-			currentGame.initPlayers();
-		}
-		else{
-			currentGame = new Game(numPlayers);
-		}
+			//currentGame.initPlayers();
 	}
 	
 	public boolean loadGame(File loadFile) {
@@ -68,10 +62,8 @@ public final class GameManager {
 			
 			String loadString = alpha.toString();
 			JsonObject json = new JsonObject(loadString);
-			Game loadedGame = new Game().loadObject(json.getJsonObject("Game"));
-			/*try {FileWriter fw = new FileWriter(new File("outs.txt"));
-			fw.write(loadedGame.serialize());
-			fw.close(); } catch(Exception e)*/
+			Game loadedGame = new Game();
+			loadedGame.loadObject(json);
 			currentGame = loadedGame;
 	
 		return true;
@@ -132,7 +124,7 @@ public final class GameManager {
 		
 		FileWriter writer; 
 		try{
-			System.out.println(fileName);
+			//System.out.println(fileName);
 			writer = new FileWriter(newFile);
 			writer.write(currentGame.serialize());
 			writer.close();
@@ -189,7 +181,7 @@ public final class GameManager {
 				break;
 			case 10:
 				//pressed enter
-				if (currentGame.getCurrentComponent() != null) {
+				if (currentGame.getCurrentComponent() != null){
 					currentGame.placeComponent();
 				}
 				break;	

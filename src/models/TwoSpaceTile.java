@@ -8,8 +8,8 @@ class TwoSpaceTile extends Tile {
   
 	public TwoSpaceTile(Space[][] spaces) {
 		super(spaces);
-		spaces[0][0] = new RiceSpace();
-      spaces[0][1] = new VillageSpace();
+		spaces[1][0] = new RiceSpace();
+		spaces[0][0] = new VillageSpace();
 	}
 	 
    //rotates the piece.
@@ -51,9 +51,9 @@ class TwoSpaceTile extends Tile {
     }
 
 	public String serialize() {
-        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+        return Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("spaces", Json.serializeArray(spaces))
-        )));
+        ));
 	}
 
 	public TwoSpaceTile loadObject(JsonObject json) {

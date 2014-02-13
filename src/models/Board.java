@@ -4,23 +4,23 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+//import java.util.Arrays;
+//import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import models.Space.SpaceType;
+//import models.Space.SpaceType;
 
 
 public class Board implements Serializable<Board> {
 	private Cell[][] map;
 	private Cell[] outsideInnerCells;
 	private Stack<Cell> path;
-	private int decrementedActionPoints;
-	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
+//	private int decrementedActionPoints;
+//	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
 
 	public Board() {
 		// Written by Nathan since I needed to integrate some functionality into
@@ -65,7 +65,7 @@ public class Board implements Serializable<Board> {
 		}
 		
 		this.path = new Stack<Cell>();
-		decrementedActionPoints = 0;
+//		decrementedActionPoints = 0;
 
 	}
 
@@ -183,7 +183,7 @@ public class Board implements Serializable<Board> {
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
 	public void upgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(player, palaceSpace, cell);
+		boolean canUpgrade = true; //checkIfICanUpgradePalace(player, palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
@@ -199,7 +199,7 @@ public class Board implements Serializable<Board> {
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	
-	private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+	//private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
 		// TODO : This method is not finished, finishing tomorrow -Brett
 		
 		/*Three conditions to upgrade palace:
@@ -228,22 +228,22 @@ public class Board implements Serializable<Board> {
 		
 		return true;
 		*/
-		return true;
-	}
+		//return true;
+	//}
 	
-	    private boolean hasPalaceBeenModified(Player player, Cell currentCell)
+	   /* private boolean hasPalaceBeenModified(Player player, Cell currentCell)
 	    {
-	    /*	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
+	    	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
 	    	
 	    	for (int i = 0; i < copyArray.length; i++)
 	    	{
 	    		if (copyArray[i] == currentCell)
 	    				return true;
 	    	}
-	    	*/
+	    	
 	    	return false;
 	    	
-	    }
+	    }*/
 	
 	// Helper method to check the number of connected villages to a cell
 	// When you call this, it returns the number of surrounding villages + 1
@@ -468,58 +468,102 @@ public class Board implements Serializable<Board> {
 	// Returns true if successful
 
 	public boolean placeTile(Cell[][] cells, Tile tile) {
-		// TODO Super Important, need to assign the value of connected cells when placing tile
-
-		HashSet<Cell> connected = new HashSet<Cell>();
-		
-		Space[][] spaces = tile.getSpaces();
-		
+		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
 		//if (checkValidTilePlacement(cells, tile)) {
-
-			Space[][] spacesArray = tile.getSpaces();
+			HashSet<Cell> connected = new HashSet<Cell>();
+			Space[][] spaces = tile.getSpaces();
+			
 		
-			for (int i = 0; i < spacesArray.length; i++) {
-				for (int j = 0; j < spacesArray[0].length; j++) {
-					if (spacesArray[i][j] != null) {
-						// TODO I get a NULL Pointer on the line below?
-						cells[i][j].setSpace(spacesArray[i][j]);
+			for (int i = 0; i < spaces.length; i++) {
+				for (int j = 0; j < spaces[i].length; j++) {
+					if (spaces[i][j] != null) {
+						System.out.println(spaces[i][j].toString() + " i is " + i + " j is " + j );
+						cells[i][j].setSpace(spaces[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
+						
 					}
 				}
 			}
-			
+			for(int x = 0; x < map.length; ++x) { 
+				for(int y = 0; y < map[0].length; ++y) {
+					if(map[x][y] != null && map[x][y].getSpace() != null)
+						System.out.println("Space at " + x + " and " + y + " : " + map[x][y].getSpace().getType());
+				}
+			}
 			for(int i = 0; i < spaces.length; i++) {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
 						if (cells[i][j] != null) {
+							cells[i][j].toString();
 							connected.add(cells[i][j]);
+							System.out.println(connected.size() + "");
+						}
+					}
+				}
+			} 
+				
+			for(int i = 0; i < spaces.length; i++) {
+				for(int j = 0; j < spaces[0].length; j++) {
+					if(spaces[i][j] != null) {
+						if (cells[i][j] != null) {
+							cells[i][j].setConnectedCells(connected);
 						}
 					}
 				}
 			}
 			
 			return true;
-		}
-		
-		//else {
-		//	return false;
 		//}
-	
+			
+		//return false;
+	}
+	//this was written when to test the real placeTile method
+	/*public boolean placeTile(Cell nw, Cell ne, Cell se, Cell sw, Tile tile) {
+		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
+		//if (checkValidTilePlacement(cells, tile)) {
+			//HashSet<Cell> connected = new HashSet<Cell>();
+			Space[][] spaces = tile.getSpaces();
+			
+			if(spaces[0][0] != null){
+			nw.setSpace(spaces[0][0]);
+			System.out.println("nw " + nw.getSpace().toString());
+			}
+			
+			if(spaces[0][1] != null){
+			ne.setSpace(spaces[0][1]);
+			System.out.println("ne " + ne.getSpace().toString());
+			}
+			if(spaces[1][1] != null){
+				se.setSpace(spaces[1][1]);
+				System.out.println("se" + se.getSpace().toString());
+			}
+			if(spaces[1][0] != null){
+				sw.setSpace(spaces[1][0]);
+				System.out.println("sw " + sw.getSpace().toString());
+			}
+			return true;
+		
+		
+		//return false;
+	}*/
 
 	// Helper method for placeTile. Checks whether Tile can be placed
 	// in the Cell selected. This method also calls several helper methods.
-/*
+
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
 		
-			if (checkPalacePlacement(cells, tile) && checkTilesBelow(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile))
+			if (/*checkPalacePlacement(cells, tile) && */checkTilesBelow(cells, tile) /*&& checkElevation(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile)*/) {
+				System.out.println(checkTilesBelow(cells, tile));
 				return true;
+			}
+			
 		
 		return false;
 
 	}
-*/
+
 /*	private boolean checkCityConnection(Cell[][] cells, Tile tile) {
 		Cell[][] mapCopy = new Cell[map.length][map[0].length];
 		for (int i = 0; i < map.length; i++) {
@@ -669,7 +713,7 @@ public class Board implements Serializable<Board> {
 	// Helper method for checkValidTilePlacement. Checks to make sure you're
 	// not placing a three tile on a three tile, two tile on a two tile, a
 	// smaller tile on a larger tile, etc.
-/*	private boolean checkTilesBelow(Cell[][] cells, Tile tile) {
+	private boolean checkTilesBelow(Cell[][] cells, Tile tile) {
 
 		Space[][] spaces = tile.getSpaces();
 		
@@ -702,87 +746,72 @@ public class Board implements Serializable<Board> {
 		}	
 		
 		
-		for(int i = 0; i < spaces.length ; i++) 
-			for(int j = 0; j < spaces[i].length; j++)
-				if (spaces[i][j] != null)
-					if (cells[i][j] != null && cells[i][j].getSpace() != null)
-						if(ref == null)
-							if (cells[i][j].getConnectedCells().size() == numSpacesOnTile)
+		for(int i = 0; i < spaces.length ; i++) {
+			for(int j = 0; j < spaces[i].length; j++) {
+				if (spaces[i][j] != null) {
+					if (cells[i][j] != null && cells[i][j].getSpace() != null) {
+						if(ref == null) {		
+							if (cells[i][j].getConnectedCells().size() == numSpacesOnTile) {
 								ref = cells[i][j].getConnectedCells();
-							else
+							}
+							
+							else {
 								return true;
-						else
-							if(!ref.equals(cells[i][j].getConnectedCells()))
+							}
+						}
+						
+						else {
+							if(!ref.equals(cells[i][j].getConnectedCells())) {
 								return true;
-					else
+							}
+						}
+					}
+					
+					else {
 						return true;
+					}
+				}
+			}
+		}
 		
+		return false;
+	}
+	
+	public boolean checkElevation(Cell[][] cells, Tile tile) {
+		Space[][] spaces = tile.getSpaces();
 		int height = -1;
-		for(int i = 0; i < spaces.length; i++)
-			for(int j = 0; j < spaces[0].length; j++)
-				if(spaces[i][j] != null)
+		
+		for(int i = 0; i < spaces.length; i++) {
+			for(int j = 0; j < spaces[0].length; j++) {
+				if(spaces[i][j] != null) {
 					if (cells[i][j] != null) {
 						if(height == -1) {
 							height = cells[i][j].getElevation();
 						}
 						
 						else { 
-							if(height != cells[i][j].getElevation())
+							if(height != cells[i][j].getElevation()) {
 								return false;
+							}
 						}
 					}
+				}
+			}
+		}
 		
 		return true;
-			
-
-//		boolean heightBoolean = true;
-//		boolean connectedCellsBoolean = false;
-//		int height = -1;
-		
-//		for(int i = 0; i < spaces.length ; i++) 
-//			for(int j = 0; j < spaces[i].length; j++) 
-//				if (spaces[i][j] != null) {
-//					if (cells[i][j].getSpace() != null) {
-//						if (height == -1) {
-//							height = cells[i][j].getElevation();
-//						}
-//						
-//						else {
-//							if (height != cells[i][j].getElevation()) {
-//								heightBoolean = false;
-//							}
-//						}
-//						
-//						if(ref == null)
-//							if (cells[i][j].getConnectedCells().size() == numSpacesOnTile) {
-//								ref = cells[i][j].getConnectedCells();
-//							}
-//						
-//							else {
-//								connectedCellsBoolean = true;
-//							}
-//						
-//						else {
-//							if(!ref.equals(cells[i][j].getConnectedCells())) {
-//								connectedCellsBoolean = true;
-//							}
-//						}
-//						
-//					else {
-//						connectedCellsBoolean = true;
-//					}
-//		
-//		return false;
-		
-
 	}
-*/
+
 	public Cell[][] getMap() {
 		return map;
 	}
 	
 	public Cell getCellAtLocation(int x, int y){
-		return map[x][y];
+		if (map[x][y] != null) {
+			return map[x][y];
+		}
+		
+		return null;
 	}
 	public Cell getCellAtPixel(int x, int y){
 		return map[((x%700)/50)][((y%700)/50)];
@@ -819,7 +848,7 @@ public class Board implements Serializable<Board> {
 							.getClass())
 				adjacent.add(map[y][x - 1]);
 
-			Iterator it = adjacent.iterator();
+			Iterator<Cell> it = adjacent.iterator();
 			while (it.hasNext()) {
 				Cell next = (Cell) it.next();
 				if (!connected.contains(next))
@@ -845,8 +874,8 @@ public class Board implements Serializable<Board> {
 
 	public String serialize() {
 		return Json.jsonObject(Json.jsonMembers(
-				Json.jsonPair("map", Json.serializeArray(map)),
-				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
+			Json.jsonPair("map", Json.serializeArray(map)),
+			Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
 		));
     }
 
@@ -906,7 +935,7 @@ public class Board implements Serializable<Board> {
     			ret += cell == null ? null : cell.toString() + " ";
     	for(Cell cell : outsideInnerCells)
     		ret += cell.toString() + " "; 
-    	return ret + "  " + path.toString() + " " + decrementedActionPoints;
+    	return ret + "  " + path.toString();// + " " + decrementedActionPoints;
     }
 }
 

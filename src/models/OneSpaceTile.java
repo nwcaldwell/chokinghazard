@@ -23,9 +23,9 @@ class OneSpaceTile extends Tile {
     }
 
     public String serialize() {
-        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+        return Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("spaces", Json.jsonValue(spaces[0][0].serialize()))
-        )));
+        ));
     }
     
     public OneSpaceTile loadObject(JsonObject json) {

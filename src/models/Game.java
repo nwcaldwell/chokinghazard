@@ -5,7 +5,7 @@ import helpers.JsonObject;
 import models.Serializable;
 
 import java.awt.Color;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -32,11 +32,20 @@ public class Game implements Serializable <Game>  {
 	int y = 50;
 	private Object currentComponent;
 	private int tabbing = -1;
-	
+
 	// CONSTRUCTORS
 	//default constructor
 	public Game(){
-		
+		this.board = new Board();
+		this.players = new Player[numPlayers];
+		this.numPlayers = numPlayers;
+		this.isFinalTurn = false;
+		this.indexOfCurrentPlayer = 0;
+		this.stack = new Stack<Cell>();
+		this.irrigationTiles = 10;
+		this.threeSpaceTiles = 56;
+		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
+		this.gamePanel = new GamePanel(numPlayers, this);
 	}
 	
 	// Main Constructor
@@ -47,7 +56,7 @@ public class Game implements Serializable <Game>  {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
-		this.irrigationTiles = 16;
+		this.irrigationTiles = 10;
 		this.threeSpaceTiles = 56;
 		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
@@ -60,7 +69,15 @@ public class Game implements Serializable <Game>  {
 	public Player getCurrentPlayer() {
 		return players[indexOfCurrentPlayer];
 	}
+	
+	public void setPlayerAtIndex(int index, Player player){
+		players[index] = player;
+	}
 
+	public Player[] getPlayers(){
+		return players;
+	}
+	
 	public int getNumberOfPlayers(){
 		return players.length;
 	}
@@ -175,6 +192,7 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void tabThroughDevelopers(){
+
 		//tab through the user's developers on board linked list
 		LinkedList<Developer> devsOnBoard = players[indexOfCurrentPlayer].getDevsOnBoard();
 		
@@ -222,10 +240,7 @@ public class Game implements Serializable <Game>  {
 //			gamePanel.drawPlayerPath(x1, y1);
 			gamePanel.moveDeveloperOntoBoard(x, y);
 		}
-		else{
-			//player doesn't have any developers to place
-		}
-		
+
 	}
 	
 	public void removeDeveloper(){
@@ -259,6 +274,7 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void moveComponentAroundBoard(int xChange, int yChange){
+		//TODO get that current developer and push the location to the stack
 		if(currentComponent != null){
 			x += xChange;
 			y += yChange;
@@ -272,16 +288,20 @@ public class Game implements Serializable <Game>  {
 			else if(y > 650)
 				y = 650;
 			
+			//check if the new location is valid and that there are no developers or irrigation tiles on it
+			//if ok, push the location to the developer path
 			
 			//reflects the changes in the GUI
 			String type = currentComponent.getClass().toString();
 			if(type.equals("class models.TwoSpaceTile")){
+				System.out.println("this is a two space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.ThreeSpaceTile")){
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.OneSpaceTile")){
+				System.out.println("this is a one space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.Developer")){
@@ -304,14 +324,18 @@ public class Game implements Serializable <Game>  {
 //				cells = null;
 				gamePanel.moveDeveloperOntoBoard(x, y);
 			}
+			
+			//if it's not ok, dont let the user go there and dont push the location
 		}
 	}
 	
 	public void placeComponent(){
 		Cell[][] currentCell = {
-			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1)},
-			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
-		};
+			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+50)},
+			{board.getCellAtPixel(x+50, y),board.getCellAtPixel(x+50, y+50)}
+		};//TODO someone double check this make sure it's right
+		
+		
 		String type = currentComponent.toString();
 				
 		if(type.equals("DEVELOPER")){
@@ -346,6 +370,7 @@ public class Game implements Serializable <Game>  {
 			}
 				
 		}
+		//else if(board.placeTile(board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1),board.getCellAtPixel(x+1, y), board.getCellAtPixel(x+1, y+1), (Tile)currentComponent)){
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
 			switch(type){
 			case"THREE SPACE TILE":
@@ -378,7 +403,14 @@ public class Game implements Serializable <Game>  {
 				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
 				break;
 			case "PALACE":
-				//TODO place palace in board
+				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
+				palaceTiles[value/2-1]--; 
+				if(value == 2) gamePanel.setTwoPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 4) gamePanel.setFourPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 6) gamePanel.setSixPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 8) gamePanel.setEightPalaceTiles(palaceTiles[value/2-1]);
+				else if(value == 10) gamePanel.setTenPalaceTiles(palaceTiles[value/2-1]);
+				//need to somehow do checks for which palace tile to place
 				break;
 			}	
 			gamePanel.placeTile((Tile)currentComponent, x, y);
@@ -408,10 +440,10 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void selectIrrigationTile(){
-		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
-			showNotEnoughActionPoints();
-		}
-		else if(this.irrigationTiles == 0){
+		//if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+		//	showNotEnoughActionPoints();
+		//}
+		if(this.irrigationTiles == 0){
 			showNotEnoughTiles();
 		}
 		else{
@@ -422,8 +454,40 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void selectPalaceTile(){
-		String palace = JOptionPane.showInputDialog("What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
-		placePalace(palace);
+		String palace = null;
+		boolean isInt = false;
+		boolean validRange = false;
+		int value = 0;
+		
+		while (!isInt || !validRange)
+		{
+			palace = JOptionPane.showInputDialog(null,"What Palace value would you like to place?\n 2, 4, 6, 8, or 10");
+			if (palace == null)
+				break;
+			try 
+			{
+				value = Integer.parseInt(palace);
+				isInt = true;
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(null,"Not a valid entry!");
+			}
+			
+			if (isInt && !palace.equals(""))
+			{
+				if (value > 0 && value <  11 && value%2==0) //check if 2,4,6,8,or 10
+					validRange = true;
+				else
+				{
+					JOptionPane.showMessageDialog(null,"Not a valid entry!");
+					isInt = false;
+				}
+					
+			}
+		}
+		if (isInt && validRange)	//since we're breaking out of the loop above on escape, have to check valid input
+			placePalace(palace);
 	}
 	
 	public void selectRiceTile(){
@@ -485,9 +549,9 @@ public class Game implements Serializable <Game>  {
 	private void showNotEnoughTiles(){
 		JOptionPane.showMessageDialog(null, "No more tiles of this type, try another");
 	}
-	private void showNotEnoughActionPoints(){
-		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
-	}
+	//private void showNotEnoughActionPoints(){
+	//	JOptionPane.showMessageDialog(null, "Not enough Action Points!");
+	//}
 	
 	public void initPlayers(){
 		//ask the players for their name's and color preferences
@@ -495,16 +559,21 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < numPlayers; ++i){
 			String name = "";
 			boolean okName = false; //to check if valid name was input
-			while (!okName)
+			boolean pressCancel = false;
+			while (!okName && !pressCancel)
 			{
-				name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
-				if (name.equals(""))	//Not valid!
-				{
-					JOptionPane.showMessageDialog(null, "Please enter a valid name");
-				}
-				else //valid name
-				{
-					okName = true; //Acceptable input, proceed to next step
+				try{
+					name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
+					if (name.equals(""))	//Not valid!
+					{
+						JOptionPane.showMessageDialog(null, "Please enter a valid name");
+					}
+					else //valid name
+					{
+						okName = true; //Acceptable input, proceed to next step
+					}
+				}catch(NullPointerException e ){
+					pressCancel = true;
 				}
 			}
 			players[i] = new Player(colors[i], name);
@@ -572,13 +641,48 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
-				if(devs.get(j) != null) {
-					devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
-					board.loadCellsDevelopers(devs.get(j));
+				if(devs.get(j) != null)
+				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+			}
+			
+			//set everything for each of the player panels
+			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
+			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
+			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getFamePoints());
+			
+			
+			if(i == indexOfCurrentPlayer){
+				gamePanel.setCurrentPlayer(i);
+				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+				
+			}
+			else{
+				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
+			}
+			
+		}
+
+		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		setPlayerNamesInView();
+
+		for(Cell[] row : board.getMap()) {
+			for(Cell cell : row) {
+				if(cell.getSpace() != null) {
+					gamePanel.placeTile((new OneSpaceTile(cell.getSpace(), new Space[2][2])), cell.getX()*50, cell.getY()*50);
 				}
 			}
 		}
 		
+		gamePanel.setThreePieceTiles(threeSpaceTiles);
+		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
+		gamePanel.setFourPalaceTiles(palaceTiles[1]);
+		gamePanel.setSixPalaceTiles(palaceTiles[2]);
+		gamePanel.setEightPalaceTiles(palaceTiles[3]);
+		gamePanel.setTenPalaceTiles(palaceTiles[4]);
 		return this;
 	}	
 	
