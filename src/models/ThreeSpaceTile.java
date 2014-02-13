@@ -18,35 +18,11 @@ class ThreeSpaceTile extends Tile {
     //rotates the piece.
 	public void rotate() 
    {
-		if(spaces[0][0] != null && spaces[0][1]!= null && spaces[1][1] != null)
-      {
-         spaces[1][0] = spaces[1][1];
-         spaces[1][1] = spaces[0][1];
-         spaces[0][1] = spaces[0][0]; 
-         spaces[0][0] = null;
-      }
-      if(spaces[0][1] != null && spaces[1][1] != null && spaces[1][0] != null)
-      {
-         spaces[0][0] = spaces[1][0];
-         spaces[1][1] = spaces[0][1];
-         spaces[1][0] = spaces[1][1];
-         spaces[0][1] = null;
-      }
-      if(spaces[1][1] != null && spaces[1][0] != null && spaces[0][0] != null)
-      {
-         spaces[0][1] = spaces[0][0];
-         spaces[1][0] = spaces[1][1];
-         spaces[0][0] = spaces[1][0];
-         spaces[1][1] = null;
-      }
-      if(spaces[0][0] != null && spaces[1][0] != null && spaces[0][1] != null)
-      {
-         spaces[1][1] = spaces[0][1];
-         spaces[0][1] = spaces[0][0];
-         spaces[0][0] = spaces[1][0];
-         spaces[1][0] = null;
-      }
-         
+		Space tempSpace = spaces[0][0];
+		spaces[0][0] = spaces[0][1];
+        spaces[0][1] = spaces[1][1];
+        spaces[1][1] = spaces[1][0];
+        spaces[1][0] = tempSpace;          
 	}
 
 	public String getImageSource(){
@@ -57,6 +33,16 @@ class ThreeSpaceTile extends Tile {
     	return "THREE SPACE TILE";
     }
 
+	public String print() {
+		String ret = "";
+		for(int x = 0; x < spaces.length; ++x) {
+			for(int y = 0; y < spaces[0].length; ++y) {
+				ret += " " + spaces[x][y];
+			}
+		}
+		return ret;
+	}
+	
     public String serialize() {
         return Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("spaces", Json.serializeArray(spaces))
