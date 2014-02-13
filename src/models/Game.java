@@ -78,7 +78,6 @@ public class Game implements Serializable <Game>  {
 		return players;
 	}
 	
-	
 	public int getNumberOfPlayers(){
 		return players.length;
 	}
@@ -577,9 +576,34 @@ public class Game implements Serializable <Game>  {
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
+			
+			//set everything for each of the player panels
+			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
+			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
+			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+			
+			if(i == indexOfCurrentPlayer){
+				gamePanel.setCurrentPlayer(i);
+				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+			}
+			else{
+				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
+			}
+			
 		}
 
 		this.gamePanel = new GamePanel(numPlayers, this);
+		gamePanel.setThreePieceTiles(threeSpaceTiles);
+		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
+		gamePanel.setFourPalaceTiles(palaceTiles[1]);
+		gamePanel.setSixPalaceTiles(palaceTiles[2]);
+		gamePanel.setEightPalaceTiles(palaceTiles[3]);
+		gamePanel.setTenPalaceTiles(palaceTiles[4]);
+		
+		
+		
+		
 		return this;
 	}	
 	
