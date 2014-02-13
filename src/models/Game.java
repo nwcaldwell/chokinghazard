@@ -297,14 +297,12 @@ public class Game implements Serializable <Game>  {
 			//reflects the changes in the GUI
 			String type = currentComponent.getClass().toString();
 			if(type.equals("class models.TwoSpaceTile")){
-				System.out.println("this is a two space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.ThreeSpaceTile")){
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.OneSpaceTile")){
-				System.out.println("this is a one space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.Developer")){
@@ -641,10 +639,14 @@ public class Game implements Serializable <Game>  {
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
 		
+		//create a new GamePanel
 		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		//setPlayerNames in view updates the view will all the player information
 		setPlayerNamesInView();
-		gamePanel.setPlayerPanels(players);
+		//set the labels on the global tiles
 		gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
+
 		
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
@@ -652,10 +654,9 @@ public class Game implements Serializable <Game>  {
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
-			
+
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
-				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
 				
 			}
 			else{

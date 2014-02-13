@@ -157,10 +157,10 @@ public class Cell implements Serializable<Cell> {
     	}
     }
     
-    public String toString() { 
-    	return space + " " + elevation + " "
-    			+ x + " " + y + " " + connectedCells + " " + fromLowlands + " " + fromMountains;
-    }
+  //  public String toString() { 
+   // 	return space + " " + elevation + " "
+   // 			+ x + " " + y + " " + connectedCells + " " + fromLowlands + " " + fromMountains;
+   // }
 }
 
 

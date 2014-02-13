@@ -33,6 +33,7 @@ public class Player implements Serializable<Player> {
 		this.riceTiles = 3;
 		this.villageTiles = 2;
 		this.twoSpaceTiles = 5;
+		this.actionPoints = 6;
 		// this.userName = userName;
 		devsOnBoard = new LinkedList<Developer>();
 		devOffBoard = 12;
@@ -70,7 +71,6 @@ public class Player implements Serializable<Player> {
 	}
 	
 	public Developer getDeveloperOnBoardAtIndex(int index){
-		System.out.println("Index: "+index+", LinkedList Size = "+devsOnBoard.size());
 		if(devsOnBoard.size() > 0){
 			if(devsOnBoard.get(index) != null);
 				return devsOnBoard.get(index);
@@ -202,12 +202,10 @@ public class Player implements Serializable<Player> {
 	}
 
 	public int getVillageTiles() {
-		System.out.println("getting village tiles, "+villageTiles);
 		return villageTiles;
 	}
 
 	public void setVillageTiles(int vTiles) {
-		System.out.println("Setting village tiles from "+this.villageTiles+" to "+vTiles);
 		this.villageTiles = vTiles;
 	}
 

@@ -119,6 +119,7 @@ public class GamePanel extends JPanel{
 	
 	public void setCurrentPlayer(int i){
 		currentPlayer = i;
+		updateCurrentPlayerView();
 	}
 	
 	public void updateCurrentPlayerView(){
