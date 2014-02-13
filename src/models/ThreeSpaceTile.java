@@ -12,7 +12,7 @@ class ThreeSpaceTile extends Tile {
 	    super(spaces);
 	    spaces[0][0] = new RiceSpace();
 	    spaces[0][1] = new VillageSpace();
-	    spaces[1][1] = new RiceSpace();
+	    spaces[1][0] = new RiceSpace();
 	}
     
     //rotates the piece.

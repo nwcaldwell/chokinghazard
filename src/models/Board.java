@@ -468,11 +468,7 @@ public class Board implements Serializable<Board> {
 	// Returns true if successful
 
 	public boolean placeTile(Cell[][] cells, Tile tile) {
-		// TODO Super Important, need to assign the value of connected cells when placing tile
-	
-		//System.out.println("I get here.");
-		//System.out.println(checkValidTilePlacement(cells, tile));
-		
+		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
 		if (checkValidTilePlacement(cells, tile)) {
 			HashSet<Cell> connected = new HashSet<Cell>();
@@ -491,6 +487,7 @@ public class Board implements Serializable<Board> {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
 						if (cells[i][j] != null) {
+							cells[i][j].toString();
 							connected.add(cells[i][j]);
 						}
 					}
@@ -520,11 +517,9 @@ public class Board implements Serializable<Board> {
 		
 			if (/*checkPalacePlacement(cells, tile) && */checkTilesBelow(cells, tile) /*&& checkElevation(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile)*/) {
 				System.out.println(checkTilesBelow(cells, tile));
-				System.out.println("Valid");
 				return true;
 			}
 			
-			System.out.println("Not valid.");
 		
 		return false;
 
