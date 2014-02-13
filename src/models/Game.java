@@ -221,9 +221,11 @@ public class Game implements Serializable <Game>  {
 		
 		if(type.equals("class models.TwoSpaceTile")){
 			gamePanel.rotateTile((Tile)currentComponent, x, y);
+			((Tile)currentComponent).rotate();
 		}
 		else if(type.equals("class models.ThreeSpaceTile")){
 			gamePanel.rotateTile((Tile)currentComponent, x, y);
+			((Tile)currentComponent).rotate();
 		}
 		
 	}
@@ -652,27 +654,47 @@ public class Game implements Serializable <Game>  {
 			for(int j = 0; j < devs.size(); j++){
 				if(devs.get(j) != null){
 					Developer dev = devs.get(j);
-					
+
 					int x1 = dev.getCurrentCellX();
 					int y1 = dev.getCurrentCellY();
-					
+
 					dev.setCurrentCell(board.getCellAtLocation(x1,y1));
 				
 					gamePanel.placeDeveloper(x1*50, y1*50, 0, i);
-					
+
 				}
 			}
 
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
-				
+
 			}
 			else{
 				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
 			}
-			
-		}
+			//gamePanel.setDevsOffBoard(players[i].getDevsOffBoard());
 
+			//set everything for each of the player panels
+			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
+			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
+			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getTwoSpaceTiles());
+			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getRiceTiles());
+			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getVillageTiles());
+
+		}
+		
+		//System.out.println(indexOfCurrentPlayer);
+		//gamePanel.setCurrentPlayer(indexOfCurrentPlayer);			
+		//gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setCurrentPlayer();
+
+		for(int i = 0; i < players.length; ++i) {
+			if(i == indexOfCurrentPlayer) 
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setCurrentPlayer();
+			else
+				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
+		}
+		
 		for(Cell[] row : board.getMap()) {
 			for(Cell cell : row) {
 				if(cell.getSpace() != null) {
@@ -680,6 +702,18 @@ public class Game implements Serializable <Game>  {
 				}
 			}
 		}
+		
+		gamePanel.setIrrigationTiles(irrigationTiles);
+		gamePanel.setThreePieceTiles(threeSpaceTiles);
+		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
+		gamePanel.setFourPalaceTiles(palaceTiles[1]);
+		gamePanel.setSixPalaceTiles(palaceTiles[2]);
+		gamePanel.setEightPalaceTiles(palaceTiles[3]);
+		gamePanel.setTenPalaceTiles(palaceTiles[4]);
+		
+
+		gamePanel.moveDeveloperOntoBoard(x, y);
+		
 		return this;
 	}	
 	

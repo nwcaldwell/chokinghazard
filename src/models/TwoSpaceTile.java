@@ -15,31 +15,11 @@ class TwoSpaceTile extends Tile {
    //rotates the piece.
 	public void rotate() 
    {
-		if(spaces[0][0] != null && spaces[0][1]!= null)
-      {
-         spaces[1][1] = spaces[0][1];
-         spaces[0][1] = spaces[0][0];
-         spaces[0][0] = null;
-      }
-      if(spaces[0][1] != null && spaces[1][1] != null)
-      {
-         spaces[1][1] = spaces[0][1];
-         spaces[1][0] = spaces[1][1];
-         spaces[0][1] = null;
-      }
-      if(spaces[1][1] != null && spaces[1][0] != null)
-      {
-         spaces[1][0] = spaces[1][1];
-         spaces[0][0] = spaces[1][0];
-         spaces[1][1] = null;
-      }
-      if(spaces[0][0] != null && spaces[1][0] != null)
-      {
-         spaces[0][1] = spaces[0][0];
-         spaces[0][0] = spaces[1][0];
-         spaces[1][0] = null;
-      }
-         
+		Space tempSpace = spaces[0][0];
+		spaces[0][0] = spaces[0][1];
+        spaces[0][1] = spaces[1][1];
+        spaces[1][1] = spaces[1][0];
+        spaces[1][0] = tempSpace;
 	}
 	
 	public String getImageSource(){
