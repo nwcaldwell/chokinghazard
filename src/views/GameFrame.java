@@ -61,22 +61,32 @@ public class GameFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(gm != null){
 					//they're already in a game, so ask if they're sure they want to do this, and ask to save game
-					int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new game in the middle of this game?");
+					int response = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before creating a new one?");
 					if(response == JOptionPane.YES_OPTION){
 						gm.saveGame();
+					}
+					else if(response == JOptionPane.CANCEL_OPTION){
+						System.out.println("cancel option");
 					}
 					else{
 						//do nothing
 					}
 				}
-				else{
 					/** Brett ***/ 
-					String playerCount = JOptionPane.showInputDialog("How many players? 2-4", null);
+					String playerCount = "";
 					
 					boolean canProceed = false; //goes true when we have acceptable input
 					boolean isInt = true; //For successful parse
 					int inputPlayers = -1;
-					while (!canProceed){	
+					while (!canProceed){
+						
+						try{
+							playerCount = JOptionPane.showInputDialog("How many players? 2-4", null);
+							
+						} catch(NullPointerException f){
+							canProceed = true;
+							
+						}
 						try {
 							inputPlayers = Integer.parseInt(playerCount); //try to parse
 							isInt = true;
@@ -100,17 +110,23 @@ public class GameFrame extends JFrame {
 								canProceed = true;
 							} 
 							else {
-								JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again");
-								playerCount = JOptionPane.showInputDialog("How many players? 2-4");
+								try{
+								JOptionPane.showMessageDialog(null, "Sorry, you need to have 2 - 4 players, try again.");
+								} catch(NullPointerException g){
+									canProceed = true;
+								}
 							} //end else
 						}
 						else{
-							JOptionPane.showMessageDialog(null, "Please enter a number of players");
-							playerCount = JOptionPane.showInputDialog("How many players? 2-4");
+							try{
+								JOptionPane.showMessageDialog(null, "Please enter a number of players.");
+								} catch(NullPointerException g){
+									canProceed = true;
+							}
 						}
 					} //end while
 					
-				}
+				
 			}
 		});
 		file.add(newGame);
