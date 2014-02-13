@@ -658,11 +658,10 @@ public class Game implements Serializable <Game>  {
 					
 					dev.setCurrentCell(board.getCellAtLocation(x1,y1));
 				
-					gamePanel.placeDeveloper(x1*50, y1*50);
+					gamePanel.placeDeveloper(x1*50, y1*50, 0, i);
 					
 				}
 			}
-			//gamePanel.setDevsOffBoard(players[i].getDevsOffBoard());
 
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
