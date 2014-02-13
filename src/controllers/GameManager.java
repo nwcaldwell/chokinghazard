@@ -44,14 +44,15 @@ public final class GameManager {
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
 		if(currentGame != null){
-			saveGame();
 			currentGame = new Game(numPlayers);
-			currentGame.initPlayers();
+			//currentGame.initPlayers();
 		}
 		else{
 			currentGame = new Game(numPlayers);
 		}
 	}
+	
+	
 	
 	public boolean loadGame(File loadFile) {
 		StringBuilder alpha = new StringBuilder();
