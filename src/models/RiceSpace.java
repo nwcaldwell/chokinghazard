@@ -23,7 +23,9 @@ public class RiceSpace extends Space {
     }
 
     public String serialize() {
-		return Json.jsonPair("RiceSpace", "{}");
+		return Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("type", Space.SpaceType.RICE.toString())
+		));
     }
 
     public RiceSpace loadObject(JsonObject json) {

@@ -58,9 +58,9 @@ class ThreeSpaceTile extends Tile {
     }
 
     public String serialize() {
-        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+        return Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("spaces", Json.serializeArray(spaces))
-        )));
+        ));
     }
 
     public ThreeSpaceTile loadObject(JsonObject json) {
