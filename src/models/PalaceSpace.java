@@ -35,9 +35,10 @@ public class PalaceSpace extends Space{
     }
 
     public String serialize() {
-		return Json.jsonPair("PalaceSpace", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("type", Space.SpaceType.PALACE.toString()),
 			Json.jsonPair("value", Json.jsonValue(value + ""))
-		)));
+		));
     }
 
     public PalaceSpace loadObject(JsonObject json) {

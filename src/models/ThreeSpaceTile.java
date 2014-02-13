@@ -12,7 +12,7 @@ class ThreeSpaceTile extends Tile {
 	    super(spaces);
 	    spaces[0][0] = new RiceSpace();
 	    spaces[0][1] = new VillageSpace();
-	    spaces[1][1] = new RiceSpace();
+	    spaces[1][0] = new RiceSpace();
 	}
     
     //rotates the piece.
@@ -58,9 +58,9 @@ class ThreeSpaceTile extends Tile {
     }
 
     public String serialize() {
-        return Json.jsonPair(this.getClass().getSimpleName(), Json.jsonObject(Json.jsonMembers(
+        return Json.jsonObject(Json.jsonMembers(
             Json.jsonPair("spaces", Json.serializeArray(spaces))
-        )));
+        ));
     }
 
     public ThreeSpaceTile loadObject(JsonObject json) {
