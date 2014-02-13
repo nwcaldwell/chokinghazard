@@ -470,7 +470,7 @@ public class Board implements Serializable<Board> {
 	public boolean placeTile(Cell[][] cells, Tile tile) {
 		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
-		//if (checkValidTilePlacement(cells, tile)) {
+		if (checkValidTilePlacement(cells, tile)) {
 			HashSet<Cell> connected = new HashSet<Cell>();
 			Space[][] spaces = tile.getSpaces();
 			
@@ -478,19 +478,23 @@ public class Board implements Serializable<Board> {
 			for (int i = 0; i < spaces.length; i++) {
 				for (int j = 0; j < spaces[i].length; j++) {
 					if (spaces[i][j] != null) {
-						System.out.println(spaces[i][j].toString() + " i is " + i + " j is " + j );
+						//System.out.println(spaces[i][j].toString() + " i is " + i + " j is " + j );
 						cells[i][j].setSpace(spaces[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
+						System.out.println(cells[i][j].getConnectedCells());
 						
 					}
 				}
 			}
+			
 			for(int x = 0; x < map.length; ++x) { 
 				for(int y = 0; y < map[0].length; ++y) {
-					if(map[x][y] != null && map[x][y].getSpace() != null)
-						System.out.println("Space at " + x + " and " + y + " : " + map[x][y].getSpace().getType());
+					if(map[x][y] != null && map[x][y].getSpace() != null) {
+						//System.out.println("Space at " + x + " and " + y + " : " + map[x][y].getSpace().getType());
+					}
 				}
 			}
+			
 			for(int i = 0; i < spaces.length; i++) {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
@@ -503,6 +507,11 @@ public class Board implements Serializable<Board> {
 				}
 			} 
 				
+//			Iterator<Cell> it = connected.iterator();
+//
+//			while(it.hasNext())
+//			System.out.println(it.next());
+			
 			for(int i = 0; i < spaces.length; i++) {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
@@ -514,9 +523,9 @@ public class Board implements Serializable<Board> {
 			}
 			
 			return true;
-		//}
+		}
 			
-		//return false;
+		return false;
 	}
 	//this was written when to test the real placeTile method
 	/*public boolean placeTile(Cell nw, Cell ne, Cell se, Cell sw, Tile tile) {
@@ -554,14 +563,12 @@ public class Board implements Serializable<Board> {
 
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
 		
-			if (/*checkPalacePlacement(cells, tile) && */checkTilesBelow(cells, tile) /*&& checkElevation(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile)*/) {
-				System.out.println(checkTilesBelow(cells, tile));
+			if (checkPalacePlacement(cells, tile) /*&& checkTilesBelow(cells, tile) *//*&& checkElevation(cells, tile)*/ && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) /*&& checkCityConnection(cells, tile)*/ && checkEdgePlacement(cells, tile)) {
 				return true;
 			}
 			
 		
 		return false;
-
 	}
 
 /*	private boolean checkCityConnection(Cell[][] cells, Tile tile) {
@@ -627,14 +634,14 @@ public class Board implements Serializable<Board> {
 		return;
 	}
 */
-/*	private boolean checkPalacePlacement(Cell[][] cells, Tile tile){
+	private boolean checkPalacePlacement(Cell[][] cells, Tile tile){
 		
 		Space[][] spaces = tile.getSpaces();
 		
 		for(int i = 0; i < spaces.length ; i++) 
 			for(int j = 0; j < spaces[i].length; j++)
 				if(spaces[i][j] != null)
-					if(cells[i][j] != null && cells[i][j].getSpace() != null && cells[i][j].getSpace().getType() == SpaceType.PALACE)
+					if(cells[i][j] != null && cells[i][j].getSpace() != null && cells[i][j].getSpace().getType() == Space.SpaceType.PALACE)
 						return false;
 		
 		return true;
@@ -683,8 +690,8 @@ public class Board implements Serializable<Board> {
 		return true;
 	}
 	
-*/
-/*	private boolean checkDeveloperOnCell(Cell[][] cells, Tile tile){
+
+	private boolean checkDeveloperOnCell(Cell[][] cells, Tile tile){
 		
 		Space[][] spaces = tile.getSpaces();
 		
@@ -696,20 +703,20 @@ public class Board implements Serializable<Board> {
 		
 		return true;
 	}
-*/	
-/*	private boolean checkIrrigationPlacement(Cell[][] cells, Tile tile){
+
+	private boolean checkIrrigationPlacement(Cell[][] cells, Tile tile){
 		
 		Space[][] spaces = tile.getSpaces();
 		
 		for(int i = 0; i < spaces.length ; i++) 
 			for(int j = 0; j < spaces[i].length; j++)
 				if(spaces[i][j] != null)
-					if(cells[i][j] != null && cells[i][j].getSpace() != null && cells[i][j].getSpace().getType() == SpaceType.IRRIGATION)
+					if(cells[i][j] != null && cells[i][j].getSpace() != null && cells[i][j].getSpace().getType() == Space.SpaceType.IRRIGATION)
 						return false;
 		
 		return true;
 	}
-*/
+
 	// Helper method for checkValidTilePlacement. Checks to make sure you're
 	// not placing a three tile on a three tile, two tile on a two tile, a
 	// smaller tile on a larger tile, etc.
@@ -756,28 +763,36 @@ public class Board implements Serializable<Board> {
 							}
 							
 							else {
+								System.out.println("i: " + i + "j: " + j + "I get here 1");
 								return true;
 							}
 						}
-						
+									
 						else {
 							if(!ref.equals(cells[i][j].getConnectedCells())) {
+								Iterator<Cell> it = ref.iterator();
+								while(it.hasNext()) {
+									System.out.println("ref " + it.next());
+								}
+								System.out.println("i: " + i + "j: " + j + "I get here 2");
 								return true;
 							}
 						}
 					}
 					
 					else {
+						System.out.println("i: " + i + "j: " + j + "I get here 3");
 						return true;
 					}
 				}
 			}
 		}
 		
+		System.out.println("false");
 		return false;
 	}
 	
-	public boolean checkElevation(Cell[][] cells, Tile tile) {
+/*	public boolean checkElevation(Cell[][] cells, Tile tile) {
 		Space[][] spaces = tile.getSpaces();
 		int height = -1;
 		
@@ -801,7 +816,7 @@ public class Board implements Serializable<Board> {
 		
 		return true;
 	}
-
+*/
 	public Cell[][] getMap() {
 		return map;
 	}
