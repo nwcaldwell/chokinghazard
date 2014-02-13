@@ -47,13 +47,14 @@ public class Game implements Serializable <Game>  {
 		this.isFinalTurn = false;
 		this.indexOfCurrentPlayer = 0;
 		this.stack = new Stack<Cell>();
-		this.irrigationTiles = 16;
+		this.irrigationTiles = 10;
 		this.threeSpaceTiles = 56;
 		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
+		//TODO
 		//initialize the players and their views
-		initPlayers();
+		//initPlayers();
 	}
 	
 	// GET/SET METHODS
@@ -321,7 +322,7 @@ public class Game implements Serializable <Game>  {
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
 				break;
 			case "PALACE":
-				
+				//TODO
 				//need to somehow do checks for which palace tile to place
 				break;
 			}	
@@ -352,10 +353,10 @@ public class Game implements Serializable <Game>  {
 	}
 	
 	public void selectIrrigationTile(){
-		if(players[indexOfCurrentPlayer].getActionPoints() == 0){
-			showNotEnoughActionPoints();
-		}
-		else if(this.irrigationTiles == 0){
+		//if(players[indexOfCurrentPlayer].getActionPoints() == 0){
+		//	showNotEnoughActionPoints();
+		//}
+		if(this.irrigationTiles == 0){
 			showNotEnoughTiles();
 		}
 		else{
@@ -433,28 +434,33 @@ public class Game implements Serializable <Game>  {
 		JOptionPane.showMessageDialog(null, "Not enough Action Points!");
 	}
 	
-	public void initPlayers(){
+	/*public void initPlayers(){
 		//ask the players for their name's and color preferences
 		Color[] colors = {new Color(0, 0, 255), new Color(0, 255, 0), new Color(255, 0, 0), new Color(255, 255, 0)};
 		for(int i = 0; i < numPlayers; ++i){
 			String name = "";
 			boolean okName = false; //to check if valid name was input
-			while (!okName)
+			boolean pressCancel = false;
+			while (!okName && !pressCancel)
 			{
-				name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
-				if (name.equals(""))	//Not valid!
-				{
-					JOptionPane.showMessageDialog(null, "Please enter a valid name");
-				}
-				else //valid name
-				{
-					okName = true; //Acceptable input, proceed to next step
+				try{
+					name = JOptionPane.showInputDialog("What is player "+(i+1)+"'s name?");
+					if (name.equals(""))	//Not valid!
+					{
+						JOptionPane.showMessageDialog(null, "Please enter a valid name");
+					}
+					else //valid name
+					{
+						okName = true; //Acceptable input, proceed to next step
+					}
+				}catch(NullPointerException e ){
+					pressCancel = true;
 				}
 			}
 			players[i] = new Player(colors[i], name);
 		}
 		setPlayerNamesInView();
-	}
+	}*/
 	
 	public void setPlayerNamesInView(){
 		gamePanel.setPlayerPanels(players);
