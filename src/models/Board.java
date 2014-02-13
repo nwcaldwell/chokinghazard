@@ -4,23 +4,23 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+//import java.util.Arrays;
+//import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import models.Space.SpaceType;
+//import models.Space.SpaceType;
 
 
 public class Board implements Serializable<Board> {
 	private Cell[][] map;
 	private Cell[] outsideInnerCells;
 	private Stack<Cell> path;
-	private int decrementedActionPoints;
-	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
+//	private int decrementedActionPoints;
+//	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
 
 	public Board() {
 		// Written by Nathan since I needed to integrate some functionality into
@@ -65,7 +65,7 @@ public class Board implements Serializable<Board> {
 		}
 		
 		this.path = new Stack<Cell>();
-		decrementedActionPoints = 0;
+//		decrementedActionPoints = 0;
 
 	}
 
@@ -183,7 +183,7 @@ public class Board implements Serializable<Board> {
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
 	public void upgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(player, palaceSpace, cell);
+		boolean canUpgrade = true; //checkIfICanUpgradePalace(player, palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
@@ -199,7 +199,7 @@ public class Board implements Serializable<Board> {
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	
-	private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+	//private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
 		// TODO : This method is not finished, finishing tomorrow -Brett
 		
 		/*Three conditions to upgrade palace:
@@ -228,22 +228,22 @@ public class Board implements Serializable<Board> {
 		
 		return true;
 		*/
-		return true;
-	}
+		//return true;
+	//}
 	
-	    private boolean hasPalaceBeenModified(Player player, Cell currentCell)
+	   /* private boolean hasPalaceBeenModified(Player player, Cell currentCell)
 	    {
-	    /*	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
+	    	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
 	    	
 	    	for (int i = 0; i < copyArray.length; i++)
 	    	{
 	    		if (copyArray[i] == currentCell)
 	    				return true;
 	    	}
-	    	*/
+	    	
 	    	return false;
 	    	
-	    }
+	    }*/
 	
 	// Helper method to check the number of connected villages to a cell
 	// When you call this, it returns the number of surrounding villages + 1
@@ -893,7 +893,7 @@ public class Board implements Serializable<Board> {
     			ret += cell == null ? null : cell.toString() + " ";
     	for(Cell cell : outsideInnerCells)
     		ret += cell.toString() + " "; 
-    	return ret + "  " + path.toString() + " " + decrementedActionPoints;
+    	return ret + "  " + path.toString();// + " " + decrementedActionPoints;
     }
 }
 
