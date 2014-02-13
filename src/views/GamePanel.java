@@ -43,30 +43,30 @@ public class GamePanel extends JPanel{
 		topContent.setPreferredSize(new Dimension(900, 110));
 		add(topContent, BorderLayout.NORTH);
 		
-		threePieceTiles = newJLabel("56", "src/resources/layout/layout_threeTile.png"); 
+		threePieceTiles = newJLabel("56", "src/resources/images/layout/layout_threeTile.png"); 
 		threePieceTiles.setPreferredSize(new Dimension(70, 90));
         topContent.add(threePieceTiles);
         
-        irrigationTiles = newJLabel("10", "src/resources/layout/layout_oneTile_irrigation.png"); 
+        irrigationTiles = newJLabel("10", "src/resources/images/layout/layout_oneTile_irrigation.png"); 
         topContent.add(irrigationTiles);
         
-        twoPalaceTiles = newJLabel("6", "src/resources/layout/layout_oneTile_2.png"); 
+        twoPalaceTiles = newJLabel("6", "src/resources/images/layout/layout_oneTile_2.png"); 
         topContent.add(twoPalaceTiles);
         
-        fourPalaceTiles = newJLabel("7", "src/resources/layout/layout_oneTile_4.png"); 
+        fourPalaceTiles = newJLabel("7", "src/resources/images/layout/layout_oneTile_4.png"); 
         topContent.add(fourPalaceTiles);
         
-        sixPalaceTiles = newJLabel("8", "src/resources/layout/layout_oneTile_6.png"); 
+        sixPalaceTiles = newJLabel("8", "src/resources/images/layout/layout_oneTile_6.png"); 
         topContent.add(sixPalaceTiles);
         
-        eightPalaceTiles = newJLabel("9", "src/resources/layout/layout_oneTile_8.png");
+        eightPalaceTiles = newJLabel("9", "src/resources/images/layout/layout_oneTile_8.png");
         topContent.add(eightPalaceTiles);
         
-        tenPalaceTiles = newJLabel("10", "src/resources/layout/layout_oneTile_10.png"); 
+        tenPalaceTiles = newJLabel("10", "src/resources/images/layout/layout_oneTile_10.png"); 
         topContent.add(tenPalaceTiles);
         
         JLabel actionSummaryCard = new JLabel();
-        actionSummaryCard.setIcon(new ImageIcon("src/resources/layout/actionSummaryCard.png"));
+        actionSummaryCard.setIcon(new ImageIcon("src/resources/images/layout/actionSummaryCard.png"));
         actionSummaryCard.setPreferredSize(new Dimension(473, 77));
         actionSummaryCard.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         topContent.add(actionSummaryCard);
@@ -140,6 +140,10 @@ public class GamePanel extends JPanel{
 		this.board.highlightDeveloper(x, y);
 	}
 	
+	public void selectHighlightedDeveloper(int x, int y){
+		this.board.selectHighlightedDeveloper(currentPlayer, x, y);
+	}
+	
 	public PlayerPanel[] getPlayerPanels(){
 		return this.players;
 	}
@@ -149,11 +153,21 @@ public class GamePanel extends JPanel{
 	}
 	
 	public void moveDeveloperOntoBoard(int x, int y){
-		this.board.trackDeveloperPath(x, y);
+		this.board.trackDeveloperPath(currentPlayer, x, y);
 	}
 	
-	public void placeDeveloper(int player, int x, int y){
-		this.board.placeDeveloper(player, x, y);
+//	public void drawPlayerPath(int[] x, int[] y){
+//		board.drawPlayerPath(currentPlayer, x, y);
+//	}
+	
+	public void placeDeveloper(int x, int y, int devsOffBoard){
+		this.board.placeDeveloper(currentPlayer, x, y);
+		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
+	}
+	
+	public void removeDeveloper(int x, int y, int devsOffBoard){
+		this.board.removeDeveloper(x, y);
+		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
 	}
 	
 	public void useActionToken(int tokens){
@@ -197,6 +211,16 @@ public class GamePanel extends JPanel{
 	public void setTenPalaceTiles(int num){
 		this.tenPalaceTiles.setText(""+num);
 	}
+	public void setPlayerTwoSpaceTiles(int num){
+		players[currentPlayer].setNumTwoTile(num);
+	}
+	public void setPlayerRiceTiles(int num){
+		players[currentPlayer].setNumOneTileRice(num);
+	}
+	public void setPlayerVillageTiles(int num){
+		players[currentPlayer].setNumOneTileVillage(num);
+	}
+	
 	public void setPlayerPanels(Player[] playerModels){
 		for(int i = 0; i < playerModels.length; ++i){
 			this.players[i].setPlayerName(playerModels[i].getPlayerName());

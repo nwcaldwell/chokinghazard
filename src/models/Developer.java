@@ -8,8 +8,6 @@ public class Developer implements Serializable<Developer>{
   private boolean isPlacedOnBoard;
   private Cell currentCell;
   private Player owner;
-  //these methods only used to make the loadObject method bearable. Was created after the implementation of the logic in the game so yeah....
-  //these dont get updated...
   private int currentCellX;
   private int currentCellY;
   
@@ -47,12 +45,13 @@ public class Developer implements Serializable<Developer>{
 
   public void setCurrentCell(Cell currentCell) {
     this.currentCell = currentCell;
+    this.currentCellX = currentCell.getX();
+    this.currentCellY = currentCell.getY();
     this.isPlacedOnBoard = true;
   }
   
   public String toString(){
-	  //return "DEVELOPER";
-	  return isPlacedOnBoard + " " + currentCell.getClass() + " " + owner.getPlayerColor();
+	  return "DEVELOPER";
   }
 
   public String serialize() {

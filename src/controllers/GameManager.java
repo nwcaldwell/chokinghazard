@@ -171,20 +171,22 @@ public final class GameManager {
 		//set up the key input events
 		//1 selects one piece tile
 		switch(e.getKeyCode()){
+			case 8:
+				//delete a developer from the board
+				currentGame.removeDeveloper();
 			case 9:
 				//tab through developers
-				System.out.println("next developer");
+				currentGame.incrementTab();
 				currentGame.tabThroughDevelopers();
 				break;
 			case 10:
 				//pressed enter
-				System.out.println("pressed enter");
-				if(currentGame.getCurrentComponent() != null);
+				if (currentGame.getCurrentComponent() != null){
 					currentGame.placeComponent();
+				}
 				break;	
 			case 27:
 				//cancel action
-				System.out.println("cancel action");
 				currentGame.cancelAction();
 				break;
 			case 88:
@@ -193,8 +195,9 @@ public final class GameManager {
 				break;
 			case 32:
 				//pressed the space bar
-				System.out.println("rotate");
-				currentGame.rotateCurrentComponent();
+				if (currentGame.getCurrentComponent() != null) {
+					currentGame.rotateCurrentComponent();
+				}
 				break;
 			
 			case (98):
@@ -243,7 +246,6 @@ public final class GameManager {
 				break;
 			case 86:
 				//pressed V, place Village
-				System.out.println("Place Village Tile");
 				currentGame.selectVillageTile();
 				break;
 		/*
