@@ -292,10 +292,10 @@ public class Game implements Serializable <Game>  {
 	
 	public void placeComponent(){
 		Cell[][] currentCell = {
-			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1)},
-			{board.getCellAtPixel(x+1, y),board.getCellAtPixel(x+1, y+1)}
+			{board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+50)},
+			{board.getCellAtPixel(x+50, y),board.getCellAtPixel(x+50, y+50)}
 		};//TODO someone double check this make sure it's right
-
+		
 		
 		String type = currentComponent.toString();
 		
@@ -309,6 +309,7 @@ public class Game implements Serializable <Game>  {
 //				gamePanel.placeDeveloper(indexOfCurrentPlayer, x, y);
 //			}
 		}
+		//else if(board.placeTile(board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1),board.getCellAtPixel(x+1, y), board.getCellAtPixel(x+1, y+1), (Tile)currentComponent)){
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
 			switch(type){
 			case"THREE SPACE TILE":
