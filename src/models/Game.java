@@ -602,16 +602,23 @@ public class Game implements Serializable <Game>  {
 		}
 
 		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		setPlayerNamesInView();
+
+		for(Cell[] row : board.getMap()) {
+			for(Cell cell : row) {
+				if(cell.getSpace() != null) {
+					gamePanel.placeTile((new OneSpaceTile(cell.getSpace(), new Space[2][2])), cell.getX()*50, cell.getY()*50);
+				}
+			}
+		}
+		
 		gamePanel.setThreePieceTiles(threeSpaceTiles);
 		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
 		gamePanel.setFourPalaceTiles(palaceTiles[1]);
 		gamePanel.setSixPalaceTiles(palaceTiles[2]);
 		gamePanel.setEightPalaceTiles(palaceTiles[3]);
 		gamePanel.setTenPalaceTiles(palaceTiles[4]);
-		
-		
-		
-		
 		return this;
 	}	
 	

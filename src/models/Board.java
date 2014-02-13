@@ -514,8 +514,8 @@ public class Board implements Serializable<Board> {
 			}
 			
 			return true;
-		
-		
+		//}
+			
 		//return false;
 	}
 	//this was written when to test the real placeTile method
@@ -871,8 +871,8 @@ public class Board implements Serializable<Board> {
 
 	public String serialize() {
 		return Json.jsonObject(Json.jsonMembers(
-				Json.jsonPair("map", Json.serializeArray(map)),
-				Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
+			Json.jsonPair("map", Json.serializeArray(map)),
+			Json.jsonPair("outsideInnerCells", Json.serializeArray(outsideInnerCells))
 		));
     }
 

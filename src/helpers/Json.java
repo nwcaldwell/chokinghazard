@@ -19,21 +19,23 @@ public class Json {
 	/**
 	 * Just for testing
 	 */
-	/*public static void main(String[] args) throws IOException {
-		Game game = new Game(2);
-		FileWriter fw = new FileWriter(new File("in.txt"));
-		String str = game.serialize();
-		fw.write(str);
-		fw.close();
+	public static void main(String[] args) throws IOException {
+		Game game = new Game();
+		Scanner in = new Scanner(new File("in"));
+		String str = "";
+		while(in.hasNextLine()) {
+			str += in.nextLine() + "\n";
+		}
+		in.close();
 		//System.out.println(game.getBoard().toString());
-		//fw = new FileWriter(new File("out.txt"));
+		FileWriter fw = new FileWriter(new File("out"));
 		JsonObject json = new JsonObject(str);
 		//System.out.println(JsonObject.toString(json));
 		game = new Game(2).loadObject(json);
 		fw.write(game.serialize());
 		fw.close();
 		
-	} */
+	}
 
 	/**
 	 * wraps object in curly brackets({})
