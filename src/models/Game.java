@@ -321,6 +321,7 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useTwoSpaceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setNumTwoTile(players[indexOfCurrentPlayer].getTwoSpaceTiles());
 				break;
 			case "IRRIGATION":
 				//decrement it from the global stash
@@ -331,11 +332,13 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setNumOneTileVillage(players[indexOfCurrentPlayer].getVillageTiles());
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
+				gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setNumOneTileRice(players[indexOfCurrentPlayer].getRiceTiles());
 				break;
 			case "PALACE":
 
@@ -581,11 +584,15 @@ public class Game implements Serializable <Game>  {
 			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
 			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
 			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getFamePoints());
+			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getFamePoints());
+			
 			
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
 				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+				
 			}
 			else{
 				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
