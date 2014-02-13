@@ -24,11 +24,11 @@ public class Cell implements Serializable<Cell> {
     	this.fromLowlands = fromLowlands;
     	this.fromMountains = fromMountains;
     	
-    	if ((x == 5 && y == 4) || (x == 4 && y == 10) || (x == 10 && y == 8)) {
+    	/*if ((x == 5 && y == 4) || (x == 4 && y == 10) || (x == 10 && y == 8)) {
     		this.space = new Space();
     		this.space.setType(Space.SpaceType.IRRIGATION);
     		
-    	}
+    	}*/
       developer = null;
     }
     
