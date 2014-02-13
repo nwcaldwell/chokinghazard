@@ -232,16 +232,19 @@ public final class GameManager {
 			
 			case (98):
 				//2 button numerical key - move developer down
-				//don't do anything right now because we're not testing with a numerical key pad
+				currentGame.moveComponentAroundBoard(0, 50);
 				break;
 			case 100:
 				//4 button numerical key - move developer left
+				currentGame.moveComponentAroundBoard(-50, 0);
 				break;
 			case 102:
 				//6 button numerical key - move developer right
+				currentGame.moveComponentAroundBoard(50, 0);
 				break;
 			case 104:
 				//8 button numerical key - move developer up
+				currentGame.moveComponentAroundBoard(0, -50);
 				break;
 				
 			case 50:
