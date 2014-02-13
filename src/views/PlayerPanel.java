@@ -58,19 +58,19 @@ public class PlayerPanel extends JPanel {
         jSeparator1.setPreferredSize(new Dimension(158, 15));
         this.add(jSeparator1);
         
-        numDevelopers = newJLabel("12", "src/resources/layout/layout_player_"+index+".png"); 
+        numDevelopers = newJLabel("12", "src/resources/images/layout/layout_player_"+index+".png"); 
         this.add(numDevelopers);
 
-        numOneTileRice = newJLabel("3", "src/resources/layout/layout_oneTile_rice.png"); 
+        numOneTileRice = newJLabel("3", "src/resources/images/layout/layout_oneTile_rice.png"); 
         this.add(numOneTileRice);
         
-        numOneTileVillage = newJLabel("2", "src/resources/layout/layout_oneTile_village.png"); 
+        numOneTileVillage = newJLabel("2", "src/resources/images/layout/layout_oneTile_village.png"); 
         this.add(numOneTileVillage);
 
-        numTwoTile = newJLabel("5", "src/resources/layout/layout_twoTile.png"); 
+        numTwoTile = newJLabel("5", "src/resources/images/layout/layout_twoTile.png"); 
         this.add(numTwoTile);
         
-        numActionTokens = newJLabel("3", "src/resources/layout/layout_actionToken.png"); 
+        numActionTokens = newJLabel("3", "src/resources/images/layout/layout_actionToken.png"); 
         this.add(numActionTokens);
 		
 	}

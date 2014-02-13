@@ -4,7 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 public class VillageSpace extends Space {
-	private String imageSource = "src/resources/oneTile_village.png";
+	private String imageSource = "images/oneTile_village.png";
     private int palacex = -1; 
     private int palacey = -1; 
 

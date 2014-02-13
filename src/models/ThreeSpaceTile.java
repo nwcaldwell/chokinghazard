@@ -6,7 +6,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 class ThreeSpaceTile extends Tile {
-	private String imageSource = "src/resources/threeTile.png";
+	private String imageSource = "images/threeTile.png";
 	
 	public ThreeSpaceTile(Space[][] spaces) {
 	    super(spaces);

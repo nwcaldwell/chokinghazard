@@ -4,7 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 public class IrrigationSpace extends Space {
-	private String imageSource = "src/resources/oneTile_irrigation.png";
+	private String imageSource = "images/oneTile_irrigation.png";
     
     public IrrigationSpace() {
         this.type = Space.SpaceType.IRRIGATION;

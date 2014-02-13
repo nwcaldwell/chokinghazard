@@ -4,7 +4,7 @@ import helpers.Json;
 import helpers.JsonObject;
 
 class TwoSpaceTile extends Tile {
-	private String imageSource = "src/resources/twoTile.png";
+	private String imageSource = "images/twoTile.png";
   
 	public TwoSpaceTile(Space[][] spaces) {
 		super(spaces);

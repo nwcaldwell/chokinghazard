@@ -1,5 +1,7 @@
 package views;
 
+import helpers.ResourceLoader;
+
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -38,7 +40,7 @@ public class BoardPanel extends JPanel {
 	
 	private void getBackgroundImage(){
 		try{
-			board = ImageIO.read(new File("src/resources/board.jpg"));
+			board = ImageIO.read(ResourceLoader.load("images/board.jpg"));
 			repaint();
 		}catch(IOException e){
 			System.out.println(e);
@@ -48,7 +50,7 @@ public class BoardPanel extends JPanel {
 	private BufferedImage getImage(String source){
 		BufferedImage returnImage = null;
 		try{
-			returnImage = ImageIO.read(new File(source));
+			returnImage = ImageIO.read(ResourceLoader.load(source));
 		} catch(IOException e){
 			
 		}
@@ -106,7 +108,7 @@ public class BoardPanel extends JPanel {
 //		for(int i = 0; i < x.length; ++i){
 //			g2d.drawRect(x[i], y[i], 50, 50);
 //		}
-//		g2d.drawImage(getImage("src/resources/player_"+playerIndex+".png"), null, x[x.length-1], y[y.length-1]);
+//		g2d.drawImage(getImage("images/player_"+playerIndex+".png"), null, x[x.length-1], y[y.length-1]);
 //		g2d.dispose();
 //		repaint();
 //	}
@@ -114,7 +116,7 @@ public class BoardPanel extends JPanel {
 	public void placeDeveloper(int playerIndex, int xLoc, int yLoc){
 		clearImage(tempImage);
 		g2d = developers.createGraphics();
-		g2d.drawImage(getImage("src/resources/player_"+playerIndex+".png"), null, xLoc, yLoc);
+		g2d.drawImage(getImage("images/player_"+playerIndex+".png"), null, xLoc, yLoc);
 		g2d.dispose();
 		repaint();
 	}
@@ -141,7 +143,7 @@ public class BoardPanel extends JPanel {
 		clearDeveloperSpace(x, y, developers);
 		clearImage(tempImage);
 		g2d = tempImage.createGraphics();
-		g2d.drawImage(getImage("src/resources/player_"+playerIndex+".png"), null, x, y);
+		g2d.drawImage(getImage("images/player_"+playerIndex+".png"), null, x, y);
 		g2d.setColor(Color.YELLOW);
 		g2d.setStroke(new BasicStroke(2.0f));
 		g2d.drawRect(x, y, 50, 50);
