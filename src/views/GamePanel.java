@@ -43,26 +43,26 @@ public class GamePanel extends JPanel{
 		topContent.setPreferredSize(new Dimension(900, 110));
 		add(topContent, BorderLayout.NORTH);
 		
-		threePieceTiles = newJLabel("56", "src/resources/images/layout/layout_threeTile.png"); 
+		threePieceTiles = newJLabel("src/resources/images/layout/layout_threeTile.png"); 
 		threePieceTiles.setPreferredSize(new Dimension(70, 90));
         topContent.add(threePieceTiles);
         
-        irrigationTiles = newJLabel("10", "src/resources/images/layout/layout_oneTile_irrigation.png"); 
+        irrigationTiles = newJLabel("src/resources/images/layout/layout_oneTile_irrigation.png"); 
         topContent.add(irrigationTiles);
         
-        twoPalaceTiles = newJLabel("6", "src/resources/images/layout/layout_oneTile_2.png"); 
+        twoPalaceTiles = newJLabel("src/resources/images/layout/layout_oneTile_2.png"); 
         topContent.add(twoPalaceTiles);
         
-        fourPalaceTiles = newJLabel("7", "src/resources/images/layout/layout_oneTile_4.png"); 
+        fourPalaceTiles = newJLabel("src/resources/images/layout/layout_oneTile_4.png"); 
         topContent.add(fourPalaceTiles);
         
-        sixPalaceTiles = newJLabel("8", "src/resources/images/layout/layout_oneTile_6.png"); 
+        sixPalaceTiles = newJLabel("src/resources/images/layout/layout_oneTile_6.png"); 
         topContent.add(sixPalaceTiles);
         
-        eightPalaceTiles = newJLabel("9", "src/resources/images/layout/layout_oneTile_8.png");
+        eightPalaceTiles = newJLabel("src/resources/images/layout/layout_oneTile_8.png");
         topContent.add(eightPalaceTiles);
         
-        tenPalaceTiles = newJLabel("10", "src/resources/images/layout/layout_oneTile_10.png"); 
+        tenPalaceTiles = newJLabel("src/resources/images/layout/layout_oneTile_10.png"); 
         topContent.add(tenPalaceTiles);
         
         JLabel actionSummaryCard = new JLabel();
@@ -105,8 +105,8 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
-	private JLabel newJLabel(String info, String src){
-		JLabel label= new JLabel(info);
+	private JLabel newJLabel(String src){
+		JLabel label= new JLabel();
 		label.setIcon(new ImageIcon(src));
 		label.setFont(new Font("Lucida Grande", 0, 14));
 		label.setPreferredSize(new Dimension(40, 90));
@@ -119,6 +119,7 @@ public class GamePanel extends JPanel{
 	
 	public void setCurrentPlayer(int i){
 		currentPlayer = i;
+		updateCurrentPlayerView();
 	}
 	
 	public void updateCurrentPlayerView(){
@@ -162,12 +163,16 @@ public class GamePanel extends JPanel{
 	
 	public void placeDeveloper(int x, int y, int devsOffBoard){
 		this.board.placeDeveloper(currentPlayer, x, y);
-		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
+		setDevsOffBoard(devsOffBoard);
+	}
+	
+	public void placeDeveloper(int x, int y){
+		this.board.placeDeveloper(currentPlayer, x, y);
 	}
 	
 	public void removeDeveloper(int x, int y, int devsOffBoard){
 		this.board.removeDeveloper(x, y);
-		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
+		setDevsOffBoard(devsOffBoard);
 	}
 	
 	public void useActionToken(int tokens){
@@ -188,6 +193,10 @@ public class GamePanel extends JPanel{
 	
 	public void cancelActions(){
 		this.board.cancel();
+	}
+	
+	public void setDevsOffBoard(int devsOffBoard){
+		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
 	}
 	
 	public void setThreePieceTiles(int num){
@@ -223,9 +232,26 @@ public class GamePanel extends JPanel{
 	
 	public void setPlayerPanels(Player[] playerModels){
 		for(int i = 0; i < playerModels.length; ++i){
-			this.players[i].setPlayerName(playerModels[i].getPlayerName());
-			this.players[i].setPlayerColor(playerModels[i].getPlayerColor());
+			players[i].setPlayerName(playerModels[i].getPlayerName());
+			players[i].setPlayerColor(playerModels[i].getPlayerColor());
+			players[i].setActionPointsLeft(playerModels[i].getActionPoints());
+			players[i].setFamePoints(playerModels[i].getFamePoints());
+			players[i].setNumDevelopers(playerModels[i].getDevsOffBoard());
+			players[i].setNumOneTileRice(playerModels[i].getRiceTiles());
+			players[i].setNumOneTileVillage(playerModels[i].getVillageTiles());
+			players[i].setNumTwoTile(playerModels[i].getTwoSpaceTiles());
+			players[i].setNumActionTokens(playerModels[i].getActionTokens());
 		}
+	}
+	
+	public void setGlobalTileValues(int tT, int iT, int[] pT){
+		threePieceTiles.setText(""+tT);
+		irrigationTiles.setText(""+iT);
+		twoPalaceTiles.setText(""+pT[0]);
+		fourPalaceTiles.setText(""+pT[1]);
+		sixPalaceTiles.setText(""+pT[2]);
+		eightPalaceTiles.setText(""+pT[3]);
+		tenPalaceTiles.setText(""+pT[4]);
 	}
 
 }

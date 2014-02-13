@@ -1,5 +1,7 @@
 package views;
 
+import helpers.ResourceLoader;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class HelpFrame extends JFrame {
 	
 	private void loadPanel(){
 		try{
-			helpImage = ImageIO.read(new File("images/helpControls.jpg"));
+			helpImage = ImageIO.read(ResourceLoader.load("images/helpControls.png"));
 			displayBufferedImage(helpImage);
 		}catch(IOException e){
 				System.out.println(e);

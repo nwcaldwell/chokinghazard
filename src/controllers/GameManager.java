@@ -69,13 +69,19 @@ public final class GameManager {
 		return true;
 	}
 
-	// Saves the current game to a text file in the format specified by serializable.
+	// Saves the current game to a text file
 	public boolean saveGame() {
+		//Check if the the GameManager has a currentGame. 
+		//If it doesn't have one, there is nothing to save and the method ends
 		if(currentGame == null){
 			JOptionPane.showMessageDialog(null, "No game to save!");
 			return false;
 		}
 		
+		//Prompts the user asking if they would like to save the current game
+		//Saying no means that they would not like to, so the method ends
+		//NullPointerException occurs when the dialog box is closed by other means, 
+		//which we will assume means the user does not want to save the game so the method ends
 		try{
 			int confirmSaveGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game?", "Save Game", JOptionPane.YES_NO_OPTION);
 			if(confirmSaveGame == JOptionPane.NO_OPTION ){
@@ -86,17 +92,28 @@ public final class GameManager {
 		}
 		
 		
+		
+		//initialization of variables to be used for getting the filename and creating the file
 		String fileName = "";
 		boolean okFileName = false;
 		
+		
+		//this loop continues to run while the file name is false, or "is not an okay filename"
+		//File name is invalid if it is blank, or has any of the following
+		//  \ / ? % * : | " < > . (space) (empty)
 		while(!okFileName ){
-			//File name is invalid if it is blank, or has any of the following
-			//  \ / ? % * : | " < > . (space) (empty)
+
+			//Prompts the user for a filename. The user can do many things, including inputing a filename
+			//Check with the regular expression string s if the String fileName contains any of those characters
+			//if the file is invalid, prompt the user for a valid name and go through the while loop again
+			//if the filename is valid, continue out of the loop
+			//NullPointerException occurs when either of the dialog boxes are closed by other means, 
+			//which we will assume means the user does not want to save the game so the method ends
 			try{
-				//rewrite dialog later
+				
 				fileName = JOptionPane.showInputDialog("Name save file as?");
 				String s = ".*[ /\\\\?%*:|\"<>.].*";
-				if (fileName.matches(s) || fileName.equals(""))	//means that name doesn't contain any characters in s
+				if (fileName.matches(s) || fileName.equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid name");
 				}
@@ -108,9 +125,13 @@ public final class GameManager {
 			}
 		}
 		
-		
+		//Create a new file with the (now valid) fileName recieved from the user
 		File newFile = new File(fileName);
 		
+		//This next block of code is only run if the file already exists.
+		//Prompt the user telling them that this file already has a saved game
+		//If the user chooses Yes, continue to the next block of code
+		//If no, the user doesn't want to save the game and the method ends
 		try{
 			if (newFile.exists()){
 				int selectedSaveGame = JOptionPane.showConfirmDialog(null, "This file name already has a saved game. Would you like to save anyways?", "Save Game", JOptionPane.YES_NO_OPTION);
@@ -122,7 +143,15 @@ public final class GameManager {
 			return false;
 		}
 		
+		
+		//Create a new FileWriter to write to the file, but will be initialized in the next block of code
 		FileWriter writer; 
+		
+		
+		//Attempt to initialize and write to the newFile which was created above
+		//Then write the "serialize" string from currentGame, which gives you
+		//then attempt to close the writer
+		//These actions can cause IOExceptions, which we will inform the user about and then exit the method
 		try{
 			//System.out.println(fileName);
 			writer = new FileWriter(newFile);
@@ -132,31 +161,32 @@ public final class GameManager {
 			JOptionPane.showMessageDialog(null, "File cannot be written. Please check permissions.");
 			return false;
 		}
+		
+		//If you have reached here, you have successfully (in theory) saved the game! 
 		return true;
 	}
 	
 
 	public boolean quitGame() {
+		
+		//Prompts the user asking if they would like to save the current game before exiting the software
+		//If they user says yes, call saveGame() and if that works, it returns true and then exits the game
+		//Then the currentGame is now null, so the garbage collector can do its job
+		//if the player chooses no, the game will be released and they will be free to leave
+		//if the player chooses anything else or there is a NullPointerException, meaning the dialog box was exited
+		//in an unexpected way, we will assume that the user doesn't want to quit so we will get out of the method.
+		
 		try{
 			int confirmExitGame = JOptionPane.showConfirmDialog(null, "Would you like to save the current game before exiting?", "Confirm Exit Game", JOptionPane.YES_NO_OPTION);
 
-			if(confirmExitGame == JOptionPane.YES_OPTION){
-				if(saveGame()){
+			if(confirmExitGame == JOptionPane.YES_OPTION || confirmExitGame == JOptionPane.NO_OPTION){
+				if(confirmExitGame == JOptionPane.YES_OPTION && saveGame()){
 					currentGame = null;
+				}
 					JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
 					return true;
-				}
+			}
 				return false;
-			}
-			else if(confirmExitGame == JOptionPane.NO_OPTION){
-				currentGame = null;
-				JOptionPane.showMessageDialog(null, "You have now exited Java. Enjoy the real world!");
-				return true;
-			}
-
-			else{
-				return false;
-			}
 		}catch(NullPointerException e){
 			return false;
 		}
@@ -268,5 +298,4 @@ public final class GameManager {
 				break;
 		}
 	}
-
 }

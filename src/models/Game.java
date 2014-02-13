@@ -5,7 +5,6 @@ import helpers.JsonObject;
 import models.Serializable;
 
 import java.awt.Color;
-//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -60,6 +59,9 @@ public class Game implements Serializable <Game>  {
 		this.threeSpaceTiles = 56;
 		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		//initialize the gloabl tile view
+		this.gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
 		
 		//initialize the players and their views
 		initPlayers();
@@ -294,14 +296,12 @@ public class Game implements Serializable <Game>  {
 			//reflects the changes in the GUI
 			String type = currentComponent.getClass().toString();
 			if(type.equals("class models.TwoSpaceTile")){
-				System.out.println("this is a two space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.ThreeSpaceTile")){
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.OneSpaceTile")){
-				System.out.println("this is a one space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.Developer")){
@@ -394,13 +394,13 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
-				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
+				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getVillageTiles());
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
-				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
+				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getRiceTiles());
 				break;
 			case "PALACE":
 				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
@@ -638,37 +638,37 @@ public class Game implements Serializable <Game>  {
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
 		
+		//create a new GamePanel
+		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		//setPlayerNames in view updates the view will all the player information
+		setPlayerNamesInView();
+		//set the labels on the global tiles
+		gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
+
+		
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+				int x1 = devs.get(j).getCurrentCellX()*50;
+				int y1 = devs.get(j).getCurrentCellY()*50;
+				
+				gamePanel.placeDeveloper(x1, y1);
 			}
 
-			this.gamePanel = new GamePanel(numPlayers, this);
-			
-			//set everything for each of the player panels
-			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
-			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
-			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getTwoSpaceTiles());
-			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getRiceTiles());
-			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getVillageTiles());
-			
-			
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
-				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
 				
 			}
 			else{
 				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
 			}
 			
+			gamePanel.setDevsOffBoard(players[i].getDevsOffBoard());
+			
 		}
-
-		
-		setPlayerNamesInView();
 
 		for(Cell[] row : board.getMap()) {
 			for(Cell cell : row) {
@@ -677,14 +677,6 @@ public class Game implements Serializable <Game>  {
 				}
 			}
 		}
-		
-		gamePanel.setIrrigationTiles(irrigationTiles);
-		gamePanel.setThreePieceTiles(threeSpaceTiles);
-		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
-		gamePanel.setFourPalaceTiles(palaceTiles[1]);
-		gamePanel.setSixPalaceTiles(palaceTiles[2]);
-		gamePanel.setEightPalaceTiles(palaceTiles[3]);
-		gamePanel.setTenPalaceTiles(palaceTiles[4]);
 		return this;
 	}	
 	
