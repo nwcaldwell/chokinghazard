@@ -637,15 +637,19 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < 5; i++){
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
+
+		this.gamePanel = new GamePanel(numPlayers, this);
 		
 		for(int i = 0; i < players.length; i++){
+			gamePanel.setCurrentPlayer(i);
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
-				if(devs.get(j) != null)
-				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+				if(devs.get(j) != null) {
+					devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+					gamePanel.placeDeveloper(devs.get(j).getCurrentCellX()*50, devs.get(j).getCurrentCellY()*50, 12-devs.size());
+				}
 			}
 
-			this.gamePanel = new GamePanel(numPlayers, this);
 			
 			//set everything for each of the player panels
 			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
@@ -656,16 +660,10 @@ public class Game implements Serializable <Game>  {
 			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getVillageTiles());
 			
 			
-			if(i == indexOfCurrentPlayer){
-				gamePanel.setCurrentPlayer(i);
-				gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+			gamePanel.getPlayerPanels()[i].setCurrentPlayer();
 				
-			}
-			else{
-				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
-			}
-			
 		}
+		gamePanel.setCurrentPlayer(indexOfCurrentPlayer);
 
 		
 		setPlayerNamesInView();
@@ -685,6 +683,10 @@ public class Game implements Serializable <Game>  {
 		gamePanel.setSixPalaceTiles(palaceTiles[2]);
 		gamePanel.setEightPalaceTiles(palaceTiles[3]);
 		gamePanel.setTenPalaceTiles(palaceTiles[4]);
+		
+
+		gamePanel.moveDeveloperOntoBoard(x, y);
+		
 		return this;
 	}	
 	
