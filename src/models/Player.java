@@ -66,6 +66,14 @@ public class Player implements Serializable<Player> {
 		devsOnBoard.remove(dev);
 		devOffBoard++;
 	}
+	
+	public Developer getDeveloperOnBoardAtIndex(int index){
+		if(devsOnBoard.size() > 0){
+			if(devsOnBoard.get(index) != null);
+				return devsOnBoard.get(index);
+		}
+		return null;
+	}
 
 //use to decrementActionPoints
 	public void decrementActionPoints(int actionPoints) {
@@ -91,6 +99,10 @@ public class Player implements Serializable<Player> {
 	//Meghan wrote to be able to set the currentCell for loading the game. Is called in Game's loadObject(...)
 	public LinkedList<Developer> getDevsOnBoard(){
 		return devsOnBoard;
+	}
+	
+	public int getDevsOffBoard(){
+		return devOffBoard;
 	}
 	
 	

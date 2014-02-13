@@ -888,6 +888,14 @@ public class Board implements Serializable<Board> {
 		return this;
     }
     
+    public void loadCellsDevelopers(Developer developer) {
+    	for(Cell[] row : map) {
+    		for(Cell cell : row) {
+    			cell.loadDeveloper(developer);
+    		}
+    	}
+    }
+    
     public String toString() {
     	String ret = ""; 
     	for(Cell[] row : map) 
