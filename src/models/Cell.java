@@ -23,6 +23,12 @@ public class Cell implements Serializable<Cell> {
     	this.y = y;
     	this.fromLowlands = fromLowlands;
     	this.fromMountains = fromMountains;
+    	
+    	if ((x == 5 && y == 4) || (x == 4 && y == 10) || (x == 10 && y == 8)) {
+    		this.space = new Space();
+    		this.space.setType(Space.SpaceType.IRRIGATION);
+    		
+    	}
       developer = null;
     }
     
@@ -113,7 +119,7 @@ public class Cell implements Serializable<Cell> {
 				Json.jsonPair("elevation", Json.jsonValue(elevation + "")),
 				Json.jsonPair("x", Json.jsonValue(x + "")),
 				Json.jsonPair("y", Json.jsonValue(y + "")),
-    			Json.jsonPair("connectedCells", connections.size() > 0 ? null : Json.jsonArray(Json.jsonElements(connections.toArray(new String[1])))),
+    			Json.jsonPair("connectedCells", connections.size() > 0 ? Json.jsonArray(Json.jsonElements(connections.toArray(new String[1]))) : null),
     			Json.jsonPair("fromLowLands", Json.jsonValue(fromLowlands + "")),
     			Json.jsonPair("fromMountains", Json.jsonValue(fromMountains + ""))
 		));
