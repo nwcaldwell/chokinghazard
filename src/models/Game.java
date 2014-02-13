@@ -32,7 +32,7 @@ public class Game implements Serializable <Game>  {
 	int y = 50;
 	private Object currentComponent;
 	private int tabCount = -1;
-	
+
 	// CONSTRUCTORS
 	//default constructor
 	public Game(){
@@ -60,7 +60,16 @@ public class Game implements Serializable <Game>  {
 	public Player getCurrentPlayer() {
 		return players[indexOfCurrentPlayer];
 	}
+	
+	public void setPlayerAtIndex(int index, Player player){
+		players[index] = player;
+	}
 
+	public Player[] getPlayers(){
+		return players;
+	}
+	
+	
 	public int getNumberOfPlayers(){
 		return players.length;
 	}

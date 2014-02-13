@@ -43,14 +43,8 @@ public final class GameManager {
 	// Creates new game using the appropriate number of players.
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
-		if(currentGame != null){
-			saveGame();
 			currentGame = new Game(numPlayers);
-			currentGame.initPlayers();
-		}
-		else{
-			currentGame = new Game(numPlayers);
-		}
+			//currentGame.initPlayers();
 	}
 	
 	public boolean loadGame(File loadFile) {
@@ -130,7 +124,7 @@ public final class GameManager {
 		
 		FileWriter writer; 
 		try{
-			System.out.println(fileName);
+			//System.out.println(fileName);
 			writer = new FileWriter(newFile);
 			writer.write(currentGame.serialize());
 			writer.close();
