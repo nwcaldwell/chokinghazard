@@ -638,6 +638,8 @@ public class Game implements Serializable <Game>  {
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
 		
+		this.gamePanel = new GamePanel(numPlayers, this);
+		
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
@@ -665,7 +667,6 @@ public class Game implements Serializable <Game>  {
 			
 		}
 
-		this.gamePanel = new GamePanel(numPlayers, this);
 		
 		setPlayerNamesInView();
 
