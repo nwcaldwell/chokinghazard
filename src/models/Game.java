@@ -569,7 +569,8 @@ public class Game implements Serializable <Game>  {
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
 		}
-		
+
+		this.gamePanel = new GamePanel(numPlayers, this);
 		return this;
 	}	
 	
