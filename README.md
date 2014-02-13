@@ -8,8 +8,20 @@ Software Implementation of the Board Game Java
 - [MIT License](#MIT)
 
 ## Installation Instructions<a name = "Instructions"/>
-
+	
+	From the folder : 
+	Run the following command to compile: 
+		javac src/*/*.java
+	To run it, cd into the src folder and run: 
+		java ChokingHazard.RunGame
+		
 ## Running the Game<a name="Running"/>
+
+	From the ready-executable:
+	
+	1) Make sure the .jar file is in the same folder as all the resources. 
+	2) Run the following command: 
+		java -jar game.jar
 
 ## *Team Choking Hazard*<a name="Choking Hazard"/>
 
