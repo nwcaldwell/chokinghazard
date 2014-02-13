@@ -23,6 +23,20 @@ Software Implementation of the Board Game Java
 	2) Run the following command: 
 		java -jar game.jar
 
+## Keyboard Controls<a name="Keyboard"/>
+
+	Menus and Dialog Boxes can by the mouse, or the following keyboard controls
+	
+	Create New Game:			Alt-N
+	Saving Current Game:		Alt-S
+	Loading/Opening Past Game:	Alt-O
+	Exiting Java:				Alt-Q
+	Navigation of Dialog Boxes: TAB
+	
+	The rest of the game's keyboard controls are located in the Game Help Menu
+	Game Help Menu:				Alt-H
+	
+	
 ## *Team Choking Hazard*<a name="Choking Hazard"/>
 
 This game was created for Dave Small's Object Oriented Programming class at the University of Florida in Spring 2014 by Team Choking Hazard:
