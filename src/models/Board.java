@@ -481,7 +481,7 @@ public class Board implements Serializable<Board> {
 						//System.out.println(spaces[i][j].toString() + " i is " + i + " j is " + j );
 						cells[i][j].setSpace(spaces[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
-						System.out.println(cells[i][j].getConnectedCells());
+						//System.out.println(cells[i][j].getConnectedCells());
 						
 					}
 				}
@@ -501,7 +501,7 @@ public class Board implements Serializable<Board> {
 						if (cells[i][j] != null) {
 							cells[i][j].toString();
 							connected.add(cells[i][j]);
-							System.out.println(connected.size() + "");
+							//System.out.println(connected.size() + "");
 						}
 					}
 				}
@@ -763,7 +763,7 @@ public class Board implements Serializable<Board> {
 							}
 							
 							else {
-								System.out.println("i: " + i + "j: " + j + "I get here 1");
+								//System.out.println("i: " + i + "j: " + j + "I get here 1");
 								return true;
 							}
 						}
@@ -772,23 +772,23 @@ public class Board implements Serializable<Board> {
 							if(!ref.equals(cells[i][j].getConnectedCells())) {
 								Iterator<Cell> it = ref.iterator();
 								while(it.hasNext()) {
-									System.out.println("ref " + it.next());
+									//System.out.println("ref " + it.next());
 								}
-								System.out.println("i: " + i + "j: " + j + "I get here 2");
+								//System.out.println("i: " + i + "j: " + j + "I get here 2");
 								return true;
 							}
 						}
 					}
 					
 					else {
-						System.out.println("i: " + i + "j: " + j + "I get here 3");
+						//System.out.println("i: " + i + "j: " + j + "I get here 3");
 						return true;
 					}
 				}
 			}
 		}
 		
-		System.out.println("false");
+		//System.out.println("false");
 		return false;
 	}
 	
