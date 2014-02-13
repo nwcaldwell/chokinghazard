@@ -61,6 +61,9 @@ public class Game implements Serializable <Game>  {
 		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
 		
+		//initialize the gloabl tile view
+		this.gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
+		
 		//initialize the players and their views
 		initPlayers();
 	}
@@ -394,13 +397,13 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
-				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
+				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getVillageTiles());
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
-				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
+				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getRiceTiles());
 				break;
 			case "PALACE":
 				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
@@ -638,21 +641,17 @@ public class Game implements Serializable <Game>  {
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
 		
+		this.gamePanel = new GamePanel(numPlayers, this);
+		setPlayerNamesInView();
+		gamePanel.setPlayerPanels(players);
+		gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
+		
 		for(int i = 0; i < players.length; i++){
 			LinkedList<Developer> devs = players[i].getDevsOnBoard();
 			for(int j = 0; j < devs.size(); j++){
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
 			}
-			
-			//set everything for each of the player panels
-			//gamePanel.getPlayerPanels()[i].setActionPointsLeft(players[i].getActionPoints());
-			gamePanel.getPlayerPanels()[i].setNumActionTokens(players[i].getActionTokens());
-			gamePanel.getPlayerPanels()[i].setFamePoints(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumTwoTile(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumOneTileRice(players[i].getFamePoints());
-			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getFamePoints());
-			
 			
 			if(i == indexOfCurrentPlayer){
 				gamePanel.setCurrentPlayer(i);
@@ -665,10 +664,6 @@ public class Game implements Serializable <Game>  {
 			
 		}
 
-		this.gamePanel = new GamePanel(numPlayers, this);
-		
-		setPlayerNamesInView();
-
 		for(Cell[] row : board.getMap()) {
 			for(Cell cell : row) {
 				if(cell.getSpace() != null) {
@@ -676,13 +671,6 @@ public class Game implements Serializable <Game>  {
 				}
 			}
 		}
-		
-		gamePanel.setThreePieceTiles(threeSpaceTiles);
-		gamePanel.setTwoPalaceTiles(palaceTiles[0]);
-		gamePanel.setFourPalaceTiles(palaceTiles[1]);
-		gamePanel.setSixPalaceTiles(palaceTiles[2]);
-		gamePanel.setEightPalaceTiles(palaceTiles[3]);
-		gamePanel.setTenPalaceTiles(palaceTiles[4]);
 		return this;
 	}	
 	

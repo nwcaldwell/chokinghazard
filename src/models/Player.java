@@ -202,11 +202,13 @@ public class Player implements Serializable<Player> {
 	}
 
 	public int getVillageTiles() {
+		System.out.println("getting village tiles, "+villageTiles);
 		return villageTiles;
 	}
 
-	public void setVillageTiles(int villageTiles) {
-		this.villageTiles = villageTiles;
+	public void setVillageTiles(int vTiles) {
+		System.out.println("Setting village tiles from "+this.villageTiles+" to "+vTiles);
+		this.villageTiles = vTiles;
 	}
 
 	public int getTwoSpaceTiles() {
@@ -241,7 +243,7 @@ public class Player implements Serializable<Player> {
 		//decrement the number of action points the user has
 		this.actionPoints--;
 		//decrement the number of rice tiles
-		this.riceTiles--;
+		this.riceTiles -= 1;
 	}
 
 	public String serialize() {
