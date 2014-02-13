@@ -4,6 +4,7 @@ Software Implementation of the Board Game Java
 
 - [Installation Instructions](#Instructions)
 - [Running the game](#Running)
+- [Keyboard Controls](#Keyboard)
 - [*Team Choking Hazard*](#Choking Hazard)
 - [MIT License](#MIT)
 
