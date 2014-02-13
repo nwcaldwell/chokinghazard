@@ -75,7 +75,7 @@ public Developer loadObject(JsonObject json) {
 		return null;
 	isPlacedOnBoard = Boolean.parseBoolean(json.getString("isPlacedOnBoard"));
 	currentCellX = Integer.parseInt(json.getString("currentCellX"));
-	currentCellY = Integer.parseInt(json.getString("currentCelly"));
+	currentCellY = Integer.parseInt(json.getString("currentCellY"));
 	return this;
 }
 
