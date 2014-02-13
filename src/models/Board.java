@@ -469,23 +469,19 @@ public class Board implements Serializable<Board> {
 
 	public boolean placeTile(Cell[][] cells, Tile tile) {
 		// TODO Super Important, need to assign the value of connected cells when placing tile
-
-		HashSet<Cell> connected = new HashSet<Cell>();
-		
-		Space[][] spaces = tile.getSpaces();
+	
 		//System.out.println("I get here.");
 		//System.out.println(checkValidTilePlacement(cells, tile));
 		
 
 		if (checkValidTilePlacement(cells, tile)) {
-
-			Space[][] spacesArray = tile.getSpaces();
+			HashSet<Cell> connected = new HashSet<Cell>();
+			Space[][] spaces = tile.getSpaces();
 		
-			for (int i = 0; i < spacesArray.length; i++) {
-				for (int j = 0; j < spacesArray[0].length; j++) {
-					if (spacesArray[i][j] != null) {
-						// TODO I get a NULL Pointer on the line below?
-						cells[i][j].setSpace(spacesArray[i][j]);
+			for (int i = 0; i < spaces.length; i++) {
+				for (int j = 0; j < spaces[0].length; j++) {
+					if (spaces[i][j] != null) {
+						cells[i][j].setSpace(spaces[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
 					}
 				}
@@ -523,12 +519,12 @@ public class Board implements Serializable<Board> {
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
 		
 			if (/*checkPalacePlacement(cells, tile) && */checkTilesBelow(cells, tile) /*&& checkElevation(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile)*/) {
-				//System.out.println(checkTilesBelow(cells, tile));
-				//System.out.println("Valid");
+				System.out.println(checkTilesBelow(cells, tile));
+				System.out.println("Valid");
 				return true;
 			}
 			
-			//System.out.println("Not valid.");
+			System.out.println("Not valid.");
 		
 		return false;
 
