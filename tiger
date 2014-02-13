@@ -1,0 +1,3517 @@
+"Game" : {
+
+  "board" : {
+  
+    "map" : [
+    
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "0",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "0",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "0",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "0",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "0",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "1",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "4"
+          },
+          "elevation" : "3",
+          "x" : "1",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "4",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "1",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "1",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "1",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "2",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "2",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "2",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "2",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "2",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "3",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "3",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "8"
+          },
+          "elevation" : "2",
+          "x" : "3",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "3",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "4",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "4"
+          },
+          "elevation" : "2",
+          "x" : "4",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "4",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "4",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "4",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "4",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "4",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "5",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "5",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "5",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "4",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "5",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "5",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "5",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "5",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "6",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "6",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "4",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "5",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "6",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "6",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "true"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "7",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "7",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "4",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "5",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "7",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "7",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "7",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "7",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "7",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "2"
+          },
+          "elevation" : "2",
+          "x" : "8",
+          "y" : "0",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "1",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "8",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "8",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "8",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "7",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "8",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "8",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "8",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "8",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "9",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "9",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "9",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "9",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "9",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "9",
+          "y" : "8",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "4"
+          },
+          "elevation" : "2",
+          "x" : "9",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "9",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "9",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "9",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "9",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "2",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "3",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "4",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : IRRIGATION
+          },
+          "elevation" : "1",
+          "x" : "10",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "10",
+          "y" : "6",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "10",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "10",
+          "y" : "9",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "10",
+          "y" : "10",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "6"
+          },
+          "elevation" : "1",
+          "x" : "10",
+          "y" : "11",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "3",
+          "x" : "10",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "10",
+          "y" : "13",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "11",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "3",
+          "x" : "11",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "3",
+          "x" : "11",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "11",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "false",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "11",
+          "y" : "12",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "11",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : PALACE,
+            "value" : "10"
+          },
+          "elevation" : "4",
+          "x" : "12",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "3",
+          "x" : "12",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "2",
+          "x" : "12",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : RICE
+          },
+          "elevation" : "1",
+          "x" : "12",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "12",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ],
+      [
+      
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "0",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "1",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "13",
+          "y" : "2",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "2",
+          "x" : "13",
+          "y" : "3",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "4",
+          "x" : "13",
+          "y" : "4",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : {
+          
+            "type" : VILLAGE,
+            "palacex" : "-1",
+            "palacey" : "-1"
+          },
+          "elevation" : "1",
+          "x" : "13",
+          "y" : "5",
+          "connectedCells" : null,
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "6",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "7",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "8",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "9",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "10",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "11",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "12",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        },
+        {
+        
+          "space" : null,
+          "elevation" : "0",
+          "x" : "13",
+          "y" : "13",
+          "connectedCells" : [
+          
+            null
+          ],
+          "fromLowLands" : "true",
+          "fromMountains" : "false"
+        }
+      ]
+    ],
+    "outsideInnerCells" : [
+    
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "1",
+        "x" : "1",
+        "y" : "2",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : PALACE,
+          "value" : "4"
+        },
+        "elevation" : "3",
+        "x" : "1",
+        "y" : "3",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "4",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "1",
+        "x" : "1",
+        "y" : "5",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "2",
+        "x" : "1",
+        "y" : "6",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "7",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "8",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "9",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "10",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "11",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "1",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "2",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "2",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "3",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "3",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : PALACE,
+          "value" : "4"
+        },
+        "elevation" : "2",
+        "x" : "4",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "4",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : RICE
+        },
+        "elevation" : "1",
+        "x" : "5",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "5",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "6",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "6",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "false",
+        "fromMountains" : "true"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : RICE
+        },
+        "elevation" : "1",
+        "x" : "7",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "1",
+        "x" : "7",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : RICE
+        },
+        "elevation" : "1",
+        "x" : "8",
+        "y" : "1",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "2",
+        "x" : "8",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "9",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "1",
+        "x" : "9",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "10",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "3",
+        "x" : "10",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "11",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : RICE
+        },
+        "elevation" : "1",
+        "x" : "11",
+        "y" : "12",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "1",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : PALACE,
+          "value" : "10"
+        },
+        "elevation" : "4",
+        "x" : "12",
+        "y" : "2",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : VILLAGE,
+          "palacex" : "-1",
+          "palacey" : "-1"
+        },
+        "elevation" : "3",
+        "x" : "12",
+        "y" : "3",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : RICE
+        },
+        "elevation" : "2",
+        "x" : "12",
+        "y" : "4",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : {
+        
+          "type" : RICE
+        },
+        "elevation" : "1",
+        "x" : "12",
+        "y" : "5",
+        "connectedCells" : null,
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "6",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "7",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "8",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "9",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "10",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "11",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      },
+      {
+      
+        "space" : null,
+        "elevation" : "0",
+        "x" : "12",
+        "y" : "12",
+        "connectedCells" : [
+        
+          null
+        ],
+        "fromLowLands" : "true",
+        "fromMountains" : "false"
+      }
+    ]
+  },
+  "numPlayers" : "3",
+  "players" : [
+  
+    {
+    
+      "name" : "Lion",
+      "famePoints" : "14",
+      "rgb" : "-16776961",
+      "actionPoints" : "3",
+      "actionTokens" : "3",
+      "ifActionTokenUsed" : "false",
+      "ifPlacedLandTile" : "true",
+      "devOffBoard" : "5",
+      "devsOnBoard" : [
+      
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "11",
+          "currentCellY" : "3"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "7",
+          "currentCellY" : "10"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "0",
+          "currentCellY" : "2"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "10",
+          "currentCellY" : "12"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "6",
+          "currentCellY" : "0"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "1",
+          "currentCellY" : "5"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "13",
+          "currentCellY" : "4"
+        }
+      ],
+      "palacesUsedInTurn" : [
+      
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "riceTiles" : "3",
+      "villageTiles" : "0",
+      "twoSpaceTiles" : "3"
+    },
+    {
+    
+      "name" : "Tiger",
+      "famePoints" : "21",
+      "rgb" : "-16711936",
+      "actionPoints" : "6",
+      "actionTokens" : "3",
+      "ifActionTokenUsed" : "false",
+      "ifPlacedLandTile" : "true",
+      "devOffBoard" : "3",
+      "devsOnBoard" : [
+      
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "9",
+          "currentCellY" : "11"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "5",
+          "currentCellY" : "5"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "12",
+          "currentCellY" : "5"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "11",
+          "currentCellY" : "2"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "7",
+          "currentCellY" : "9"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "8",
+          "currentCellY" : "1"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "3",
+          "currentCellY" : "5"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "5",
+          "currentCellY" : "7"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "1",
+          "currentCellY" : "2"
+        }
+      ],
+      "palacesUsedInTurn" : [
+      
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "riceTiles" : "0",
+      "villageTiles" : "0",
+      "twoSpaceTiles" : "3"
+    },
+    {
+    
+      "name" : "Bear",
+      "famePoints" : "22",
+      "rgb" : "-65536",
+      "actionPoints" : "6",
+      "actionTokens" : "3",
+      "ifActionTokenUsed" : "false",
+      "ifPlacedLandTile" : "false",
+      "devOffBoard" : "3",
+      "devsOnBoard" : [
+      
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "7",
+          "currentCellY" : "0"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "10",
+          "currentCellY" : "10"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "10",
+          "currentCellY" : "6"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "9",
+          "currentCellY" : "4"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "9",
+          "currentCellY" : "8"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "5",
+          "currentCellY" : "6"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "0",
+          "currentCellY" : "4"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "8",
+          "currentCellY" : "12"
+        },
+        {
+        
+          "isPlacedOnBoard" : "true",
+          "currentCellX" : "5",
+          "currentCellY" : "1"
+        }
+      ],
+      "palacesUsedInTurn" : [
+      
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "riceTiles" : "3",
+      "villageTiles" : "0",
+      "twoSpaceTiles" : "3"
+    }
+  ],
+  "indexOfCurrentPlayer" : "2",
+  "isFinalTurn" : "false",
+  "irrigationTiles" : "3",
+  "threeSpaceTiles" : "30",
+  "palaceTiles" : [
+  
+    "5",
+    "4",
+    "7",
+    "8",
+    "9"
+  ]
+}
