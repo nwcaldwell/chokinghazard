@@ -26,15 +26,16 @@ Software Implementation of the Board Game Java
 
 ## Keyboard Controls<a name="Keyboard"/>
 
-	Menus and Dialog Boxes can by the mouse, or the following keyboard controls
+	Menus and Dialog Boxes can navigated by the mouse, or the following keyboard controls:
 	
 	Create New Game:			Alt-N
 	Saving Current Game:		Alt-S
 	Loading/Opening Past Game:	Alt-O
 	Exiting Java:				Alt-Q
-	Navigation of Dialog Boxes: TAB
+	Dialog Boxes:				TAB
 	
-	The rest of the game's keyboard controls are located in the Game Help Menu
+	The rest of the game's keyboard controls are located in the Game Help Menu, which can be accessed by:
+	
 	Game Help Menu:				Alt-H
 	
 	
