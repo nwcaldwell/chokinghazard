@@ -5,7 +5,6 @@ import helpers.JsonObject;
 import models.Serializable;
 
 import java.awt.Color;
-//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -60,6 +59,9 @@ public class Game implements Serializable <Game>  {
 		this.threeSpaceTiles = 56;
 		this.palaceTiles = new int[]{6, 7, 8, 9, 10};
 		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		//initialize the gloabl tile view
+		this.gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
 		
 		//initialize the players and their views
 		initPlayers();
@@ -219,9 +221,11 @@ public class Game implements Serializable <Game>  {
 		
 		if(type.equals("class models.TwoSpaceTile")){
 			gamePanel.rotateTile((Tile)currentComponent, x, y);
+			((Tile)currentComponent).rotate();
 		}
 		else if(type.equals("class models.ThreeSpaceTile")){
 			gamePanel.rotateTile((Tile)currentComponent, x, y);
+			((Tile)currentComponent).rotate();
 		}
 		
 	}
@@ -294,14 +298,12 @@ public class Game implements Serializable <Game>  {
 			//reflects the changes in the GUI
 			String type = currentComponent.getClass().toString();
 			if(type.equals("class models.TwoSpaceTile")){
-				System.out.println("this is a two space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.ThreeSpaceTile")){
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.OneSpaceTile")){
-				System.out.println("this is a one space tile\n");
 				gamePanel.moveTile((Tile)currentComponent, x, y);
 			}
 			else if(type.equals("class models.Developer")){
@@ -372,6 +374,7 @@ public class Game implements Serializable <Game>  {
 		}
 		//else if(board.placeTile(board.getCellAtPixel(x, y), board.getCellAtPixel(x, y+1),board.getCellAtPixel(x+1, y), board.getCellAtPixel(x+1, y+1), (Tile)currentComponent)){
 		else if(board.placeTile(currentCell, (Tile)currentComponent)){
+			System.out.println(((ThreeSpaceTile)currentComponent).print());
 			switch(type){
 			case"THREE SPACE TILE":
 				//decrement it from the global stash
@@ -394,13 +397,13 @@ public class Game implements Serializable <Game>  {
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useVillageTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
-				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
+				gamePanel.setPlayerVillageTiles(players[indexOfCurrentPlayer].getVillageTiles());
 				break;
 			case "RICE":
 				//decrement it from the user's stash
 				players[indexOfCurrentPlayer].useRiceTile();
 				players[indexOfCurrentPlayer].setIfPlacedLandTile(true);
-				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getTwoSpaceTiles());
+				gamePanel.setPlayerRiceTiles(players[indexOfCurrentPlayer].getRiceTiles());
 				break;
 			case "PALACE":
 				int value = ((PalaceSpace)((Tile)currentComponent).getSpaces()[0][0]).getValue();
@@ -637,8 +640,15 @@ public class Game implements Serializable <Game>  {
 		for(int i = 0; i < 5; i++){
 			palaceTiles[i] = Integer.parseInt((String) tempPalaceTiles[i]);
 		}
-
+		
+		//create a new GamePanel
 		this.gamePanel = new GamePanel(numPlayers, this);
+		
+		//setPlayerNames in view updates the view will all the player information
+		setPlayerNamesInView();
+		//set the labels on the global tiles
+		gamePanel.setGlobalTileValues(threeSpaceTiles, irrigationTiles, palaceTiles);
+
 		
 		for(int i = 0; i < players.length; i++){
 			gamePanel.setCurrentPlayer(i);
@@ -660,13 +670,14 @@ public class Game implements Serializable <Game>  {
 			gamePanel.getPlayerPanels()[i].setNumOneTileVillage(players[i].getVillageTiles());
 			
 			
-			gamePanel.getPlayerPanels()[i].setCurrentPlayer();
-				
+			//gamePanel.getPlayerPanels()[i].setCurrentPlayer();
+			
 		}
-		gamePanel.setCurrentPlayer(indexOfCurrentPlayer);
-
 		
-		setPlayerNamesInView();
+		//System.out.println(indexOfCurrentPlayer);
+		//gamePanel.setCurrentPlayer(indexOfCurrentPlayer);			
+		//gamePanel.getPlayerPanels()[indexOfCurrentPlayer].setCurrentPlayer();
+
 
 		for(Cell[] row : board.getMap()) {
 			for(Cell cell : row) {

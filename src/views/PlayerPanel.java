@@ -39,14 +39,14 @@ public class PlayerPanel extends JPanel {
         playerName.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 5));
         leftPlayerInfo.add(playerName);
         
-        actionPointsLeft = new JLabel("6");
+        actionPointsLeft = new JLabel();
         actionPointsLeft.setFont(new Font("Lucida Grande", 0, 48)); 
         actionPointsLeft.setHorizontalAlignment(SwingConstants.CENTER);
         actionPointsLeft.setPreferredSize(new Dimension(60, 60));
         actionPointsLeft.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         this.add(actionPointsLeft);
         
-        famePoints = new JLabel("0");
+        famePoints = new JLabel();
         famePoints.setFont(new Font("Lucida Grande", 1, 36));
         famePoints.setHorizontalAlignment(SwingConstants.LEFT);
         famePoints.setPreferredSize(new Dimension(80, 32));
@@ -58,25 +58,25 @@ public class PlayerPanel extends JPanel {
         jSeparator1.setPreferredSize(new Dimension(158, 15));
         this.add(jSeparator1);
         
-        numDevelopers = newJLabel("12", "src/resources/images/layout/layout_player_"+index+".png"); 
+        numDevelopers = newJLabel("src/resources/images/layout/layout_player_"+index+".png"); 
         this.add(numDevelopers);
 
-        numOneTileRice = newJLabel("3", "src/resources/images/layout/layout_oneTile_rice.png"); 
+        numOneTileRice = newJLabel("src/resources/images/layout/layout_oneTile_rice.png"); 
         this.add(numOneTileRice);
         
-        numOneTileVillage = newJLabel("2", "src/resources/images/layout/layout_oneTile_village.png"); 
+        numOneTileVillage = newJLabel("src/resources/images/layout/layout_oneTile_village.png"); 
         this.add(numOneTileVillage);
 
-        numTwoTile = newJLabel("5", "src/resources/images/layout/layout_twoTile.png"); 
+        numTwoTile = newJLabel("src/resources/images/layout/layout_twoTile.png"); 
         this.add(numTwoTile);
         
-        numActionTokens = newJLabel("3", "src/resources/images/layout/layout_actionToken.png"); 
+        numActionTokens = newJLabel("src/resources/images/layout/layout_actionToken.png"); 
         this.add(numActionTokens);
 		
 	}
 	
-	private JLabel newJLabel(String info, String src){
-		JLabel label= new JLabel(info);
+	private JLabel newJLabel(String src){
+		JLabel label= new JLabel();
 		label.setIcon(new ImageIcon(src));
 		label.setFont(new Font("Lucida Grande", 0, 14));
 		label.setPreferredSize(new Dimension(150, 41));
