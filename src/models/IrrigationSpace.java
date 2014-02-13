@@ -23,7 +23,9 @@ public class IrrigationSpace extends Space {
     }
 
     public String serialize() {
-		return Json.jsonPair("IrrigationSpace", "{}");
+		return Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("type", Space.SpaceType.IRRIGATION.toString())
+		));
     }
 
     public IrrigationSpace loadObject(JsonObject json) {

@@ -41,10 +41,11 @@ public class VillageSpace extends Space {
     }
 
     public String serialize() {
-		return Json.jsonPair("VillageSpace", Json.jsonObject(Json.jsonMembers(
+		return Json.jsonObject(Json.jsonMembers(
+			Json.jsonPair("type", Space.SpaceType.VILLAGE.toString()),
 			Json.jsonPair("palacex", Json.jsonValue(palacex + "")),
 			Json.jsonPair("palacey", Json.jsonValue(palacey + ""))
-		)));
+		));
     }
 
     public VillageSpace loadObject(JsonObject json) {
