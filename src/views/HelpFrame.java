@@ -27,7 +27,7 @@ public class HelpFrame extends JFrame {
 	
 	private void loadPanel(){
 		try{
-			helpImage = ImageIO.read(ResourceLoader.load("images/helpControls.jpg"));
+			helpImage = ImageIO.read(ResourceLoader.load("images/helpControls.png"));
 			displayBufferedImage(helpImage);
 		}catch(IOException e){
 				System.out.println(e);

@@ -163,12 +163,16 @@ public class GamePanel extends JPanel{
 	
 	public void placeDeveloper(int x, int y, int devsOffBoard){
 		this.board.placeDeveloper(currentPlayer, x, y);
-		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
+		setDevsOffBoard(devsOffBoard);
+	}
+	
+	public void placeDeveloper(int x, int y){
+		this.board.placeDeveloper(currentPlayer, x, y);
 	}
 	
 	public void removeDeveloper(int x, int y, int devsOffBoard){
 		this.board.removeDeveloper(x, y);
-		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
+		setDevsOffBoard(devsOffBoard);
 	}
 	
 	public void useActionToken(int tokens){
@@ -189,6 +193,10 @@ public class GamePanel extends JPanel{
 	
 	public void cancelActions(){
 		this.board.cancel();
+	}
+	
+	public void setDevsOffBoard(int devsOffBoard){
+		this.players[currentPlayer].setNumDevelopers(devsOffBoard);
 	}
 	
 	public void setThreePieceTiles(int num){

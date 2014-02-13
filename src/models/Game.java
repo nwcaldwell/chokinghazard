@@ -5,7 +5,6 @@ import helpers.JsonObject;
 import models.Serializable;
 
 import java.awt.Color;
-//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -653,6 +652,10 @@ public class Game implements Serializable <Game>  {
 			for(int j = 0; j < devs.size(); j++){
 				if(devs.get(j) != null)
 				devs.get(j).setCurrentCell(board.getCellAtLocation(devs.get(j).getCurrentCellX(),devs.get(j).getCurrentCellY()));
+				int x1 = devs.get(j).getCurrentCellX()*50;
+				int y1 = devs.get(j).getCurrentCellY()*50;
+				
+				gamePanel.placeDeveloper(x1, y1);
 			}
 
 			if(i == indexOfCurrentPlayer){
@@ -662,6 +665,8 @@ public class Game implements Serializable <Game>  {
 			else{
 				gamePanel.getPlayerPanels()[i].setNotCurrentPlayer();
 			}
+			
+			gamePanel.setDevsOffBoard(players[i].getDevsOffBoard());
 			
 		}
 
