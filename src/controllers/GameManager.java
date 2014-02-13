@@ -44,15 +44,14 @@ public final class GameManager {
 	// Sets game variable equal to the new game.
 	public void createNewGame(int numPlayers) {
 		if(currentGame != null){
+			saveGame();
 			currentGame = new Game(numPlayers);
-			//currentGame.initPlayers();
+			currentGame.initPlayers();
 		}
 		else{
 			currentGame = new Game(numPlayers);
 		}
 	}
-	
-	
 	
 	public boolean loadGame(File loadFile) {
 		StringBuilder alpha = new StringBuilder();
@@ -69,10 +68,8 @@ public final class GameManager {
 			
 			String loadString = alpha.toString();
 			JsonObject json = new JsonObject(loadString);
-			Game loadedGame = new Game().loadObject(json.getJsonObject("Game"));
-			/*try {FileWriter fw = new FileWriter(new File("outs.txt"));
-			fw.write(loadedGame.serialize());
-			fw.close(); } catch(Exception e)*/
+			Game loadedGame = new Game();
+			loadedGame.loadObject(json);
 			currentGame = loadedGame;
 	
 		return true;
@@ -188,9 +185,8 @@ public final class GameManager {
 			case 10:
 				//pressed enter
 				System.out.println("pressed enter");
-				if (currentGame.getCurrentComponent() != null) {
+				if(currentGame.getCurrentComponent() != null);
 					currentGame.placeComponent();
-				}
 				break;	
 			case 27:
 				//cancel action
