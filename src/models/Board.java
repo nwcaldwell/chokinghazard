@@ -4,23 +4,23 @@ import helpers.Json;
 import helpers.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+//import java.util.Arrays;
+//import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import models.Space.SpaceType;
+//import models.Space.SpaceType;
 
 
 public class Board implements Serializable<Board> {
 	private Cell[][] map;
 	private Cell[] outsideInnerCells;
 	private Stack<Cell> path;
-	private int decrementedActionPoints;
-	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
+//	private int decrementedActionPoints;
+//	private ArrayList<PalaceSpace> connectedPalaces = new ArrayList<PalaceSpace>();
 
 	public Board() {
 		// Written by Nathan since I needed to integrate some functionality into
@@ -65,7 +65,7 @@ public class Board implements Serializable<Board> {
 		}
 		
 		this.path = new Stack<Cell>();
-		decrementedActionPoints = 0;
+//		decrementedActionPoints = 0;
 
 	}
 
@@ -183,7 +183,7 @@ public class Board implements Serializable<Board> {
 	// PALACES
 	// Upgrades the palace assuming checkIfICanUpgradePalace returns true.
 	public void upgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
-		boolean canUpgrade = checkIfICanUpgradePalace(player, palaceSpace, cell);
+		boolean canUpgrade = true; //checkIfICanUpgradePalace(player, palaceSpace, cell);
 		if (canUpgrade) {
 			cell.setSpace(palaceSpace);
 		}
@@ -199,7 +199,7 @@ public class Board implements Serializable<Board> {
 	// Checks all of the logic needed to make sure the user can legally
 	// upgrade the palace. Calls checkForNumberOfVillages method as well as findCityRanks.
 	
-	private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
+	//private boolean checkIfICanUpgradePalace(Player player, PalaceSpace palaceSpace, Cell cell) {
 		// TODO : This method is not finished, finishing tomorrow -Brett
 		
 		/*Three conditions to upgrade palace:
@@ -228,22 +228,22 @@ public class Board implements Serializable<Board> {
 		
 		return true;
 		*/
-		return true;
-	}
+		//return true;
+	//}
 	
-	    private boolean hasPalaceBeenModified(Player player, Cell currentCell)
+	   /* private boolean hasPalaceBeenModified(Player player, Cell currentCell)
 	    {
-	    /*	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
+	    	Cell[] copyArray = player.palacesUsedInTurn; //array of cells that have been modified by player in turn 
 	    	
 	    	for (int i = 0; i < copyArray.length; i++)
 	    	{
 	    		if (copyArray[i] == currentCell)
 	    				return true;
 	    	}
-	    	*/
+	    	
 	    	return false;
 	    	
-	    }
+	    }*/
 	
 	// Helper method to check the number of connected villages to a cell
 	// When you call this, it returns the number of surrounding villages + 1
@@ -468,24 +468,16 @@ public class Board implements Serializable<Board> {
 	// Returns true if successful
 
 	public boolean placeTile(Cell[][] cells, Tile tile) {
-		// TODO Super Important, need to assign the value of connected cells when placing tile
-
-		HashSet<Cell> connected = new HashSet<Cell>();
-		
-		Space[][] spaces = tile.getSpaces();
-		//System.out.println("I get here.");
-		//System.out.println(checkValidTilePlacement(cells, tile));
-		
+		// TODO Super Important, need to assign the value of connected cells when placing tile	
 
 		if (checkValidTilePlacement(cells, tile)) {
-
-			Space[][] spacesArray = tile.getSpaces();
+			HashSet<Cell> connected = new HashSet<Cell>();
+			Space[][] spaces = tile.getSpaces();
 		
-			for (int i = 0; i < spacesArray.length; i++) {
-				for (int j = 0; j < spacesArray[0].length; j++) {
-					if (spacesArray[i][j] != null) {
-						// TODO I get a NULL Pointer on the line below?
-						cells[i][j].setSpace(spacesArray[i][j]);
+			for (int i = 0; i < spaces.length; i++) {
+				for (int j = 0; j < spaces[0].length; j++) {
+					if (spaces[i][j] != null) {
+						cells[i][j].setSpace(spaces[i][j]);
 						cells[i][j].setElevation(cells[i][j].getElevation() + 1);
 					}
 				}
@@ -495,6 +487,7 @@ public class Board implements Serializable<Board> {
 				for(int j = 0; j < spaces[0].length; j++) {
 					if(spaces[i][j] != null) {
 						if (cells[i][j] != null) {
+							cells[i][j].toString();
 							connected.add(cells[i][j]);
 						}
 					}
@@ -523,12 +516,10 @@ public class Board implements Serializable<Board> {
 	private boolean checkValidTilePlacement(Cell[][] cells, Tile tile) {
 		
 			if (/*checkPalacePlacement(cells, tile) && */checkTilesBelow(cells, tile) /*&& checkElevation(cells, tile) && checkIrrigationPlacement(cells, tile) && checkDeveloperOnCell(cells, tile) && checkCityConnection(cells, tile) && checkEdgePlacement(cells, tile)*/) {
-				//System.out.println(checkTilesBelow(cells, tile));
-				//System.out.println("Valid");
+				System.out.println(checkTilesBelow(cells, tile));
 				return true;
 			}
 			
-			//System.out.println("Not valid.");
 		
 		return false;
 
@@ -902,7 +893,7 @@ public class Board implements Serializable<Board> {
     			ret += cell == null ? null : cell.toString() + " ";
     	for(Cell cell : outsideInnerCells)
     		ret += cell.toString() + " "; 
-    	return ret + "  " + path.toString() + " " + decrementedActionPoints;
+    	return ret + "  " + path.toString();// + " " + decrementedActionPoints;
     }
 }
 
